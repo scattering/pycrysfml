@@ -1,0 +1,373 @@
+#
+#!/bin/sh
+# Compilation script for CrysFML library
+# Author: Javier Gonzalez-Platas
+# Date: Dic-2008
+#
+set -x
+if [ a$1 = a ]
+then
+cat << !
+make_crysfml  : Make the CrysFML Library using Fortran Linux Compilers
+Syntax        : make_crysfml af95:g95:gfortran:ifort:lf95 [win] [deb]
+!
+exit
+fi
+#
+# Compiler Name
+#
+COMP=$1
+if [ $COMP != "lf95" ]
+then
+   if [ $COMP != "g95" ]
+   then
+      if [ $COMP != "gfortran" ]
+      then
+         if [ $COMP != "ifort" ]
+         then
+            if [ $COMP != "af95" ]
+            then
+               echo "Compiler Name was wrong!!!"
+               exit
+            fi
+         fi
+      fi
+   fi
+fi
+#
+# Detect if Directories exists
+#
+cd ..
+case $COMP
+in
+   'f95')
+       if [ -d "./Absoft" ]
+       then
+          if [ -d "./Absoft/LibC" ]
+          then
+             echo " "
+          else
+             mkdir "./Absoft/LibC"
+             mkdir "./Absoft/LibW"
+          fi
+       else
+          mkdir "Absoft"
+          mkdir "./Absoft/LibC"
+          mkdir "./Absoft/LibW"
+       fi
+       ;;
+   'g95')
+       if [ -d "./G95" ]
+       then
+          if [ -d "./G95/LibC" ]
+          then
+             echo " "
+          else
+             mkdir "./G95/LibC"
+             mkdir "./G95/LibW"
+          fi
+       else
+          mkdir "G95"
+          mkdir "./G95/LibC"
+          mkdir "./G95/LibW"
+       fi
+       ;;
+   'gfortran')
+       if [ -d "./GFortran" ]
+       then
+          if [ -d "./GFortran/LibC" ]
+          then
+             echo " "
+          else
+             mkdir "./GFortran/LibC"
+             mkdir "./GFortran/LibW"
+          fi
+       else
+          mkdir "GFortran"
+          mkdir "./GFortran/LibC"
+          mkdir "./GFortran/LibW"
+       fi
+       ;;
+   'ifort')
+       if [ -d "./ifort" ]
+       then
+          if [ -d "./ifort/LibC" ]
+          then
+             echo " "
+          else
+             mkdir "./ifort/LibC"
+             mkdir "./ifort/LibW"
+          fi
+       else
+          mkdir "ifort"
+          mkdir "./ifort/LibC"
+          mkdir "./ifort/LibW"
+       fi
+       ;;
+   'lf95')
+       if [ -d "./Lahey" ]
+       then
+          if [ -d "./Lahey/LibC" ]
+          then
+             echo " "
+          else
+             mkdir "./Lahey/LibC"
+             mkdir "./Lahey/LibW"
+          fi
+       else
+          mkdir "Lahey"
+          mkdir "./Lahey/LibC"
+          mkdir "./Lahey/LibW"
+       fi
+       ;;
+esac
+#
+# More options
+#
+MODE=con
+DEBUG=deb
+if [ $# -ge 2 ]
+then
+   if [ $2 = "win" ]
+   then
+      MODE=$2
+   else
+      if [ $2 = "deb" ]
+      then
+         DEBUG=$2
+      fi
+   fi
+   if [ $# -eq 3 ]
+   then
+      DEBUG=deb
+   fi
+fi
+#
+# Compilation Options
+#
+if [ $DEBUG = "deb" ]
+then
+   case $COMP
+   in
+      'f95')
+          OPT1="-c -g -O0"
+          OPT2="-c -g -O0"
+          ;;
+      'g95')
+          OPT1="-c -g -Wall"
+          OPT2="-c -g -Wall"
+          ;;
+      'gfortran')
+          OPT1="-c -g -Wall -fPIC"
+          OPT2="-c -g -Wall -fPIC"
+          ;;
+      'ifort')
+          OPT1="-c -g -warn"
+          OPT2="-c -g -warn"
+          ;;
+      'lf95')
+          OPT1="-c -g"
+          OPT2="-c -g"
+          ;;
+   esac
+else
+   case $COMP
+   in
+      'f95')
+          OPT1="-c -O2 -N11"
+          OPT2="-c -O0 -N11"
+          ;;
+      'g95')
+          OPT1="-c -O"
+          OPT2="-c -O0"
+          ;;
+      'gfortran')
+          OPT1="-c -O"
+          OPT2="-c -O0"
+          ;;
+      'ifort')
+          OPT1="-c -O -warn -vec-report0"
+          OPT2="-c -O0 -warn -vec-report0"
+          ;;
+      'lf95')
+          OPT1="-c -O --nchk --tpp"
+          OPT2="-c -O0 --nchk --tpp"
+          ;;
+   esac
+fi
+#
+# External Libraries Options
+#
+if [ $MODE = "con" ]
+then
+   case $COMP
+   in
+      'af95')
+          INC=""
+          ;;
+      'g95')
+          INC=""
+          ;;
+      'gfortran')
+          INC=""
+          ;;
+      'ifort')
+          INC=""
+           ;;
+      'lf95')
+          INC=""
+          ;;
+   esac
+else
+   case $COMP
+   in
+      'af95')
+          INC="-p$WINTER/lib.abm"
+          ;;
+      'g95')
+          INC="-I$WINTER/lib.g95"
+          ;;
+      'gfortran')
+          INC=""
+          ;;
+      'ifort')
+          INC="-I$WINTER/lib.if8"
+          ;;
+      'lf95')
+          INC="--include .:$WINTER/lib.l95"
+          ;;
+   esac
+fi
+#
+# Changing to the Src Directory
+#
+cd Src/
+#
+# Compilation Process
+#
+echo " ########################################################"
+echo " #### Crystallographic Fortran Modules Library (5.0) ####"
+echo " #### JRC - JGP                            1999-2011 ####"
+echo " ########################################################"
+if [ $COMP = "lf95" ]
+then
+   $COMP $OPT1  f2kcli.f90
+fi
+if [ $COMP = "ifort" ]
+then
+   $COMP $OPT1  CFML_GlobalDeps_Linux_Intel.f90
+else
+   $COMP $OPT1  CFML_GlobalDeps_Linux.f90
+fi
+$COMP $OPT1  CFML_Math_Gen.f90
+$COMP $OPT1  CFML_LSQ_TypeDef.f90
+$COMP $OPT1  CFML_Spher_Harm.f90
+$COMP $OPT1  CFML_Random.f90
+$COMP $OPT1  CFML_FFTs.f90
+$COMP $OPT1  CFML_String_Util.f90
+if [ $MODE = "con" ]
+then
+   $COMP $OPT1  CFML_IO_Mess.f90       $INC
+else
+   $COMP $OPT1  CFML_IO_MessWin.f90    $INC
+fi
+$COMP $OPT1  CFML_Profile_TOF.f90
+$COMP $OPT1  CFML_Profile_Finger.f90
+$COMP $OPT1  CFML_Profile_Functs.f90
+$COMP $OPT1  CFML_Math_3D.f90
+$COMP $OPT1  CFML_Optimization.f90
+$COMP $OPT1  CFML_LSQ_TypeDef.f90
+$COMP $OPT1  CFML_Optimization_LSQ.f90
+$COMP $OPT2  CFML_Sym_Table.f90
+$COMP $OPT2  CFML_Chem_Scatt.f90
+$COMP $OPT1  CFML_Diffpatt.f90
+$COMP $OPT2  CFML_Bonds_Table.f90
+$COMP $OPT1  CFML_Cryst_Types.f90
+$COMP $OPT1  CFML_Export_Vtk.f90
+$COMP $OPT1  CFML_Symmetry.f90
+$COMP $OPT1  CFML_ILL_Instrm_Data.f90
+$COMP $OPT1  CFML_Reflct_Util.f90
+$COMP $OPT1  CFML_Atom_Mod.f90
+$COMP $OPT1  CFML_SXTAL_Geom.f90
+$COMP $OPT1  CFML_Sfac.f90
+$COMP $OPT1  CFML_Geom_Calc.f90
+$COMP $OPT1  CFML_Propagk.f90
+$COMP $OPT1  CFML_Maps.f90
+$COMP $OPT1  CFML_Molecules.f90
+$COMP $OPT1  CFML_Conf_Calc.f90
+$COMP $OPT1  CFML_Form_CIF.f90
+$COMP $OPT1  CFML_Optimization_SAn.f90 $INC
+$COMP $OPT1  CFML_MagSymm.f90
+$COMP $OPT1  CFML_Msfac.f90
+$COMP $OPT1  CFML_Polar.f90
+$COMP $OPT1  CFML_Refcodes.f90
+#
+# Making CrysFML Library
+#
+if [ $MODE = "con" ]
+then
+   case $COMP
+   in
+      'af95')
+          ar cr libcrysfml.a *.o
+          mv *.mod ../Absoft/LibC
+          mv *.a ../Absoft/LibC
+          ;;
+      'g95')
+          ar cr libcrysfml.a *.o
+          mv *.mod ../G95/LibC
+          mv *.a ../G95/LibC
+          ;;
+      'gfortran')
+          gfortran -o libcrysfml.so -g -shared *.o
+          #ar cr libcrysfml.a *.o
+          mv *.mod ../GFortran/LibC/
+          #mv *.a ../GFortran/LibC/
+          mv *.so ../GFortran/LibC/
+          ;;
+      'ifort')
+          ar cr libcrysfml.a *.o
+          mv *.mod ../ifort/LibC
+          mv *.a ../ifort/LibC
+          ;;
+      'lf95')
+          $COMP *.o --out libcrysfml.a --nshared
+          mv *.mod ../Lahey/LibC
+          mv *.a ../Lahey/LibC
+          ;;
+   esac
+else
+   case $COMP
+   in
+      'af95')
+          ar cr libwcrysfml.a *.o
+          mv *.mod ../Absoft/LibW
+          mv *.a ../Absoft/LibW
+          ;;
+      'g95')
+          ar cr libwcrysfml.a *.o
+          mv *.mod ../G95/LibW
+          mv *.a ../G95/LibW
+          ;;
+      'gfortran')
+          ar cr libwcrysfml.a *.o
+          mv *.mod ../GFortran/LibW
+          mv *.a ../GFortran/LibW
+          ;;
+      'ifort')
+          ar cr libwcrysfml.a *.o
+          mv *.mod ../ifort/LibW
+          mv *.a ../ifort/LibW
+          ;;
+      'lf95')
+          $COMP *.o --out libwcrysfml.a --nshared
+          mv *.mod ../Lahey/LibW
+          mv *.a ../Lahey/LibW
+          ;;
+   esac
+fi
+rm *.o
+#
+# Changing to default directory
+#
+cd ..
