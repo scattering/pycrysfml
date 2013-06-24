@@ -4,7 +4,7 @@
 # Also uses the program "bumps" to perform fitting of calculated diffraction
 #   patterns to observed data.
 # Created 6/4/2013
-# Last edited 6/17/2013
+# Last edited 6/24/2013
 
 import sys
 from math import floor, sqrt, log, tan, radians
@@ -123,6 +123,7 @@ class Wyckoff(Structure):
 #   wyckoff         - object containing Wyckoff information
 #   asymmetricUnit  - direct space parameters for the asymmetric unit
 class SpaceGroup(Structure):
+    # TODO: Create nice-looking constructors for these objects
     _fields_ = [("number", c_int), ("symbol", c_char*20),
                 ("hallSymbol", c_char*16), ("xtalSystem", c_char*12),
                 ("laue", c_char*5), ("pointGroup", c_char*5),
@@ -444,27 +445,27 @@ def inputInfo():
     angle = [0, 0, 0]
 
     # Ask for parameters according to the crystal system and create the cell
-    if (spaceGroup.xtalSystem == "Triclinic"):
+    if (spaceGroup.xtalSystem.lower() == "triclinic"):
         length[0], length[1], length[2], angle[0], angle[1], angle[2] = \
             input("Enter cell parameters (a, b, c, alpha, beta, gamma): ")
-    elif (spaceGroup.xtalSystem == "Monoclinic"):
+    elif (spaceGroup.xtalSystem.lower() == "monoclinic"):
         angle[0] = angle[2] = 90
         length[0], length[1], length[2], angle[1] = \
             input("Enter cell parameters (a, b, c, beta): ")
-    elif (spaceGroup.xtalSystem == "Orthorhombic"):
+    elif (spaceGroup.xtalSystem.lower() == "orthorhombic"):
         angle[0] = angle[1] = angle[2] = 90
         length[0], length[1], length[2] = \
             input("Enter cell parameters (a, b, c): ")
-    elif (spaceGroup.xtalSystem == "Tetragonal"):
+    elif (spaceGroup.xtalSystem.lower() == "tetragonal"):
         angle[0] = angle[1] = angle[2] = 90
         length[0], length[2] = input("Enter cell parameters (a, c): ")
         length[1] = length[0]
-    elif (spaceGroup.xtalSystem in ["Rhombohedral", "Hexagonal"]):
+    elif (spaceGroup.xtalSystem.lower() in ["rhombohedral", "hexagonal"]):
         angle[0] = angle[1] = 90
         angle[2] = 120
         length[0], length[2] = input("Enter cell parameters (a, c): ")
         length[1] = length[0]
-    elif (spaceGroup.xtalSystem == "Cubic"):
+    elif (spaceGroup.xtalSystem.lower() == "cubic"):
         angle[0] = angle[1] = angle[2] = 90
         length[0] = input("Enter cell parameter (a): ")
         length[1] = length[2] = length[0]
@@ -580,6 +581,22 @@ def removeRange(tt, remove, intensity=None):
                 tt  = removeRange(tt, interval)
             return tt
 
+# readFile: acquires cell, space group, and atomic information from a .cif,
+#   .cfl, .pcr, or .shx file
+def readFile(filename):
+    fn = lib.__cfml_io_formats_MOD_readn_set_xtal_structure_split
+    fn.argtypes = [c_char_p, POINTER(CrystalCell), POINTER(SpaceGroup),
+                   POINTER(AtomList), c_char_p, POINTER(c_int),
+                   c_void_p, c_void_p, c_char_p, c_int, c_int, c_int]
+    fn.restype = None
+    cell = CrystalCell()
+    spaceGroup = SpaceGroup()
+    atomList = AtomList()
+    fn(filename, cell, spaceGroup, atomList, filename[-3:], None, None, None,
+       None, len(filename), 3, 0)
+    print filename, filename[-3:]
+    return (spaceGroup, cell, atomList)
+
 #def chiSquare(observed, gaussians, background, tt):
 #    expected = np.array(getIntensity(gaussians, background, tt))
 #    return sum((observed-expected)**2/expected)
@@ -589,18 +606,22 @@ def removeRange(tt, remove, intensity=None):
 class Model(object):
 
     def __init__(self, tt, observed, background, u, v, w,
-                 wavelength, spaceGroupName, cell, atoms):
-        self.spaceGroup = SpaceGroup()
-        setSpaceGroup(spaceGroupName, self.spaceGroup)
+                 wavelength, spaceGroupName, cell, atoms, exclusions=None):
+        if (isinstance(spaceGroupName, SpaceGroup)):
+            self.spaceGroup = spaceGroupName
+        else:
+            self.spaceGroup = SpaceGroup()
+            setSpaceGroup(spaceGroupName, self.spaceGroup)
         self.tt = tt
         self.observed = observed
         self.background = background
         self.u = Parameter(u, name='u')
         self.v = Parameter(v, name='v')
         self.w = Parameter(w, name='w')
-        self.scale = Parameter(1.0, name='scale')
+        self.scale = Parameter(1, name='scale')
         self.wavelength = wavelength
         self.cell = cell
+        self.exclusions = exclusions
         self.ttMin = min(self.tt)
         self.ttMax = max(self.tt)
         self.sMin = getS(self.ttMin, self.wavelength)
@@ -650,7 +671,7 @@ class Model(object):
 
     def plot(self, view="linear"):
         plotPattern(self.gaussians, self.background, self.tt, self.observed,
-                    self.ttMin, self.ttMax, 0.01)
+                    self.ttMin, self.ttMax, 0.01, self.exclusions)
 
 #    def _cache_cell_pars(self):
 #        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())
@@ -800,15 +821,38 @@ class CubicCell(object):
         return [self.a.bounds.limits[1], self.a.bounds.limits[1],
                 self.a.bounds.limits[1], 90, 90, 90]
 
-class AtomListModel(object):
+# makeCell: creates a bumps-compatible cell object from a CrystalCell object
+def makeCell(cell, xtalSystem):
+    (a, b, c) = cell.length
+    (alpha, beta, gamma) = cell.angle
+    if (xtalSystem.lower() == "triclinic"):
+        newCell = TriclinicCell(a, b, c, alpha, beta, gamma)
+    elif (xtalSystem.lower() == "monoclinic"):
+        newCell = MonoclinicCell(a, b, c, beta)
+    elif (xtalSystem.lower() == "orthorhombic"):
+        newCell = OrthorhombicCell(a, b, c)
+    elif (xtalSystem.lower() == "tetragonal"):
+        newCell = TetragonalCell(a,c)
+    elif (xtalSystem.lower() in ["rhombohedral", "hexagonal"]):
+        newCell = HexagonalCell(a,c)
+    elif (xtalSystem.lower() == "cubic"):
+        newCell = CubicCell(a)
+    return newCell
+
+class AtomListModel(object):    
+    # TODO: make occupancy a refinable parameter
+
     def __init__(self, atoms):
         self._make_atom_list(atoms)
         self.B = [None] * len(self.atoms)
         for i, atom in enumerate(self.atoms):
-            self.B[i] = Parameter(atom.BIso, name="B_"+atom.element)
+            self.B[i] = Parameter(atom.BIso, name=rstrip(atom.label)+"_B")
+#            self.occ[i] = Parameter(atom.occupancy*atom)
 
     def _make_atom_list(self, atoms):
-        if (isinstance(atoms[0], Atom)):
+        if (isinstance(atoms, AtomList)):
+            self.atomList = atoms
+        elif (isinstance(atoms[0], Atom)):
             self.atomList = setAtoms(atoms)
         else:
             self.atomList = setAtoms(*zip(*atoms))
@@ -844,6 +888,7 @@ def createData(spaceGroup, cell, wavelength, ttMin, ttMax, ttStep, coeffs, I, ba
 
 # testInfo: loads up space group and cell information for testing purposes
 def testInfo():
+    # Information for Al2O3
     length = [4.7698, 4.7698, 13.0243]
     angle = [90,90,120]
     cell = CrystalCell()
@@ -880,20 +925,42 @@ def testStructFact():
 
 def fit():
     np.seterr(divide="ignore", invalid="ignore")
-    wavelength = 1.5403
-    spaceGroupName = "167"
-    atoms = [["Al", 13, (0,0,.35231), 1.0/3, .00523],
-             ["O", 8, (.3061,0,.25), 1.0/2, .00585]]
-    backg = LinSpline("Al2O3 Background.BGR")
-#    backg = LinSpline(np.array([0,180]), np.array([100,100]))
+    backgFile = "/home/djq/Pycrysfml/LuFeO3 Background.BGR"
+    observedFile = "/home/djq/Pycrysfml/lufep001.dat"
+    infoFile = "/home/djq/Pycrysfml/LuFeMnO3.cif"
+    (spaceGroup, crystalCell, atoms) = readFile(infoFile)
+    spaceGroup.xtalSystem = rstrip(spaceGroup.xtalSystem)
+    wavelength = 1.5406
+#    spaceGroup = "185"
+#    atoms = [["Al", 13, (0,0,.35231), 1.0/3, .00523],
+#             ["O", 8, (.3061,0,.25), 1.0/2, .00585]]
+#    atoms = [["Lu", 71, (0,0,.27207), 2.0/12, .0041],
+#             ["Lu", 71, (.3333,.6667,.2332), 4.0/12, .0053],
+#             ["Fe", 26, (.3332,0,0), 6.0/12, .0018],
+#             ["O", 8, (.303,0,.1542), 6.0/12, .012],
+#             ["O", 8, (.649,0,.332), 6.0/12, .012],
+#             ["O", 8, (0,0,.472), 2.0/12, .012],
+#             ["O", 8, (.3333,.6667,.017), 4.0/12, .012]]
+    backg = LinSpline(backgFile)
+#    backg = LinSpline(np.array([0,1]),np.array([0,0]))
     tt = np.linspace(3, 167.75, 3296)
-    data = np.loadtxt("Al2O3.dat", dtype=float, skiprows=1)
+#    exclusions = np.array([[60,66], [72.75, 75.75]])
+    exclusions = np.array([[0,20],[37.3,39.1],[43.85,45.9],[64.25,66.3],
+                           [76.15,79.8],[81.7,83.1],[89.68,99.9],[109.95,111.25],
+                           [115.25,118.45],[133.95,141.25],[156.7,180]])
+    data = np.loadtxt(observedFile, dtype=float, skiprows=3)
 #    tt = data[0]
-    observed = data.flatten()[:len(tt)]
-    cell = HexagonalCell(4.7698, 13.0243)
-    cell.a.pm(0.1)
-    cell.c.pm(0.1)
-    m = Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroupName, cell, atoms)
+    observed = data.flatten()
+    observed = observed[:2*len(tt):2]
+    tt, observed = removeRange(tt, exclusions, observed)
+#    observed = data.flatten()[:len(tt)]
+#    cell = HexagonalCell(4.7698, 13.0243)
+#    cell = HexagonalCell(5.965, 11.702)
+    cell = makeCell(crystalCell, spaceGroup.xtalSystem)
+    cell.a.pm(0.5)
+    cell.c.pm(0.5)
+    m = Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
+              atoms, exclusions)
     m.u.range(0,1)
     m.v.range(-1,0)
     m.w.range(0,10)
@@ -906,8 +973,13 @@ def fit():
 
 def main():
 #    (spaceGroup, cell, wavelength, sMin, sMax) = inputInfo()
-    (spaceGroup, cell, wavelength, sMin, sMax, atoms) = testInfo()
-    backgFile = "Al2O3 Background.BGR"
+#    (spaceGroup, cell, wavelength, sMin, sMax, atoms) = testInfo()
+    (spaceGroup, cell, atomList) = readFile("LuFeMnO3.cif")
+    atoms = deconstruct_dv(atomList.atoms, Atom)
+    for atom in atoms: print atom.label, atom.occupancy, atom.multip
+    wavelength = 1.5403
+    sMin, sMax = getS(3, wavelength), getS(167.8, wavelength)
+    backgFile = "LuFeO3 Background.BGR"
     observedFile = "Al2O3.dat"
 #    sg = SpaceGroup()
 #    cell = CrystalCell()
@@ -921,7 +993,7 @@ def main():
     refList = hklGen(spaceGroup, cell, wavelength, sMin, sMax, True)
     reflections = list(refList.reflections.data(Reflection))
     printReflections(reflections, spaceGroup, wavelength, sMin, sMax)
-    atomList = setAtoms(*zip(*atoms))
+#    atomList = setAtoms(*zip(*atoms))
     intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
     g = makeGaussians(reflections,[.347, -.278, .166], intensities, 1, wavelength)
     backg = LinSpline(backgFile)
