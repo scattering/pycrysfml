@@ -241,6 +241,7 @@ class ReflectionList(Structure):
 # Gaussian: represents a Gaussian function that can be evaluated at any
 #   2*theta value. u, v, and w are fitting parameters.
 class Gaussian(object):
+    # TODO: add option for psuedo-Voigt peak shape
     scaleFactor = 1    
     
     def __init__(self, center, u, v, w, I, hkl=[0,0,0]):
@@ -371,6 +372,7 @@ def hklGen(spaceGroup, cell, wavelength, sMin, sMax, getList=False):
 
 # setAtoms: creates an atom list object and places atoms in specified positions
 def setAtoms(elements, atomicNums=None, coords=None, occupancies=None, BIsos=None):
+    print >>sys.stderr, "setting atoms"
     init = lib.__cfml_atom_typedef_MOD_allocate_atom_list
     init.argtypes = [POINTER(c_int), POINTER(AtomList), POINTER(c_int)]
     init.restype = None
@@ -378,18 +380,17 @@ def setAtoms(elements, atomicNums=None, coords=None, occupancies=None, BIsos=Non
     numAtoms = len(elements)
     init(c_int(numAtoms), atomList, None)
 
-    atomList.numAtoms = numAtoms
+    atomList.numAtoms = c_int(numAtoms)
     atoms = atomList.atoms.data(Atom)
     c_array3 = c_float*3
-    if isinstance(elements[0], Atom):
-        atoms = np.copy(elements)
-    else:
+    if not isinstance(elements[0], Atom):
         for i in xrange(numAtoms):
             atoms[i].element = elements[i]
             atoms[i].atomicNum = c_int(atomicNums[i])
             atoms[i].coords = c_array3(*coords[i])
             atoms[i].occupancy = c_float(occupancies[i])
-            atoms[i].BIso = c_float(BIsos[i])    
+            atoms[i].BIso = c_float(BIsos[i])  
+            atoms[i].label = elements[i]
     return atomList
 
 # calcStructFact: calculates the structure factor squared for a list of planes
@@ -584,6 +585,7 @@ def removeRange(tt, remove, intensity=None):
 # readFile: acquires cell, space group, and atomic information from a .cif,
 #   .cfl, .pcr, or .shx file
 def readFile(filename):
+    # TODO; edit floating-point tolerance in Fortran source
     fn = lib.__cfml_io_formats_MOD_readn_set_xtal_structure_split
     fn.argtypes = [c_char_p, POINTER(CrystalCell), POINTER(SpaceGroup),
                    POINTER(AtomList), c_char_p, POINTER(c_int),
@@ -594,103 +596,11 @@ def readFile(filename):
     atomList = AtomList()
     fn(filename, cell, spaceGroup, atomList, filename[-3:], None, None, None,
        None, len(filename), 3, 0)
-    print filename, filename[-3:]
     return (spaceGroup, cell, atomList)
 
 #def chiSquare(observed, gaussians, background, tt):
 #    expected = np.array(getIntensity(gaussians, background, tt))
 #    return sum((observed-expected)**2/expected)
-
-# Model: represents an object that can be used with bumps for optimization
-#   purposes
-class Model(object):
-
-    def __init__(self, tt, observed, background, u, v, w,
-                 wavelength, spaceGroupName, cell, atoms, exclusions=None):
-        if (isinstance(spaceGroupName, SpaceGroup)):
-            self.spaceGroup = spaceGroupName
-        else:
-            self.spaceGroup = SpaceGroup()
-            setSpaceGroup(spaceGroupName, self.spaceGroup)
-        self.tt = tt
-        self.observed = observed
-        self.background = background
-        self.u = Parameter(u, name='u')
-        self.v = Parameter(v, name='v')
-        self.w = Parameter(w, name='w')
-        self.scale = Parameter(1, name='scale')
-        self.wavelength = wavelength
-        self.cell = cell
-        self.exclusions = exclusions
-        self.ttMin = min(self.tt)
-        self.ttMax = max(self.tt)
-        self.sMin = getS(self.ttMin, self.wavelength)
-        self.sMax = getS(self.ttMax, self.wavelength)
-
-        self._set_reflections()
-        self.atomListModel = AtomListModel(atoms)
-        self.update()
-
-    def _set_reflections(self):
-        maxCell = CrystalCell()
-        maxLattice = self.cell.getMaxLattice()
-        setCrystalCell(maxLattice[:3], maxLattice[3:], maxCell)
-        self.refList = hklGen(self.spaceGroup, maxCell,
-                              self.wavelength, self.sMin, self.sMax, True)
-        self.maxReflections = self.refList.reflections.data(Reflection)
-        self.reflections = np.copy(self.maxReflections)
-
-    def __getstate__(self):
-        state = self.__dict__.copy()
-        del state["refList"]
-        return state
-    def __setstate__(self, state):
-        self.__dict__ = state
-        self._set_reflections()
-
-    def parameters(self):
-        return {'u': self.u,
-                'v': self.v,
-                'w': self.w,
-                'scale': self.scale,
-                'cell': self.cell.parameters(),
-                'atoms': self.atomListModel.parameters()
-                }
-
-    def numpoints(self):
-        return len(self.observed)
-
-    def theory(self):
-        return getIntensity(self.gaussians, self.background, self.tt)
-
-    def residuals(self):
-        return (self.theory() - self.observed)/np.sqrt(self.observed)
-
-    def nllf(self):
-        return np.sum(self.residuals()**2)
-
-    def plot(self, view="linear"):
-        plotPattern(self.gaussians, self.background, self.tt, self.observed,
-                    self.ttMin, self.ttMax, 0.01, self.exclusions)
-
-#    def _cache_cell_pars(self):
-#        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())
-    def update(self):
-        self.cell.update()
-        self.atomListModel.update()
-        lattice = latcalc.Lattice(*self.cell.getLattice())
-        h, k, l = np.array(zip(*[reflection.hkl for reflection in self.maxReflections]))
-        ttPos = lattice.calc_twotheta(self.wavelength, h, k, l)
-        # move nonexistent peaks out of the way to 2*theta = -20
-        ttPos[np.isnan(ttPos)] = -20
-        for i in xrange(len(self.reflections)):
-            self.reflections[i].s = getS(ttPos[i], self.wavelength)
-        self.intensities = calcIntensity(self.refList, self.atomListModel.atomList, 
-                                         self.spaceGroup, self.wavelength)
-        self.gaussians = makeGaussians(self.reflections,
-                                       [self.u.value, self.v.value, self.w.value],
-                                       self.intensities, self.scale.value,
-                                       self.wavelength)
 
 # Triclinic/Monoclinic/Orthorhombic/Tetragonal/Hexagonal/CubicCell: classes
 #   that contain lattice information with refinable parameters to interface
@@ -839,17 +749,106 @@ def makeCell(cell, xtalSystem):
         newCell = CubicCell(a)
     return newCell
 
-class AtomListModel(object):    
-    # TODO: make occupancy a refinable parameter
+# Model: represents an object that can be used with bumps for optimization
+#   purposes
+class Model(object):
 
-    def __init__(self, atoms):
-        self._make_atom_list(atoms)
-        self.B = [None] * len(self.atoms)
-        for i, atom in enumerate(self.atoms):
-            self.B[i] = Parameter(atom.BIso, name=rstrip(atom.label)+"_B")
-#            self.occ[i] = Parameter(atom.occupancy*atom)
+    def __init__(self, tt, observed, background, u, v, w,
+                 wavelength, spaceGroupName, cell, atoms, exclusions=None):
+        if (isinstance(spaceGroupName, SpaceGroup)):
+            self.spaceGroup = spaceGroupName
+        else:
+            self.spaceGroup = SpaceGroup()
+            setSpaceGroup(spaceGroupName, self.spaceGroup)
+        self.tt = tt
+        self.observed = observed
+        self.background = background
+        self.u = Parameter(u, name='u')
+        self.v = Parameter(v, name='v')
+        self.w = Parameter(w, name='w')
+        self.scale = Parameter(1, name='scale')
+        self.wavelength = wavelength
+        self.cell = cell
+        self.exclusions = exclusions
+        self.ttMin = min(self.tt)
+        self.ttMax = max(self.tt)
+        self.sMin = getS(self.ttMin, self.wavelength)
+        self.sMax = getS(self.ttMax, self.wavelength)
 
-    def _make_atom_list(self, atoms):
+        self._set_reflections()
+        self.atomListModel = AtomListModel(atoms, self.spaceGroup.multip)
+        self.update()
+
+    def _set_reflections(self):
+        maxCell = CrystalCell()
+        maxLattice = self.cell.getMaxLattice()
+        setCrystalCell(maxLattice[:3], maxLattice[3:], maxCell)
+        self.refList = hklGen(self.spaceGroup, maxCell,
+                              self.wavelength, self.sMin, self.sMax, True)
+        self.maxReflections = self.refList.reflections.data(Reflection)
+        self.reflections = np.copy(self.maxReflections)
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        del state["refList"]
+        return state
+    def __setstate__(self, state):
+        self.__dict__ = state
+        self._set_reflections()
+
+    def parameters(self):
+        return {'u': self.u,
+                'v': self.v,
+                'w': self.w,
+                'scale': self.scale,
+                'cell': self.cell.parameters(),
+                'atoms': self.atomListModel.parameters()
+                }
+
+    def numpoints(self):
+        return len(self.observed)
+
+    def theory(self):
+        return getIntensity(self.gaussians, self.background, self.tt)
+
+    def residuals(self):
+        return (self.theory() - self.observed)/np.sqrt(self.observed)
+
+    def nllf(self):
+        return np.sum(self.residuals()**2)
+
+    def plot(self, view="linear"):
+        plotPattern(self.gaussians, self.background, self.tt, self.observed,
+                    self.ttMin, self.ttMax, 0.01, self.exclusions)
+
+#    def _cache_cell_pars(self):
+#        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())
+    def update(self):
+        self.cell.update()
+        self.atomListModel.update()
+        lattice = latcalc.Lattice(*self.cell.getLattice())
+        h, k, l = np.array(zip(*[reflection.hkl for reflection in self.maxReflections]))
+        ttPos = lattice.calc_twotheta(self.wavelength, h, k, l)
+        # move nonexistent peaks out of the way to 2*theta = -20
+        ttPos[np.isnan(ttPos)] = -20
+        for i in xrange(len(self.reflections)):
+            self.reflections[i].s = getS(ttPos[i], self.wavelength)
+        self.intensities = calcIntensity(self.refList, self.atomListModel.atomList, 
+                                         self.spaceGroup, self.wavelength)
+        self.gaussians = makeGaussians(self.reflections,
+                                       [self.u.value, self.v.value, self.w.value],
+                                       self.intensities, self.scale.value,
+                                       self.wavelength)
+
+class AtomListModel(object):
+    # TODO: constrain occupancies to sum to 1
+
+    def __init__(self, atoms, sgmultip):
+        print >>sys.stderr, "Creating atom list"
+        self.sgmultip = sgmultip
+        self._rebuild_object(atoms)
+
+    def _rebuild_object(self, atoms):
         if (isinstance(atoms, AtomList)):
             self.atomList = atoms
         elif (isinstance(atoms[0], Atom)):
@@ -857,22 +856,57 @@ class AtomListModel(object):
         else:
             self.atomList = setAtoms(*zip(*atoms))
         self.atoms = self.atomList.atoms.data(Atom)
+#        for atom in self.atoms: atom.label = rstrip(atom.label)
+        self.atomModels = [AtomModel(atom, self.sgmultip) for atom in self.atoms]
+        self.index = dict(enumerate(self.atomModels))
+        self.index.update((a.atom.label,a) for a in self.atomModels)
 
     def __getstate__(self):
-        state = self.__dict__.copy()
-        del state["atomList"]
+        print >>sys.stderr, "getting state"
+        state = self.atoms, self.sgmultip
         return state
 
     def __setstate__(self, state):
-        self.__dict__ = state
-        self._make_atom_list(self.atoms)
-
+        print >>sys.stderr, "setting state"
+        self.atoms, self.sgmultip = state
+        self._rebuild_object(self.atoms)
+        
     def parameters(self):
-        return dict(zip([param.name for param in self.B],
-                        [param for param in self.B]))
+        print >>sys.stderr, "accessing parameters for atom list"
+        return dict(zip([atom.label for atom in self.atoms],
+                        [am.parameters() for am in self.atomModels]))
+
     def update(self):
-        for i, atom in enumerate(self.atoms):
-            atom.BIso = self.B[i].value
+#        print >>sys.stderr, len(self.parameters())
+#        print >>sys.stderr, "label: |" + self.atoms[0].label + "|"        
+#         if len(self.parameters()) == 1:
+#            print >>sys.stderr, self.parameters()
+        for atomModel in self.atomModels:
+            atomModel.update()
+
+    def __getitem__(self, key):
+        return self.index[key]
+        
+
+class AtomModel(object):
+    # TODO: implement anisotropic thermal factors
+    # TODO: make atomic coordinates refinable parameters
+
+    def __init__(self, atom, sgmultip):
+        print >>sys.stderr, "Creating atom"
+        self.atom = atom
+        self.sgmultip = sgmultip
+        self.atom.label = rstrip(self.atom.label)
+        self.B = Parameter(self.atom.BIso, name=self.atom.label + " B")
+        occ = self.atom.occupancy / self.atom.multip * self.sgmultip
+        self.occ = Parameter(occ, name=self.atom.label + " occ")
+    
+    def parameters(self):
+        return {self.B.name: self.B, self.occ.name: self.occ}
+    
+    def update(self):
+        self.atom.BIso = self.B.value
+        self.atom.occupancy = self.occ.value * self.atom.multip / self.sgmultip
 
 # createData: creates and saves a diffraction pattern with the given parameters
 def createData(spaceGroup, cell, wavelength, ttMin, ttMax, ttStep, coeffs, I, backg, fileName):
@@ -924,7 +958,24 @@ def testStructFact():
     np.savetxt("structure factors.dat", out)
 
 def fit():
-    np.seterr(divide="ignore", invalid="ignore")
+
+    def show_improvement(self, history):
+        print "step",history.step[0],"chisq",history.value[0]
+        print "point",history.point[0]
+        print self.problem._parameters
+        #self.problem.setp(history.point[0])
+        print self.problem.summarize()
+        sys.stdout.flush()    
+    import bumps.fitters
+    import bumps.fitproblem
+    _model_reset = bumps.fitproblem.BaseFitProblem.model_reset
+    def model_reset(self):
+        print "calling model_reset"
+        _model_reset(self)
+        print self, self._parameters
+    bumps.fitters.ConsoleMonitor.show_improvement = show_improvement
+    bumps.fitproblem.BaseFitProblem.model_reset = model_reset
+    np.seterr(divide="ignore", invalid="ignore")    
     backgFile = "/home/djq/Pycrysfml/LuFeO3 Background.BGR"
     observedFile = "/home/djq/Pycrysfml/lufep001.dat"
     infoFile = "/home/djq/Pycrysfml/LuFeMnO3.cif"
@@ -945,7 +996,7 @@ def fit():
 #    backg = LinSpline(np.array([0,1]),np.array([0,0]))
     tt = np.linspace(3, 167.75, 3296)
 #    exclusions = np.array([[60,66], [72.75, 75.75]])
-    exclusions = np.array([[0,20],[37.3,39.1],[43.85,45.9],[64.25,66.3],
+    exclusions = np.array([[0,3],[37.3,39.1],[43.85,45.9],[64.25,66.3],
                            [76.15,79.8],[81.7,83.1],[89.68,99.9],[109.95,111.25],
                            [115.25,118.45],[133.95,141.25],[156.7,180]])
     data = np.loadtxt(observedFile, dtype=float, skiprows=3)
@@ -965,9 +1016,13 @@ def fit():
     m.v.range(-1,0)
     m.w.range(0,10)
     m.scale.range(0,10)
-    for i in xrange(len(m.atomListModel.B)):
-        m.atomListModel.B[i].range(0, .1)
-    M = FitProblem(m)
+    for atomModel in m.atomListModel.atomModels:
+        atomModel.B.range(0, .1)
+    m.atomListModel["Fe1"].occ.range(0, 1)
+    m.atomListModel["Mn1"].occ.range(0, 1)
+    m.atomListModel["Fe1"].occ = 1 - m.atomListModel["Mn1"].occ
+    P = m.atomListModel["Fe1"].occ
+    M = FitProblem(m, constraints=lambda:(P.value>1)*(1000+P.value**4))
     #M.model_update()
     return M
 
