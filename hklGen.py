@@ -433,13 +433,18 @@ def setCrystalCell(length, angle, cell):
     fn(float3(*length), float3(*angle), cell, None, None)
     return
 
-# calcS: calculates the sin(theta)/lambda value for a given plane
+# calcS: calculates the sin(theta)/lambda value for a given list of planes
 def calcS(cell, hkl):
-    fn = lib.__cfml_reflections_utilities_MOD_hs_r
-    float3 = c_float*3
-    fn.argtypes = [POINTER(float3), POINTER(CrystalCell)]
-    fn.restype = c_float
-    return float(fn(float3(*hkl), cell))
+    if isSequence(hkl[0]):
+        # list of hkl positions
+        return [calcS(cell, h) for h in hkl]
+    else:
+        # single hkl
+        fn = lib.__cfml_reflections_utilities_MOD_hs_r
+        float3 = c_float*3
+        fn.argtypes = [POINTER(float3), POINTER(CrystalCell)]
+        fn.restype = c_float
+        return float(fn(float3(*hkl), cell))
 
 # getMaxNumRef: returns the maximum number of reflections for a given cell
 def getMaxNumRef(sMax, volume, sMin=0.0, multip=2):
@@ -562,7 +567,7 @@ def calcMagStructFact(cell, symmetry, atomList, hkl, m):
     reflection.equalMinus = equiv(float3(symmetry.k[reflection.numk]),
                                   symmetry.lattice, len(symmetry.lattice))
     fn(cell, symmetry, atomList, reflection)
-    return #something
+    return reflection.magStrFact
 
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
@@ -710,7 +715,7 @@ def removeRange(tt, remove, intensity=None):
     if (remove == None):
         if (intensity != None): return (tt, intensity)
         else: return tt
-    if (type(remove[0]) not in [list, type(np.array([]))]):
+    if (not isSequence(remove[0])):
         # single interval
         keepEntries = (tt < remove[0]) | (tt > remove[1])
         tt = tt[keepEntries]
@@ -732,7 +737,6 @@ def removeRange(tt, remove, intensity=None):
 # readFile: acquires cell, space group, and atomic information from a .cif,
 #   .cfl, .pcr, or .shx file
 def readFile(filename):
-    # TODO; edit floating-point tolerance in Fortran source
     fn = lib.__cfml_io_formats_MOD_readn_set_xtal_structure_split
     fn.argtypes = [c_char_p, POINTER(CrystalCell), POINTER(SpaceGroup),
                    POINTER(AtomList), c_char_p, POINTER(c_int),
@@ -1107,6 +1111,11 @@ def testStructFact():
                     [sf[i] for i in xrange(len(sf))]])
     out = out.transpose()
     np.savetxt("structure factors.dat", out)
+
+# testMagStructFact: tests the magnetic structure factor calculations
+def testMagStructFact():
+    print "starting test"
+    
 
 def fit():
 
