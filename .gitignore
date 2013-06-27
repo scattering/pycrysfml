@@ -1,1 +1,8 @@
-libcrysfml.so
+Src
+Makefile.deps
+*.so
+*.dll
+*~
+*.pyc
+*.o
+*.mod
