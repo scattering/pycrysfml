@@ -4,10 +4,10 @@
 # Also uses the program "bumps" to perform fitting of calculated diffraction
 #   patterns to observed data.
 # Created 6/4/2013
-# Last edited 6/24/2013
+# Last edited 6/26/2013
 
 import sys
-from math import floor, sqrt, log, tan, radians
+from math import copysign, floor, sqrt, log, tan, radians
 from string import rstrip
 from ctypes import cdll, Structure, c_int, c_float, c_char, c_bool, c_char_p, \
                    c_void_p, c_ulong, addressof, sizeof, POINTER
@@ -76,7 +76,13 @@ def deconstruct_dv(dv, dataType):
 #   rot     - rotational part of symmetry operator (3 by 3 matrix)
 #   trans   - translational part of symmetry operator (vector)
 class SymmetryOp(Structure):
-    _fields_ = [("rot", c_int*9), ("trans", c_float*3)]
+    _fields_ = [("rot", c_int*3*3), ("trans", c_float*3)]
+
+# MagSymmetryOp attributes:
+#   rot     - roatational part of symmetry operator
+#   phase   - phase as a fraction of 2*pi
+class MagSymmetryOp(Structure):
+    _fields_ = [("rot", c_int*3*3), ("phase", c_float)]
 
 # WyckoffPos attributes:
 #   multip      - multiplicity
@@ -159,6 +165,43 @@ class CrystalCell(Structure):
                 ("volume", c_float), ("rVolume", c_float),
                 ("cartType", c_char)]
 
+# MagSymmetry attributes:
+# [corresponds to CFML MagSymm_k_type]
+#   name            - name describing magnetic symmetry
+#   SkType          - "Spherical_Frame" designates input Fourier coefficients
+#                     should be in spherical coordinates
+#   lattice         - lattice type
+#   irrRepsNum      - number of irreducible representations (max 4)
+#   magSymOpsNum    - number of magnetic symmetry operators per crystallographic
+#                     symmetry operator (max 8)
+#   centerType      - 0 = centric (-1 not at origin), 1 = acentric,
+#                     2 = centric (-1 at origin)
+#   magCenterType   - 1 = acentric magnetic symmetry, 2 = centric
+#   numk            - number of independent propagation vectors
+#   k               - propagation vectors
+#   numCentVec      - number of centering lattice vectors
+#   centVec         - centering lattice vectors
+#   numSymOps       - number of crystallographic symmetry operators
+#   multip          - multiplicity of the space group
+#   numBasisFunc    - number of basis functions per representation (can be
+#                     given a negative value to indicate a complex basis)
+#   coeffType       - 0 = real basis function coefficients, 1 = pure imaginary
+#   symOpsSymb      - symbolic form of symmetry operators
+#   symOps          - crystallographic symmetry operators
+#   magSymOpsSymb   - symbolic form of magnetic operators
+#   magSymOps       - magnetic symmetry operators
+#   basisFunc       - coeffs of basis functions of irreducible representations
+class MagSymmetry(Structure):
+    _fields_ = [("name", c_char*31), ("SkType", c_char*10), ("lattice", c_char),
+                ("irrRepsNum", c_int), ("magSymOpsNum", c_int),
+                ("centerType", c_int), ("magCenterType", c_int),
+                ("numk", c_int), ("k", c_float*3*12), ("numCentVec", c_int),
+                ("centVec", c_float*3*4), ("numSymOps", c_int),
+                ("multip", c_int), ("numBasisFunc", c_int*4),
+                ("coeffType", c_int*12*4), ("symOpsSymb", c_char*40*48),
+                ("symOps", SymmetryOp*48), ("magSymOpsSymb", c_char*40*48),
+                ("magSymOps", MagSymmetryOp*48), ("basisFunc", c_float*2*3*12*48*4)]
+
 # Atom attributes:
 #   label       - label for the atom
 #   element     - chemical symbol of the element 
@@ -170,17 +213,19 @@ class CrystalCell(Structure):
 #   occupancy   - site occupancy
 #   BIso        - isotropic temperature (Debye-Waller) factor
 #   uType       - type of anisotropic thermal factor: "u_ij", "b_ij", "beta",
-#                     or none
+#                 or none
 #   thType      - thermal factor type: "isotr", "aniso", or "other"
 #   U           - matrix entries U11, U22, U33, U12, U13, and U23
 #   UEquiv      - equivalent U
 #   charge      - self-explanatory
 #   moment      - magnetic moment
 #   index       - index "for different purposes", whatever mysterious purposes
-#                     those might be
+#                 those might be
 #   numVars     - a variable completely lacking in documentation
 #   freeVars    - free variables used "for different purposes" again
 #   atomInfo    - string containing miscellaneous information
+#   *** mult, lsq prefixes indicate multipliers and positions in the list of
+#       LSQ parameters, respectively; SD indicates standard deviation
 class Atom(Structure):
     _fields_ = [("label", c_char*10), ("element", c_char*2),
                 ("sFactorSymb", c_char*4), ("active", c_int),
@@ -196,11 +241,47 @@ class Atom(Structure):
                 ("index", c_int*5), ("numVars", c_int),
                 ("freeVars", c_float*10), ("atomInfo", c_char*40)]
 
+# MagAtom attributes: same as atom, plus:
+#   numVectors      - number of propagation vectors (excluding -k)
+#   numMat          - number of magnetic matrices
+#   SkReal          - real part of Fourier coefficient
+#   SkRealSphere    - real part of Fourier coefficient (spherical coordinates)
+#   SkIm            - imaginary part of Fourier coefficient
+#   SkimSphere      - imaginary part of Fourier coefficient (spherical coords)
+#   magPhase        - magnetic phase (fractions of 2*pi)
+#   basis           - coefficients of the basis functions
+class MagAtom(Structure):
+    _fields_ = [("label", c_char*10), ("element", c_char*2),
+                ("sFactorSymb", c_char*4), ("active", c_int),
+                ("atomicNum", c_int), ("multip", c_int), ("coords", c_float*3),
+                ("coordsSD", c_float*3), ("multCoords", c_float*3),
+                ("lsqCoords", c_int*3), ("occupancy", c_float),
+                ("occupancySD", c_float), ("multOccupancy", c_float),
+                ("lsqOccupancy", c_int), ("BIso", c_float), ("BIsoSD", c_float),
+                ("multBIso", c_float), ("lsqBIso", c_float),
+                ("uType", c_char*4), ("thType", c_char*5), ("U", c_float*6),
+                ("USD", c_float*6), ("UEquiv", c_float), ("multU", c_float*6),
+                ("lsqU", c_int*6), ("charge", c_float), ("moment", c_float),
+                ("index", c_int*5), ("numVars", c_int),
+                ("freeVars", c_float*10), ("atomInfo", c_char*40),
+                ("numVectors", c_int), ("numMat", c_int*12),
+                ("SkReal", c_float*3*12), ("SkRealSphere", c_float*3*12),
+                ("multSkReal", c_float*3*12), ("lsqSkReal", c_int*3*12),
+                ("SkIm", c_float*3*12), ("SkImSphere", c_float*3*12),
+                ("multSkIm", c_float*3*12), ("lsqSkIm", c_int*3*12),
+                ("magPhase", c_float*12), ("multMagPhase", c_float*12),
+                ("lsqMagPhase", c_int*12), ("basis", c_float*12*12),
+                ("multBasis", c_float*12*12), ("lsqBasis", c_int*12*12)]
+
 # AtomList attributes:
 #   numAtoms    - the number of atoms
 #   atoms       - a list of Atom objects
+#   magnetic    - True if this is a list of MagAtoms
 class AtomList(Structure):
     _fields_ = [("numAtoms", c_int), ("atoms", DV)]
+    
+    def __init__(self, magnetic=False):
+        self.magnetic = magnetic
 
 # Reflection attributes:
 #   hkl         - list containing hkl indices for the reflection
@@ -221,11 +302,34 @@ class Reflection(Structure):
                 ("weight", c_float), ("phase", c_float), ("realPart", c_float),
                 ("imPart", c_float), ("aa", c_float), ("bb", c_float)]
 
+# MagReflection attributes:
+# [corresponds to CFML MagH_type]
+#   equalMinus      - True if k is equivalent to -k
+#   multip          - multiplicity
+#   numk            - number of the propagation vector (k)
+#   signk           - equal to +1 for -k and -1 for +k, because somebody
+#                     thought that labeling system was logical
+#   s               - sin(theta)/lambda
+#   magIntVecSq     - norm squared of the magnetic interaction vector
+#   hkl             - reciprocal scattering vector +/- k
+#   magStrFact      - magnetic structure factor
+#   magIntVec       - magnetic interaction vector
+#   magIntVecCart   - magnetic interaction vector (Cartesian coordinates)
+class MagReflection(Structure):
+    _fields_ = [("equalMinus", c_int),  ("multip", c_int), ("numk", c_int),
+                ("signk", c_float), ("s", c_float), ("magIntVecSq", c_float),
+                ("hkl", c_float*3), ("magStrFact", c_float*2*3),
+                ("magIntVec", c_float*2*3), ("magIntVecCart", c_float*2*3)]
+
 # ReflectionList attributes
 #   numReflections  - the number of reflections
 #   reflections     - list of Reflection objects
+#   magnetic        - True if this is a list of MagReflections
 class ReflectionList(Structure):
     _fields_ = [("numReflections", c_int), ("reflections", DV)]
+
+    def __init__(self, magnetic=False):
+        self.magnetic = magnetic
 
 #    def __init__(self):
 #        self.reflections.dtype = 0
@@ -288,6 +392,13 @@ class LinSpline(object):
     def __repr__(self):
         return "LinSpline(" + str(self.x) + ", " + str(self.y) + ")"
 
+# isSequence: returns True if a value is a list, tuple, numpy array, etc. and 
+#   False if it is a string or a non-sequence
+def isSequence(x):
+    return (not hasattr(x, "strip") and
+            hasattr(x, "__getitem__") or
+            hasattr(x, "__iter__"))
+
 # twoTheta: converts a sin(theta)/lambda position to a 2*theta position
 def twoTheta(s, wavelength):
     if (s*wavelength >= 1): return 180.0
@@ -321,6 +432,14 @@ def setCrystalCell(length, angle, cell):
     fn.restype = None
     fn(float3(*length), float3(*angle), cell, None, None)
     return
+
+# calcS: calculates the sin(theta)/lambda value for a given plane
+def calcS(cell, hkl):
+    fn = lib.__cfml_reflections_utilities_MOD_hs_r
+    float3 = c_float*3
+    fn.argtypes = [POINTER(float3), POINTER(CrystalCell)]
+    fn.restype = c_float
+    return float(fn(float3(*hkl), cell))
 
 # getMaxNumRef: returns the maximum number of reflections for a given cell
 def getMaxNumRef(sMax, volume, sMin=0.0, multip=2):
@@ -420,11 +539,39 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength):
     structFacts = [sf.value for sf in structFacts]
     return structFacts
 
+# calcMagStructFact: sets the magnetic structure factor for a particular
+#   vector in reciprocal space, and also calculates the magnetic interaction
+#   vector
+def calcMagStructFact(cell, symmetry, atomList, hkl, m):
+    fn = lib.__cfml_magnetic_structure_factors_MOD_calc_magnetic_strf_miv
+    fn.argtypes = [POINTER(CrystalCell), POINTER(MagSymmetry),
+                   POINTER(AtomList), POINTER(MagReflection)]
+    fn.restype = None
+    float3 = c_float*3
+
+    reflection = MagReflection()
+    reflection.signk = -copysign(1, m)
+    reflection.numk = abs(m)
+    reflection.hkl = float3(np.array(hkl) - reflection.signk * \
+                     np.array(symmetry.k[reflection.numk]))
+    reflection.s = calcS(cell, hkl)
+    
+    equiv = lib.__cfml_propagation_vectors_MOD_k_equiv_minus_k
+    fn.argtypes = [POINTER(float3), c_char_p, c_int]
+    fn.restype = c_int
+    reflection.equalMinus = equiv(float3(symmetry.k[reflection.numk]),
+                                  symmetry.lattice, len(symmetry.lattice))
+    fn(cell, symmetry, atomList, reflection)
+    return #something
+
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
-def calcIntensity(refList, atomList, spaceGroup, wavelength):
+def calcIntensity(refList, atomList, spaceGroup, wavelength, magnetic=False):
     reflections = refList.reflections.data(Reflection)
-    sfs = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
+    if (magnetic):
+        sfs = np.array(calcMagStructFact(refList, atomList, spaceGroup, wavelength))
+    else:
+        sfs = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
     multips = np.array([ref.multip for ref in reflections])
     
     tt = np.radians(np.array([twoTheta(ref.s, wavelength) for ref in reflections]))
@@ -596,6 +743,9 @@ def readFile(filename):
     atomList = AtomList()
     fn(filename, cell, spaceGroup, atomList, filename[-3:], None, None, None,
        None, len(filename), 3, 0)
+    atoms = deconstruct_dv(atomList.atoms, Atom)
+    for i, atom in enumerate(atoms):
+        print >>sys.stderr, atom.label, atom.thType, atom.BIso, atom.multip
     return (spaceGroup, cell, atomList)
 
 #def chiSquare(observed, gaussians, background, tt):
@@ -826,6 +976,8 @@ class Model(object):
     def update(self):
         self.cell.update()
         self.atomListModel.update()
+        
+        # TODO: call the CFML version of this function
         lattice = latcalc.Lattice(*self.cell.getLattice())
         h, k, l = np.array(zip(*[reflection.hkl for reflection in self.maxReflections]))
         ttPos = lattice.calc_twotheta(self.wavelength, h, k, l)
@@ -841,10 +993,9 @@ class Model(object):
                                        self.wavelength)
 
 class AtomListModel(object):
-    # TODO: constrain occupancies to sum to 1
+    # TODO: generalize occupancy constraints
 
     def __init__(self, atoms, sgmultip):
-        print >>sys.stderr, "Creating atom list"
         self.sgmultip = sgmultip
         self._rebuild_object(atoms)
 
@@ -862,17 +1013,14 @@ class AtomListModel(object):
         self.index.update((a.atom.label,a) for a in self.atomModels)
 
     def __getstate__(self):
-        print >>sys.stderr, "getting state"
         state = self.atoms, self.sgmultip
         return state
 
     def __setstate__(self, state):
-        print >>sys.stderr, "setting state"
         self.atoms, self.sgmultip = state
         self._rebuild_object(self.atoms)
         
     def parameters(self):
-        print >>sys.stderr, "accessing parameters for atom list"
         return dict(zip([atom.label for atom in self.atoms],
                         [am.parameters() for am in self.atomModels]))
 
@@ -893,16 +1041,19 @@ class AtomModel(object):
     # TODO: make atomic coordinates refinable parameters
 
     def __init__(self, atom, sgmultip):
-        print >>sys.stderr, "Creating atom"
         self.atom = atom
         self.sgmultip = sgmultip
         self.atom.label = rstrip(self.atom.label)
         self.B = Parameter(self.atom.BIso, name=self.atom.label + " B")
         occ = self.atom.occupancy / self.atom.multip * self.sgmultip
         self.occ = Parameter(occ, name=self.atom.label + " occ")
+        self.x = Parameter(self.atom.coords[0], name=self.atom.label + " x")
+        self.y = Parameter(self.atom.coords[1], name=self.atom.label + " y")
+        self.z = Parameter(self.atom.coords[2], name=self.atom.label + " z")
     
     def parameters(self):
-        return {self.B.name: self.B, self.occ.name: self.occ}
+        return {self.B.name: self.B, self.occ.name: self.occ,
+                self.x.name: self.x, self.y.name: self.y, self.z.name: self.z}
     
     def update(self):
         self.atom.BIso = self.B.value
@@ -959,29 +1110,33 @@ def testStructFact():
 
 def fit():
 
-    def show_improvement(self, history):
-        print "step",history.step[0],"chisq",history.value[0]
-        print "point",history.point[0]
-        print self.problem._parameters
-        #self.problem.setp(history.point[0])
-        print self.problem.summarize()
-        sys.stdout.flush()    
-    import bumps.fitters
-    import bumps.fitproblem
-    _model_reset = bumps.fitproblem.BaseFitProblem.model_reset
-    def model_reset(self):
-        print "calling model_reset"
-        _model_reset(self)
-        print self, self._parameters
-    bumps.fitters.ConsoleMonitor.show_improvement = show_improvement
-    bumps.fitproblem.BaseFitProblem.model_reset = model_reset
+#    def show_improvement(self, history):
+#        print "step",history.step[0],"chisq",history.value[0]
+#        print "point",history.point[0]
+#        print self.problem._parameters
+#        #self.problem.setp(history.point[0])
+#        print self.problem.summarize()
+#        sys.stdout.flush()    
+#    import bumps.fitters
+#    import bumps.fitproblem
+#    _model_reset = bumps.fitproblem.BaseFitProblem.model_reset
+#    def model_reset(self):
+#        print "calling model_reset"
+#        _model_reset(self)
+#        print self, self._parameters
+#    bumps.fitters.ConsoleMonitor.show_improvement = show_improvement
+#    bumps.fitproblem.BaseFitProblem.model_reset = model_reset
+
     np.seterr(divide="ignore", invalid="ignore")    
-    backgFile = "/home/djq/Pycrysfml/LuFeO3 Background.BGR"
-    observedFile = "/home/djq/Pycrysfml/lufep001.dat"
-    infoFile = "/home/djq/Pycrysfml/LuFeMnO3.cif"
+#    backgFile = "/home/djq/Pycrysfml/LuFeO3 Background.BGR"
+#    observedFile = "/home/djq/Pycrysfml/lufep001.dat"
+#    infoFile = "/home/djq/Pycrysfml/LuFeMnO3.cif"
+    backgFile = "/home/djq/Pycrysfml/Data/Li4BN3D10 Background.BGR"
+    observedFile = "/home/djq/Pycrysfml/Data/LiBND003.gsas"
+    infoFile = "/home/djq/Pycrysfml/Data/Li4BN3D10_295K.cif"
     (spaceGroup, crystalCell, atoms) = readFile(infoFile)
     spaceGroup.xtalSystem = rstrip(spaceGroup.xtalSystem)
-    wavelength = 1.5406
+    wavelength = 1.5403
 #    spaceGroup = "185"
 #    atoms = [["Al", 13, (0,0,.35231), 1.0/3, .00523],
 #             ["O", 8, (.3061,0,.25), 1.0/2, .00585]]
@@ -995,10 +1150,11 @@ def fit():
     backg = LinSpline(backgFile)
 #    backg = LinSpline(np.array([0,1]),np.array([0,0]))
     tt = np.linspace(3, 167.75, 3296)
-#    exclusions = np.array([[60,66], [72.75, 75.75]])
-    exclusions = np.array([[0,3],[37.3,39.1],[43.85,45.9],[64.25,66.3],
-                           [76.15,79.8],[81.7,83.1],[89.68,99.9],[109.95,111.25],
-                           [115.25,118.45],[133.95,141.25],[156.7,180]])
+    # LuFeO3 exclusions:
+#    exclusions = np.array([[0,3],[37.3,39.1],[43.85,45.9],[64.25,66.3],
+#                           [76.15,79.8],[81.7,83.1],[89.68,99.9],[109.95,111.25],
+#                           [115.25,118.45],[133.95,141.25],[156.7,180]])
+    exclusions = None
     data = np.loadtxt(observedFile, dtype=float, skiprows=3)
 #    tt = data[0]
     observed = data.flatten()
@@ -1009,7 +1165,7 @@ def fit():
 #    cell = HexagonalCell(5.965, 11.702)
     cell = makeCell(crystalCell, spaceGroup.xtalSystem)
     cell.a.pm(0.5)
-    cell.c.pm(0.5)
+#    cell.c.pm(0.5)
     m = Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
               atoms, exclusions)
     m.u.range(0,1)
@@ -1017,13 +1173,20 @@ def fit():
     m.w.range(0,10)
     m.scale.range(0,10)
     for atomModel in m.atomListModel.atomModels:
-        atomModel.B.range(0, .1)
-    m.atomListModel["Fe1"].occ.range(0, 1)
-    m.atomListModel["Mn1"].occ.range(0, 1)
-    m.atomListModel["Fe1"].occ = 1 - m.atomListModel["Mn1"].occ
-    P = m.atomListModel["Fe1"].occ
-    M = FitProblem(m, constraints=lambda:(P.value>1)*(1000+P.value**4))
-    #M.model_update()
+        atomModel.B.range(0, 10)
+        if (atomModel.atom.multip == atomModel.sgmultip):
+            # atom lies on a general position
+            atomModel.x.pm(0.1)
+            atomModel.y.pm(0.1)
+            atomModel.z.pm(0.1)
+    # LuFeMnO3 occupancy:
+#    m.atomListModel["Fe1"].occ.range(0, 1)
+#    m.atomListModel["Mn1"].occ.range(0, 1)
+#    m.atomListModel["Fe1"].occ = 1 - m.atomListModel["Mn1"].occ
+#    P = m.atomListModel["Fe1"].occ
+#    M = FitProblem(m, constraints=lambda:(P.value>1)*(1000+P.value**4))
+    M = FitProblem(m)
+    M.model_update()
     return M
 
 def main():
