@@ -745,8 +745,9 @@ def readFile(filename):
     cell = CrystalCell()
     spaceGroup = SpaceGroup()
     atomList = AtomList()
-    fn(filename, cell, spaceGroup, atomList, filename[-3:], None, None, None,
-       None, len(filename), 3, 0)
+    ext = filename[-3:]
+    fn(filename, cell, spaceGroup, atomList, ext, None, None, None,
+       None, len(filename), len(ext), 0)
     atoms = deconstruct_dv(atomList.atoms, Atom)
     for i, atom in enumerate(atoms):
         print >>sys.stderr, atom.label, atom.thType, atom.BIso, atom.multip
