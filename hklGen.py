@@ -7,6 +7,7 @@
 # Last edited 6/26/2013
 
 import sys
+import os
 from math import copysign, floor, sqrt, log, tan, radians
 from string import rstrip
 from ctypes import cdll, Structure, c_int, c_float, c_char, c_bool, c_char_p, \
@@ -19,7 +20,9 @@ import pylab
 import lattice_calculator_procedural2 as latcalc
 
 # This should be the location of the CFML library
-lib = cdll["./libcrysfml.so"]
+LIBFILE = "libcrysfml.so"
+LIBPATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), LIBFILE)
+lib = cdll[LIBPATH]
 
 # DVDim: contains array dimension information. Attributes:
 #   stride_mult - stride multiplier for the dimension
@@ -1232,7 +1235,9 @@ def main():
 #    tt = data[0]
     tt = np.linspace(3, 167.75, 3296)
     observed = data.flatten()[:len(tt)]
+    print tt.shape, observed.shape
     tt, observed = removeRange(tt, exclusions, observed)
+    print tt.shape, observed.shape
     plotPattern(g, backg, tt, observed, twoTheta(sMin, wavelength),
                 twoTheta(sMax, wavelength), .01, exclusions, labels="hkl")
     pylab.show()
@@ -1243,8 +1248,9 @@ if __name__ == "__main__":
     main()
 else:
     # called using bumps
-    from bumps.names import Parameter, FitProblem
-    problem = fit()
+    #from bumps.names import Parameter, FitProblem
+    #problem = fit()
+    pass
 
 
 '''
