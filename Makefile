@@ -36,4 +36,6 @@ libcrysfml.so: $(OBJECTS)
 # Generate dependencies.  This needs to be rerun whenever a new module is added
 # or a Use statement is updated.
 deps:
-	./f90_deps.py Src/*.f90 $(OVERRIDE) > Makefile.deps
+	python f90_deps.py $(wildcard Src/*.f90) $(OVERRIDE) > Makefile.deps
+
+clean: ; rm Src/*.o Src/*.mod

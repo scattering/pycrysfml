@@ -1192,13 +1192,13 @@ def fit():
 def main():
 #    (spaceGroup, cell, wavelength, sMin, sMax) = inputInfo()
 #    (spaceGroup, cell, wavelength, sMin, sMax, atoms) = testInfo()
-    (spaceGroup, cell, atomList) = readFile("LuFeMnO3.cif")
+    (spaceGroup, cell, atomList) = readFile("Data/Al2O3.cif")
     atoms = deconstruct_dv(atomList.atoms, Atom)
     for atom in atoms: print atom.label, atom.occupancy, atom.multip
     wavelength = 1.5403
     sMin, sMax = getS(3, wavelength), getS(167.8, wavelength)
-    backgFile = "LuFeO3 Background.BGR"
-    observedFile = "Al2O3.dat"
+    backgFile = "Data/Al2O3 Background.BGR"
+    observedFile = "Data/Al2O3.dat"
 #    sg = SpaceGroup()
 #    cell = CrystalCell()
 #    setSpaceGroup("81", sg)
