@@ -1,0 +1,8 @@
+Src
+Makefile.deps
+*.so
+*.dll
+*~
+*.pyc
+*.o
+*.mod
