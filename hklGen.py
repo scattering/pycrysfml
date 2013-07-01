@@ -4,7 +4,7 @@
 # Also uses the program "bumps" to perform fitting of calculated diffraction
 #   patterns to observed data.
 # Created 6/4/2013
-# Last edited 6/26/2013
+# Last edited 6/28/2013
 
 import sys
 import os
@@ -195,15 +195,15 @@ class CrystalCell(Structure):
 #   magSymOps       - magnetic symmetry operators
 #   basisFunc       - coeffs of basis functions of irreducible representations
 class MagSymmetry(Structure):
-    _fields_ = [("name", c_char*31), ("SkType", c_char*10), ("lattice", c_char),
+    _fields_ = [("name", c_char*31), ("SkType", c_char*15), ("lattice", c_char),
                 ("irrRepsNum", c_int), ("magSymOpsNum", c_int),
                 ("centerType", c_int), ("magCenterType", c_int),
                 ("numk", c_int), ("k", c_float*3*12), ("numCentVec", c_int),
                 ("centVec", c_float*3*4), ("numSymOps", c_int),
                 ("multip", c_int), ("numBasisFunc", c_int*4),
                 ("coeffType", c_int*12*4), ("symOpsSymb", c_char*40*48),
-                ("symOps", SymmetryOp*48), ("magSymOpsSymb", c_char*40*48),
-                ("magSymOps", MagSymmetryOp*48), ("basisFunc", c_float*2*3*12*48*4)]
+                ("symOps", SymmetryOp*48), ("magSymOpsSymb", c_char*40*48*8),
+                ("magSymOps", MagSymmetryOp*48*8), ("basisFunc", c_float*2*3*12*48*4)]
 
 # Atom attributes:
 #   label       - label for the atom
@@ -334,16 +334,15 @@ class ReflectionList(Structure):
     def __init__(self, magnetic=False):
         self.magnetic = magnetic
 
-#    def __init__(self):
-#        self.reflections.dtype = 0
-#        self.reflections.base_addr = 0
-#        self.reflections.base = 0
-
-#    def __init__(self, reflections):
-#        self.numReflections = c_int(len(reflections))
-#        Reflection68 = Reflection*68
-#        self.reflections = byref(build_struct_dv(Reflection68(*reflections)))
-#        self.reflections = Reflection68(*reflections)
+# FileList: represents a Fortran file object
+class FileList(Structure):
+    _fields_ = [("numLines", c_int), ("lines", DV)]
+    
+#    def __init__(self, filename):
+#        makeList = lib.__cfml_io_formats_MOD_file_to_filelist
+#        makeList.argtypes = [c_char_p, POINTER(FileList), c_int]
+#        makeList.restype = None
+#        makeList(filename, self, len(filename))
 
 # Gaussian: represents a Gaussian function that can be evaluated at any
 #   2*theta value. u, v, and w are fitting parameters.
@@ -499,7 +498,6 @@ def hklGen(spaceGroup, cell, wavelength, sMin, sMax, getList=False):
 
 # setAtoms: creates an atom list object and places atoms in specified positions
 def setAtoms(elements, atomicNums=None, coords=None, occupancies=None, BIsos=None):
-    print >>sys.stderr, "setting atoms"
     init = lib.__cfml_atom_typedef_MOD_allocate_atom_list
     init.argtypes = [POINTER(c_int), POINTER(AtomList), POINTER(c_int)]
     init.restype = None
@@ -550,24 +548,27 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength):
 # calcMagStructFact: sets the magnetic structure factor for a particular
 #   vector in reciprocal space, and also calculates the magnetic interaction
 #   vector
-def calcMagStructFact(cell, symmetry, atomList, hkl, m):
+def calcMagStructFact(hkl, m, atomList, symmetry, cell):
     fn = lib.__cfml_magnetic_structure_factors_MOD_calc_magnetic_strf_miv
     fn.argtypes = [POINTER(CrystalCell), POINTER(MagSymmetry),
                    POINTER(AtomList), POINTER(MagReflection)]
     fn.restype = None
-    float3 = c_float*3
+    
+    float3 = c_float*3    
+    equiv = lib.__cfml_propagation_vectors_MOD_k_equiv_minus_k
+    equiv.argtypes = [POINTER(float3), c_char_p, c_int]
+    equiv.restype = c_int
 
+#    reflections = refList.reflections.data(Reflection)
+#    for reflection in reflections:
     reflection = MagReflection()
     reflection.signk = -copysign(1, m)
     reflection.numk = abs(m)
-    reflection.hkl = float3(np.array(hkl) - reflection.signk * \
-                     np.array(symmetry.k[reflection.numk]))
-    reflection.s = calcS(cell, hkl)
-    
-    equiv = lib.__cfml_propagation_vectors_MOD_k_equiv_minus_k
-    fn.argtypes = [POINTER(float3), c_char_p, c_int]
-    fn.restype = c_int
-    reflection.equalMinus = equiv(float3(symmetry.k[reflection.numk]),
+    newhkl = np.array(hkl) - reflection.signk * np.array(symmetry.k[reflection.numk])
+    reflection.hkl = float3(*newhkl)
+    reflection.s = calcS(cell, reflection.hkl)
+
+    reflection.equalMinus = equiv(float3(*symmetry.k[reflection.numk]),
                                   symmetry.lattice, len(symmetry.lattice))
     fn(cell, symmetry, atomList, reflection)
     return reflection.magStrFact
@@ -737,9 +738,9 @@ def removeRange(tt, remove, intensity=None):
                 tt  = removeRange(tt, interval)
             return tt
 
-# readFile: acquires cell, space group, and atomic information from a .cif,
+# readInfo: acquires cell, space group, and atomic information from a .cif,
 #   .cfl, .pcr, or .shx file
-def readFile(filename):
+def readInfo(filename):
     fn = lib.__cfml_io_formats_MOD_readn_set_xtal_structure_split
     fn.argtypes = [c_char_p, POINTER(CrystalCell), POINTER(SpaceGroup),
                    POINTER(AtomList), c_char_p, POINTER(c_int),
@@ -751,10 +752,50 @@ def readFile(filename):
     ext = filename[-3:]
     fn(filename, cell, spaceGroup, atomList, ext, None, None, None,
        None, len(filename), len(ext), 0)
-    atoms = deconstruct_dv(atomList.atoms, Atom)
-    for i, atom in enumerate(atoms):
-        print >>sys.stderr, atom.label, atom.thType, atom.BIso, atom.multip
     return (spaceGroup, cell, atomList)
+
+# readMagInfo: acquires cell, space group, atomic, and magnetic information
+#   from a .cfl file
+def readMagInfo(filename):
+    fn = lib.__cfml_magnetic_symmetry_MOD_readn_set_magnetic_structure
+    fn.argtypes = [POINTER(FileList), POINTER(c_int), POINTER(c_int),
+                   POINTER(MagSymmetry), POINTER(AtomList), c_void_p,
+                   c_void_p, POINTER(CrystalCell)]
+    fn.restype = None
+
+    info = readInfo(filename)
+    spaceGroup = info[0]
+    cell = info[1]
+    symmetry = MagSymmetry()
+    atomList = AtomList(True)
+    fileList = FileList()
+    
+    makeList = lib.__cfml_io_formats_MOD_file_to_filelist
+    makeList.argtypes = [c_char_p, POINTER(FileList), c_int]
+    makeList.restype = None
+    makeList(filename, fileList, len(filename))
+    print "reading information from " + filename
+    fn(fileList, c_int(0), c_int(0), symmetry, atomList, None, None, cell)
+    print "information read"
+    return (spaceGroup, cell, atomList, symmetry)
+
+# readData: reads in a data file for the observed intensities and 2*theta
+#   values
+#   xy: 2*theta and intensity values in two-column format
+#   y: data file only contains intensities for a linear 2*theta range
+def readData(filename, kind="xy", skiplines=0, colstep=1, 
+             start=None, stop=None, step=None, exclusions=None):
+    if (kind == "xy"):
+        data = np.loadtxt(filename, dtype=float, skiprows=skiplines, unpack=True)
+        tt = data[0]
+        observed = data[1]
+    elif (kind == "y"):
+        tt = np.linspace(start, stop, round((stop-start)/float(step) + 1))
+        data = np.loadtxt(filename, dtype=float, skiprows=skiplines)
+        observed = data.flatten()
+        observed = observed[:colstep*len(tt):colstep]
+    tt, observed = removeRange(tt, exclusions, observed)
+    return (tt, observed)
 
 #def chiSquare(observed, gaussians, background, tt):
 #    expected = np.array(getIntensity(gaussians, background, tt))
@@ -901,7 +942,7 @@ def makeCell(cell, xtalSystem):
         newCell = OrthorhombicCell(a, b, c)
     elif (xtalSystem.lower() == "tetragonal"):
         newCell = TetragonalCell(a,c)
-    elif (xtalSystem.lower() in ["rhombohedral", "hexagonal"]):
+    elif (xtalSystem.lower() in ["rhombohedral", "hexagonal", "trigonal"]):
         newCell = HexagonalCell(a,c)
     elif (xtalSystem.lower() == "cubic"):
         newCell = CubicCell(a)
@@ -943,8 +984,7 @@ class Model(object):
         setCrystalCell(maxLattice[:3], maxLattice[3:], maxCell)
         self.refList = hklGen(self.spaceGroup, maxCell,
                               self.wavelength, self.sMin, self.sMax, True)
-        self.maxReflections = self.refList.reflections.data(Reflection)
-        self.reflections = np.copy(self.maxReflections)
+        self.reflections = self.refList.reflections.data(Reflection)
 
     def __getstate__(self):
         state = self.__dict__.copy()
@@ -987,7 +1027,7 @@ class Model(object):
         
         # TODO: call the CFML version of this function
         lattice = latcalc.Lattice(*self.cell.getLattice())
-        h, k, l = np.array(zip(*[reflection.hkl for reflection in self.maxReflections]))
+        h, k, l = np.array(zip(*[reflection.hkl for reflection in self.reflections]))
         ttPos = lattice.calc_twotheta(self.wavelength, h, k, l)
         # move nonexistent peaks out of the way to 2*theta = -20
         ttPos[np.isnan(ttPos)] = -20
@@ -1079,30 +1119,14 @@ def createData(spaceGroup, cell, wavelength, ttMin, ttMax, ttStep, coeffs, I, ba
     np.savetxt(fileName, (tt, intensity), delimiter=" ")
     return
 
-# testInfo: loads up space group and cell information for testing purposes
-def testInfo():
-    # Information for Al2O3
-    length = [4.7698, 4.7698, 13.0243]
-    angle = [90,90,120]
-    cell = CrystalCell()
-    setCrystalCell(length, angle, cell)
-    spaceGroup = SpaceGroup()
-    setSpaceGroup("167", spaceGroup)
-    wavelength = 1.5403
-    sMin, sMax = getS(3, wavelength), getS(167.8, wavelength)
-    atoms = [["Al", 13, (0,0,.35231), 1.0/3, .00523],
-             ["O", 8, (.3061,0,.25), 1.0/2, .00585]]
-    return (spaceGroup, cell, wavelength, sMin, sMax, atoms)
-
 # testStructFact: tests the structure factor calculations
 def testStructFact():
     print "starting test"
-    (spaceGroup, cell, wavelength, sMin, sMax) = testInfo()
+    (spaceGroup, cell, atomList) = readInfo("Data/Al2O3.cif")
+    wavelength = 1.5403
+    sMin, sMax = getS(3, wavelength), getS(167.8, wavelength)
     refList = hklGen(spaceGroup, cell, wavelength, sMin, sMax, True)
     print str(refList.numReflections) + " reflections generated"
-    atomList = setAtoms(["Al", "O"], [13, 8], [(0,0,.35231), (.3061,0,.25)],
-                     [12.0/36, 18.0/36], [.00523, .00585])
-    print "atom list created"
     sf = calcStructFact(refList, atomList, spaceGroup, wavelength)
     print sf
     reflections = refList.reflections.data(Reflection)
@@ -1119,156 +1143,34 @@ def testStructFact():
 # testMagStructFact: tests the magnetic structure factor calculations
 def testMagStructFact():
     print "starting test"
-    
-
-def fit():
-
-#    def show_improvement(self, history):
-#        print "step",history.step[0],"chisq",history.value[0]
-#        print "point",history.point[0]
-#        print self.problem._parameters
-#        #self.problem.setp(history.point[0])
-#        print self.problem.summarize()
-#        sys.stdout.flush()    
-#    import bumps.fitters
-#    import bumps.fitproblem
-#    _model_reset = bumps.fitproblem.BaseFitProblem.model_reset
-#    def model_reset(self):
-#        print "calling model_reset"
-#        _model_reset(self)
-#        print self, self._parameters
-#    bumps.fitters.ConsoleMonitor.show_improvement = show_improvement
-#    bumps.fitproblem.BaseFitProblem.model_reset = model_reset
-
-    np.seterr(divide="ignore", invalid="ignore")    
-#    backgFile = "/home/djq/Pycrysfml/LuFeO3 Background.BGR"
-#    observedFile = "/home/djq/Pycrysfml/lufep001.dat"
-#    infoFile = "/home/djq/Pycrysfml/LuFeMnO3.cif"
-    backgFile = "/home/djq/Pycrysfml/Data/Li4BN3D10 Background.BGR"
-    observedFile = "/home/djq/Pycrysfml/Data/LiBND003.gsas"
-    infoFile = "/home/djq/Pycrysfml/Data/Li4BN3D10_295K.cif"
-    (spaceGroup, crystalCell, atoms) = readFile(infoFile)
-    spaceGroup.xtalSystem = rstrip(spaceGroup.xtalSystem)
     wavelength = 1.5403
-#    spaceGroup = "185"
-#    atoms = [["Al", 13, (0,0,.35231), 1.0/3, .00523],
-#             ["O", 8, (.3061,0,.25), 1.0/2, .00585]]
-#    atoms = [["Lu", 71, (0,0,.27207), 2.0/12, .0041],
-#             ["Lu", 71, (.3333,.6667,.2332), 4.0/12, .0053],
-#             ["Fe", 26, (.3332,0,0), 6.0/12, .0018],
-#             ["O", 8, (.303,0,.1542), 6.0/12, .012],
-#             ["O", 8, (.649,0,.332), 6.0/12, .012],
-#             ["O", 8, (0,0,.472), 2.0/12, .012],
-#             ["O", 8, (.3333,.6667,.017), 4.0/12, .012]]
-    backg = LinSpline(backgFile)
-#    backg = LinSpline(np.array([0,1]),np.array([0,0]))
-    tt = np.linspace(3, 167.75, 3296)
-    # LuFeO3 exclusions:
-#    exclusions = np.array([[0,3],[37.3,39.1],[43.85,45.9],[64.25,66.3],
-#                           [76.15,79.8],[81.7,83.1],[89.68,99.9],[109.95,111.25],
-#                           [115.25,118.45],[133.95,141.25],[156.7,180]])
-    exclusions = None
-    data = np.loadtxt(observedFile, dtype=float, skiprows=3)
-#    tt = data[0]
-    observed = data.flatten()
-    observed = observed[:2*len(tt):2]
-    tt, observed = removeRange(tt, exclusions, observed)
-#    observed = data.flatten()[:len(tt)]
-#    cell = HexagonalCell(4.7698, 13.0243)
-#    cell = HexagonalCell(5.965, 11.702)
-    cell = makeCell(crystalCell, spaceGroup.xtalSystem)
-    cell.a.pm(0.5)
-#    cell.c.pm(0.5)
-    m = Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
-              atoms, exclusions)
-    m.u.range(0,1)
-    m.v.range(-1,0)
-    m.w.range(0,10)
-    m.scale.range(0,10)
-    for atomModel in m.atomListModel.atomModels:
-        atomModel.B.range(0, 10)
-        if (atomModel.atom.multip == atomModel.sgmultip):
-            # atom lies on a general position
-            atomModel.x.pm(0.1)
-            atomModel.y.pm(0.1)
-            atomModel.z.pm(0.1)
-    # LuFeMnO3 occupancy:
-#    m.atomListModel["Fe1"].occ.range(0, 1)
-#    m.atomListModel["Mn1"].occ.range(0, 1)
-#    m.atomListModel["Fe1"].occ = 1 - m.atomListModel["Mn1"].occ
-#    P = m.atomListModel["Fe1"].occ
-#    M = FitProblem(m, constraints=lambda:(P.value>1)*(1000+P.value**4))
-    M = FitProblem(m)
-    M.model_update()
-    return M
+    (spaceGroup, cell, atomList, symmetry) = readMagInfo("Data/hobanio.cfl")
+#    sMin = getS(10, wavelength)
+#    sMax = getS(150, wavelength)
+    sf = calcMagStructFact([-1,0,1], 1, atomList, symmetry, cell)
+    # convert to numpy array
+    sf = np.array([sf[i][:] for i in xrange(3)])
+    print "structure factor: " + str(sf)
+    sf2 = np.sum(sf**2)
+    print "norm^2 = " + str(sf2)
+    
+#    refList = hklGen(spaceGroup, cell, wavelength, sMin, sMax, False)
+#    print str(refList.numReflections) + " reflections generated"
+#    sf = calcMagStructFact(refList, 1, atomList, symmetry, cell)
+#    print sf
+#    reflections = refList.reflections.data(Reflection)
+#    for i in xrange(len(sf)):
+#        print hklString(refList.reflections.data(Reflection)[i].hkl[:]), sf[i],\
+#                sqrt(sf[i])
 
 def main():
-#    (spaceGroup, cell, wavelength, sMin, sMax) = inputInfo()
-#    (spaceGroup, cell, wavelength, sMin, sMax, atoms) = testInfo()
-    (spaceGroup, cell, atomList) = readFile("Data/Al2O3.cif")
-    atoms = deconstruct_dv(atomList.atoms, Atom)
-    for atom in atoms: print atom.label, atom.occupancy, atom.multip
-    wavelength = 1.5403
-    sMin, sMax = getS(3, wavelength), getS(167.8, wavelength)
-    backgFile = "Data/Al2O3 Background.BGR"
-    observedFile = "Data/Al2O3.dat"
-#    sg = SpaceGroup()
-#    cell = CrystalCell()
-#    setSpaceGroup("81", sg)
-#    setCrystalCell([3,3,5], [90,90,90], cell)
-#    peakCount = 24
-#    backg = LinSpline(np.array([0, 180]), np.array([100, 100]))
-#    createData(sg, cell, 2, 10, 140, 0.05, [.01,-.01,1],
-#               [2000-75*i for i in xrange(peakCount)], backg, "testData.txt")
-
-    refList = hklGen(spaceGroup, cell, wavelength, sMin, sMax, True)
-    reflections = list(refList.reflections.data(Reflection))
-    printReflections(reflections, spaceGroup, wavelength, sMin, sMax)
-#    atomList = setAtoms(*zip(*atoms))
-    intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
-    g = makeGaussians(reflections,[.347, -.278, .166], intensities, 1, wavelength)
-    backg = LinSpline(backgFile)
-#    backg = LinSpline(np.array([0,180]), np.array([100,100]))
-#    exclusions = np.array([[60,66],[72.75,75.75]])
-    exclusions = None
-    data = np.loadtxt(observedFile, dtype=float, skiprows=1)
-#    tt = data[0]
-    tt = np.linspace(3, 167.75, 3296)
-    observed = data.flatten()[:len(tt)]
-    print tt.shape, observed.shape
-    tt, observed = removeRange(tt, exclusions, observed)
-    print tt.shape, observed.shape
-    plotPattern(g, backg, tt, observed, twoTheta(sMin, wavelength),
-                twoTheta(sMax, wavelength), .01, exclusions, labels="hkl")
-    pylab.show()
-    return
+    testMagStructFact()
 
 if __name__ == "__main__":
     # program run normally
     main()
 else:
     # called using bumps
-    #from bumps.names import Parameter, FitProblem
+    from bumps.names import Parameter
     #problem = fit()
     pass
-
-
-'''
-Input data (LuFeO3):
-185
-5.97,11.7
-2.4437
-0,.314
-
-Input data (test):
-81
-3,5
-2
-0.04,0.47
-
-Input data (Al2O3):
-167
-4.7698, 13.0243
-1.5403
-3, 167.8
-'''
