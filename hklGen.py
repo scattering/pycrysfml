@@ -4,7 +4,7 @@
 # Also uses the program "bumps" to perform fitting of calculated diffraction
 #   patterns to observed data.
 # Created 6/4/2013
-# Last edited 6/28/2013
+# Last edited 7/1/2013
 
 import sys
 import os
@@ -15,9 +15,6 @@ from ctypes import cdll, Structure, c_int, c_float, c_char, c_bool, c_char_p, \
 
 import numpy as np
 import pylab
-
-#np.seterr(all='raise')
-import lattice_calculator_procedural2 as latcalc
 
 # This should be the location of the CFML library
 LIBFILE = "libcrysfml.so"
@@ -397,6 +394,7 @@ class LinSpline(object):
 # isSequence: returns True if a value is a list, tuple, numpy array, etc. and 
 #   False if it is a string or a non-sequence
 def isSequence(x):
+    # TODO: use this instead of strict type-checking in applicable functions
     return (not hasattr(x, "strip") and
             hasattr(x, "__getitem__") or
             hasattr(x, "__iter__"))
@@ -1025,12 +1023,16 @@ class Model(object):
         self.cell.update()
         self.atomListModel.update()
         
-        # TODO: call the CFML version of this function
-        lattice = latcalc.Lattice(*self.cell.getLattice())
-        h, k, l = np.array(zip(*[reflection.hkl for reflection in self.reflections]))
-        ttPos = lattice.calc_twotheta(self.wavelength, h, k, l)
-        # move nonexistent peaks out of the way to 2*theta = -20
-        ttPos[np.isnan(ttPos)] = -20
+        # Old lattice calculator version:
+#        lattice = latcalc.Lattice(*self.cell.getLattice())
+#        h, k, l = np.array(zip(*[reflection.hkl for reflection in self.reflections]))
+#        ttPos = lattice.calc_twotheta(self.wavelength, h, k, l)
+        hkls = [reflection.hkl for reflection in self.reflections]
+        sList = calcS(self.cell.cell, hkls)
+        ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
+        
+        # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
+        ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
         for i in xrange(len(self.reflections)):
             self.reflections[i].s = getS(ttPos[i], self.wavelength)
         self.intensities = calcIntensity(self.refList, self.atomListModel.atomList, 
@@ -1086,7 +1088,6 @@ class AtomListModel(object):
 
 class AtomModel(object):
     # TODO: implement anisotropic thermal factors
-    # TODO: make atomic coordinates refinable parameters
 
     def __init__(self, atom, sgmultip):
         self.atom = atom
