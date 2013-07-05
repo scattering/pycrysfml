@@ -46,18 +46,8 @@ def fit():
     return M
 
 def main():
-    import pylab
-
-    sMin, sMax = H.getS(ttMin, wavelength), H.getS(ttMax, wavelength)
-    refList = H.hklGen(spaceGroup, crystalCell, wavelength, sMin, sMax, True)
-    reflections = list(refList.reflections.data(H.Reflection))
-    H.printReflections(reflections, spaceGroup, wavelength, sMin, sMax)
-    intensities = H.calcIntensity(refList, atoms, spaceGroup, wavelength)
-    g = H.makeGaussians(reflections,[.347, -.278, .166], intensities, 1, wavelength)
-    H.plotPattern(g, backg, tt, observed, H.twoTheta(sMin, wavelength),
-                  H.twoTheta(sMax, wavelength), .01, exclusions, labels="hkl")
-    pylab.show()
-    return
+    H.diffPattern(infoFile, backgFile, wavelength, ttMin, ttMax,
+                  info=True, plot=True)
 
 if __name__ == "__main__":
     # program run normally
