@@ -10,6 +10,7 @@ import sys
 import os
 from math import floor, sqrt, log, tan, radians
 from string import rstrip, rjust, center
+from copy import deepcopy
 from collections import OrderedDict
 from ctypes import cdll, Structure, c_int, c_float, c_char, c_bool, c_char_p, \
                    c_void_p, c_ulong, addressof, sizeof, POINTER
@@ -211,17 +212,17 @@ class CrystalCell(Structure):
 #   symOps          - crystallographic symmetry operators
 #   magSymOpsSymb   - symbolic form of magnetic operators
 #   magSymOps       - magnetic symmetry operators
-#   basisFunc       - coeffs of basis functions of irreducible representations
+#   basis           - coeffs of basis functions of irreducible representations
 class MagSymmetry(Structure):
     _fields_ = [("name", c_char*31), ("SkType", c_char*15), ("lattice", c_char),
-                ("irrRepsNum", c_int), ("magSymOpsNum", c_int),
+                ("numIrreps", c_int), ("magSymOpsNum", c_int),
                 ("centerType", c_int), ("magCenterType", c_int),
                 ("numk", c_int), ("k", c_float*3*12), ("numCentVec", c_int),
                 ("centVec", c_float*3*4), ("numSymOps", c_int),
                 ("multip", c_int), ("numBasisFunc", c_int*4),
                 ("coeffType", c_int*12*4), ("symOpsSymb", c_char*40*48),
                 ("symOps", SymmetryOp*48), ("magSymOpsSymb", c_char*40*48*8),
-                ("magSymOps", MagSymmetryOp*48*8), ("basisFunc", c_float*2*3*12*48*4)]
+                ("magSymOps", MagSymmetryOp*48*8), ("basis", c_float*2*3*12*48*4)]
 
 # Atom attributes:
 #   label       - label for the atom
@@ -268,20 +269,16 @@ class Atom(Structure):
             for field in Atom._fields_:
                 setattr(self, field[0], getattr(magAtom, field[0]))
 
-    def __eq__(self, other):
-        # two atoms are equal if they have the same element on the same position
+    def sameSite(self, other):
+        # returns true if two atoms occupy the same position
+        # Warning: they must be specified with identical starting coordinates
         eps = 0.001
-        return ((self.element == other.element) and
-                (approxEq(self.coords[0], other.coords[0], eps)) and
-                (approxEq(self.coords[1], other.coords[1], eps)) and
-                (approxEq(self.coords[2], other.coords[2], eps)))
-
-    def __ne__(self, other):
-        return (not self == other)
+        return all([approxEq(self.coords[i], other.coords[i], eps)
+                    for i in xrange(3)])
 
 # MagAtom attributes: same as atom, plus:
-#   numVectors      - number of propagation vectors (excluding -k)
-#   numMat          - number of magnetic matrices
+#   numkVectors     - number of propagation vectors (excluding -k)
+#   irrepNum        - index of the irreducible representation to be used
 #   SkReal          - real part of Fourier coefficient
 #   SkRealSphere    - real part of Fourier coefficient (spherical coordinates)
 #   SkIm            - imaginary part of Fourier coefficient
@@ -302,7 +299,7 @@ class MagAtom(Structure):
                 ("lsqU", c_int*6), ("charge", c_float), ("moment", c_float),
                 ("index", c_int*5), ("numVars", c_int),
                 ("freeVars", c_float*10), ("atomInfo", c_char*40),
-                ("numVectors", c_int), ("numMat", c_int*12),
+                ("numkVectors", c_int), ("irrepNum", c_int*12),
                 ("SkReal", c_float*3*12), ("SkRealSphere", c_float*3*12),
                 ("multSkReal", c_float*3*12), ("lsqSkReal", c_int*3*12),
                 ("SkIm", c_float*3*12), ("SkImSphere", c_float*3*12),
@@ -311,16 +308,12 @@ class MagAtom(Structure):
                 ("lsqMagPhase", c_int*12), ("basis", c_float*12*12),
                 ("multBasis", c_float*12*12), ("lsqBasis", c_int*12*12)]
 
-    def __eq__(self, other):
-        # two atoms are equal if they have the same element on the same position
+    def sameSite(self, other):
+        # returns true if two atoms occupy the same position
+        # Warning: they must be specified with identical starting coordinates
         eps = 0.001
-        return ((self.element == other.element) and
-                (approxEq(self.coords[0], other.coords[0], eps)) and
-                (approxEq(self.coords[1], other.coords[1], eps)) and
-                (approxEq(self.coords[2], other.coords[2], eps)))
-
-    def __ne__(self, other):
-        return (not self == other)
+        return all([approxEq(self.coords[i], other.coords[i], eps)
+                    for i in xrange(3)])
 
 # AtomList attributes:
 #   numAtoms    - the number of atoms
@@ -411,7 +404,6 @@ class MagReflection(Structure):
 #   reflections     - list of Reflection objects
 #   magnetic        - True if this is a list of MagReflections
 class ReflectionList(Structure):
-    # TODO: convert functions to use easier indexing of reflections
     _fields_ = [("numReflections", c_int), ("reflections", DV)]
 
     def __init__(self, magnetic=False):
@@ -655,9 +647,7 @@ def getMaxNumRef(sMax, volume, sMin=0.0, multip=2):
 
 # hklGen: generates a list of reflections in a specified range
 #   If getList is true, returns a ReflectionList object
-def hklGen(spaceGroup, cell, wavelength, sMin, sMax, getList=False, xtal=False):
-    # TODO: check if wavelength needs to be passed to this function (and others)
-    #       Also, make order of parameters more consistent!
+def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
     # Calculate the reflection positions
     maxReflections = getMaxNumRef(sMax+0.2, cell.volume, multip=spaceGroup.multip)
     # Create a reference that will be modified by calling Fortran
@@ -741,7 +731,7 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength):
                      POINTER(DV), POINTER(c_float*2), c_int, c_int]
     calc.restype = None
     structFacts = [c_float() for i in xrange(refList.numReflections)]
-    reflections = refList.reflections.data(Reflection)
+    reflections = refList[:]
     for i, reflection in enumerate(reflections):
         # calculates the square of the structure factor
         calc('P', 'NUC', c_int(i+1), c_float(reflection.s**2), atomList,
@@ -764,7 +754,7 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
                      POINTER(ReflectionList)]
     calc.restype = None
     calc(atomList, symmetry, refList)
-    return [ref.magStrFact for ref in refList.reflections.data(MagReflection)]
+    return [ref.magStrFact for ref in refList]
 
 # Ye Olde Function:
 #    fn = lib.__cfml_magnetic_structure_factors_MOD_calc_magnetic_strf_miv
@@ -803,16 +793,14 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
 def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
                   magnetic=False):
     # TODO: be smarter about determining whether the structure is magnetic
-    if (magnetic):
+    if (refList.magnetic):
         sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
         sfs2 = np.array([np.sum(np.array(sf)**2) for sf in sfs])
-        reflections = refList.reflections.data(MagReflection)
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
-        reflections = refList.reflections.data(Reflection)      
-    multips = np.array([ref.multip for ref in reflections])
+    multips = np.array([ref.multip for ref in refList])
     
-    tt = np.radians(np.array([twoTheta(ref.s, wavelength) for ref in reflections]))
+    tt = np.radians(np.array([twoTheta(ref.s, wavelength) for ref in refList]))
     lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     return sfs2 * multips * lorentz
 
@@ -841,7 +829,7 @@ def removeRange(tt, remove, intensity=None):
     if (remove == None):
         if (intensity != None): return (tt, intensity)
         else: return tt
-    if (not isSequence(remove[0])):
+    if (not isSequence(remove[0]) or len(remove[0]) == 1):
         # single interval
         keepEntries = (tt < remove[0]) | (tt > remove[1])
         tt = tt[keepEntries]
@@ -861,27 +849,39 @@ def removeRange(tt, remove, intensity=None):
             return tt
 
 # diffPattern: generates a neutron diffraction pattern from a file containing
-#   crystallographic information
-def diffPattern(infoFile, backgroundFile, wavelength, ttMin, ttMax, ttStep=0.05,
-                exclusions=None, magnetic=False, info=False, plot=False,
-                saveFile=None):
+#   crystallographic information or from the same information generated
+#   elsewhere
+def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
+                ttMin=0, ttMax=180, ttStep=0.05, exclusions=None,
+                spaceGroup=None, cell=None, atomList=None,
+                symmetry=None, magAtomList=None,
+                magnetic=False, info=False, plot=False, saveFile=None):
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
     if magnetic:
-        spaceGroup, cell, magAtomList, symmetry = readMagInfo(infoFile)
+        if (infoFile != None):
+            info = readMagInfo(infoFile)
+            if (spaceGroup == None): spaceGroup = info[0]
+            if (cell == None): cell = info[1]
+            if (magAtomList == None): magAtomList = info[2]
+            if (symmetry == None): symmetry = info[3]
         # magnetic peaks
         magRefList = satelliteGen(cell, symmetry, sMax)
         magIntensities = calcIntensity(magRefList, magAtomList, symmetry,
                                        wavelength, cell, True)
         # add in structural peaks
         atomList = readInfo(infoFile)[2]
-        refList = hklGen(spaceGroup, cell, wavelength, sMin, sMax, True)
+        refList = hklGen(spaceGroup, cell, sMin, sMax, True)
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
         reflections = magRefList[:] + refList[:]
         intensities = np.append(magIntensities, intensities)
     else:
-        spaceGroup, cell, atomList = readInfo(infoFile)
-        refList = hklGen(spaceGroup, cell, wavelength, sMin, sMax, True)
+        if (infoFile != None):
+            info = readInfo(infoFile)
+            if (spaceGroup == None): spaceGroup = info[0]
+            if (cell == None): cell = info[1]
+            if (atomList == None): atomList = info[2]
+        refList = hklGen(spaceGroup, cell, sMin, sMax, True)
         reflections = refList[:]
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
     gaussians = makeGaussians(reflections,[0,0,1], intensities, 1, wavelength)
@@ -891,7 +891,8 @@ def diffPattern(infoFile, backgroundFile, wavelength, ttMin, ttMax, ttStep=0.05,
 
     if info:
         if magnetic:
-            printInfo(cell, spaceGroup, magAtomList, magRefList, wavelength, symmetry)
+            printInfo(cell, spaceGroup, (atomList, magAtomList), (refList, magRefList),
+                      wavelength, symmetry)
         else:
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
@@ -904,13 +905,10 @@ def diffPattern(infoFile, backgroundFile, wavelength, ttMin, ttMax, ttStep=0.05,
 
 # printInfo: prints out information about the provided space group and atoms,
 #   as well as the generated reflections
-def printInfo(cell, spaceGroup, atomList, refList, wavelength, symmetry=None):
-    if isinstance(atomList, AtomList):
-        if (atomList.magnetic): atoms = atomList.atoms.data(MagAtom)
-        else: atoms = atomList.atoms.data(Atom)
-    else: atoms = atomList
-    magnetic = refList.magnetic
-    if (not magnetic): symmetry = spaceGroup
+def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
+    if (isinstance(refLists, ReflectionList)):
+        atomLists = (atomLists,)
+        refLists = (refLists,)
     
     divider = "-" * 40
     print "Cell information (%s cell)" % rstrip(spaceGroup.xtalSystem)
@@ -931,36 +929,65 @@ def printInfo(cell, spaceGroup, atomList, refList, wavelength, symmetry=None):
     print " General Multiplicity: ", spaceGroup.multip
     print divider
     print
-    print "Atom information (%d atoms)" % len(atoms)
+    print "Atom information (%d atoms)" % len(atomLists[0])
     print divider
-    print " Coming soon!"
+    atomList = atomLists[0]
+    magnetic = atomList.magnetic
+    label = [rstrip(atom.label) for atom in atomList]
+    x, y, z = tuple(["%.3f" % atom.coords[i] for atom in atomList]
+                    for i in xrange(3))
+    multip = [str(atom.multip) for atom in atomList]
+    occupancy = ["%.3f" % (atom.occupancy*spaceGroup.multip/atom.multip)
+                 for atom in atomList]
+    # Figure out what the width of each column should be
+    width = OrderedDict([('label', max(len(max(label, key=len)), 5)),
+                         ('x', len(max(x, key=len))),
+                         ('y', len(max(y, key=len))),
+                         ('z', len(max(z, key=len))),
+                         ('mult', max(len(max(multip, key=len)), 4)),
+                         ('occ', max(len(max(occupancy, key=len)), 3)),
+                         ])
+    print "%s   %s %s %s   %s  %s" % tuple([center(key, v) for key, v 
+                                             in width.iteritems()])
+    for i in xrange(len(atomList)):
+        print "%s  (%s %s %s)  %s  %s" % (center(label[i], width["label"]),
+                                          rjust(x[i], width["x"]),
+                                          rjust(y[i], width["y"]),
+                                          rjust(z[i], width["z"]),
+                                          center(multip[i], width["mult"]),
+                                          rjust(occupancy[i], width["occ"]))
     print divider
     print
-    print "Reflection information (%d reflections)" % len(refList)
+    print "Reflection information (%d reflections)" % \
+          sum([len(refList) for refList in refLists])
     print divider
-    h = [str(ref.hkl[0]) for ref in refList]
-    k = [str(ref.hkl[1]) for ref in refList]
-    l = [str(ref.hkl[2]) for ref in refList]
-    multip = [str(ref.multip) for ref in refList]
-    tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
-    intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmetry,
-                                                   wavelength, cell, magnetic)]
-    # Figure out what the width of each column should be
-    width = OrderedDict([('h', len(max(h, key=len))),
-                         ('k', len(max(k, key=len))),
-                         ('l', len(max(l, key=len))),
-                         ('mult', max(len(max(multip, key=len)), 4)),
-                         ('2*theta', max(len(max(tt, key=len)), 7)),
-                         ('intensity', max(len(max(intensity, key=len)), 9))
-                        ])
-    print "  %s %s %s   %s  %s  %s" % tuple([center(key, v) for key, v in width.iteritems()])
-    for i in xrange(len(refList)):
-        print " (%s %s %s)  %s  %s  %s" % (rjust(h[i], width["h"]),
-                                           rjust(k[i], width["k"]),
-                                           rjust(l[i], width["l"]),
-                                           center(multip[i], width["mult"]),
-                                           rjust(tt[i], width["2*theta"]),
-                                           rjust(intensity[i], width["intensity"]))
+    for atomList, refList in zip(atomLists, refLists):
+        magnetic = refList.magnetic
+        if magnetic: symmObject = symmetry
+        else: symmObject = spaceGroup
+        h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in xrange(3))
+        multip = [str(ref.multip) for ref in refList]
+        tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
+        intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject,
+                                                       wavelength, cell, magnetic)]
+        # Figure out what the width of each column should be
+        width = OrderedDict([('h', len(max(h, key=len))),
+                             ('k', len(max(k, key=len))),
+                             ('l', len(max(l, key=len))),
+                             ('mult', max(len(max(multip, key=len)), 4)),
+                             ('2*theta', max(len(max(tt, key=len)), 7)),
+                             ('intensity', max(len(max(intensity, key=len)), 9))
+                            ])
+        print "  %s %s %s   %s  %s  %s" % tuple([center(key, v) for key, v 
+                                                 in width.iteritems()])
+        for i in xrange(len(refList)):
+            print " (%s %s %s)  %s  %s  %s" % (rjust(h[i], width["h"]),
+                                               rjust(k[i], width["k"]),
+                                               rjust(l[i], width["l"]),
+                                               center(multip[i], width["mult"]),
+                                               rjust(tt[i], width["2*theta"]),
+                                               rjust(intensity[i], width["intensity"]))
+        print
     print divider
     print
 
@@ -1139,7 +1166,7 @@ class Model(object):
 
     def __init__(self, tt, observed, background, u, v, w,
                  wavelength, spaceGroupName, cell, atoms, exclusions=None,
-                 magnetic=False, symmetry=None):
+                 magnetic=False, symmetry=None, newSymmetry=None):
         if (isinstance(spaceGroupName, SpaceGroup)):
             self.spaceGroup = spaceGroupName
         else:
@@ -1159,17 +1186,22 @@ class Model(object):
         self.sMin = getS(self.ttMin, self.wavelength)
         self.sMax = getS(self.ttMax, self.wavelength)
         self.magnetic = magnetic
-        if magnetic: self.symmetry = symmetry
-
+        if magnetic:
+            self.symmetry = symmetry
+            # used for basis vector structure factor generation
+            self.newSymmetry = newSymmetry
+            self.atomListModel = AtomListModel(atoms, self.spaceGroup.multip,
+                                               True, self.newSymmetry)            
+        else:
+            self.atomListModel = AtomListModel(atoms, self.spaceGroup.multip, False)
         self._set_reflections()
-        self.atomListModel = AtomListModel(atoms, self.spaceGroup.multip, magnetic)
         self.update()
 
     def _set_reflections(self):
         maxLattice = self.cell.getMaxLattice()
         maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
         self.refList = hklGen(self.spaceGroup, maxCell,
-                              self.wavelength, self.sMin, self.sMax, True)
+                              self.sMin, self.sMax, True)
         self.reflections = self.refList[:]
         if self.magnetic:
             self.magRefList = satelliteGen(self.cell.cell, self.symmetry,
@@ -1228,7 +1260,7 @@ class Model(object):
         self.gaussians = makeGaussians(self.reflections,
                                        [self.u.value, self.v.value, self.w.value],
                                        self.intensities, self.scale.value,
-                                       self.wavelength)        
+                                       self.wavelength)
         if self.magnetic:
             # update magnetic reflections and add their peaks to the list of
             #   Gaussians
@@ -1241,7 +1273,7 @@ class Model(object):
                 self.magReflections[i].s = getS(ttPos[i], self.wavelength)
             self.magIntensities = calcIntensity(self.magRefList,
                                                 self.atomListModel.magAtomList, 
-                                                self.symmetry, self.wavelength,
+                                                self.newSymmetry, self.wavelength,
                                                 self.cell.cell, True)
             self.gaussians.extend(makeGaussians(self.magReflections,
                                            [self.u.value, self.v.value, self.w.value],
@@ -1249,12 +1281,13 @@ class Model(object):
                                            self.wavelength))
 
 class AtomListModel(object):
-    # TODO: fix thermal factors applied to magnetic atoms
+    # TODO: link magnetic and non-magnetic atoms
     # TODO: generalize occupancy constraints
 
-    def __init__(self, atoms, sgmultip, magnetic=False):
+    def __init__(self, atoms, sgmultip, magnetic=False, symmetry=None):
         self.sgmultip = sgmultip
         self.magnetic = magnetic
+        self.symmetry = symmetry
         self._rebuild_object(atoms)
 
     def _rebuild_object(self, atoms):
@@ -1278,9 +1311,27 @@ class AtomListModel(object):
                 self.magAtomList = AtomList(atoms[1], magnetic=True)
                 self.atoms = atoms[0]
                 self.magAtoms = atoms[1]
+        
+#        modelAtoms = deepcopy(self.atoms)
+#        for magAtom in self.magAtoms:
+#            print >>sys.stderr, magAtom.label
+#            for atom in modelAtoms:
+#                if (magAtom == atom):
+#                    print >>sys.stderr, magAtom.label + " = " + atom.label
         self.atomModels = [AtomModel(atom, self.sgmultip) for atom in self.atoms]
+        if self.magnetic:
+            # correct atom models to include magnetic atoms
+            for magAtom in self.magAtoms:
+                for i, model in enumerate(self.atomModels):
+                    if magAtom.sameSite(model.atom):
+                        self.atomModels[i] = AtomModel((model.atom, magAtom),
+                                                       self.sgmultip, self.symmetry)
+#        self.magAtomModels = [AtomModel(atom, self.sgmultip) for atom in self.magAtoms]
         self.index = dict(enumerate(self.atomModels))
+#        self.index.update(enumerate(self.magAtomModels))
         self.index.update((a.atom.label,a) for a in self.atomModels)
+#        print >>sys.stderr, "atom models: ", [(am.atom.label, am.magnetic)
+#                                              for am in self.atomModels]
 
     def __getstate__(self):
         state = self.atoms, self.sgmultip, self.magnetic
@@ -1291,8 +1342,12 @@ class AtomListModel(object):
         self._rebuild_object(self.atoms)
         
     def parameters(self):
-        return dict(zip([atom.label for atom in self.atoms],
-                        [am.parameters() for am in self.atomModels]))
+        params = dict(zip([atom.label for atom in self.atoms],
+                          [am.parameters() for am in self.atomModels]))
+#        if self.magnetic:
+#            params.update(zip([atom.label for atom in self.magAtoms],
+#                              [am.parameters() for am in self.magAtomModels]))
+        return params
 
     def update(self):
 #        print >>sys.stderr, len(self.parameters())
@@ -1301,6 +1356,9 @@ class AtomListModel(object):
 #            print >>sys.stderr, self.parameters()
         for atomModel in self.atomModels:
             atomModel.update()
+#        if self.magnetic:
+#            for atomModel in self.magAtomModels:
+#                atomModel.update()
 
     def __getitem__(self, key):
         return self.index[key]
@@ -1309,9 +1367,19 @@ class AtomListModel(object):
 class AtomModel(object):
     # TODO: implement anisotropic thermal factors
 
-    def __init__(self, atom, sgmultip):
-        self.atom = atom
+    def __init__(self, atoms, sgmultip, symmetry=None):
+        if isSequence(atoms):
+            # changes properties of both a regular atom and a magnetic atom
+            #   (they should correspond to the same atomic position)
+            self.atom = atoms[0]
+            self.magAtom = atoms[1]
+            self.magAtom.label = rstrip(self.magAtom.label)
+            self.magnetic = True
+        else:
+            self.atom = atoms
+            self.magnetic = False
         self.sgmultip = sgmultip
+        self.symmetry = symmetry
         self.atom.label = rstrip(self.atom.label)
         self.B = Parameter(self.atom.BIso, name=self.atom.label + " B")
         occ = self.atom.occupancy / self.atom.multip * self.sgmultip
@@ -1319,14 +1387,30 @@ class AtomModel(object):
         self.x = Parameter(self.atom.coords[0], name=self.atom.label + " x")
         self.y = Parameter(self.atom.coords[1], name=self.atom.label + " y")
         self.z = Parameter(self.atom.coords[2], name=self.atom.label + " z")
+        if self.magnetic:
+            self.numVectors = self.symmetry.numBasisFunc[self.magAtom.irrepNum[0]-1]
+            self.coeffs = [None] * self.numVectors
+            for i in xrange(self.numVectors):
+                self.coeffs[i] = Parameter(self.magAtom.basis[0][i],
+                                           name=self.atom.label + " C" + str(i))
     
     def parameters(self):
-        return {self.B.name: self.B, self.occ.name: self.occ,
-                self.x.name: self.x, self.y.name: self.y, self.z.name: self.z}
+        params = {self.B.name: self.B, self.occ.name: self.occ,
+                  self.x.name: self.x, self.y.name: self.y, self.z.name: self.z}
+        if self.magnetic:
+            params.update([(coeff.name, coeff) for coeff in self.coeffs])
+        return params
     
     def update(self):
         self.atom.BIso = self.B.value
-        self.atom.occupancy = self.occ.value * self.atom.multip / self.sgmultip
+        occ = self.occ.value * self.atom.multip / self.sgmultip
+        self.atom.occupancy = occ
+        
+        if self.magnetic:
+            self.magAtom.BIso = self.B.value            
+            self.magAtom.occupancy = occ            
+            for i in xrange(self.numVectors):
+                self.magAtom.basis[0][i] = self.coeffs[i].value
 
 # testStructFact: tests the structure factor calculations
 def testStructFact():
@@ -1334,17 +1418,15 @@ def testStructFact():
     spaceGroup, cell, atomList = readInfo("Data/Al2O3.cif")
     wavelength = 1.5403
     sMin, sMax = getS(3, wavelength), getS(167.8, wavelength)
-    refList = hklGen(spaceGroup, cell, wavelength, sMin, sMax, True)
+    refList = hklGen(spaceGroup, cell, sMin, sMax, True)
     print str(refList.numReflections) + " reflections generated"
     sf = calcStructFact(refList, atomList, spaceGroup, wavelength)
     print sf
-    reflections = refList.reflections.data(Reflection)
     for i in xrange(len(sf)):
-        print hklString(refList.reflections.data(Reflection)[i].hkl[:]), sf[i],\
-                sqrt(sf[i])
-    out = np.array([[ref.hkl[0] for ref in reflections],
-                    [ref.hkl[1] for ref in reflections],
-                    [ref.hkl[2] for ref in reflections],
+        print hklString(refList[i].hkl[:]), sf[i], sqrt(sf[i])
+    out = np.array([[ref.hkl[0] for ref in refList],
+                    [ref.hkl[1] for ref in refList],
+                    [ref.hkl[2] for ref in refList],
                     [sf[i] for i in xrange(len(sf))]])
     out = out.transpose()
     np.savetxt("structure factors.dat", out)
@@ -1353,15 +1435,100 @@ def testStructFact():
 # testMagStructFact: tests the magnetic structure factor calculations
 def testMagStructFact():
     print "starting test"
-    wavelength = 2.524
-    ttMin = 0
-    ttMax = 90
-    diffPattern("Data/hobanio.cfl", 50, wavelength, ttMin, ttMax,
-                magnetic=True, info=True, plot=True)
+    diffPattern(infoFile="Data/hobanio.cfl", backgroundFile=50, wavelength=2.524,
+                ttMin=0, ttMax=90, magnetic=True, info=True, plot=True)
     print "test complete"
 
+# testMagBasis: tests the calculation of a magnetic diffraction pattern using
+#   the basis of an irreducible representation
+def testMagBasis():
+    # Applicable variables (Fortran name) [Array dims]:
+    #   MagAtom.numkVectors (nvk) - number of k vectors (max 12)
+    #   MagAtom.irrepNum (imat) [12] - index of the irrep for each k vector
+    #   MagAtom.basis (cbas) [12,12] - coefficients of basis vectors
+    #   MagSymmetry.numIrreps (nirreps) - number of irreducible reps (max 4)
+    #   MagSymmetry.numSymOps (numops) - number of symmetry operators (max 48)
+    #   MagSymmetry.numBasisFunc (nbas) [4] - number of basis vectors per irrep
+    #   MagSymmetry.basis (basf) [4,48,12,3,2] - basis vectors
+
+    print "starting test"
+    backgFile = "Data/Ho2BaNiO5 Background.BGR"
+    observedFile = "Data/hobanio.dat"
+    infoFile = "Data/hobanio.cfl"
+    spaceGroup, crystalCell, magAtomList, symmetry = readMagInfo(infoFile)
+    atomList = readInfo(infoFile)[2]
+
+    spaceGroup.xtalSystem = spaceGroup.xtalSystem.rstrip()
+    wavelength = 2.524
+    ttMin = 10.01
+    ttMax = 89.81
+    ttStep = 0.05
+    exclusions = None    
+
+    basisSymmetry = deepcopy(symmetry)
+    basisSymmetry.centerType = 0        # changed to make Fortran work correctly
+    basisSymmetry.numIrreps = 2
+    basisSymmetry.numBasisFunc[0] = 2
+    basisSymmetry.numBasisFunc[1] = 2
+    c_array2 = c_float*2
+    c_array23 = c_float*2*3
+    zero = c_array2()
+    for i in xrange(symmetry.numSymOps):
+        basisSymmetry.basis[0][i][0] = c_array23(c_array2(2.0, 0.0), zero, zero)
+        basisSymmetry.basis[0][i][1] = c_array23(zero, zero, c_array2(0.0, 2.0))
+        basisSymmetry.basis[1][i][0] = c_array23(c_array2(4.0, 0.0), zero, zero)
+        basisSymmetry.basis[1][i][1] = c_array23(zero, zero, c_array2(0.0, 4.0))
+    for magAtom in magAtomList:
+        magAtom.numkVectors = 1
+        if (magAtom.label.lower() == "ho"):
+            magAtom.irrepNum[0] = 1
+            magAtom.basis[0][0] = 5
+            magAtom.basis[0][1] = 5
+        else:
+            magAtom.irrepNum[0] = 2
+            magAtom.basis[0][0] = 5
+            magAtom.basis[0][1] = 5
+
+    tt, observed = readData(observedFile, kind="y", skiplines=5, skipcols=1,
+                            colstep=2, start=ttMin, stop=ttMax, step=0.2)
+    backg = LinSpline(backgFile)
+    cell = makeCell(crystalCell, spaceGroup.xtalSystem)
+    cell.a.pm(0.5)
+    cell.b.pm(0.5)
+    cell.c.pm(0.5)
+    m = Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
+              (atomList, magAtomList), exclusions, magnetic=True,
+              symmetry=symmetry, newSymmetry=basisSymmetry)
+    m.u.range(0,2)
+    m.v.range(-2,0)
+    m.w.range(0,2)
+    m.scale.range(0,40)
+    for atomModel in m.atomListModel.atomModels:
+        atomModel.B.range(0, 10)
+        if (atomModel.atom.multip == atomModel.sgmultip):
+            # atom lies on a general position
+            atomModel.x.pm(0.1)
+            atomModel.y.pm(0.1)
+            atomModel.z.pm(0.1)
+        if (atomModel.magnetic):
+            # fit coefficients of basis vectors
+            for coeff in atomModel.coeffs:
+                coeff.range(-10,10)
+    M = FitProblem(m)
+    M.model_update()
+    return M
+#    wavelength = 2.524
+#    ttMin = 0
+#    ttMax = 90
+#    diffPattern(infoFile="Data/hobanio.cfl", backgroundFile=50, wavelength=wavelength,
+#                symmetry=symmetry, magAtomList=magAtomList, ttMin=ttMin, ttMax=ttMax,
+#                magnetic=True, info=True, plot=True)
+#    symmetry.centerType = 2
+#    print "test complete"
+
 def main():
-    testMagStructFact()
+#    testMagStructFact()
+    testMagBasis()
 
 if __name__ == "__main__":
     # program run normally
@@ -1369,6 +1536,7 @@ if __name__ == "__main__":
 else:
     # called using bumps, possibly
     try:
-        from bumps.names import Parameter
+        from bumps.names import Parameter, FitProblem
+        problem = testMagBasis()
     except(ImportError):
         pass

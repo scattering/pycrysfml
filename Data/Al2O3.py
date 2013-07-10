@@ -46,8 +46,8 @@ def fit():
     return M
 
 def main():
-    H.diffPattern(infoFile, backgFile, wavelength, ttMin, ttMax,
-                  info=True, plot=True)
+    H.diffPattern(infoFile=infoFile, backgroundFile=backgFile, wavelength=wavelength,
+                  ttMin=ttMin, ttMax=ttMax, info=True, plot=True)
 
 if __name__ == "__main__":
     # program run normally
