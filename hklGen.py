@@ -4,7 +4,7 @@
 # Also uses the program "bumps" to perform fitting of calculated diffraction
 #   patterns to observed data.
 # Created 6/4/2013
-# Last edited 7/5/2013
+# Last edited 7/15/2013
 
 import sys
 import os
@@ -270,6 +270,7 @@ class Atom(Structure):
                 setattr(self, field[0], getattr(magAtom, field[0]))
 
     def sameSite(self, other):
+        # TODO: make this work for equivalent sites, not just identical ones
         # returns true if two atoms occupy the same position
         # Warning: they must be specified with identical starting coordinates
         eps = 0.001
@@ -493,7 +494,7 @@ def approxEq(num1, num2, eps):
 # isSequence: returns True if a value is a list, tuple, numpy array, etc. and 
 #   False if it is a string or a non-sequence
 def isSequence(x):
-    return ((not hasattr(x, "strip") and hasattr(x, "__getitem__")) or
+    return ((not hasattr(x, "strip") and hasattr(x, "__getslice__")) or
             hasattr(x, "__iter__"))
 
 # twoTheta: converts a sin(theta)/lambda position to a 2*theta position
@@ -527,6 +528,30 @@ def calcS(cell, hkl):
         fn.argtypes = [POINTER(float3), POINTER(CrystalCell)]
         fn.restype = c_float
         return float(fn(float3(*hkl), cell))
+
+# applySymOp: applies a symmetry operator to a given vector and normalizes the
+#   resulting vector to stay within one unit cell
+def applySymOp(v, symOp):
+    rotMat = np.mat(symOp.rot)
+    transMat = np.mat(symOp.trans)
+    vMat = np.mat(v)
+    newV = rotMat * vMat + transMat
+    return np.array(newV)
+
+# dotProduct: returns the dot product of two complex vectors (stored as 3x2
+#   Numpy arrays) or a list of two complex vectors
+def dotProduct(v1, v2):
+    if (not isSequence(v1[0][0]) or len(v1[0][0]) == 1):
+        u1 = np.matrix([complex(v1[0][0], -v1[0][1]),
+                        complex(v1[1][0], -v1[1][1]),
+                        complex(v1[2][0], -v1[2][1])])
+        u2 = np.matrix([[complex(v2[0][0], v2[0][1])],
+                        [complex(v2[1][0], v2[1][1])],
+                        [complex(v2[2][0], v2[2][1])]])
+        dot = np.dot(u1, u2)
+        return np.array(dot)[0][0]
+    else:
+        return np.array([dotProduct(u1,u2) for u1, u2 in zip(v1, v2)])
 
 # inputInfo: requests space group and cell information, wavelength, and range
 #   of interest
@@ -720,8 +745,6 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength):
     init.argtypes = [POINTER(ReflectionList), POINTER(AtomList),
                      POINTER(SpaceGroup), c_char_p, POINTER(c_float),
                      POINTER(c_int), c_int]
-#    init.argtypes = [POINTER(AtomList), c_char_p, POINTER(c_float),
-#                     POINTER(c_int), c_int]  
     init.restype = None
     init(refList, atomList, spaceGroup, 'NUC', c_float(wavelength), None, 3)
     
@@ -748,13 +771,23 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
                      POINTER(MagSymmetry), POINTER(c_int)]
     init.restype = None
     init(refList, atomList, symmetry, None)
-    
+
     calc = lib.__cfml_magnetic_structure_factors_MOD_mag_structure_factors
     calc.argtypes = [POINTER(AtomList), POINTER(MagSymmetry),
                      POINTER(ReflectionList)]
     calc.restype = None
     calc(atomList, symmetry, refList)
-    return [ref.magStrFact for ref in refList]
+
+    # calculate the "magnetic interaction vector" (the square of which is
+    #   proportional to the intensity)    
+    calcMiv = lib.__cfml_magnetic_structure_factors_MOD_calc_mag_interaction_vector
+    calcMiv.argtypes = [POINTER(ReflectionList), POINTER(CrystalCell)]
+    calcMiv.restype = None
+    calcMiv(refList, cell)
+#    strFacts = np.array([ref.magStrFact for ref in refList])
+    mivs = np.array([ref.magIntVec for ref in refList])
+#    print zip(strFacts, mivs, dotProduct(strFacts, mivs))
+    return mivs
 
 # Ye Olde Function:
 #    fn = lib.__cfml_magnetic_structure_factors_MOD_calc_magnetic_strf_miv
@@ -854,7 +887,7 @@ def removeRange(tt, remove, intensity=None):
 def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 ttMin=0, ttMax=180, ttStep=0.05, exclusions=None,
                 spaceGroup=None, cell=None, atomList=None,
-                symmetry=None, magAtomList=None,
+                symmetry=None, basisSymmetry=None, magAtomList=None,
                 magnetic=False, info=False, plot=False, saveFile=None):
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
@@ -865,12 +898,13 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (cell == None): cell = info[1]
             if (magAtomList == None): magAtomList = info[2]
             if (symmetry == None): symmetry = info[3]
+        if (basisSymmetry == None): basisSymmetry = symmetry
         # magnetic peaks
         magRefList = satelliteGen(cell, symmetry, sMax)
-        magIntensities = calcIntensity(magRefList, magAtomList, symmetry,
+        magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True)
         # add in structural peaks
-        atomList = readInfo(infoFile)[2]
+        if (atomList == None): atomList = readInfo(infoFile)[2]
         refList = hklGen(spaceGroup, cell, sMin, sMax, True)
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
         reflections = magRefList[:] + refList[:]
@@ -892,7 +926,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
     if info:
         if magnetic:
             printInfo(cell, spaceGroup, (atomList, magAtomList), (refList, magRefList),
-                      wavelength, symmetry)
+                      wavelength, basisSymmetry)
         else:
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
@@ -1240,7 +1274,7 @@ class Model(object):
 
     def plot(self, view="linear"):
         plotPattern(self.gaussians, self.background, self.tt, self.observed,
-                    self.ttMin, self.ttMax, 0.01, self.exclusions)
+                    self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None)
 
 #    def _cache_cell_pars(self):
 #        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())
@@ -1281,7 +1315,6 @@ class Model(object):
                                            self.wavelength))
 
 class AtomListModel(object):
-    # TODO: link magnetic and non-magnetic atoms
     # TODO: generalize occupancy constraints
 
     def __init__(self, atoms, sgmultip, magnetic=False, symmetry=None):
@@ -1311,7 +1344,7 @@ class AtomListModel(object):
                 self.magAtomList = AtomList(atoms[1], magnetic=True)
                 self.atoms = atoms[0]
                 self.magAtoms = atoms[1]
-        
+
 #        modelAtoms = deepcopy(self.atoms)
 #        for magAtom in self.magAtoms:
 #            print >>sys.stderr, magAtom.label
@@ -1326,10 +1359,7 @@ class AtomListModel(object):
                     if magAtom.sameSite(model.atom):
                         self.atomModels[i] = AtomModel((model.atom, magAtom),
                                                        self.sgmultip, self.symmetry)
-#        self.magAtomModels = [AtomModel(atom, self.sgmultip) for atom in self.magAtoms]
-        self.index = dict(enumerate(self.atomModels))
-#        self.index.update(enumerate(self.magAtomModels))
-        self.index.update((a.atom.label,a) for a in self.atomModels)
+        self.modelsDict = dict([(am.atom.label, am) for am in self.atomModels])
 #        print >>sys.stderr, "atom models: ", [(am.atom.label, am.magnetic)
 #                                              for am in self.atomModels]
 
@@ -1360,9 +1390,10 @@ class AtomListModel(object):
 #            for atomModel in self.magAtomModels:
 #                atomModel.update()
 
+    def __len__(self):
+        return len(self.modelsDict)
     def __getitem__(self, key):
-        return self.index[key]
-
+        return self.modelsDict[key]
 
 class AtomModel(object):
     # TODO: implement anisotropic thermal factors
@@ -1452,42 +1483,64 @@ def testMagBasis():
     #   MagSymmetry.basis (basf) [4,48,12,3,2] - basis vectors
 
     print "starting test"
-    backgFile = "Data/Ho2BaNiO5 Background.BGR"
+    backgFile = 50
     observedFile = "Data/hobanio.dat"
-    infoFile = "Data/hobanio.cfl"
+    infoFile = "Data/FeNi.cfl"
     spaceGroup, crystalCell, magAtomList, symmetry = readMagInfo(infoFile)
     atomList = readInfo(infoFile)[2]
 
     spaceGroup.xtalSystem = spaceGroup.xtalSystem.rstrip()
-    wavelength = 2.524
-    ttMin = 10.01
-    ttMax = 89.81
-    ttStep = 0.05
-    exclusions = None    
+    wavelength = 1.5403
+    ttMin = 10
+    ttMax = 100
+    exclusions = None
 
     basisSymmetry = deepcopy(symmetry)
-    basisSymmetry.centerType = 0        # changed to make Fortran work correctly
-    basisSymmetry.numIrreps = 2
-    basisSymmetry.numBasisFunc[0] = 2
-    basisSymmetry.numBasisFunc[1] = 2
+    if (basisSymmetry.centerType == 2):
+        # change to acentric; correct the number of symmetry operators
+        basisSymmetry.centerType = 1
+        basisSymmetry.numSymOps *= 2
+    basisSymmetry.numIrreps = 1
+    basisSymmetry.numBasisFunc[0] = 1
+    basisSymmetry.numBasisFunc[1] = 1
     c_array2 = c_float*2
     c_array23 = c_float*2*3
     zero = c_array2()
+#    print >>sys.stderr, "Number of symmetry operators: ", symmetry.numSymOps
+#    print >>sys.stderr, "Symmetry operators: ", np.array([np.array(so.rot, dtype=float)
+#                                                 for so in symmetry.symOps])
+#    print >>sys.stderr, "Number of symmetry operators (space group): ", \
+#                        spaceGroup.numOps
+#    print >>sys.stderr, "Symmetry operators (space group): ", \
+#                        np.array([np.array(so.rot, dtype=float) for so in spaceGroup.symmetryOps])
     for i in xrange(symmetry.numSymOps):
-        basisSymmetry.basis[0][i][0] = c_array23(c_array2(2.0, 0.0), zero, zero)
-        basisSymmetry.basis[0][i][1] = c_array23(zero, zero, c_array2(0.0, 2.0))
-        basisSymmetry.basis[1][i][0] = c_array23(c_array2(4.0, 0.0), zero, zero)
-        basisSymmetry.basis[1][i][1] = c_array23(zero, zero, c_array2(0.0, 4.0))
+        # Basis 1 (from SARAh)
+        basisSymmetry.basis[0][i][0] = c_array23(c_array2(1.0, 0.0), zero, zero)
+#        basisSymmetry.basis[0][i][1] = c_array23(zero, c_array2(2.0, 0.0), zero)
+#        basisSymmetry.basis[0][i][2] = c_array23(zero, zero, c_array2(2.0, 0.0))
+        # Basis 2 (from SARAh)
+
     for magAtom in magAtomList:
         magAtom.numkVectors = 1
-        if (magAtom.label.lower() == "ho"):
+        if (magAtom.label.rstrip().lower() == "fe"):
             magAtom.irrepNum[0] = 1
-            magAtom.basis[0][0] = 5
-            magAtom.basis[0][1] = 5
+            magAtom.basis[0][0] = 1
+            magAtom.basis[0][1] = 0
+            magAtom.basis[0][2] = 0
         else:
-            magAtom.irrepNum[0] = 2
-            magAtom.basis[0][0] = 5
-            magAtom.basis[0][1] = 5
+            pass
+#            magAtom.irrepNum[0] = 2
+#            magAtom.basis[0][0] = 1
+#            magAtom.basis[0][1] = 0
+#            magAtom.basis[0][2] = 0
+#        print >>sys.stderr, magAtom.label.lower(), \
+#                np.array(basisSymmetry.basis[magAtom.irrepNum[0]-1][0][1])
+
+    diffPattern(infoFile=infoFile, backgroundFile=0, wavelength=1.5403,
+                ttMin=ttMin, ttMax=ttMax, ttStep=0.05, exclusions=None,
+                basisSymmetry=basisSymmetry, magAtomList=magAtomList,
+                magnetic=True, info=True, plot=True)
+    return
 
     tt, observed = readData(observedFile, kind="y", skiplines=5, skipcols=1,
                             colstep=2, start=ttMin, stop=ttMax, step=0.2)
@@ -1496,13 +1549,16 @@ def testMagBasis():
     cell.a.pm(0.5)
     cell.b.pm(0.5)
     cell.c.pm(0.5)
+    cell.alpha.pm(0)
+    cell.beta.pm(0)
+    cell.gamma.pm(0)
     m = Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
               (atomList, magAtomList), exclusions, magnetic=True,
               symmetry=symmetry, newSymmetry=basisSymmetry)
     m.u.range(0,2)
     m.v.range(-2,0)
     m.w.range(0,2)
-    m.scale.range(0,40)
+    m.scale.range(0,100)
     for atomModel in m.atomListModel.atomModels:
         atomModel.B.range(0, 10)
         if (atomModel.atom.multip == atomModel.sgmultip):
@@ -1527,6 +1583,10 @@ def testMagBasis():
 #    print "test complete"
 
 def main():
+    a = np.array([[1,0],[2,0],[3,0]])
+    b = np.array([[1,0],[1,0],[1,0]])
+    print dotProduct(a, b)
+    print dotProduct(np.array([a,a]),np.array([a,b]))
 #    testMagStructFact()
     testMagBasis()
 
