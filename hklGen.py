@@ -4,12 +4,12 @@
 # Also uses the program "bumps" to perform fitting of calculated diffraction
 #   patterns to observed data.
 # Created 6/4/2013
-# Last edited 7/15/2013
+# Last edited 7/25/2013
 
 import sys
 import os
 from math import floor, sqrt, log, tan, radians
-from string import rstrip, rjust, center
+from string import rstrip, ljust, rjust, center
 from copy import deepcopy
 from collections import OrderedDict
 from ctypes import cdll, Structure, c_int, c_float, c_char, c_bool, c_char_p, \
@@ -17,6 +17,11 @@ from ctypes import cdll, Structure, c_int, c_float, c_char, c_bool, c_char_p, \
 
 import numpy as np
 import pylab
+
+try:
+    from bumps.names import Parameter, FitProblem
+except(ImportError):
+    pass
 
 # This should be the location of the CFML library
 LIBFILE = "libcrysfml.so"
@@ -224,6 +229,13 @@ class MagSymmetry(Structure):
                 ("symOps", SymmetryOp*48), ("magSymOpsSymb", c_char*40*48*8),
                 ("magSymOps", MagSymmetryOp*48*8), ("basis", c_float*2*3*12*48*4)]
 
+    def setBasis(self, irrRepNum, symOpNum, vectorNum, v):
+        c_array2 = c_float*2
+        self.basis[irrRepNum][symOpNum][vectorNum] = \
+            (c_array2*3)(c_array2(v[0].real, v[0].imag),
+                         c_array2(v[1].real, v[1].imag),
+                         c_array2(v[2].real, v[2].imag))
+                                                                
 # Atom attributes:
 #   label       - label for the atom
 #   element     - chemical symbol of the element 
@@ -262,12 +274,25 @@ class Atom(Structure):
                 ("lsqU", c_int*6), ("charge", c_float), ("moment", c_float),
                 ("index", c_int*5), ("numVars", c_int),
                 ("freeVars", c_float*10), ("atomInfo", c_char*40)]
-                
-    def __init__(self, magAtom=None):
-        if (magAtom != None):
-            # copy over attributes from a magnetic atom
-            for field in Atom._fields_:
-                setattr(self, field[0], getattr(magAtom, field[0]))
+
+    def __init__(self, *args):
+        # construct an atom from a list of attributes
+        if (len(args) == 6):
+            init = getattr(lib, "__cfml_atom_typedef_MOD_init_atom_type")
+            init.argtypes = [POINTER(Atom)]
+            init.restype = None
+            init(self)
+            
+            self.label = ljust(args[0], 10)
+            self.element = ljust(args[1], 2)
+            self.strFactSymb = ljust(self.element, 4)
+            self.coords = (c_float*3)(*args[2])
+            self.multip = args[3]
+            self.occupancy = c_float(args[4])
+            self.BIso = c_float(args[5])
+#        # copy over attributes from a magnetic atom
+#        for field in Atom._fields_:
+#            setattr(self, field[0], getattr(magAtom, field[0]))
 
     def sameSite(self, other):
         # TODO: make this work for equivalent sites, not just identical ones
@@ -284,7 +309,7 @@ class Atom(Structure):
 #   SkRealSphere    - real part of Fourier coefficient (spherical coordinates)
 #   SkIm            - imaginary part of Fourier coefficient
 #   SkimSphere      - imaginary part of Fourier coefficient (spherical coords)
-#   magPhase        - magnetic phase (fractions of 2*pi)
+#   phase           - magnetic phase (fraction of 2*pi)
 #   basis           - coefficients of the basis functions
 class MagAtom(Structure):
     _fields_ = [("label", c_char*10), ("element", c_char*2),
@@ -305,8 +330,8 @@ class MagAtom(Structure):
                 ("multSkReal", c_float*3*12), ("lsqSkReal", c_int*3*12),
                 ("SkIm", c_float*3*12), ("SkImSphere", c_float*3*12),
                 ("multSkIm", c_float*3*12), ("lsqSkIm", c_int*3*12),
-                ("magPhase", c_float*12), ("multMagPhase", c_float*12),
-                ("lsqMagPhase", c_int*12), ("basis", c_float*12*12),
+                ("phase", c_float*12), ("multPhase", c_float*12),
+                ("lsqPhase", c_int*12), ("basis", c_float*12*12),
                 ("multBasis", c_float*12*12), ("lsqBasis", c_int*12*12)]
 
     def sameSite(self, other):
@@ -322,7 +347,7 @@ class MagAtom(Structure):
 #   magnetic    - True if this is a list of MagAtoms
 class AtomList(Structure):
     _fields_ = [("numAtoms", c_int), ("atoms", DV)]
-    
+
     def __init__(self, atoms=None, magnetic=False):
         self.magnetic = magnetic
         if (atoms != None):
@@ -332,8 +357,11 @@ class AtomList(Structure):
             numAtoms = len(atoms)
             init(c_int(numAtoms), self, None)
             self.numAtoms = c_int(numAtoms)
-            self.atoms = build_struct_dv(atoms)
 
+        # copy information from provided atom list
+        for i, atom in enumerate(self):
+            for field in atom._fields_:
+                setattr(atom, field[0], getattr(atoms[i], field[0]))
 #            atoms = self.atoms.data(Atom)
 #            c_array3 = c_float*3
 #            if not isinstance(elements[0], Atom):
@@ -534,9 +562,9 @@ def calcS(cell, hkl):
 def applySymOp(v, symOp):
     rotMat = np.mat(symOp.rot)
     transMat = np.mat(symOp.trans)
-    vMat = np.mat(v)
+    vMat = np.mat(v).T
     newV = rotMat * vMat + transMat
-    return np.array(newV)
+    return np.array(newV.T[0])%1
 
 # dotProduct: returns the dot product of two complex vectors (stored as 3x2
 #   Numpy arrays) or a list of two complex vectors
@@ -786,7 +814,6 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
     calcMiv(refList, cell)
 #    strFacts = np.array([ref.magStrFact for ref in refList])
     mivs = np.array([ref.magIntVec for ref in refList])
-#    print zip(strFacts, mivs, dotProduct(strFacts, mivs))
     return mivs
 
 # Ye Olde Function:
@@ -826,6 +853,7 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
 def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
                   magnetic=False):
     # TODO: be smarter about determining whether the structure is magnetic
+    # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
         sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
         sfs2 = np.array([np.sum(np.array(sf)**2) for sf in sfs])
@@ -901,6 +929,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         if (basisSymmetry == None): basisSymmetry = symmetry
         # magnetic peaks
         magRefList = satelliteGen(cell, symmetry, sMax)
+        print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True)
         # add in structural peaks
@@ -1030,6 +1059,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
 #   observed intensity everywhere on a given list of points
 def plotPattern(gaussians, background, ttObs, observed, ttMin, ttMax, ttStep,
                 exclusions=None, labels=None):
+    # TODO: add option for residual plot
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     ttCalc = np.linspace(ttMin, ttMax, numPoints)
     if(exclusions != None): ttCalc = removeRange(ttCalc, exclusions)
@@ -1315,7 +1345,7 @@ class Model(object):
                                            self.wavelength))
 
 class AtomListModel(object):
-    # TODO: generalize occupancy constraints
+    # TODO: make occupancy constraints automatic
 
     def __init__(self, atoms, sgmultip, magnetic=False, symmetry=None):
         self.sgmultip = sgmultip
@@ -1355,10 +1385,10 @@ class AtomListModel(object):
         if self.magnetic:
             # correct atom models to include magnetic atoms
             for magAtom in self.magAtoms:
-                for i, model in enumerate(self.atomModels):
-                    if magAtom.sameSite(model.atom):
-                        self.atomModels[i] = AtomModel((model.atom, magAtom),
-                                                       self.sgmultip, self.symmetry)
+                for model in self.atomModels:
+                    if (magAtom.label.rstrip() == model.atom.label.rstrip() and \
+                        magAtom.sameSite(model.atom)):
+                        model.addMagAtom(magAtom, self.symmetry)
         self.modelsDict = dict([(am.atom.label, am) for am in self.atomModels])
 #        print >>sys.stderr, "atom models: ", [(am.atom.label, am.magnetic)
 #                                              for am in self.atomModels]
@@ -1398,19 +1428,18 @@ class AtomListModel(object):
 class AtomModel(object):
     # TODO: implement anisotropic thermal factors
 
-    def __init__(self, atoms, sgmultip, symmetry=None):
-        if isSequence(atoms):
+    def __init__(self, atom, sgmultip):
+#        if isSequence(atoms):
             # changes properties of both a regular atom and a magnetic atom
             #   (they should correspond to the same atomic position)
-            self.atom = atoms[0]
-            self.magAtom = atoms[1]
-            self.magAtom.label = rstrip(self.magAtom.label)
-            self.magnetic = True
-        else:
-            self.atom = atoms
-            self.magnetic = False
+#            self.atom = atoms[0]
+#            self.magAtom = atoms[1]
+#            self.magAtom.label = rstrip(self.magAtom.label)
+#            self.magnetic = True
+#        else:
+        self.atom = atom
+        self.magnetic = False
         self.sgmultip = sgmultip
-        self.symmetry = symmetry
         self.atom.label = rstrip(self.atom.label)
         self.B = Parameter(self.atom.BIso, name=self.atom.label + " B")
         occ = self.atom.occupancy / self.atom.multip * self.sgmultip
@@ -1418,30 +1447,42 @@ class AtomModel(object):
         self.x = Parameter(self.atom.coords[0], name=self.atom.label + " x")
         self.y = Parameter(self.atom.coords[1], name=self.atom.label + " y")
         self.z = Parameter(self.atom.coords[2], name=self.atom.label + " z")
-        if self.magnetic:
-            self.numVectors = self.symmetry.numBasisFunc[self.magAtom.irrepNum[0]-1]
-            self.coeffs = [None] * self.numVectors
-            for i in xrange(self.numVectors):
-                self.coeffs[i] = Parameter(self.magAtom.basis[0][i],
-                                           name=self.atom.label + " C" + str(i))
+    
+    def addMagAtom(self, magAtom, symmetry):
+        # add a secondary magnetic atom object to the model
+        self.magAtom = magAtom
+        self.magAtom.label = rstrip(self.magAtom.label)
+        self.symmetry = symmetry
+        self.magnetic = True
+        self.numVectors = self.symmetry.numBasisFunc[self.magAtom.irrepNum[0]-1]
+        self.coeffs = [None] * self.numVectors
+        for i in xrange(self.numVectors):
+            self.coeffs[i] = Parameter(self.magAtom.basis[0][i],
+                                       name=self.atom.label + " C" + str(i))
+#        self.phase = Parameter(0, name=self.atom.label + " phase")
     
     def parameters(self):
         params = {self.B.name: self.B, self.occ.name: self.occ,
                   self.x.name: self.x, self.y.name: self.y, self.z.name: self.z}
         if self.magnetic:
             params.update([(coeff.name, coeff) for coeff in self.coeffs])
+#            params.update([(self.phase.name, self.phase)])
         return params
-    
+
     def update(self):
         self.atom.BIso = self.B.value
         occ = self.occ.value * self.atom.multip / self.sgmultip
         self.atom.occupancy = occ
+        self.atom.coords = (c_float*3)(self.x, self.y, self.z)
         
         if self.magnetic:
             self.magAtom.BIso = self.B.value            
-            self.magAtom.occupancy = occ            
+            self.magAtom.occupancy = occ        
+            self.magAtom.coords = (c_float*3)(self.x, self.y, self.z)
             for i in xrange(self.numVectors):
                 self.magAtom.basis[0][i] = self.coeffs[i].value
+#                print >>sys.stderr, self.magAtom.label, self.magAtom.basis[0][i]
+#            self.magAtom.phase[0] = self.phase.value
 
 # testStructFact: tests the structure factor calculations
 def testStructFact():
@@ -1485,7 +1526,7 @@ def testMagBasis():
     print "starting test"
     backgFile = 50
     observedFile = "Data/hobanio.dat"
-    infoFile = "Data/FeNi.cfl"
+    infoFile = "Data/Magnetic_Tests/2atom.cfl"
     spaceGroup, crystalCell, magAtomList, symmetry = readMagInfo(infoFile)
     atomList = readInfo(infoFile)[2]
 
@@ -1528,9 +1569,8 @@ def testMagBasis():
             magAtom.basis[0][1] = 0
             magAtom.basis[0][2] = 0
         else:
-            pass
-#            magAtom.irrepNum[0] = 2
-#            magAtom.basis[0][0] = 1
+            magAtom.irrepNum[0] = 1
+            magAtom.basis[0][0] = 1
 #            magAtom.basis[0][1] = 0
 #            magAtom.basis[0][2] = 0
 #        print >>sys.stderr, magAtom.label.lower(), \
@@ -1539,7 +1579,7 @@ def testMagBasis():
     diffPattern(infoFile=infoFile, backgroundFile=0, wavelength=1.5403,
                 ttMin=ttMin, ttMax=ttMax, ttStep=0.05, exclusions=None,
                 basisSymmetry=basisSymmetry, magAtomList=magAtomList,
-                magnetic=True, info=True, plot=True)
+                magnetic=True, info=True, plot=False)
     return
 
     tt, observed = readData(observedFile, kind="y", skiplines=5, skipcols=1,
@@ -1583,20 +1623,10 @@ def testMagBasis():
 #    print "test complete"
 
 def main():
-    a = np.array([[1,0],[2,0],[3,0]])
-    b = np.array([[1,0],[1,0],[1,0]])
-    print dotProduct(a, b)
-    print dotProduct(np.array([a,a]),np.array([a,b]))
 #    testMagStructFact()
-    testMagBasis()
+#    testMagBasis()
+    pass
 
 if __name__ == "__main__":
     # program run normally
     main()
-else:
-    # called using bumps, possibly
-    try:
-        from bumps.names import Parameter, FitProblem
-        problem = testMagBasis()
-    except(ImportError):
-        pass
