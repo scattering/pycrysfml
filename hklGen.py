@@ -4,7 +4,7 @@
 # Also uses the program "bumps" to perform fitting of calculated diffraction
 #   patterns to observed data.
 # Created 6/4/2013
-# Last edited 7/25/2013
+# Last edited 8/2/2013
 
 import sys
 import os
@@ -153,6 +153,7 @@ class SpaceGroup(Structure):
 
     def __init__(self, groupName=None):
         if (groupName != None):
+            groupName = str(groupName)
             fn = getattr(lib, "__cfml_crystallographic_symmetry_MOD_set_spacegroup")
             fn.argtypes = [c_char_p, POINTER(SpaceGroup), c_void_p, POINTER(c_int),
                            c_char_p, c_char_p, c_int, c_int, c_int]
@@ -358,10 +359,10 @@ class AtomList(Structure):
             init(c_int(numAtoms), self, None)
             self.numAtoms = c_int(numAtoms)
 
-        # copy information from provided atom list
-        for i, atom in enumerate(self):
-            for field in atom._fields_:
-                setattr(atom, field[0], getattr(atoms[i], field[0]))
+            # copy information from provided atom list
+            for i, atom in enumerate(self):
+                for field in atom._fields_:
+                    setattr(atom, field[0], getattr(atoms[i], field[0]))
 #            atoms = self.atoms.data(Atom)
 #            c_array3 = c_float*3
 #            if not isinstance(elements[0], Atom):
@@ -460,7 +461,7 @@ class FileList(Structure):
 # Gaussian: represents a Gaussian function that can be evaluated at any
 #   2*theta value. u, v, and w are fitting parameters.
 class Gaussian(object):
-    # TODO: add option for psuedo-Voigt peak shape
+    # TODO: add option for psuedo-Voigt and other peak shapes
     scaleFactor = 1    
     
     def __init__(self, center, u, v, w, I, hkl=[0,0,0]):
@@ -561,10 +562,9 @@ def calcS(cell, hkl):
 #   resulting vector to stay within one unit cell
 def applySymOp(v, symOp):
     rotMat = np.mat(symOp.rot)
-    transMat = np.mat(symOp.trans)
     vMat = np.mat(v).T
-    newV = rotMat * vMat + transMat
-    return np.array(newV.T[0])%1
+    newV = np.array((rotMat * vMat).T) + np.array(symOp.trans)
+    return np.array(newV)%1
 
 # dotProduct: returns the dot product of two complex vectors (stored as 3x2
 #   Numpy arrays) or a list of two complex vectors
@@ -650,6 +650,7 @@ def readInfo(filename):
     ext = filename[-3:]
     fn(filename, cell, spaceGroup, atomList, ext, None, None, None,
        None, len(filename), len(ext), 0)
+    spaceGroup.xtalSystem = spaceGroup.xtalSystem.rstrip()
     return (spaceGroup, cell, atomList)
 
 # readMagInfo: acquires cell, space group, atomic, and magnetic information
@@ -668,8 +669,8 @@ def readMagInfo(filename):
     atomList = AtomList(magnetic=True)
     fileList = FileList(filename)
 
-    print "reading information from " + filename
     fn(fileList, c_int(0), c_int(0), symmetry, atomList, None, None, cell)
+    spaceGroup.xtalSystem = spaceGroup.xtalSystem.rstrip()
     return (spaceGroup, cell, atomList, symmetry)
 
 # readData: reads in a data file for the observed intensities and 2*theta
@@ -862,11 +863,12 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
     multips = np.array([ref.multip for ref in refList])
     
     tt = np.radians(np.array([twoTheta(ref.s, wavelength) for ref in refList]))
-    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
+#    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
+    lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
     return sfs2 * multips * lorentz
 
 # makeGaussians() creates a series of Gaussians to represent the powder
-#   diffractionn pattern
+#   diffraction pattern
 def makeGaussians(reflections, coeffs, I, scale, wavelength):
     Gaussian.scaleFactor = scale
     gaussians = [Gaussian(twoTheta(rk.s, wavelength),
@@ -916,7 +918,9 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 ttMin=0, ttMax=180, ttStep=0.05, exclusions=None,
                 spaceGroup=None, cell=None, atomList=None,
                 symmetry=None, basisSymmetry=None, magAtomList=None,
-                magnetic=False, info=False, plot=False, saveFile=None):
+                uvw=[0,0,1], scale=1,
+                magnetic=False, info=False, plot=False, saveFile=None,
+                observedData=(None,None), labels=None):
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
     if magnetic:
@@ -947,7 +951,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         refList = hklGen(spaceGroup, cell, sMin, sMax, True)
         reflections = refList[:]
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
-    gaussians = makeGaussians(reflections,[0,0,1], intensities, 1, wavelength)
+    gaussians = makeGaussians(reflections, uvw, intensities, scale, wavelength)
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     tt = np.linspace(ttMin, ttMax, numPoints)
     intensity = getIntensity(gaussians, background, tt)
@@ -959,8 +963,8 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         else:
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
-        plotPattern(gaussians, background, None, None, ttMin, ttMax, ttStep,
-                    exclusions, "hkl")
+        plotPattern(gaussians, background, observedData[0], observedData[1],
+                    ttMin, ttMax, ttStep, exclusions, labels=labels)
         pylab.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
@@ -1058,23 +1062,31 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
 #   intensity at every 2*theta position in a specified range, as well as the
 #   observed intensity everywhere on a given list of points
 def plotPattern(gaussians, background, ttObs, observed, ttMin, ttMax, ttStep,
-                exclusions=None, labels=None):
-    # TODO: add option for residual plot
+                exclusions=None, labels=None, residuals=False):
+    # TODO: finish residual plot
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     ttCalc = np.linspace(ttMin, ttMax, numPoints)
     if(exclusions != None): ttCalc = removeRange(ttCalc, exclusions)
     intensity = np.array(getIntensity(gaussians, background, ttCalc))
-    pylab.plot(ttCalc, intensity, '-', label="Caclulated")
-    if (observed != None): pylab.plot(ttObs, observed, '-', label="Observed")
+    if (observed != None):
+        if exclusions:
+            ttObs, observed = removeRange(ttObs, exclusions, observed)
+        pylab.plot(ttObs, observed, '-g', label="Observed",lw=1)
+    pylab.plot(ttCalc, intensity, '-b', label="Calculated", lw=1)
+#    pylab.fill_between(ttObs, observed, intensity, color="lightblue")
     pylab.xlabel(r"$2 \theta$")
     pylab.ylabel("Intensity")
     pylab.legend()
-    if (labels == "hkl"):
+    if labels:
         for g in gaussians:
             if (g.center <= ttMax):
                 pylab.text(g.center, np.interp(g.center, ttCalc, intensity),
                            hklString(g.hkl),
                            ha="center", va="bottom", rotation="vertical")
+    if (residuals and observed):
+        intensityCalc = np.array(getIntensity(gaussians, background, ttObs))
+        resid = observed - intensityCalc
+        pylab.plot(ttObs, resid, label="Residuals")
     return
 
 
@@ -1210,6 +1222,8 @@ class CubicCell(object):
 def makeCell(cell, xtalSystem):
     (a, b, c) = cell.length
     (alpha, beta, gamma) = cell.angle
+    # get rid of any trailing spaces that may have crept in from Fortran
+    xtalSystem = xtalSystem.rstrip()
     if (xtalSystem.lower() == "triclinic"):
         newCell = TriclinicCell(a, b, c, alpha, beta, gamma)
     elif (xtalSystem.lower() == "monoclinic"):
@@ -1306,8 +1320,6 @@ class Model(object):
         plotPattern(self.gaussians, self.background, self.tt, self.observed,
                     self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None)
 
-#    def _cache_cell_pars(self):
-#        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())
     def update(self):
         self.cell.update()
         self.atomListModel.update()
@@ -1345,13 +1357,18 @@ class Model(object):
                                            self.wavelength))
 
 class AtomListModel(object):
-    # TODO: make occupancy constraints automatic
+    # TODO: make occupancy constraints automatic based on site
 
     def __init__(self, atoms, sgmultip, magnetic=False, symmetry=None):
         self.sgmultip = sgmultip
         self.magnetic = magnetic
         self.symmetry = symmetry
         self._rebuild_object(atoms)
+        # special parameters for changing basis
+#        self.angle = [None] * symmetry.numSymOps
+#        for i in xrange(symmetry.numSymOps):
+#            self.angle[i] = Parameter(0, name="Ang"+str(i))
+#        self.magnitude = Parameter(1, name="Mag")
 
     def _rebuild_object(self, atoms):
         if (not self.magnetic):
@@ -1375,12 +1392,6 @@ class AtomListModel(object):
                 self.atoms = atoms[0]
                 self.magAtoms = atoms[1]
 
-#        modelAtoms = deepcopy(self.atoms)
-#        for magAtom in self.magAtoms:
-#            print >>sys.stderr, magAtom.label
-#            for atom in modelAtoms:
-#                if (magAtom == atom):
-#                    print >>sys.stderr, magAtom.label + " = " + atom.label
         self.atomModels = [AtomModel(atom, self.sgmultip) for atom in self.atoms]
         if self.magnetic:
             # correct atom models to include magnetic atoms
@@ -1404,9 +1415,10 @@ class AtomListModel(object):
     def parameters(self):
         params = dict(zip([atom.label for atom in self.atoms],
                           [am.parameters() for am in self.atomModels]))
-#        if self.magnetic:
-#            params.update(zip([atom.label for atom in self.magAtoms],
-#                              [am.parameters() for am in self.magAtomModels]))
+        # special parameters for changing basis
+#        params.update(zip([angle.name for angle in self.angle],
+#                          [angle for angle in self.angle]))
+#        params.update({self.magnitude.name: self.magnitude})
         return params
 
     def update(self):
@@ -1416,9 +1428,17 @@ class AtomListModel(object):
 #            print >>sys.stderr, self.parameters()
         for atomModel in self.atomModels:
             atomModel.update()
+        # update basis vectors instead of coefficients (only needed in special
+        #   circumstances)
 #        if self.magnetic:
-#            for atomModel in self.magAtomModels:
-#                atomModel.update()
+#            for i in xrange(self.symmetry.numSymOps):
+#                # correct for hexagonal coordinates
+#                xcomp = self.magnitude.value * np.cos(radians(self.angle[i].value))
+#                ycomp = self.magnitude.value * np.sin(radians(self.angle[i].value))
+#                bcomp = ycomp / np.sin(np.radians(120))
+#                acomp = xcomp + bcomp / 2
+#                self.symmetry.setBasis(0, i, 0, [acomp,0,0])
+#                self.symmetry.setBasis(0, i, 1, [0,bcomp,0])
 
     def __len__(self):
         return len(self.modelsDict)
