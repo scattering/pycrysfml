@@ -1,0 +1,29 @@
+Hardcoded Global_Deps REAL sizes for sp, cp = 4; dp = 8
+Converted all Fortran source to lower case ( sed -i 's/.*/\L&/' *.f90 )
+Commented REAL array sizes in parameter declarations for snb4c(angl_nb,angl_4c) line 2175, 2176 in CFML_SXTAL_Geom.f90
+Converted all 'type,<modifier> :: name' definitions to 'type name' definitions using fix_type_decl.py which replaces the definitions and adds a <modifier> :: name, list line to the start of each module
+
+fix_type_decl.py also adds a space after every ',' to fix the following spacing issues
+########################################
+-Error: Method read_bin_spacegroup declared for unknown derived type space_group_type),intent(out
+-Error: Method write_bin_spacegroup declared for unknown derived type space_group_type),intent(in
+-Error: Method write_spacegroup declared for unknown derived type space_group_type),intent(in
+-Error: Method write_eos_file declared for unknown derived type eos_type),intent(in
+-Error: Method write_shubnikov_group declared for unknown derived type magnetic_group_type),intent(in
+-Error: Method write_restraints_obscalc declared for unknown derived type atom_list_type),intent(in
+-Error: Derived type argument magnetic_domain_type),intent(in::mag_dom of procedure calc_magnetic_strf_miv_dom is not defined
+-Error: Derived type argument opt_conditions_type),intent(in::c of procedure write_optimization_conditions is not defined
+-Error: Derived type argument simann_conditions_type),intent(in::c of procedure write_simann_cond is not defined
+-Error: Derived type argument multistate_vector_type),intent(in::vs of procedure write_simann_mstatev is not defined
+-Error: Derived type argument state_vector_type),intent(in::vs of procedure write_simann_statev is not defined
+-Error: Derived type argument crystal_cell_type),optional,intent(in::cell of procedure write_mcif is not defined
+-Error: Derived type argument magnetic_domain_type),intent(in::mag_dom of procedure write_polar_info is not defined
+########################################
+
+Fixed multi-line definitions in the following functions:
+Error: Untyped return value in fft3d: ft
+Error: Untyped return value in fft4d: ft
+Error: Untyped return value in fft5d: ft
+Error: Untyped return value in fft6d: ft
+Error: Untyped return value in fft7d: ft
+TODO: Automate, undo before compiling
