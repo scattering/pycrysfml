@@ -11,6 +11,9 @@
 
 # Run fortwrap.py -h for usage information
 
+# modified for use with Crysfml library by Joseph Lesniewski
+# NIST Center for Neutron Research Summer 2014
+
 import getopt
 import re
 import glob

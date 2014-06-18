@@ -181,6 +181,91 @@ class anomalous_sc_type(_object):
 anomalous_sc_type_swigregister = _pycrysfml.anomalous_sc_type_swigregister
 anomalous_sc_type_swigregister(anomalous_sc_type)
 
+class atom_equiv_list_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, atom_equiv_list_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, atom_equiv_list_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_atom_equiv_list_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_atom_equiv_list_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.atom_equiv_list_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.atom_equiv_list_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.atom_equiv_list_type_data_ptr_get, _pycrysfml.atom_equiv_list_type_data_ptr_set)
+atom_equiv_list_type_swigregister = _pycrysfml.atom_equiv_list_type_swigregister
+atom_equiv_list_type_swigregister(atom_equiv_list_type)
+
+class atom_equiv_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, atom_equiv_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, atom_equiv_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_atom_equiv_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_atom_equiv_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.atom_equiv_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.atom_equiv_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.atom_equiv_type_data_ptr_get, _pycrysfml.atom_equiv_type_data_ptr_set)
+atom_equiv_type_swigregister = _pycrysfml.atom_equiv_type_swigregister
+atom_equiv_type_swigregister(atom_equiv_type)
+
+class atom_list_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, atom_list_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, atom_list_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_atom_list_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_atom_list_type
+    __del__ = lambda self : None;
+    def atom_list_to_cell(self, *args): return _pycrysfml.atom_list_type_atom_list_to_cell(self, *args)
+    def copy_atom_list(self, *args): return _pycrysfml.atom_list_type_copy_atom_list(self, *args)
+    def deallocate_atom_list(self): return _pycrysfml.atom_list_type_deallocate_atom_list(self)
+    def read_bin_atom_list(self, *args): return _pycrysfml.atom_list_type_read_bin_atom_list(self, *args)
+    def write_atom_list(self, level=None, lun=None, cell=None): return _pycrysfml.atom_list_type_write_atom_list(self, level, lun, cell)
+    def write_atoms_cfl(self, lun=None, cell=None): return _pycrysfml.atom_list_type_write_atoms_cfl(self, lun, cell)
+    def write_bin_atom_list(self, *args): return _pycrysfml.atom_list_type_write_bin_atom_list(self, *args)
+    def init_calc_hkl_strfactors(self, mode=None, _lambda=None, lun=None): return _pycrysfml.atom_list_type_init_calc_hkl_strfactors(self, mode, _lambda, lun)
+    def structure_factors(self, *args): return _pycrysfml.atom_list_type_structure_factors(self, *args)
+    def init_refcodes(self, fmatom=None, mag_dom=None, molcrys=None, molec=None, model=None): return _pycrysfml.atom_list_type_init_refcodes(self, fmatom, mag_dom, molcrys, molec, model)
+    def write_restraints_obscalc(self, iunit=None): return _pycrysfml.atom_list_type_write_restraints_obscalc(self, iunit)
+    __swig_setmethods__["data_ptr"] = _pycrysfml.atom_list_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.atom_list_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.atom_list_type_data_ptr_get, _pycrysfml.atom_list_type_data_ptr_set)
+atom_list_type_swigregister = _pycrysfml.atom_list_type_swigregister
+atom_list_type_swigregister(atom_list_type)
+
+class atoms_cell_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, atoms_cell_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, atoms_cell_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_atoms_cell_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_atoms_cell_type
+    __del__ = lambda self : None;
+    def atoms_cell_to_list(self, *args): return _pycrysfml.atoms_cell_type_atoms_cell_to_list(self, *args)
+    def deallocate_atoms_cell(self): return _pycrysfml.atoms_cell_type_deallocate_atoms_cell(self)
+    __swig_setmethods__["data_ptr"] = _pycrysfml.atoms_cell_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.atoms_cell_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.atoms_cell_type_data_ptr_get, _pycrysfml.atoms_cell_type_data_ptr_set)
+atoms_cell_type_swigregister = _pycrysfml.atoms_cell_type_swigregister
+atoms_cell_type_swigregister(atoms_cell_type)
+
 class atoms_conf_list_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, atoms_conf_list_type, name, value)
@@ -205,6 +290,25 @@ class atoms_conf_list_type(_object):
     if _newclass:data_ptr = _swig_property(_pycrysfml.atoms_conf_list_type_data_ptr_get, _pycrysfml.atoms_conf_list_type_data_ptr_set)
 atoms_conf_list_type_swigregister = _pycrysfml.atoms_conf_list_type_swigregister
 atoms_conf_list_type_swigregister(atoms_conf_list_type)
+
+class atom_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, atom_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, atom_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_atom_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_atom_type
+    __del__ = lambda self : None;
+    def init_atom_type(self): return _pycrysfml.atom_type_init_atom_type(self)
+    __swig_setmethods__["data_ptr"] = _pycrysfml.atom_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.atom_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.atom_type_data_ptr_get, _pycrysfml.atom_type_data_ptr_set)
+atom_type_swigregister = _pycrysfml.atom_type_swigregister
+atom_type_swigregister(atom_type)
 
 class basic_numc_type(_object):
     __swig_setmethods__ = {}
@@ -331,6 +435,41 @@ class coordination_type(_object):
     if _newclass:data_ptr = _swig_property(_pycrysfml.coordination_type_data_ptr_get, _pycrysfml.coordination_type_data_ptr_set)
 coordination_type_swigregister = _pycrysfml.coordination_type_swigregister
 coordination_type_swigregister(coordination_type)
+
+class crystal_cell_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, crystal_cell_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, crystal_cell_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_crystal_cell_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_crystal_cell_type
+    __del__ = lambda self : None;
+    def cell_volume_sigma(self): return _pycrysfml.crystal_cell_type_cell_volume_sigma(self)
+    def u_equiv(self, *args): return _pycrysfml.crystal_cell_type_u_equiv(self, *args)
+    def change_setting_cell(self, *args): return _pycrysfml.crystal_cell_type_change_setting_cell(self, *args)
+    def get_cryst_family(self, *args): return _pycrysfml.crystal_cell_type_get_cryst_family(self, *args)
+    def get_deriv_orth_cell(self, *args): return _pycrysfml.crystal_cell_type_get_deriv_orth_cell(self, *args)
+    def get_transfm_matrix(self, *args): return _pycrysfml.crystal_cell_type_get_transfm_matrix(self, *args)
+    def get_twofold_axes(self, *args): return _pycrysfml.crystal_cell_type_get_twofold_axes(self, *args)
+    def read_bin_crystal_cell(self, *args): return _pycrysfml.crystal_cell_type_read_bin_crystal_cell(self, *args)
+    def write_bin_crystal_cell(self, *args): return _pycrysfml.crystal_cell_type_write_bin_crystal_cell(self, *args)
+    def write_crystal_cell(self, lun=None): return _pycrysfml.crystal_cell_type_write_crystal_cell(self, lun)
+    def atom_uequi_list(self, *args): return _pycrysfml.crystal_cell_type_atom_uequi_list(self, *args)
+    def unitcell_to_pdbfile(self, *args): return _pycrysfml.crystal_cell_type_unitcell_to_pdbfile(self, *args)
+    def distance_and_sigma(self, *args): return _pycrysfml.crystal_cell_type_distance_and_sigma(self, *args)
+    def genb(self, *args): return _pycrysfml.crystal_cell_type_genb(self, *args)
+    def calc_magnetic_strf_miv(self, *args): return _pycrysfml.crystal_cell_type_calc_magnetic_strf_miv(self, *args)
+    def calc_magnetic_strf_miv_dom(self, *args): return _pycrysfml.crystal_cell_type_calc_magnetic_strf_miv_dom(self, *args)
+    def gen_satellites(self, *args): return _pycrysfml.crystal_cell_type_gen_satellites(self, *args)
+    __swig_setmethods__["data_ptr"] = _pycrysfml.crystal_cell_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.crystal_cell_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.crystal_cell_type_data_ptr_get, _pycrysfml.crystal_cell_type_data_ptr_set)
+crystal_cell_type_swigregister = _pycrysfml.crystal_cell_type_swigregister
+crystal_cell_type_swigregister(crystal_cell_type)
 
 class cube_info_type(_object):
     __swig_setmethods__ = {}
@@ -2291,6 +2430,60 @@ class job_info_type(_object):
 job_info_type_swigregister = _pycrysfml.job_info_type_swigregister
 job_info_type_swigregister(job_info_type)
 
+class lsq_conditions_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_conditions_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, lsq_conditions_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_lsq_conditions_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_lsq_conditions_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_conditions_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_conditions_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_conditions_type_data_ptr_get, _pycrysfml.lsq_conditions_type_data_ptr_set)
+lsq_conditions_type_swigregister = _pycrysfml.lsq_conditions_type_swigregister
+lsq_conditions_type_swigregister(lsq_conditions_type)
+
+class lsq_data_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_data_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, lsq_data_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_lsq_data_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_lsq_data_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_data_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_data_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_data_type_data_ptr_get, _pycrysfml.lsq_data_type_data_ptr_set)
+lsq_data_type_swigregister = _pycrysfml.lsq_data_type_swigregister
+lsq_data_type_swigregister(lsq_data_type)
+
+class lsq_state_vector_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_state_vector_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, lsq_state_vector_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_lsq_state_vector_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_lsq_state_vector_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_state_vector_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_state_vector_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_state_vector_type_data_ptr_get, _pycrysfml.lsq_state_vector_type_data_ptr_set)
+lsq_state_vector_type_swigregister = _pycrysfml.lsq_state_vector_type_swigregister
+lsq_state_vector_type_swigregister(lsq_state_vector_type)
+
 class maghd_list_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, maghd_list_type, name, value)
@@ -2457,6 +2650,45 @@ class magsymm_k_type(_object):
 magsymm_k_type_swigregister = _pycrysfml.magsymm_k_type_swigregister
 magsymm_k_type_swigregister(magsymm_k_type)
 
+class matom_list_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, matom_list_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, matom_list_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_matom_list_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_matom_list_type
+    __del__ = lambda self : None;
+    def deallocate_matom_list(self): return _pycrysfml.matom_list_type_deallocate_matom_list(self)
+    def mag_structure_factors(self, *args): return _pycrysfml.matom_list_type_mag_structure_factors(self, *args)
+    __swig_setmethods__["data_ptr"] = _pycrysfml.matom_list_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.matom_list_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.matom_list_type_data_ptr_get, _pycrysfml.matom_list_type_data_ptr_set)
+matom_list_type_swigregister = _pycrysfml.matom_list_type_swigregister
+matom_list_type_swigregister(matom_list_type)
+
+class matom_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, matom_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, matom_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_matom_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_matom_type
+    __del__ = lambda self : None;
+    def init_matom_type(self): return _pycrysfml.matom_type_init_matom_type(self)
+    __swig_setmethods__["data_ptr"] = _pycrysfml.matom_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.matom_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.matom_type_data_ptr_get, _pycrysfml.matom_type_data_ptr_set)
+matom_type_swigregister = _pycrysfml.matom_type_swigregister
+matom_type_swigregister(matom_type)
+
 class molecular_crystal_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, molecular_crystal_type, name, value)
@@ -2491,7 +2723,7 @@ class molecule_type(_object):
     __del__ = lambda self : None;
     def cartesian_to_fractional(self, *args): return _pycrysfml.molecule_type_cartesian_to_fractional(self, *args)
     def cartesian_to_spherical(self, newmolecule=None): return _pycrysfml.molecule_type_cartesian_to_spherical(self, newmolecule)
-    def cartesian_to_zmatrix(self, newmolecule=None, cell=0, d_min=None, d_max=None): return _pycrysfml.molecule_type_cartesian_to_zmatrix(self, newmolecule, cell, d_min, d_max)
+    def cartesian_to_zmatrix(self, newmolecule=None, cell=None, d_min=None, d_max=None): return _pycrysfml.molecule_type_cartesian_to_zmatrix(self, newmolecule, cell, d_min, d_max)
     def fix_reference(self, newmolecule=None, natom_o=None, natom_x=None, natom_xy=None): return _pycrysfml.molecule_type_fix_reference(self, newmolecule, natom_o, natom_x, natom_xy)
     def fix_orient_cartesian(self, newmolecule=None, natom_o=None, natom_x=None, natom_xy=None, mat=None): return _pycrysfml.molecule_type_fix_orient_cartesian(self, newmolecule, natom_o, natom_x, natom_xy, mat)
     def fractional_to_cartesian(self, *args): return _pycrysfml.molecule_type_fractional_to_cartesian(self, *args)
@@ -2501,7 +2733,7 @@ class molecule_type(_object):
     def molec_to_atomlist(self, *args): return _pycrysfml.molecule_type_molec_to_atomlist(self, *args)
     def spherical_to_cartesian(self, newmolecule=None): return _pycrysfml.molecule_type_spherical_to_cartesian(self, newmolecule)
     def spherical_to_fractional(self, *args): return _pycrysfml.molecule_type_spherical_to_fractional(self, *args)
-    def spherical_to_zmatrix(self, newmolecule=None, cell=0): return _pycrysfml.molecule_type_spherical_to_zmatrix(self, newmolecule, cell)
+    def spherical_to_zmatrix(self, newmolecule=None, cell=None): return _pycrysfml.molecule_type_spherical_to_zmatrix(self, newmolecule, cell)
     def write_molecule(self, lun=None): return _pycrysfml.molecule_type_write_molecule(self, lun)
     def zmatrix_to_cartesian(self, newmolecule=None): return _pycrysfml.molecule_type_zmatrix_to_cartesian(self, newmolecule)
     def zmatrix_to_fractional(self, *args): return _pycrysfml.molecule_type_zmatrix_to_fractional(self, *args)
@@ -3092,6 +3324,25 @@ class torsion_restraint_type(_object):
 torsion_restraint_type_swigregister = _pycrysfml.torsion_restraint_type_swigregister
 torsion_restraint_type_swigregister(torsion_restraint_type)
 
+class twofold_axes_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, twofold_axes_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, twofold_axes_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_twofold_axes_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_twofold_axes_type
+    __del__ = lambda self : None;
+    def get_conventional_cell(self, *args): return _pycrysfml.twofold_axes_type_get_conventional_cell(self, *args)
+    __swig_setmethods__["data_ptr"] = _pycrysfml.twofold_axes_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.twofold_axes_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.twofold_axes_type_data_ptr_get, _pycrysfml.twofold_axes_type_data_ptr_set)
+twofold_axes_type_swigregister = _pycrysfml.twofold_axes_type_swigregister
+twofold_axes_type_swigregister(twofold_axes_type)
+
 class wyck_info_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, wyck_info_type, name, value)
@@ -3182,6 +3433,24 @@ class xray_wavelength_type(_object):
     if _newclass:data_ptr = _swig_property(_pycrysfml.xray_wavelength_type_data_ptr_get, _pycrysfml.xray_wavelength_type_data_ptr_set)
 xray_wavelength_type_swigregister = _pycrysfml.xray_wavelength_type_swigregister
 xray_wavelength_type_swigregister(xray_wavelength_type)
+
+class zone_axis_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, zone_axis_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, zone_axis_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_zone_axis_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_zone_axis_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.zone_axis_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.zone_axis_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.zone_axis_type_data_ptr_get, _pycrysfml.zone_axis_type_data_ptr_set)
+zone_axis_type_swigregister = _pycrysfml.zone_axis_type_swigregister
+zone_axis_type_swigregister(zone_axis_type)
 
 # This file is compatible with both classic and new-style classes.
 
