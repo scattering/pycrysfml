@@ -12,13 +12,13 @@ end subroutine setTr
 
 function getRot(obj_var)
 	type (Sym_Oper_Type) :: obj_var
-	integer, dimension(3,3) :: getRot
+	integer,       dimension(3,3) :: getRot
 	getRot = obj_var%Rot
 end function getRot
 
 subroutine setRot(obj_var, new_value)
 	type (Sym_Oper_Type) :: obj_var
-	integer, dimension(3,3), intent(in) :: new_value
+	integer,       dimension(3,3), intent(in) :: new_value
 	obj_var%Rot = new_value
 end subroutine setRot
 
