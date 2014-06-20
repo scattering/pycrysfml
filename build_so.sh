@@ -36,7 +36,7 @@ $COMP CFML_Molecules.f90 $OPT1 CFML_Molecules.o
 $COMP CFML_SXTAL_Geom.f90 $OPT1 CFML_SXTAL_Geom.o
 $COMP CFML_Conf_Calc.f90 $OPT1 CFML_Conf_Calc.o
 $COMP CFML_Form_CIF.f90 $OPT1 CFML_Form_CIF.o
-$COMP CFML_Optimization_SAn.f90 $OPT1 CFML_Optimization_SAn.o
+#$COMP CFML_Optimization_SAn.f90 $OPT1 CFML_Optimization_SAn.o
 $COMP CFML_MagSymm.f90 $OPT1 CFML_MagSymm.o
 $COMP CFML_Msfac.f90 $OPT1 CFML_Msfac.o
 $COMP CFML_Polar.f90 $OPT1 CFML_Polar.o
