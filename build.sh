@@ -1,16 +1,48 @@
 #!/bin/bash
 wd=$(pwd)
 svn co -r 908 http://forge.epn-campus.eu/svn/crysfml
+# inject fortran methods
+cd $wd/fort_methods
+./cat.sh
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Atom_Mod.f90 $wd/fort_methods/cfml_atom_mod_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Cryst_Types.f90 $wd/fort_methods/cfml_cryst_types_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Form_CIF.f90 $wd/fort_methods/cfml_form_cif_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_MagSymm.f90 $wd/fort_methods/cfml_magsymm_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Msfac.f90 $wd/fort_methods/cfml_msfac_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Reflct_Util.f90 $wd/fort_methods/cfml_reflct_util_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Symmetry.f90 $wd/fort_methods/cfml_symmetry_addns.f90
+./clean.sh
+# end method injection
 $wd/gen_list.py > $wd/list
-cd crysfml/Src/
+cd $wd/crysfml/Src/
 mkdir wrap
 sed -i 's/.*/\L&/' *.f90
 $wd/fix_deps.py
 $wd/fix_type_decl.py
+# wrap library
 $wd/fortwrap.py --file-list=$wd/list -d wrap >& $wd/FortWrap_log
 svn co -r 908 http://forge.epn-campus.eu/svn/crysfml
 cp crysfml/Src/*.f90 .
 rm -r crysfml
+# inject fortran methods again and fix line length
+cd $wd/fort_methods
+./cat.sh
+# fix line width for compiling
+for f in *addns.f90
+do
+./fix_line_width.py $f
+done
+# inject methods
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Atom_Mod.f90 $wd/fort_methods/cfml_atom_mod_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Cryst_Types.f90 $wd/fort_methods/cfml_cryst_types_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Form_CIF.f90 $wd/fort_methods/cfml_form_cif_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_MagSymm.f90 $wd/fort_methods/cfml_magsymm_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Msfac.f90 $wd/fort_methods/cfml_msfac_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Reflct_Util.f90 $wd/fort_methods/cfml_reflct_util_addns.f90
+$wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Symmetry.f90 $wd/fort_methods/cfml_symmetry_addns.f90
+./clean.sh
+cd $wd/crysfml/Src
+# end method injection
 $wd/build_so.sh
 $wd/add_cmplx.py
 # auto-generate swig interface file
