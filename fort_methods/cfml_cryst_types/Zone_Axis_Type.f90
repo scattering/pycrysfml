@@ -1,50 +1,50 @@
-function getnlayer(obj_var)
+function get_zone_axis_nlayer(obj_var)
 	type (Zone_Axis_Type) :: obj_var
 	Integer :: getnlayer
 	getnlayer = obj_var%nlayer
-end function getnlayer
+end function get_zone_axis_nlayer
 
-subroutine setnlayer(obj_var, new_value)
+subroutine set_zone_axis_nlayer(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
 	Integer, intent(in) :: new_value
 	obj_var%nlayer = new_value
-end subroutine setnlayer
+end subroutine set_zone_axis_nlayer
 
-function getrx(obj_var)
+function get_zone_axis_rx(obj_var)
 	type (Zone_Axis_Type) :: obj_var
 	Integer, dimension(3) :: getrx
 	getrx = obj_var%rx
-end function getrx
+end function get_zone_axis_rx
 
-subroutine setrx(obj_var, new_value)
+subroutine set_zone_axis_rx(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
 	Integer, dimension(3), intent(in) :: new_value
 	obj_var%rx = new_value
-end subroutine setrx
+end subroutine set_zone_axis_rx
 
-function getry(obj_var)
+function get_zone_axis_ry(obj_var)
 	type (Zone_Axis_Type) :: obj_var
 	Integer, dimension(3) :: getry
 	getry = obj_var%ry
-end function getry
+end function get_zone_axis_ry
 
-subroutine setry(obj_var, new_value)
+subroutine set_zone_axis_ry(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
 	Integer, dimension(3), intent(in) :: new_value
 	obj_var%ry = new_value
-end subroutine setry
+end subroutine set_zone_axis_ry
 
-function getuvw(obj_var)
+function get_zone_axis_uvw(obj_var)
 	type (Zone_Axis_Type) :: obj_var
 	Integer, dimension(3) :: getuvw
 	getuvw = obj_var%uvw
-end function getuvw
+end function get_zone_axis_uvw
 
-subroutine setuvw(obj_var, new_value)
+subroutine set_zone_axis_uvw(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
 	Integer, dimension(3), intent(in) :: new_value
 	obj_var%uvw = new_value
-end subroutine setuvw
+end subroutine set_zone_axis_uvw
 
 subroutine Zone_Axis_Type_ctor(Zone_Axis_Type_param, nlayer_param, rx_param, ry_param, uvw_param)
 	type (Zone_Axis_Type) :: Zone_Axis_Type_param

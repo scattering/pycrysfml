@@ -1,31 +1,59 @@
-function getnatoms(obj_var)
+function get_atom_equiv_x(obj_var)
 	type (Atom_Equiv_Type) :: obj_var
-	integer :: getnatoms
-	getnatoms = obj_var%natoms
-end function getnatoms
+	real(kind=cp),    allocatable, dimension(:,:) :: getx
+	getx = obj_var%x
+end function get_atom_equiv_x
 
-subroutine setnatoms(obj_var, new_value)
+subroutine set_atom_equiv_x(obj_var, new_value)
+	type (Atom_Equiv_Type) :: obj_var
+	real(kind=cp),    allocatable, dimension(:,:), intent(in) :: new_value
+	obj_var%x = new_value
+end subroutine set_atom_equiv_x
+
+function get_atom_equiv_ChemSymb(obj_var)
+	type (Atom_Equiv_Type) :: obj_var
+	character(len=2) :: getChemSymb
+	getChemSymb = obj_var%ChemSymb
+end function get_atom_equiv_ChemSymb
+
+subroutine set_atom_equiv_ChemSymb(obj_var, new_value)
+	type (Atom_Equiv_Type) :: obj_var
+	character(len=2), intent(in) :: new_value
+	obj_var%ChemSymb = new_value
+end subroutine set_atom_equiv_ChemSymb
+
+function get_atom_equiv_mult(obj_var)
+	type (Atom_Equiv_Type) :: obj_var
+	integer :: getmult
+	getmult = obj_var%mult
+end function get_atom_equiv_mult
+
+subroutine set_atom_equiv_mult(obj_var, new_value)
 	type (Atom_Equiv_Type) :: obj_var
 	integer, intent(in) :: new_value
-	obj_var%natoms = new_value
-end subroutine setnatoms
+	obj_var%mult = new_value
+end subroutine set_atom_equiv_mult
 
-function getAtom(obj_var)
+function get_atom_equiv_Lab(obj_var)
 	type (Atom_Equiv_Type) :: obj_var
-	type(mAtom_Type),dimension(:),allocatable :: getAtom
-	getAtom = obj_var%Atom
-end function getAtom
+	character(len=20),allocatable, dimension(:) :: getLab
+	getLab = obj_var%Lab
+end function get_atom_equiv_Lab
 
-subroutine setAtom(obj_var, new_value)
+subroutine set_atom_equiv_Lab(obj_var, new_value)
 	type (Atom_Equiv_Type) :: obj_var
-	type(mAtom_Type),dimension(:),allocatable, intent(in) :: new_value
-	obj_var%Atom = new_value
-end subroutine setAtom
+	character(len=20),allocatable, dimension(:), intent(in) :: new_value
+	obj_var%Lab = new_value
+end subroutine set_atom_equiv_Lab
 
-subroutine Atom_Equiv_Type_ctor(Atom_Equiv_Type_param, natoms_param, Atom_param)
+subroutine Atom_Equiv_Type_ctor(Atom_Equiv_Type_param, x_param, ChemSymb_param, mult_param, Lab_param)
 	type (Atom_Equiv_Type) :: Atom_Equiv_Type_param
-	integer, intent(in) :: natoms_param
-	type(mAtom_Type),dimension(:),allocatable, intent(in) :: Atom_param
-	Atom_Equiv_Type_param%natoms = natoms_param
-	Atom_Equiv_Type_param%Atom = Atom_param
+	real(kind=cp),    allocatable, dimension(:,:), intent(in) :: x_param
+	character(len=2), intent(in) :: ChemSymb_param
+	integer, intent(in) :: mult_param
+	character(len=20),allocatable, dimension(:), intent(in) :: Lab_param
+	Atom_Equiv_Type_param%x = x_param
+	Atom_Equiv_Type_param%ChemSymb = ChemSymb_param
+	Atom_Equiv_Type_param%mult = mult_param
+	Atom_Equiv_Type_param%Lab = Lab_param
 end subroutine Atom_Equiv_Type_ctor

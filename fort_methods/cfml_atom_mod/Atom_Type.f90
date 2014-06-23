@@ -1,386 +1,386 @@
-function getLOcc(obj_var)
+function get_atom_LOcc(obj_var)
 	type (Atom_Type) :: obj_var
 	integer :: getLOcc
 	getLOcc = obj_var%LOcc
-end function getLOcc
+end function get_atom_LOcc
 
-subroutine setLOcc(obj_var, new_value)
+subroutine set_atom_LOcc(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%LOcc = new_value
-end subroutine setLOcc
+end subroutine set_atom_LOcc
 
-function getUtype(obj_var)
+function get_atom_Utype(obj_var)
 	type (Atom_Type) :: obj_var
 	character(len=4) :: getUtype
 	getUtype = obj_var%Utype
-end function getUtype
+end function get_atom_Utype
 
-subroutine setUtype(obj_var, new_value)
+subroutine set_atom_Utype(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	character(len=4), intent(in) :: new_value
 	obj_var%Utype = new_value
-end subroutine setUtype
+end subroutine set_atom_Utype
 
-function getMBiso(obj_var)
+function get_atom_MBiso(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getMBiso
 	getMBiso = obj_var%MBiso
-end function getMBiso
+end function get_atom_MBiso
 
-subroutine setMBiso(obj_var, new_value)
+subroutine set_atom_MBiso(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%MBiso = new_value
-end subroutine setMBiso
+end subroutine set_atom_MBiso
 
-function getOcc(obj_var)
+function get_atom_Occ(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getOcc
 	getOcc = obj_var%Occ
-end function getOcc
+end function get_atom_Occ
 
-subroutine setOcc(obj_var, new_value)
+subroutine set_atom_Occ(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Occ = new_value
-end subroutine setOcc
+end subroutine set_atom_Occ
 
-function getCharge(obj_var)
+function get_atom_Charge(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getCharge
 	getCharge = obj_var%Charge
-end function getCharge
+end function get_atom_Charge
 
-subroutine setCharge(obj_var, new_value)
+subroutine set_atom_Charge(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Charge = new_value
-end subroutine setCharge
+end subroutine set_atom_Charge
 
-function getSfacSymb(obj_var)
+function get_atom_SfacSymb(obj_var)
 	type (Atom_Type) :: obj_var
 	character(len=4) :: getSfacSymb
 	getSfacSymb = obj_var%SfacSymb
-end function getSfacSymb
+end function get_atom_SfacSymb
 
-subroutine setSfacSymb(obj_var, new_value)
+subroutine set_atom_SfacSymb(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	character(len=4), intent(in) :: new_value
 	obj_var%SfacSymb = new_value
-end subroutine setSfacSymb
+end subroutine set_atom_SfacSymb
 
-function getLab(obj_var)
+function get_atom_Lab(obj_var)
 	type (Atom_Type) :: obj_var
 	character(len=20) :: getLab
 	getLab = obj_var%Lab
-end function getLab
+end function get_atom_Lab
 
-subroutine setLab(obj_var, new_value)
+subroutine set_atom_Lab(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	character(len=20), intent(in) :: new_value
 	obj_var%Lab = new_value
-end subroutine setLab
+end subroutine set_atom_Lab
 
-function getMoment(obj_var)
+function get_atom_Moment(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getMoment
 	getMoment = obj_var%Moment
-end function getMoment
+end function get_atom_Moment
 
-subroutine setMoment(obj_var, new_value)
+subroutine set_atom_Moment(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Moment = new_value
-end subroutine setMoment
+end subroutine set_atom_Moment
 
-function getLU(obj_var)
+function get_atom_LU(obj_var)
 	type (Atom_Type) :: obj_var
 	integer,      dimension(6) :: getLU
 	getLU = obj_var%LU
-end function getLU
+end function get_atom_LU
 
-subroutine setLU(obj_var, new_value)
+subroutine set_atom_LU(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	integer,      dimension(6), intent(in) :: new_value
 	obj_var%LU = new_value
-end subroutine setLU
+end subroutine set_atom_LU
 
-function getMOcc(obj_var)
+function get_atom_MOcc(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getMOcc
 	getMOcc = obj_var%MOcc
-end function getMOcc
+end function get_atom_MOcc
 
-subroutine setMOcc(obj_var, new_value)
+subroutine set_atom_MOcc(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%MOcc = new_value
-end subroutine setMOcc
+end subroutine set_atom_MOcc
 
-function getActive(obj_var)
+function get_atom_Active(obj_var)
 	type (Atom_Type) :: obj_var
 	logical :: getActive
 	getActive = obj_var%Active
-end function getActive
+end function get_atom_Active
 
-subroutine setActive(obj_var, new_value)
+subroutine set_atom_Active(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	logical, intent(in) :: new_value
 	obj_var%Active = new_value
-end subroutine setActive
+end subroutine set_atom_Active
 
-function getMult(obj_var)
+function get_atom_Mult(obj_var)
 	type (Atom_Type) :: obj_var
 	integer :: getMult
 	getMult = obj_var%Mult
-end function getMult
+end function get_atom_Mult
 
-subroutine setMult(obj_var, new_value)
+subroutine set_atom_Mult(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%Mult = new_value
-end subroutine setMult
+end subroutine set_atom_Mult
 
-function getX_Std(obj_var)
+function get_atom_X_Std(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(3) :: getX_Std
+	real(kind=cp),dimension(3) :: getX_Std
 	getX_Std = obj_var%X_Std
-end function getX_Std
+end function get_atom_X_Std
 
-subroutine setX_Std(obj_var, new_value)
+subroutine set_atom_X_Std(obj_var, new_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(3), intent(in) :: new_value
+	real(kind=cp),dimension(3), intent(in) :: new_value
 	obj_var%X_Std = new_value
-end subroutine setX_Std
+end subroutine set_atom_X_Std
 
-function getU_std(obj_var)
+function get_atom_U_std(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(6) :: getU_std
+	real(kind=cp),dimension(6) :: getU_std
 	getU_std = obj_var%U_std
-end function getU_std
+end function get_atom_U_std
 
-subroutine setU_std(obj_var, new_value)
+subroutine set_atom_U_std(obj_var, new_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(6), intent(in) :: new_value
+	real(kind=cp),dimension(6), intent(in) :: new_value
 	obj_var%U_std = new_value
-end subroutine setU_std
+end subroutine set_atom_U_std
 
-function getNVar(obj_var)
+function get_atom_NVar(obj_var)
 	type (Atom_Type) :: obj_var
 	integer :: getNVar
 	getNVar = obj_var%NVar
-end function getNVar
+end function get_atom_NVar
 
-subroutine setNVar(obj_var, new_value)
+subroutine set_atom_NVar(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%NVar = new_value
-end subroutine setNVar
+end subroutine set_atom_NVar
 
-function getwyck(obj_var)
+function get_atom_wyck(obj_var)
 	type (Atom_Type) :: obj_var
 	character(len=1) :: getwyck
 	getwyck = obj_var%wyck
-end function getwyck
+end function get_atom_wyck
 
-subroutine setwyck(obj_var, new_value)
+subroutine set_atom_wyck(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	character(len=1), intent(in) :: new_value
 	obj_var%wyck = new_value
-end subroutine setwyck
+end subroutine set_atom_wyck
 
-function getBiso_std(obj_var)
+function get_atom_Biso_std(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getBiso_std
 	getBiso_std = obj_var%Biso_std
-end function getBiso_std
+end function get_atom_Biso_std
 
-subroutine setBiso_std(obj_var, new_value)
+subroutine set_atom_Biso_std(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Biso_std = new_value
-end subroutine setBiso_std
+end subroutine set_atom_Biso_std
 
-function getLBiso(obj_var)
+function get_atom_LBiso(obj_var)
 	type (Atom_Type) :: obj_var
 	integer :: getLBiso
 	getLBiso = obj_var%LBiso
-end function getLBiso
+end function get_atom_LBiso
 
-subroutine setLBiso(obj_var, new_value)
+subroutine set_atom_LBiso(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%LBiso = new_value
-end subroutine setLBiso
+end subroutine set_atom_LBiso
 
-function getBiso(obj_var)
+function get_atom_Biso(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getBiso
 	getBiso = obj_var%Biso
-end function getBiso
+end function get_atom_Biso
 
-subroutine setBiso(obj_var, new_value)
+subroutine set_atom_Biso(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Biso = new_value
-end subroutine setBiso
+end subroutine set_atom_Biso
 
-function getVarF(obj_var)
+function get_atom_VarF(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(10) :: getVarF
+	real(kind=cp),dimension(10) :: getVarF
 	getVarF = obj_var%VarF
-end function getVarF
+end function get_atom_VarF
 
-subroutine setVarF(obj_var, new_value)
+subroutine set_atom_VarF(obj_var, new_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(10), intent(in) :: new_value
+	real(kind=cp),dimension(10), intent(in) :: new_value
 	obj_var%VarF = new_value
-end subroutine setVarF
+end subroutine set_atom_VarF
 
-function getU(obj_var)
+function get_atom_U(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(6) :: getU
+	real(kind=cp),dimension(6) :: getU
 	getU = obj_var%U
-end function getU
+end function get_atom_U
 
-subroutine setU(obj_var, new_value)
+subroutine set_atom_U(obj_var, new_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(6), intent(in) :: new_value
+	real(kind=cp),dimension(6), intent(in) :: new_value
 	obj_var%U = new_value
-end subroutine setU
+end subroutine set_atom_U
 
-function getOcc_Std(obj_var)
+function get_atom_Occ_Std(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getOcc_Std
 	getOcc_Std = obj_var%Occ_Std
-end function getOcc_Std
+end function get_atom_Occ_Std
 
-subroutine setOcc_Std(obj_var, new_value)
+subroutine set_atom_Occ_Std(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Occ_Std = new_value
-end subroutine setOcc_Std
+end subroutine set_atom_Occ_Std
 
-function getX(obj_var)
+function get_atom_X(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(3) :: getX
+	real(kind=cp),dimension(3) :: getX
 	getX = obj_var%X
-end function getX
+end function get_atom_X
 
-subroutine setX(obj_var, new_value)
+subroutine set_atom_X(obj_var, new_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(3), intent(in) :: new_value
+	real(kind=cp),dimension(3), intent(in) :: new_value
 	obj_var%X = new_value
-end subroutine setX
+end subroutine set_atom_X
 
-function getZ(obj_var)
+function get_atom_Z(obj_var)
 	type (Atom_Type) :: obj_var
 	integer :: getZ
 	getZ = obj_var%Z
-end function getZ
+end function get_atom_Z
 
-subroutine setZ(obj_var, new_value)
+subroutine set_atom_Z(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%Z = new_value
-end subroutine setZ
+end subroutine set_atom_Z
 
-function getMU(obj_var)
+function get_atom_MU(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(6) :: getMU
+	real(kind=cp),dimension(6) :: getMU
 	getMU = obj_var%MU
-end function getMU
+end function get_atom_MU
 
-subroutine setMU(obj_var, new_value)
+subroutine set_atom_MU(obj_var, new_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(6), intent(in) :: new_value
+	real(kind=cp),dimension(6), intent(in) :: new_value
 	obj_var%MU = new_value
-end subroutine setMU
+end subroutine set_atom_MU
 
-function getLX(obj_var)
+function get_atom_LX(obj_var)
 	type (Atom_Type) :: obj_var
 	integer,      dimension(3) :: getLX
 	getLX = obj_var%LX
-end function getLX
+end function get_atom_LX
 
-subroutine setLX(obj_var, new_value)
+subroutine set_atom_LX(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	integer,      dimension(3), intent(in) :: new_value
 	obj_var%LX = new_value
-end subroutine setLX
+end subroutine set_atom_LX
 
-function getChemSymb(obj_var)
+function get_atom_ChemSymb(obj_var)
 	type (Atom_Type) :: obj_var
 	character(len=2) :: getChemSymb
 	getChemSymb = obj_var%ChemSymb
-end function getChemSymb
+end function get_atom_ChemSymb
 
-subroutine setChemSymb(obj_var, new_value)
+subroutine set_atom_ChemSymb(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	character(len=2), intent(in) :: new_value
 	obj_var%ChemSymb = new_value
-end subroutine setChemSymb
+end subroutine set_atom_ChemSymb
 
-function getInd(obj_var)
+function get_atom_Ind(obj_var)
 	type (Atom_Type) :: obj_var
 	integer, dimension(5) :: getInd
 	getInd = obj_var%Ind
-end function getInd
+end function get_atom_Ind
 
-subroutine setInd(obj_var, new_value)
+subroutine set_atom_Ind(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	integer, dimension(5), intent(in) :: new_value
 	obj_var%Ind = new_value
-end subroutine setInd
+end subroutine set_atom_Ind
 
-function getThType(obj_var)
+function get_atom_ThType(obj_var)
 	type (Atom_Type) :: obj_var
 	character(len=5) :: getThType
 	getThType = obj_var%ThType
-end function getThType
+end function get_atom_ThType
 
-subroutine setThType(obj_var, new_value)
+subroutine set_atom_ThType(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	character(len=5), intent(in) :: new_value
 	obj_var%ThType = new_value
-end subroutine setThType
+end subroutine set_atom_ThType
 
-function getAtmInfo(obj_var)
+function get_atom_AtmInfo(obj_var)
 	type (Atom_Type) :: obj_var
 	character(len=40) :: getAtmInfo
 	getAtmInfo = obj_var%AtmInfo
-end function getAtmInfo
+end function get_atom_AtmInfo
 
-subroutine setAtmInfo(obj_var, new_value)
+subroutine set_atom_AtmInfo(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	character(len=40), intent(in) :: new_value
 	obj_var%AtmInfo = new_value
-end subroutine setAtmInfo
+end subroutine set_atom_AtmInfo
 
-function getUeq(obj_var)
+function get_atom_Ueq(obj_var)
 	type (Atom_Type) :: obj_var
 	real(kind=cp) :: getUeq
 	getUeq = obj_var%Ueq
-end function getUeq
+end function get_atom_Ueq
 
-subroutine setUeq(obj_var, new_value)
+subroutine set_atom_Ueq(obj_var, new_value)
 	type (Atom_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Ueq = new_value
-end subroutine setUeq
+end subroutine set_atom_Ueq
 
-function getMX(obj_var)
+function get_atom_MX(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(3) :: getMX
+	real(kind=cp),dimension(3) :: getMX
 	getMX = obj_var%MX
-end function getMX
+end function get_atom_MX
 
-subroutine setMX(obj_var, new_value)
+subroutine set_atom_MX(obj_var, new_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp), dimension(3), intent(in) :: new_value
+	real(kind=cp),dimension(3), intent(in) :: new_value
 	obj_var%MX = new_value
-end subroutine setMX
+end subroutine set_atom_MX
 
 subroutine Atom_Type_ctor(Atom_Type_param, LOcc_param, Utype_param, MBiso_param, Occ_param, Charge_param, SfacSymb_param, Lab_param, Moment_param, LU_param, MOcc_param, Active_param, Mult_param, X_Std_param, U_std_param, NVar_param, wyck_param, Biso_std_param, LBiso_param, Biso_param, VarF_param, U_param, Occ_Std_param, X_param, Z_param, MU_param, LX_param, ChemSymb_param, Ind_param, ThType_param, AtmInfo_param, Ueq_param, MX_param)
 	type (Atom_Type) :: Atom_Type_param
@@ -396,26 +396,26 @@ subroutine Atom_Type_ctor(Atom_Type_param, LOcc_param, Utype_param, MBiso_param,
 	real(kind=cp), intent(in) :: MOcc_param
 	logical, intent(in) :: Active_param
 	integer, intent(in) :: Mult_param
-	real(kind=cp), dimension(3), intent(in) :: X_Std_param
-	real(kind=cp), dimension(6), intent(in) :: U_std_param
+	real(kind=cp),dimension(3), intent(in) :: X_Std_param
+	real(kind=cp),dimension(6), intent(in) :: U_std_param
 	integer, intent(in) :: NVar_param
 	character(len=1), intent(in) :: wyck_param
 	real(kind=cp), intent(in) :: Biso_std_param
 	integer, intent(in) :: LBiso_param
 	real(kind=cp), intent(in) :: Biso_param
-	real(kind=cp), dimension(10), intent(in) :: VarF_param
-	real(kind=cp), dimension(6), intent(in) :: U_param
+	real(kind=cp),dimension(10), intent(in) :: VarF_param
+	real(kind=cp),dimension(6), intent(in) :: U_param
 	real(kind=cp), intent(in) :: Occ_Std_param
-	real(kind=cp), dimension(3), intent(in) :: X_param
+	real(kind=cp),dimension(3), intent(in) :: X_param
 	integer, intent(in) :: Z_param
-	real(kind=cp), dimension(6), intent(in) :: MU_param
+	real(kind=cp),dimension(6), intent(in) :: MU_param
 	integer,      dimension(3), intent(in) :: LX_param
 	character(len=2), intent(in) :: ChemSymb_param
 	integer, dimension(5), intent(in) :: Ind_param
 	character(len=5), intent(in) :: ThType_param
 	character(len=40), intent(in) :: AtmInfo_param
 	real(kind=cp), intent(in) :: Ueq_param
-	real(kind=cp), dimension(3), intent(in) :: MX_param
+	real(kind=cp),dimension(3), intent(in) :: MX_param
 	Atom_Type_param%LOcc = LOcc_param
 	Atom_Type_param%Utype = Utype_param
 	Atom_Type_param%MBiso = MBiso_param

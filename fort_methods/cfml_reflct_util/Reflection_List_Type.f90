@@ -1,26 +1,26 @@
-function getRef(obj_var)
+function get_reflection_list_Ref(obj_var)
 	type (Reflection_List_Type) :: obj_var
 	type(reflection_type),allocatable, dimension(:) :: getRef
 	getRef = obj_var%Ref
-end function getRef
+end function get_reflection_list_Ref
 
-subroutine setRef(obj_var, new_value)
+subroutine set_reflection_list_Ref(obj_var, new_value)
 	type (Reflection_List_Type) :: obj_var
 	type(reflection_type),allocatable, dimension(:), intent(in) :: new_value
 	obj_var%Ref = new_value
-end subroutine setRef
+end subroutine set_reflection_list_Ref
 
-function getNRef(obj_var)
+function get_reflection_list_NRef(obj_var)
 	type (Reflection_List_Type) :: obj_var
 	integer :: getNRef
 	getNRef = obj_var%NRef
-end function getNRef
+end function get_reflection_list_NRef
 
-subroutine setNRef(obj_var, new_value)
+subroutine set_reflection_list_NRef(obj_var, new_value)
 	type (Reflection_List_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%NRef = new_value
-end subroutine setNRef
+end subroutine set_reflection_list_NRef
 
 subroutine Reflection_List_Type_ctor(Reflection_List_Type_param, Ref_param, NRef_param)
 	type (Reflection_List_Type) :: Reflection_List_Type_param

@@ -1,26 +1,26 @@
-function getnatoms(obj_var)
+function get_atom_list_natoms(obj_var)
 	type (Atom_List_Type) :: obj_var
 	integer :: getnatoms
 	getnatoms = obj_var%natoms
-end function getnatoms
+end function get_atom_list_natoms
 
-subroutine setnatoms(obj_var, new_value)
+subroutine set_atom_list_natoms(obj_var, new_value)
 	type (Atom_List_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%natoms = new_value
-end subroutine setnatoms
+end subroutine set_atom_list_natoms
 
-function getatom(obj_var)
+function get_atom_list_atom(obj_var)
 	type (Atom_List_Type) :: obj_var
 	type(Atom_Type),dimension(:),allocatable :: getatom
 	getatom = obj_var%atom
-end function getatom
+end function get_atom_list_atom
 
-subroutine setatom(obj_var, new_value)
+subroutine set_atom_list_atom(obj_var, new_value)
 	type (Atom_List_Type) :: obj_var
 	type(Atom_Type),dimension(:),allocatable, intent(in) :: new_value
 	obj_var%atom = new_value
-end subroutine setatom
+end subroutine set_atom_list_atom
 
 subroutine Atom_List_Type_ctor(Atom_List_Type_param, natoms_param, atom_param)
 	type (Atom_List_Type) :: Atom_List_Type_param

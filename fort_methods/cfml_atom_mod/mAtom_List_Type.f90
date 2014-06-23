@@ -1,26 +1,26 @@
-function getnatoms(obj_var)
+function get_matom_list_natoms(obj_var)
 	type (mAtom_List_Type) :: obj_var
 	integer :: getnatoms
 	getnatoms = obj_var%natoms
-end function getnatoms
+end function get_matom_list_natoms
 
-subroutine setnatoms(obj_var, new_value)
+subroutine set_matom_list_natoms(obj_var, new_value)
 	type (mAtom_List_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%natoms = new_value
-end subroutine setnatoms
+end subroutine set_matom_list_natoms
 
-function getAtom(obj_var)
+function get_matom_list_Atom(obj_var)
 	type (mAtom_List_Type) :: obj_var
 	type(mAtom_Type),dimension(:),allocatable :: getAtom
 	getAtom = obj_var%Atom
-end function getAtom
+end function get_matom_list_Atom
 
-subroutine setAtom(obj_var, new_value)
+subroutine set_matom_list_Atom(obj_var, new_value)
 	type (mAtom_List_Type) :: obj_var
 	type(mAtom_Type),dimension(:),allocatable, intent(in) :: new_value
 	obj_var%Atom = new_value
-end subroutine setAtom
+end subroutine set_matom_list_Atom
 
 subroutine mAtom_List_Type_ctor(mAtom_List_Type_param, natoms_param, Atom_param)
 	type (mAtom_List_Type) :: mAtom_List_Type_param

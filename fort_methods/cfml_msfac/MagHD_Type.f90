@@ -1,134 +1,134 @@
-function getsqAMiV(obj_var)
+function get_maghd_sqAMiV(obj_var)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp) :: getsqAMiV
 	getsqAMiV = obj_var%sqAMiV
-end function getsqAMiV
+end function get_maghd_sqAMiV
 
-subroutine setsqAMiV(obj_var, new_value)
+subroutine set_maghd_sqAMiV(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%sqAMiV = new_value
-end subroutine setsqAMiV
+end subroutine set_maghd_sqAMiV
 
-function getnum_k(obj_var)
+function get_maghd_num_k(obj_var)
 	type (MagHD_Type) :: obj_var
 	integer :: getnum_k
 	getnum_k = obj_var%num_k
-end function getnum_k
+end function get_maghd_num_k
 
-subroutine setnum_k(obj_var, new_value)
+subroutine set_maghd_num_k(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%num_k = new_value
-end subroutine setnum_k
+end subroutine set_maghd_num_k
 
-function getH(obj_var)
+function get_maghd_H(obj_var)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp),   dimension(3) :: getH
 	getH = obj_var%H
-end function getH
+end function get_maghd_H
 
-subroutine setH(obj_var, new_value)
+subroutine set_maghd_H(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp),   dimension(3), intent(in) :: new_value
 	obj_var%H = new_value
-end subroutine setH
+end subroutine set_maghd_H
 
-function getsqMiV(obj_var)
+function get_maghd_sqMiV(obj_var)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp) :: getsqMiV
 	getsqMiV = obj_var%sqMiV
-end function getsqMiV
+end function get_maghd_sqMiV
 
-subroutine setsqMiV(obj_var, new_value)
+subroutine set_maghd_sqMiV(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%sqMiV = new_value
-end subroutine setsqMiV
+end subroutine set_maghd_sqMiV
 
-function gets(obj_var)
+function get_maghd_s(obj_var)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp) :: gets
 	gets = obj_var%s
-end function gets
+end function get_maghd_s
 
-subroutine sets(obj_var, new_value)
+subroutine set_maghd_s(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%s = new_value
-end subroutine sets
+end subroutine set_maghd_s
 
-function getMiVC(obj_var)
+function get_maghd_MiVC(obj_var)
 	type (MagHD_Type) :: obj_var
 	complex(kind=cp),dimension(3,2,24) :: getMiVC
 	getMiVC = obj_var%MiVC
-end function getMiVC
+end function get_maghd_MiVC
 
-subroutine setMiVC(obj_var, new_value)
+subroutine set_maghd_MiVC(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	complex(kind=cp),dimension(3,2,24), intent(in) :: new_value
 	obj_var%MiVC = new_value
-end subroutine setMiVC
+end subroutine set_maghd_MiVC
 
-function getsignp(obj_var)
+function get_maghd_signp(obj_var)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp) :: getsignp
 	getsignp = obj_var%signp
-end function getsignp
+end function get_maghd_signp
 
-subroutine setsignp(obj_var, new_value)
+subroutine set_maghd_signp(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%signp = new_value
-end subroutine setsignp
+end subroutine set_maghd_signp
 
-function getMsF(obj_var)
+function get_maghd_MsF(obj_var)
 	type (MagHD_Type) :: obj_var
 	complex(kind=cp),dimension(3,2,24) :: getMsF
 	getMsF = obj_var%MsF
-end function getMsF
+end function get_maghd_MsF
 
-subroutine setMsF(obj_var, new_value)
+subroutine set_maghd_MsF(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	complex(kind=cp),dimension(3,2,24), intent(in) :: new_value
 	obj_var%MsF = new_value
-end subroutine setMsF
+end subroutine set_maghd_MsF
 
-function getAMiV(obj_var)
+function get_maghd_AMiV(obj_var)
 	type (MagHD_Type) :: obj_var
 	complex(kind=cp),dimension(3) :: getAMiV
 	getAMiV = obj_var%AMiV
-end function getAMiV
+end function get_maghd_AMiV
 
-subroutine setAMiV(obj_var, new_value)
+subroutine set_maghd_AMiV(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	complex(kind=cp),dimension(3), intent(in) :: new_value
 	obj_var%AMiV = new_value
-end subroutine setAMiV
+end subroutine set_maghd_AMiV
 
-function getkeqv_minus(obj_var)
+function get_maghd_keqv_minus(obj_var)
 	type (MagHD_Type) :: obj_var
 	logical :: getkeqv_minus
 	getkeqv_minus = obj_var%keqv_minus
-end function getkeqv_minus
+end function get_maghd_keqv_minus
 
-subroutine setkeqv_minus(obj_var, new_value)
+subroutine set_maghd_keqv_minus(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	logical, intent(in) :: new_value
 	obj_var%keqv_minus = new_value
-end subroutine setkeqv_minus
+end subroutine set_maghd_keqv_minus
 
-function getMiV(obj_var)
+function get_maghd_MiV(obj_var)
 	type (MagHD_Type) :: obj_var
 	complex(kind=cp),dimension(3,2,24) :: getMiV
 	getMiV = obj_var%MiV
-end function getMiV
+end function get_maghd_MiV
 
-subroutine setMiV(obj_var, new_value)
+subroutine set_maghd_MiV(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
 	complex(kind=cp),dimension(3,2,24), intent(in) :: new_value
 	obj_var%MiV = new_value
-end subroutine setMiV
+end subroutine set_maghd_MiV
 
 subroutine MagHD_Type_ctor(MagHD_Type_param, sqAMiV_param, num_k_param, H_param, sqMiV_param, s_param, MiVC_param, signp_param, MsF_param, AMiV_param, keqv_minus_param, MiV_param)
 	type (MagHD_Type) :: MagHD_Type_param

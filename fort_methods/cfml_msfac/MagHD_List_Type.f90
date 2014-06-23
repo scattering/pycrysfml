@@ -1,26 +1,26 @@
-function getNref(obj_var)
+function get_maghd_list_Nref(obj_var)
 	type (MagHD_List_Type) :: obj_var
 	integer :: getNref
 	getNref = obj_var%Nref
-end function getNref
+end function get_maghd_list_Nref
 
-subroutine setNref(obj_var, new_value)
+subroutine set_maghd_list_Nref(obj_var, new_value)
 	type (MagHD_List_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%Nref = new_value
-end subroutine setNref
+end subroutine set_maghd_list_Nref
 
-function getMh(obj_var)
+function get_maghd_list_Mh(obj_var)
 	type (MagHD_List_Type) :: obj_var
 	Type(MagHD_Type),allocatable, dimension(:) :: getMh
 	getMh = obj_var%Mh
-end function getMh
+end function get_maghd_list_Mh
 
-subroutine setMh(obj_var, new_value)
+subroutine set_maghd_list_Mh(obj_var, new_value)
 	type (MagHD_List_Type) :: obj_var
 	Type(MagHD_Type),allocatable, dimension(:), intent(in) :: new_value
 	obj_var%Mh = new_value
-end subroutine setMh
+end subroutine set_maghd_list_Mh
 
 subroutine MagHD_List_Type_ctor(MagHD_List_Type_param, Nref_param, Mh_param)
 	type (MagHD_List_Type) :: MagHD_List_Type_param

@@ -1,38 +1,38 @@
-function gettinv(obj_var)
+function get_magnetic_group_tinv(obj_var)
 	type (Magnetic_Group_Type) :: obj_var
 	integer, dimension(192) :: gettinv
 	gettinv = obj_var%tinv
-end function gettinv
+end function get_magnetic_group_tinv
 
-subroutine settinv(obj_var, new_value)
+subroutine set_magnetic_group_tinv(obj_var, new_value)
 	type (Magnetic_Group_Type) :: obj_var
 	integer, dimension(192), intent(in) :: new_value
 	obj_var%tinv = new_value
-end subroutine settinv
+end subroutine set_magnetic_group_tinv
 
-function getShubnikov(obj_var)
+function get_magnetic_group_Shubnikov(obj_var)
 	type (Magnetic_Group_Type) :: obj_var
 	Character(len=30) :: getShubnikov
 	getShubnikov = obj_var%Shubnikov
-end function getShubnikov
+end function get_magnetic_group_Shubnikov
 
-subroutine setShubnikov(obj_var, new_value)
+subroutine set_magnetic_group_Shubnikov(obj_var, new_value)
 	type (Magnetic_Group_Type) :: obj_var
 	Character(len=30), intent(in) :: new_value
 	obj_var%Shubnikov = new_value
-end subroutine setShubnikov
+end subroutine set_magnetic_group_Shubnikov
 
-function getSpG(obj_var)
+function get_magnetic_group_SpG(obj_var)
 	type (Magnetic_Group_Type) :: obj_var
 	type(Space_Group_Type) :: getSpG
 	getSpG = obj_var%SpG
-end function getSpG
+end function get_magnetic_group_SpG
 
-subroutine setSpG(obj_var, new_value)
+subroutine set_magnetic_group_SpG(obj_var, new_value)
 	type (Magnetic_Group_Type) :: obj_var
 	type(Space_Group_Type), intent(in) :: new_value
 	obj_var%SpG = new_value
-end subroutine setSpG
+end subroutine set_magnetic_group_SpG
 
 subroutine Magnetic_Group_Type_ctor(Magnetic_Group_Type_param, tinv_param, Shubnikov_param, SpG_param)
 	type (Magnetic_Group_Type) :: Magnetic_Group_Type_param

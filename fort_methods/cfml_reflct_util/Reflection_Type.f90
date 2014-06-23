@@ -1,146 +1,146 @@
-function getA(obj_var)
+function get_reflection_A(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getA
 	getA = obj_var%A
-end function getA
+end function get_reflection_A
 
-subroutine setA(obj_var, new_value)
+subroutine set_reflection_A(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%A = new_value
-end subroutine setA
+end subroutine set_reflection_A
 
-function getAA(obj_var)
+function get_reflection_AA(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getAA
 	getAA = obj_var%AA
-end function getAA
+end function get_reflection_AA
 
-subroutine setAA(obj_var, new_value)
+subroutine set_reflection_AA(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%AA = new_value
-end subroutine setAA
+end subroutine set_reflection_AA
 
-function getB(obj_var)
+function get_reflection_B(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getB
 	getB = obj_var%B
-end function getB
+end function get_reflection_B
 
-subroutine setB(obj_var, new_value)
+subroutine set_reflection_B(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%B = new_value
-end subroutine setB
+end subroutine set_reflection_B
 
-function getBB(obj_var)
+function get_reflection_BB(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getBB
 	getBB = obj_var%BB
-end function getBB
+end function get_reflection_BB
 
-subroutine setBB(obj_var, new_value)
+subroutine set_reflection_BB(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%BB = new_value
-end subroutine setBB
+end subroutine set_reflection_BB
 
-function getH(obj_var)
+function get_reflection_H(obj_var)
 	type (Reflection_Type) :: obj_var
 	integer,dimension(3) :: getH
 	getH = obj_var%H
-end function getH
+end function get_reflection_H
 
-subroutine setH(obj_var, new_value)
+subroutine set_reflection_H(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	integer,dimension(3), intent(in) :: new_value
 	obj_var%H = new_value
-end subroutine setH
+end subroutine set_reflection_H
 
-function getSFo(obj_var)
+function get_reflection_SFo(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getSFo
 	getSFo = obj_var%SFo
-end function getSFo
+end function get_reflection_SFo
 
-subroutine setSFo(obj_var, new_value)
+subroutine set_reflection_SFo(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%SFo = new_value
-end subroutine setSFo
+end subroutine set_reflection_SFo
 
-function getS(obj_var)
+function get_reflection_S(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getS
 	getS = obj_var%S
-end function getS
+end function get_reflection_S
 
-subroutine setS(obj_var, new_value)
+subroutine set_reflection_S(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%S = new_value
-end subroutine setS
+end subroutine set_reflection_S
 
-function getFc(obj_var)
+function get_reflection_Fc(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getFc
 	getFc = obj_var%Fc
-end function getFc
+end function get_reflection_Fc
 
-subroutine setFc(obj_var, new_value)
+subroutine set_reflection_Fc(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Fc = new_value
-end subroutine setFc
+end subroutine set_reflection_Fc
 
-function getW(obj_var)
+function get_reflection_W(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getW
 	getW = obj_var%W
-end function getW
+end function get_reflection_W
 
-subroutine setW(obj_var, new_value)
+subroutine set_reflection_W(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%W = new_value
-end subroutine setW
+end subroutine set_reflection_W
 
-function getPhase(obj_var)
+function get_reflection_Phase(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getPhase
 	getPhase = obj_var%Phase
-end function getPhase
+end function get_reflection_Phase
 
-subroutine setPhase(obj_var, new_value)
+subroutine set_reflection_Phase(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Phase = new_value
-end subroutine setPhase
+end subroutine set_reflection_Phase
 
-function getMult(obj_var)
+function get_reflection_Mult(obj_var)
 	type (Reflection_Type) :: obj_var
 	integer :: getMult
 	getMult = obj_var%Mult
-end function getMult
+end function get_reflection_Mult
 
-subroutine setMult(obj_var, new_value)
+subroutine set_reflection_Mult(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%Mult = new_value
-end subroutine setMult
+end subroutine set_reflection_Mult
 
-function getFo(obj_var)
+function get_reflection_Fo(obj_var)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp) :: getFo
 	getFo = obj_var%Fo
-end function getFo
+end function get_reflection_Fo
 
-subroutine setFo(obj_var, new_value)
+subroutine set_reflection_Fo(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%Fo = new_value
-end subroutine setFo
+end subroutine set_reflection_Fo
 
 subroutine Reflection_Type_ctor(Reflection_Type_param, A_param, AA_param, B_param, BB_param, H_param, SFo_param, S_param, Fc_param, W_param, Phase_param, Mult_param, Fo_param)
 	type (Reflection_Type) :: Reflection_Type_param

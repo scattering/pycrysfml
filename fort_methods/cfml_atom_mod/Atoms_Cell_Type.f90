@@ -1,174 +1,174 @@
-function getdistance(obj_var)
+function get_atoms_cell_distance(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension( :,:), allocatable :: getdistance
+	real(kind=cp),        dimension( :,:), allocatable :: getdistance
 	getdistance = obj_var%distance
-end function getdistance
+end function get_atoms_cell_distance
 
-subroutine setdistance(obj_var, new_value)
+subroutine set_atoms_cell_distance(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension( :,:), allocatable, intent(in) :: new_value
+	real(kind=cp),        dimension( :,:), allocatable, intent(in) :: new_value
 	obj_var%distance = new_value
-end subroutine setdistance
+end subroutine set_atoms_cell_distance
 
-function getndist(obj_var)
+function get_atoms_cell_ndist(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
 	integer :: getndist
 	getndist = obj_var%ndist
-end function getndist
+end function get_atoms_cell_ndist
 
-subroutine setndist(obj_var, new_value)
+subroutine set_atoms_cell_ndist(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%ndist = new_value
-end subroutine setndist
+end subroutine set_atoms_cell_ndist
 
-function getddist(obj_var)
+function get_atoms_cell_ddist(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:), allocatable :: getddist
+	real(kind=cp),           dimension(:), allocatable :: getddist
 	getddist = obj_var%ddist
-end function getddist
+end function get_atoms_cell_ddist
 
-subroutine setddist(obj_var, new_value)
+subroutine set_atoms_cell_ddist(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:), allocatable, intent(in) :: new_value
+	real(kind=cp),           dimension(:), allocatable, intent(in) :: new_value
 	obj_var%ddist = new_value
-end subroutine setddist
+end subroutine set_atoms_cell_ddist
 
-function getxyz(obj_var)
+function get_atoms_cell_xyz(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:,:), allocatable :: getxyz
+	real(kind=cp),         dimension(:,:), allocatable :: getxyz
 	getxyz = obj_var%xyz
-end function getxyz
+end function get_atoms_cell_xyz
 
-subroutine setxyz(obj_var, new_value)
+subroutine set_atoms_cell_xyz(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:,:), allocatable, intent(in) :: new_value
+	real(kind=cp),         dimension(:,:), allocatable, intent(in) :: new_value
 	obj_var%xyz = new_value
-end subroutine setxyz
+end subroutine set_atoms_cell_xyz
 
-function getcharge(obj_var)
+function get_atoms_cell_charge(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:), allocatable :: getcharge
+	real(kind=cp),           dimension(:), allocatable :: getcharge
 	getcharge = obj_var%charge
-end function getcharge
+end function get_atoms_cell_charge
 
-subroutine setcharge(obj_var, new_value)
+subroutine set_atoms_cell_charge(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:), allocatable, intent(in) :: new_value
+	real(kind=cp),           dimension(:), allocatable, intent(in) :: new_value
 	obj_var%charge = new_value
-end subroutine setcharge
+end subroutine set_atoms_cell_charge
 
-function getddlab(obj_var)
+function get_atoms_cell_ddlab(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	character (len=20), dimension(:), allocatable :: getddlab
+	character (len=20),      dimension(:), allocatable :: getddlab
 	getddlab = obj_var%ddlab
-end function getddlab
+end function get_atoms_cell_ddlab
 
-subroutine setddlab(obj_var, new_value)
+subroutine set_atoms_cell_ddlab(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	character (len=20), dimension(:), allocatable, intent(in) :: new_value
+	character (len=20),      dimension(:), allocatable, intent(in) :: new_value
 	obj_var%ddlab = new_value
-end subroutine setddlab
+end subroutine set_atoms_cell_ddlab
 
-function getnoms(obj_var)
+function get_atoms_cell_noms(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	character (len=20), dimension(:), allocatable :: getnoms
+	character (len=20),      dimension(:), allocatable :: getnoms
 	getnoms = obj_var%noms
-end function getnoms
+end function get_atoms_cell_noms
 
-subroutine setnoms(obj_var, new_value)
+subroutine set_atoms_cell_noms(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	character (len=20), dimension(:), allocatable, intent(in) :: new_value
+	character (len=20),      dimension(:), allocatable, intent(in) :: new_value
 	obj_var%noms = new_value
-end subroutine setnoms
+end subroutine set_atoms_cell_noms
 
-function getmoment(obj_var)
+function get_atoms_cell_moment(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:), allocatable :: getmoment
+	real(kind=cp),           dimension(:), allocatable :: getmoment
 	getmoment = obj_var%moment
-end function getmoment
+end function get_atoms_cell_moment
 
-subroutine setmoment(obj_var, new_value)
+subroutine set_atoms_cell_moment(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:), allocatable, intent(in) :: new_value
+	real(kind=cp),           dimension(:), allocatable, intent(in) :: new_value
 	obj_var%moment = new_value
-end subroutine setmoment
+end subroutine set_atoms_cell_moment
 
-function getneighb_atom(obj_var)
+function get_atoms_cell_neighb_atom(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	integer, dimension( :,:), allocatable :: getneighb_atom
+	integer,              dimension( :,:), allocatable :: getneighb_atom
 	getneighb_atom = obj_var%neighb_atom
-end function getneighb_atom
+end function get_atoms_cell_neighb_atom
 
-subroutine setneighb_atom(obj_var, new_value)
+subroutine set_atoms_cell_neighb_atom(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	integer, dimension( :,:), allocatable, intent(in) :: new_value
+	integer,              dimension( :,:), allocatable, intent(in) :: new_value
 	obj_var%neighb_atom = new_value
-end subroutine setneighb_atom
+end subroutine set_atoms_cell_neighb_atom
 
-function getnat(obj_var)
+function get_atoms_cell_nat(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
 	integer :: getnat
 	getnat = obj_var%nat
-end function getnat
+end function get_atoms_cell_nat
 
-subroutine setnat(obj_var, new_value)
+subroutine set_atoms_cell_nat(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%nat = new_value
-end subroutine setnat
+end subroutine set_atoms_cell_nat
 
-function getvar_free(obj_var)
+function get_atoms_cell_var_free(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:,:), allocatable :: getvar_free
+	real(kind=cp),         dimension(:,:), allocatable :: getvar_free
 	getvar_free = obj_var%var_free
-end function getvar_free
+end function get_atoms_cell_var_free
 
-subroutine setvar_free(obj_var, new_value)
+subroutine set_atoms_cell_var_free(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:,:), allocatable, intent(in) :: new_value
+	real(kind=cp),         dimension(:,:), allocatable, intent(in) :: new_value
 	obj_var%var_free = new_value
-end subroutine setvar_free
+end subroutine set_atoms_cell_var_free
 
-function gettrans(obj_var)
+function get_atoms_cell_trans(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:, :,:), allocatable :: gettrans
+	real(kind=cp),      dimension(:, :,:), allocatable :: gettrans
 	gettrans = obj_var%trans
-end function gettrans
+end function get_atoms_cell_trans
 
-subroutine settrans(obj_var, new_value)
+subroutine set_atoms_cell_trans(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp), dimension(:, :,:), allocatable, intent(in) :: new_value
+	real(kind=cp),      dimension(:, :,:), allocatable, intent(in) :: new_value
 	obj_var%trans = new_value
-end subroutine settrans
+end subroutine set_atoms_cell_trans
 
-function getneighb(obj_var)
+function get_atoms_cell_neighb(obj_var)
 	type (Atoms_Cell_Type) :: obj_var
-	integer, dimension(:), allocatable :: getneighb
+	integer,                 dimension(:), allocatable :: getneighb
 	getneighb = obj_var%neighb
-end function getneighb
+end function get_atoms_cell_neighb
 
-subroutine setneighb(obj_var, new_value)
+subroutine set_atoms_cell_neighb(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
-	integer, dimension(:), allocatable, intent(in) :: new_value
+	integer,                 dimension(:), allocatable, intent(in) :: new_value
 	obj_var%neighb = new_value
-end subroutine setneighb
+end subroutine set_atoms_cell_neighb
 
 subroutine Atoms_Cell_Type_ctor(Atoms_Cell_Type_param, distance_param, ndist_param, ddist_param, xyz_param, charge_param, ddlab_param, noms_param, moment_param, neighb_atom_param, nat_param, var_free_param, trans_param, neighb_param)
 	type (Atoms_Cell_Type) :: Atoms_Cell_Type_param
-	real(kind=cp), dimension( :,:), allocatable, intent(in) :: distance_param
+	real(kind=cp),        dimension( :,:), allocatable, intent(in) :: distance_param
 	integer, intent(in) :: ndist_param
-	real(kind=cp), dimension(:), allocatable, intent(in) :: ddist_param
-	real(kind=cp), dimension(:,:), allocatable, intent(in) :: xyz_param
-	real(kind=cp), dimension(:), allocatable, intent(in) :: charge_param
-	character (len=20), dimension(:), allocatable, intent(in) :: ddlab_param
-	character (len=20), dimension(:), allocatable, intent(in) :: noms_param
-	real(kind=cp), dimension(:), allocatable, intent(in) :: moment_param
-	integer, dimension( :,:), allocatable, intent(in) :: neighb_atom_param
+	real(kind=cp),           dimension(:), allocatable, intent(in) :: ddist_param
+	real(kind=cp),         dimension(:,:), allocatable, intent(in) :: xyz_param
+	real(kind=cp),           dimension(:), allocatable, intent(in) :: charge_param
+	character (len=20),      dimension(:), allocatable, intent(in) :: ddlab_param
+	character (len=20),      dimension(:), allocatable, intent(in) :: noms_param
+	real(kind=cp),           dimension(:), allocatable, intent(in) :: moment_param
+	integer,              dimension( :,:), allocatable, intent(in) :: neighb_atom_param
 	integer, intent(in) :: nat_param
-	real(kind=cp), dimension(:,:), allocatable, intent(in) :: var_free_param
-	real(kind=cp), dimension(:, :,:), allocatable, intent(in) :: trans_param
-	integer, dimension(:), allocatable, intent(in) :: neighb_param
+	real(kind=cp),         dimension(:,:), allocatable, intent(in) :: var_free_param
+	real(kind=cp),      dimension(:, :,:), allocatable, intent(in) :: trans_param
+	integer,                 dimension(:), allocatable, intent(in) :: neighb_param
 	Atoms_Cell_Type_param%distance = distance_param
 	Atoms_Cell_Type_param%ndist = ndist_param
 	Atoms_Cell_Type_param%ddist = ddist_param

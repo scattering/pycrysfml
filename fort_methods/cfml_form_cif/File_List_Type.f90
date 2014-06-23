@@ -1,26 +1,26 @@
-function getline(obj_var)
+function get_file_list_line(obj_var)
 	type (File_List_Type) :: obj_var
 	character(len=256), allocatable, dimension(:) :: getline
 	getline = obj_var%line
-end function getline
+end function get_file_list_line
 
-subroutine setline(obj_var, new_value)
+subroutine set_file_list_line(obj_var, new_value)
 	type (File_List_Type) :: obj_var
 	character(len=256), allocatable, dimension(:), intent(in) :: new_value
 	obj_var%line = new_value
-end subroutine setline
+end subroutine set_file_list_line
 
-function getnlines(obj_var)
+function get_file_list_nlines(obj_var)
 	type (File_List_Type) :: obj_var
 	integer :: getnlines
 	getnlines = obj_var%nlines
-end function getnlines
+end function get_file_list_nlines
 
-subroutine setnlines(obj_var, new_value)
+subroutine set_file_list_nlines(obj_var, new_value)
 	type (File_List_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%nlines = new_value
-end subroutine setnlines
+end subroutine set_file_list_nlines
 
 subroutine File_List_Type_ctor(File_List_Type_param, line_param, nlines_param)
 	type (File_List_Type) :: File_List_Type_param

@@ -1,122 +1,122 @@
-function getnum_k(obj_var)
+function get_magh_num_k(obj_var)
 	type (MagH_Type) :: obj_var
 	integer :: getnum_k
 	getnum_k = obj_var%num_k
-end function getnum_k
+end function get_magh_num_k
 
-subroutine setnum_k(obj_var, new_value)
+subroutine set_magh_num_k(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%num_k = new_value
-end subroutine setnum_k
+end subroutine set_magh_num_k
 
-function getH(obj_var)
+function get_magh_H(obj_var)
 	type (MagH_Type) :: obj_var
 	real(kind=cp), dimension(3) :: getH
 	getH = obj_var%H
-end function getH
+end function get_magh_H
 
-subroutine setH(obj_var, new_value)
+subroutine set_magh_H(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	real(kind=cp), dimension(3), intent(in) :: new_value
 	obj_var%H = new_value
-end subroutine setH
+end subroutine set_magh_H
 
-function getsqMiV(obj_var)
+function get_magh_sqMiV(obj_var)
 	type (MagH_Type) :: obj_var
 	real(kind=cp) :: getsqMiV
 	getsqMiV = obj_var%sqMiV
-end function getsqMiV
+end function get_magh_sqMiV
 
-subroutine setsqMiV(obj_var, new_value)
+subroutine set_magh_sqMiV(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%sqMiV = new_value
-end subroutine setsqMiV
+end subroutine set_magh_sqMiV
 
-function gets(obj_var)
+function get_magh_s(obj_var)
 	type (MagH_Type) :: obj_var
 	real(kind=cp) :: gets
 	gets = obj_var%s
-end function gets
+end function get_magh_s
 
-subroutine sets(obj_var, new_value)
+subroutine set_magh_s(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%s = new_value
-end subroutine sets
+end subroutine set_magh_s
 
-function getMiVC(obj_var)
+function get_magh_MiVC(obj_var)
 	type (MagH_Type) :: obj_var
 	complex(kind=cp), dimension(3) :: getMiVC
 	getMiVC = obj_var%MiVC
-end function getMiVC
+end function get_magh_MiVC
 
-subroutine setMiVC(obj_var, new_value)
+subroutine set_magh_MiVC(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	complex(kind=cp), dimension(3), intent(in) :: new_value
 	obj_var%MiVC = new_value
-end subroutine setMiVC
+end subroutine set_magh_MiVC
 
-function getsignp(obj_var)
+function get_magh_signp(obj_var)
 	type (MagH_Type) :: obj_var
 	real(kind=cp) :: getsignp
 	getsignp = obj_var%signp
-end function getsignp
+end function get_magh_signp
 
-subroutine setsignp(obj_var, new_value)
+subroutine set_magh_signp(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%signp = new_value
-end subroutine setsignp
+end subroutine set_magh_signp
 
-function getkeqv_minus(obj_var)
+function get_magh_keqv_minus(obj_var)
 	type (MagH_Type) :: obj_var
 	logical :: getkeqv_minus
 	getkeqv_minus = obj_var%keqv_minus
-end function getkeqv_minus
+end function get_magh_keqv_minus
 
-subroutine setkeqv_minus(obj_var, new_value)
+subroutine set_magh_keqv_minus(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	logical, intent(in) :: new_value
 	obj_var%keqv_minus = new_value
-end subroutine setkeqv_minus
+end subroutine set_magh_keqv_minus
 
-function getMsF(obj_var)
+function get_magh_MsF(obj_var)
 	type (MagH_Type) :: obj_var
 	complex(kind=cp), dimension(3) :: getMsF
 	getMsF = obj_var%MsF
-end function getMsF
+end function get_magh_MsF
 
-subroutine setMsF(obj_var, new_value)
+subroutine set_magh_MsF(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	complex(kind=cp), dimension(3), intent(in) :: new_value
 	obj_var%MsF = new_value
-end subroutine setMsF
+end subroutine set_magh_MsF
 
-function getmult(obj_var)
+function get_magh_mult(obj_var)
 	type (MagH_Type) :: obj_var
 	integer :: getmult
 	getmult = obj_var%mult
-end function getmult
+end function get_magh_mult
 
-subroutine setmult(obj_var, new_value)
+subroutine set_magh_mult(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%mult = new_value
-end subroutine setmult
+end subroutine set_magh_mult
 
-function getMiV(obj_var)
+function get_magh_MiV(obj_var)
 	type (MagH_Type) :: obj_var
 	complex(kind=cp), dimension(3) :: getMiV
 	getMiV = obj_var%MiV
-end function getMiV
+end function get_magh_MiV
 
-subroutine setMiV(obj_var, new_value)
+subroutine set_magh_MiV(obj_var, new_value)
 	type (MagH_Type) :: obj_var
 	complex(kind=cp), dimension(3), intent(in) :: new_value
 	obj_var%MiV = new_value
-end subroutine setMiV
+end subroutine set_magh_MiV
 
 subroutine MagH_Type_ctor(MagH_Type_param, num_k_param, H_param, sqMiV_param, s_param, MiVC_param, signp_param, keqv_minus_param, MsF_param, mult_param, MiV_param)
 	type (MagH_Type) :: MagH_Type_param

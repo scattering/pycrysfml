@@ -1,26 +1,26 @@
-function getmaxb(obj_var)
+function get_interval_maxb(obj_var)
 	type (interval_type) :: obj_var
 	real(kind=cp) :: getmaxb
 	getmaxb = obj_var%maxb
-end function getmaxb
+end function get_interval_maxb
 
-subroutine setmaxb(obj_var, new_value)
+subroutine set_interval_maxb(obj_var, new_value)
 	type (interval_type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%maxb = new_value
-end subroutine setmaxb
+end subroutine set_interval_maxb
 
-function getmina(obj_var)
+function get_interval_mina(obj_var)
 	type (interval_type) :: obj_var
 	real(kind=cp) :: getmina
 	getmina = obj_var%mina
-end function getmina
+end function get_interval_mina
 
-subroutine setmina(obj_var, new_value)
+subroutine set_interval_mina(obj_var, new_value)
 	type (interval_type) :: obj_var
 	real(kind=cp), intent(in) :: new_value
 	obj_var%mina = new_value
-end subroutine setmina
+end subroutine set_interval_mina
 
 subroutine interval_type_ctor(interval_type_param, maxb_param, mina_param)
 	type (interval_type) :: interval_type_param

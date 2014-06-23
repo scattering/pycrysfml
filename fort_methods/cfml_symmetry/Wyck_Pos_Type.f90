@@ -1,62 +1,62 @@
-function getnorb(obj_var)
+function get_wyck_pos_norb(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
 	integer :: getnorb
 	getnorb = obj_var%norb
-end function getnorb
+end function get_wyck_pos_norb
 
-subroutine setnorb(obj_var, new_value)
+subroutine set_wyck_pos_norb(obj_var, new_value)
 	type (Wyck_Pos_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%norb = new_value
-end subroutine setnorb
+end subroutine set_wyck_pos_norb
 
-function getstr_orig(obj_var)
+function get_wyck_pos_str_orig(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
 	character(len=40) :: getstr_orig
 	getstr_orig = obj_var%str_orig
-end function getstr_orig
+end function get_wyck_pos_str_orig
 
-subroutine setstr_orig(obj_var, new_value)
+subroutine set_wyck_pos_str_orig(obj_var, new_value)
 	type (Wyck_Pos_Type) :: obj_var
 	character(len=40), intent(in) :: new_value
 	obj_var%str_orig = new_value
-end subroutine setstr_orig
+end subroutine set_wyck_pos_str_orig
 
-function getmultp(obj_var)
+function get_wyck_pos_multp(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
 	integer :: getmultp
 	getmultp = obj_var%multp
-end function getmultp
+end function get_wyck_pos_multp
 
-subroutine setmultp(obj_var, new_value)
+subroutine set_wyck_pos_multp(obj_var, new_value)
 	type (Wyck_Pos_Type) :: obj_var
 	integer, intent(in) :: new_value
 	obj_var%multp = new_value
-end subroutine setmultp
+end subroutine set_wyck_pos_multp
 
-function getsite(obj_var)
+function get_wyck_pos_site(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
 	character(len= 6) :: getsite
 	getsite = obj_var%site
-end function getsite
+end function get_wyck_pos_site
 
-subroutine setsite(obj_var, new_value)
+subroutine set_wyck_pos_site(obj_var, new_value)
 	type (Wyck_Pos_Type) :: obj_var
 	character(len= 6), intent(in) :: new_value
 	obj_var%site = new_value
-end subroutine setsite
+end subroutine set_wyck_pos_site
 
-function getstr_orbit(obj_var)
+function get_wyck_pos_str_orbit(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
 	character(len=40),dimension(48) :: getstr_orbit
 	getstr_orbit = obj_var%str_orbit
-end function getstr_orbit
+end function get_wyck_pos_str_orbit
 
-subroutine setstr_orbit(obj_var, new_value)
+subroutine set_wyck_pos_str_orbit(obj_var, new_value)
 	type (Wyck_Pos_Type) :: obj_var
 	character(len=40),dimension(48), intent(in) :: new_value
 	obj_var%str_orbit = new_value
-end subroutine setstr_orbit
+end subroutine set_wyck_pos_str_orbit
 
 subroutine Wyck_Pos_Type_ctor(Wyck_Pos_Type_param, norb_param, str_orig_param, multp_param, site_param, str_orbit_param)
 	type (Wyck_Pos_Type) :: Wyck_Pos_Type_param
