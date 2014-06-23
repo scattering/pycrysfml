@@ -7,6 +7,6 @@ nlns = [line.strip() for line in open(argv[2])]
 out = open(argv[1], "w")
 for line in lines:
 	if 'end module' in line.lower():
-	for c in nlns:
-		out.write("\t"+c+"\n")
+		for c in nlns:
+			out.write("\t"+c+"\n")
 	out.write(line+"\n")

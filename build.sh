@@ -13,6 +13,7 @@ $wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Reflct_Util.f90 $wd/fort
 $wd/fort_methods/inject_methods.py $wd/crysfml/Src/CFML_Symmetry.f90 $wd/fort_methods/cfml_symmetry_addns.f90
 ./clean.sh
 # end method injection
+cd $wd
 $wd/gen_list.py > $wd/list
 cd $wd/crysfml/Src/
 mkdir wrap
