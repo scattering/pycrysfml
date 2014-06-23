@@ -1,0 +1,377 @@
+# Atom_Equiv_Type!cfml_atom_mod
+integer                                        :: mult
+character(len=2)                               :: ChemSymb
+character(len=20),allocatable, dimension(:)    :: Lab
+real(kind=cp),    allocatable, dimension(:,:)  :: x
+# Atom_Equiv_List_Type!cfml_atom_mod
+integer                                           :: nauas
+type (Atom_Equiv_Type), allocatable, dimension(:) :: atm
+# Atom_Type!cfml_atom_mod
+character(len=20)                        :: Lab
+character(len=2)                         :: ChemSymb
+character(len=4)                         :: SfacSymb
+character(len=1)                         :: wyck
+logical                                  :: Active
+integer                                  :: Z
+integer                                  :: Mult
+real(kind=cp),dimension(3)               :: X
+real(kind=cp),dimension(3)               :: X_Std
+real(kind=cp),dimension(3)               :: MX
+integer,      dimension(3)               :: LX
+real(kind=cp)                            :: Occ
+real(kind=cp)                            :: Occ_Std
+real(kind=cp)                            :: MOcc
+integer                                  :: LOcc
+real(kind=cp)                            :: Biso
+real(kind=cp)                            :: Biso_std
+real(kind=cp)                            :: MBiso
+integer                                  :: LBiso
+character(len=4)                         :: Utype
+character(len=5)                         :: ThType
+real(kind=cp),dimension(6)               :: U
+real(kind=cp),dimension(6)               :: U_std
+real(kind=cp)                            :: Ueq
+real(kind=cp),dimension(6)               :: MU
+integer,      dimension(6)               :: LU
+real(kind=cp)                            :: Charge
+real(kind=cp)                            :: Moment
+integer, dimension(5)                    :: Ind
+integer                                  :: NVar
+real(kind=cp),dimension(10)              :: VarF
+character(len=40)                        :: AtmInfo
+# Atoms_Cell_Type!cfml_atom_mod
+integer                                            :: nat
+character (len=20),      dimension(:), allocatable :: noms
+real(kind=cp),         dimension(:,:), allocatable :: xyz
+real(kind=cp),           dimension(:), allocatable :: charge
+real(kind=cp),           dimension(:), allocatable :: moment
+real(kind=cp),         dimension(:,:), allocatable :: var_free
+integer,                 dimension(:), allocatable :: neighb
+integer,              dimension( :,:), allocatable :: neighb_atom
+real(kind=cp),        dimension( :,:), allocatable :: distance
+real(kind=cp),      dimension(:, :,:), allocatable :: trans
+integer                                            :: ndist
+real(kind=cp),           dimension(:), allocatable :: ddist
+character (len=20),      dimension(:), allocatable :: ddlab
+# Atom_List_Type!cfml_atom_mod
+integer                                  :: natoms
+type(Atom_Type),dimension(:),allocatable :: atom
+# mAtom_Type!cfml_atom_mod
+character(len=10)                        :: Lab
+character(len=2)                         :: ChemSymb
+character(len=4)                         :: SfacSymb
+character(len=1)                         :: wyck
+logical                                  :: Active
+integer                                  :: Z
+integer                                  :: Mult
+real(kind=cp),dimension(3)               :: X
+real(kind=cp),dimension(3)               :: X_Std
+real(kind=cp),dimension(3)               :: MX
+integer,      dimension(3)               :: LX
+real(kind=cp)                            :: Occ
+real(kind=cp)                            :: Occ_Std
+real(kind=cp)                            :: MOcc
+integer                                  :: LOcc
+real(kind=cp)                            :: Biso
+real(kind=cp)                            :: Biso_std
+real(kind=cp)                            :: MBiso
+integer                                  :: LBiso
+character(len=4)                         :: Utype
+character(len=5)                         :: ThType
+real(kind=cp),dimension(6)               :: U
+real(kind=cp),dimension(6)               :: U_std
+real(kind=cp)                            :: Ueq
+real(kind=cp),dimension(6)               :: MU
+integer,      dimension(6)               :: LU
+real(kind=cp)                            :: Charge
+real(kind=cp)                            :: Moment
+integer, dimension(5)                    :: Ind
+integer                                  :: NVar
+real(kind=cp),dimension(10)              :: VarF
+character(len=40)                        :: AtmInfo
+integer                                 :: nvk
+integer,      dimension(12)             :: imat
+real(kind=cp),dimension(3,12)           :: SkR
+real(kind=cp),dimension(3,12)           :: SkR_std
+real(kind=cp),dimension(3,12)           :: Spher_SkR
+real(kind=cp),dimension(3,12)           :: Spher_SkR_std
+real(kind=cp),dimension(3,12)           :: mSkR
+integer,      dimension(3,12)           :: lskr
+real(kind=cp),dimension(3,12)           :: SkI
+real(kind=cp),dimension(3,12)           :: SkI_std
+real(kind=cp),dimension(3,12)           :: Spher_SkI
+real(kind=cp),dimension(3,12)           :: Spher_SkI_std
+real(kind=cp),dimension(3,12)           :: mSki
+integer,      dimension(3,12)           :: lski
+real(kind=cp),dimension(12)             :: mphas
+real(kind=cp),dimension(12)             :: mphas_std
+real(kind=cp),dimension(12)             :: mmphas
+integer,dimension(12)                   :: lmphas
+real(kind=cp),dimension(12,12)          :: cbas
+real(kind=cp),dimension(12,12)          :: cbas_std
+real(kind=cp),dimension(12,12)          :: mbas
+integer,dimension(12,12)                :: lbas
+# mAtom_List_Type!cfml_atom_mod
+integer                                   :: natoms
+type(mAtom_Type),dimension(:),allocatable :: Atom
+# Crystal_Cell_Type!cfml_cryst_types
+real(kind=cp),dimension(3)   :: cell, ang
+integer,      dimension(3)   :: lcell, lang
+real(kind=cp),dimension(3)   :: cell_std, ang_std
+real(kind=cp),dimension(3)   :: rcell, rang
+real(kind=cp),dimension(3,3) :: GD,GR
+real(kind=cp),dimension(3,3) :: Cr_Orth_cel
+real(kind=cp),dimension(3,3) :: Orth_Cr_cel
+real(kind=cp),dimension(3,3) :: BL_M
+real(kind=cp),dimension(3,3) :: BL_Minv
+real(kind=cp)                :: CellVol
+real(kind=cp)                :: RCellVol
+character (len=1)            :: CartType
+# Twofold_Axes_Type!cfml_cryst_types
+integer                        :: ntwo=0
+real(kind=cp)                  :: tol=3.0
+real(kind=cp) ,dimension(3,12) :: caxes=0.0
+integer,dimension(3,12)        :: dtwofold=0
+integer,dimension(3,12)        :: rtwofold=0
+integer,dimension(12)          :: dot=0
+real(kind=cp), dimension(12)   :: cross=0.0
+real(kind=cp), dimension(12)   :: maxes=0.0
+real(kind=cp), dimension(3)    :: a=0.0,b=0.0,c=0.0
+# Zone_Axis_Type!cfml_cryst_types
+Integer               :: nlayer
+Integer, dimension(3) :: uvw
+Integer, dimension(3) :: rx
+Integer, dimension(3) :: ry
+# interval_type!cfml_form_cif
+real(kind=cp) :: mina  !low limit
+real(kind=cp) :: maxb  !high limit
+# Job_Info_type!cfml_form_cif
+character(len=120)                            :: Title
+integer                                       :: Num_Phases
+integer                                       :: Num_Patterns
+integer                                       :: Num_cmd
+character(len=16),  dimension(:), allocatable :: Patt_typ
+character(len=128), dimension(:), allocatable :: Phas_nam
+character(len=128), dimension(:), allocatable :: cmd
+type(interval_type),dimension(:), allocatable :: range_stl
+type(interval_type),dimension(:), allocatable :: range_q
+type(interval_type),dimension(:), allocatable :: range_d
+type(interval_type),dimension(:), allocatable :: range_2theta
+type(interval_type),dimension(:), allocatable :: range_Energy
+type(interval_type),dimension(:), allocatable :: range_tof
+type(interval_type),dimension(:), allocatable :: Lambda
+real(kind=cp)      ,dimension(:), allocatable :: ratio
+real(kind=cp)      ,dimension(:), allocatable :: dtt1,dtt2
+# File_List_Type!cfml_form_cif
+integer                                       :: nlines
+character(len=256), allocatable, dimension(:) :: line
+# MSym_Oper_Type!cfml_magsymm
+integer, dimension(3,3) :: Rot
+real(kind=cp)           :: Phas
+# Magnetic_Domain_type!cfml_magsymm
+integer                           :: nd=0          !Number of rotational domains (not counting chiral domains)
+logical                           :: Chir=.false.  !True if chirality domains exist
+logical                           :: trans=.false. !True if translations are associated to matrix domains
+logical                           :: Twin=.false.  !True if domains are to be interpreted as twins
+integer,dimension(3,3,24)         :: DMat=0        !Domain matrices to be applied to Fourier Coefficients
+real(kind=cp), dimension (3,24)   :: Dt=0.0        !Translations associated to rotation matrices
+real(kind=cp), dimension (2,24)   :: pop=0.0       !Populations of domains (sum=1, the second value is /=0 for chir=.true.)
+integer      , dimension (2,24)   :: Lpop=0        !Number of the refined parameter
+real(kind=cp), dimension (2,24)   :: Mpop=0.0      !Multipliers for population
+real(kind=cp), dimension (2,24)   :: pop_std=0.0   !Standard deviations of Populations of domains
+character(len=10),dimension (2,24):: Lab           !Label of domain
+# Magnetic_Space_Group_Type!cfml_magsymm
+Integer                                        :: Sh_number
+character(len=15)                              :: BNS_number
+character(len=15)                              :: OG_number
+Character(len=34)                              :: BNS_symbol
+Character(len=34)                              :: OG_symbol
+Integer                                        :: MagType
+Integer                                        :: Parent_num
+Character(len=20)                              :: Parent_spg
+logical                                        :: standard_setting  !true or false
+logical                                        :: mcif !true if mx,my,mz notation is used , false is u,v,w notation is used
+logical                                        :: m_cell !true if magnetic cell is used for symmetry operators
+logical                                        :: m_constr !true if constraints have been provided
+Character(len=40)                              :: trn_from_parent
+Character(len=40)                              :: trn_to_standard
+character(len=12)                              :: CrystalSys       ! Crystal system
+character(len= 1)                              :: SPG_lat          ! Lattice type
+character(len= 2)                              :: SPG_latsy        ! Lattice type Symbol
+integer                                        :: Num_Lat          ! Number of lattice points in a cell
+integer                                        :: Num_aLat         ! Number of anti-lattice points in a cell
+real(kind=cp), allocatable,dimension(:,:)      :: Latt_trans       ! Lattice translations
+real(kind=cp), allocatable,dimension(:,:)      :: aLatt_trans      ! Lattice anti-translations
+character(len=80)                              :: Centre           ! Alphanumeric information about the center of symmetry
+integer                                        :: Centred          ! Centric or Acentric [ =0 Centric(-1 no at origin),=1 Acentric,=2 Centric(-1 at origin)]
+real(kind=cp), dimension(3)                    :: Centre_coord     ! Fractional coordinates of the inversion centre
+integer                                        :: NumOps           ! Number of reduced set of S.O. (removing lattice centring and anticentrings and centre of symmetry)
+Integer                                        :: Multip
+integer                                        :: Num_gen          ! Minimum number of operators to generate the Group
+Integer                                        :: n_wyck   !Number of Wyckoff positions of the magnetic group
+Integer                                        :: n_kv
+Integer                                        :: n_irreps
+Integer,             dimension(:),allocatable  :: irrep_dim       !Dimension of the irreps
+Integer,             dimension(:),allocatable  :: small_irrep_dim !Dimension of the small irrep
+Integer,             dimension(:),allocatable  :: irrep_modes_number !Number of the mode of the irrep
+Character(len=15),   dimension(:),allocatable  :: irrep_id        !Labels for the irreps
+Character(len=20),   dimension(:),allocatable  :: irrep_direction !Irrep direction in representation space
+Character(len=20),   dimension(:),allocatable  :: irrep_action    !Irrep character primary or secondary
+Character(len=15),   dimension(:),allocatable  :: kv_label
+real(kind=cp),     dimension(:,:),allocatable  :: kv
+character(len=40),   dimension(:),allocatable  :: Wyck_Symb  ! Alphanumeric Symbols for first representant of Wyckoff positions
+character(len=40),   dimension(:),allocatable  :: SymopSymb  ! Alphanumeric Symbols for SYMM
+type(Sym_Oper_Type), dimension(:),allocatable  :: SymOp      ! Crystallographic symmetry operators
+character(len=40),   dimension(:),allocatable  :: MSymopSymb ! Alphanumeric Symbols for MSYMM
+type(MSym_Oper_Type),dimension(:),allocatable  :: MSymOp     ! Magnetic symmetry operators
+# Magnetic_Group_Type!cfml_magsymm
+Character(len=30)           :: Shubnikov
+type(Space_Group_Type)      :: SpG
+integer, dimension(192)     :: tinv
+# MagSymm_k_Type!cfml_magsymm
+character(len=31)                        :: MagModel
+character(len=15)                        :: Sk_type
+character(len=15)                        :: BNS_number ! Added for keeping the same information
+character(len=15)                        :: OG_number  ! as in Magnetic_Space_Group_Type
+Character(len=34)                        :: BNS_symbol !             "
+Character(len=34)                        :: OG_symbol  !             "
+Integer                                  :: MagType    !             "
+Integer                                  :: Parent_num !             "
+Character(len=20)                        :: Parent_spg !             "
+character(len=1)                         :: Latt
+integer                                  :: nirreps
+Integer,             dimension(4)        :: irrep_dim          !Dimension of the irreps
+Integer,             dimension(4)        :: small_irrep_dim    !Dimension of the small irrep
+Integer,             dimension(4)        :: irrep_modes_number !Number of the mode of the irrep
+Character(len=15),   dimension(4)        :: irrep_id           !Labels for the irreps
+Character(len=20),   dimension(4)        :: irrep_direction    !Irrep direction in representation space
+Character(len=20),   dimension(4)        :: irrep_action       !Irrep character primary or secondary
+integer                                  :: nmsym
+integer                                  :: centred
+integer                                  :: mcentred
+integer                                  :: nkv
+real(kind=cp),dimension(3,12)            :: kvec
+integer                                  :: Num_Lat
+real(kind=cp), dimension(3,4)            :: Ltr
+integer                                  :: Numops
+integer                                  :: Multip
+integer,             dimension(4)        :: nbas
+integer,             dimension(12,4)     :: icomp
+Complex(kind=cp),    dimension(3,12,48,4):: basf
+character(len=40),   dimension(:),   allocatable :: SymopSymb  ! Alphanumeric Symbols for SYMM
+type(Sym_Oper_Type), dimension(:),   allocatable :: SymOp      ! Crystallographic symmetry operators (48)
+character(len=40),   dimension(:,:), allocatable :: MSymopSymb ! Alphanumeric Symbols for MSYMM (48,8)
+type(MSym_Oper_Type),dimension(:,:), allocatable :: MSymOp     ! Magnetic symmetry operators (48,8)
+# MagH_Type!cfml_msfac
+logical                        :: keqv_minus  !True if k equivalent to -k
+integer                        :: mult        !Multiplicity of the reflection (useful for powder calculations)
+integer                        :: num_k       !number of the propagation vector vk
+real(kind=cp)                  :: signp       !+1 for -vk   and -1 for +vk
+real(kind=cp)                  :: s           !sinTheta/Lambda
+real(kind=cp)                  :: sqMiV       !Square of the Magnetic Interaction vector
+real(kind=cp), dimension(3)    :: H           ! H +/- k
+complex(kind=cp), dimension(3) :: MsF         !Magnetic structure factor w.r.t. unitary Crystal Frame
+complex(kind=cp), dimension(3) :: MiV         !Magnetic interaction vector w.r.t. unitary Crystal Frame
+complex(kind=cp), dimension(3) :: MiVC        !Magnetic interaction vector in Cartesian components w.r.t. Crystal Frame
+# MagH_List_Type!cfml_msfac
+integer                                   :: Nref
+Type(MagH_Type),allocatable, dimension(:) :: Mh
+# MagHD_Type!cfml_msfac
+logical                            :: keqv_minus
+integer                            :: num_k     !number of the propagation vector vk
+real(kind=cp)                      :: signp     !+1 for -vk   and -1 for +vk
+real(kind=cp)                      :: s         !sinTheta/Lambda
+real(kind=cp)                      :: sqAMiV    !Square of the Average Magnetic Interaction vector
+real(kind=cp)                      :: sqMiV     !Average of the Square of Magnetic Interaction vectors
+real(kind=cp),   dimension(3)      :: H         ! H +/- k
+complex(kind=cp),dimension(3,2,24) :: MsF       !Magnetic structure factors of each domain (second dimension for chirality domains)
+complex(kind=cp),dimension(3,2,24) :: MiV       !Magnetic interaction vector of each domain
+complex(kind=cp),dimension(3,2,24) :: MiVC      !Magnetic interaction vector of each domain in Cartesian Crystal space
+complex(kind=cp),dimension(3)      :: AMiV      !Average Magnetic interaction vector = 1/nd Sum{ pop(i) Miv(:,i)}
+# MagHD_List_Type!cfml_msfac
+integer                                    :: Nref
+Type(MagHD_Type),allocatable, dimension(:) :: Mh
+# Reflect_Type!cfml_reflct_util
+integer,dimension(3) :: H     ! H
+integer              :: Mult  ! mutiplicity
+real(kind=cp)        :: S     ! Sin(Theta)/lambda=1/2d
+# Reflection_Type!cfml_reflct_util
+integer,dimension(3) :: H     ! H
+integer              :: Mult  ! mutiplicity
+real(kind=cp)        :: Fo    ! Observed Structure Factor
+real(kind=cp)        :: Fc    ! Calculated Structure Factor
+real(kind=cp)        :: SFo   ! Sigma of  Fo
+real(kind=cp)        :: S     ! Sin(Theta)/lambda
+real(kind=cp)        :: W     ! Weight
+real(kind=cp)        :: Phase ! Phase in degrees
+real(kind=cp)        :: A     ! real part of the Structure Factor
+real(kind=cp)        :: B     ! Imaginary part of the Structure Factor
+real(kind=cp)        :: AA    ! Free
+real(kind=cp)        :: BB    ! Free
+# Reflection_List_Type!cfml_reflct_util
+integer                                         :: NRef  ! Number of Reflections
+type(reflection_type),allocatable, dimension(:) :: Ref ! Reflection List
+# NS_Sym_Oper_Type!cfml_symmetry
+real(kind=cp), dimension(3,3) :: Rot
+real(kind=cp), dimension(3)   :: Tr
+# NS_Space_Group_Type!cfml_symmetry
+integer                                          :: NumSpg           ! Number of the Space Group
+character(len=20)                                :: SPG_Symb         ! Hermann-Mauguin Symbol
+character(len=16)                                :: Hall             ! Hall symbol
+character(len=90)                                :: gHall            ! Generalised Hall symbol
+character(len=12)                                :: CrystalSys       ! Crystal system
+character(len= 5)                                :: Laue             ! Laue Class
+character(len= 5)                                :: PG               ! Point group
+character(len= 5)                                :: Info             ! Extra information
+character(len=90)                                :: SG_setting       ! Information about the SG setting (IT,KO,ML,ZA,Table,Standard,UnConventional)
+character(len= 1)                                :: SPG_lat          ! Lattice type
+character(len= 2)                                :: SPG_latsy        ! Lattice type Symbol
+integer                                          :: NumLat           ! Number of lattice points in a cell
+real(kind=cp), allocatable,dimension(:,:)        :: Latt_trans       ! Lattice translations (3,12)
+character(len=51)                                :: Bravais          ! String with Bravais symbol + translations
+character(len=80)                                :: Centre           ! Alphanumeric information about the center of symmetry
+integer                                          :: Centred          ! Centric or Acentric [ =0 Centric(-1 no at origin),=1 Acentric,=2 Centric(-1 at origin)]
+real(kind=cp), dimension(3)                      :: Centre_coord     ! Fractional coordinates of the inversion centre
+integer                                          :: NumOps           ! Number of reduced set of S.O.
+integer                                          :: Multip           ! Multiplicity of the general position
+integer                                          :: Num_gen          ! Minimum number of operators to generate the Group
+type(NS_Sym_Oper_Type), allocatable,dimension(:) :: SymOp            ! Symmetry operators (192)
+character(len=50),      allocatable,dimension(:) :: SymopSymb        ! Strings form of symmetry operators
+# Sym_Oper_Type!cfml_symmetry
+integer,       dimension(3,3) :: Rot
+real(kind=cp), dimension(3)   :: Tr
+# Wyck_Pos_Type!cfml_symmetry
+integer                          :: multp
+character(len= 6)                :: site
+integer                          :: norb
+character(len=40)                :: str_orig
+character(len=40),dimension(48)  :: str_orbit
+# Wyckoff_Type!cfml_symmetry
+integer                            :: num_orbit
+type(wyck_pos_type), dimension(26) :: orbit
+# Space_Group_Type!cfml_symmetry
+integer                                       :: NumSpg           ! Number of the Space Group
+character(len=20)                             :: SPG_Symb         ! Hermann-Mauguin Symbol
+character(len=16)                             :: Hall             ! Hall symbol
+character(len=90)                             :: gHall            ! Generalised Hall symbol
+character(len=12)                             :: CrystalSys       ! Crystal system
+character(len= 5)                             :: Laue             ! Laue Class
+character(len= 5)                             :: PG               ! Point group
+character(len= 5)                             :: Info             ! Extra information
+character(len=90)                             :: SG_setting       ! Information about the SG setting (IT,KO,ML,ZA,Table,Standard,UnConventional)
+logical                                       :: Hexa             !
+character(len= 1)                             :: SPG_lat          ! Lattice type
+character(len= 2)                             :: SPG_latsy        ! Lattice type Symbol
+integer                                       :: NumLat           ! Number of lattice points in a cell
+real(kind=cp), allocatable,dimension(:,:)     :: Latt_trans       ! Lattice translations (3,12)
+character(len=51)                             :: Bravais          ! String with Bravais symbol + translations
+character(len=80)                             :: Centre           ! Alphanumeric information about the center of symmetry
+integer                                       :: Centred          ! Centric or Acentric [ =0 Centric(-1 no at origin),=1 Acentric,=2 Centric(-1 at origin)]
+real(kind=cp), dimension(3)                   :: Centre_coord     ! Fractional coordinates of the inversion centre
+integer                                       :: NumOps           ! Number of reduced set of S.O.
+integer                                       :: Multip           ! Multiplicity of the general position
+integer                                       :: Num_gen          ! Minimum number of operators to generate the Group
+type(Sym_Oper_Type), allocatable,dimension(:) :: SymOp            ! Symmetry operators (192)
+character(len=50),   allocatable,dimension(:) :: SymopSymb        ! Strings form of symmetry operators
+type(Wyckoff_Type)                            :: Wyckoff          ! Wyckoff Information
+real(kind=cp),dimension(3,2)                  :: R_Asym_Unit      ! Asymmetric unit in real space
