@@ -1,7 +1,7 @@
 function get_crystal_cell_lang(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	integer,      dimension(3) :: getlang
-	getlang = obj_var%lang
+	integer,      dimension(3) :: get_crystal_cell_lang
+	get_crystal_cell_lang = obj_var%lang
 end function get_crystal_cell_lang
 
 subroutine set_crystal_cell_lang(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_crystal_cell_lang
 
 function get_crystal_cell_RCellVol(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp) :: getRCellVol
-	getRCellVol = obj_var%RCellVol
+	real(kind=cp) :: get_crystal_cell_RCellVol
+	get_crystal_cell_RCellVol = obj_var%RCellVol
 end function get_crystal_cell_RCellVol
 
 subroutine set_crystal_cell_RCellVol(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_crystal_cell_RCellVol
 
 function get_crystal_cell_cell_std(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getcell_std
-	getcell_std = obj_var%cell_std
+	real(kind=cp),dimension(3) :: get_crystal_cell_cell_std
+	get_crystal_cell_cell_std = obj_var%cell_std
 end function get_crystal_cell_cell_std
 
 subroutine set_crystal_cell_cell_std(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_crystal_cell_cell_std
 
 function get_crystal_cell_ang(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getang
-	getang = obj_var%ang
+	real(kind=cp),dimension(3) :: get_crystal_cell_ang
+	get_crystal_cell_ang = obj_var%ang
 end function get_crystal_cell_ang
 
 subroutine set_crystal_cell_ang(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_crystal_cell_ang
 
 function get_crystal_cell_BL_Minv(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: getBL_Minv
-	getBL_Minv = obj_var%BL_Minv
+	real(kind=cp),dimension(3,3) :: get_crystal_cell_BL_Minv
+	get_crystal_cell_BL_Minv = obj_var%BL_Minv
 end function get_crystal_cell_BL_Minv
 
 subroutine set_crystal_cell_BL_Minv(obj_var, new_value)
@@ -60,8 +60,8 @@ end subroutine set_crystal_cell_BL_Minv
 
 function get_crystal_cell_GR(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: getGR
-	getGR = obj_var%GR
+	real(kind=cp),dimension(3,3) :: get_crystal_cell_GR
+	get_crystal_cell_GR = obj_var%GR
 end function get_crystal_cell_GR
 
 subroutine set_crystal_cell_GR(obj_var, new_value)
@@ -72,8 +72,8 @@ end subroutine set_crystal_cell_GR
 
 function get_crystal_cell_Cr_Orth_cel(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: getCr_Orth_cel
-	getCr_Orth_cel = obj_var%Cr_Orth_cel
+	real(kind=cp),dimension(3,3) :: get_crystal_cell_Cr_Orth_cel
+	get_crystal_cell_Cr_Orth_cel = obj_var%Cr_Orth_cel
 end function get_crystal_cell_Cr_Orth_cel
 
 subroutine set_crystal_cell_Cr_Orth_cel(obj_var, new_value)
@@ -84,8 +84,8 @@ end subroutine set_crystal_cell_Cr_Orth_cel
 
 function get_crystal_cell_BL_M(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: getBL_M
-	getBL_M = obj_var%BL_M
+	real(kind=cp),dimension(3,3) :: get_crystal_cell_BL_M
+	get_crystal_cell_BL_M = obj_var%BL_M
 end function get_crystal_cell_BL_M
 
 subroutine set_crystal_cell_BL_M(obj_var, new_value)
@@ -96,8 +96,8 @@ end subroutine set_crystal_cell_BL_M
 
 function get_crystal_cell_Orth_Cr_cel(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: getOrth_Cr_cel
-	getOrth_Cr_cel = obj_var%Orth_Cr_cel
+	real(kind=cp),dimension(3,3) :: get_crystal_cell_Orth_Cr_cel
+	get_crystal_cell_Orth_Cr_cel = obj_var%Orth_Cr_cel
 end function get_crystal_cell_Orth_Cr_cel
 
 subroutine set_crystal_cell_Orth_Cr_cel(obj_var, new_value)
@@ -108,8 +108,8 @@ end subroutine set_crystal_cell_Orth_Cr_cel
 
 function get_crystal_cell_CartType(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	character (len=1) :: getCartType
-	getCartType = obj_var%CartType
+	character (len=1) :: get_crystal_cell_CartType
+	get_crystal_cell_CartType = obj_var%CartType
 end function get_crystal_cell_CartType
 
 subroutine set_crystal_cell_CartType(obj_var, new_value)
@@ -120,8 +120,8 @@ end subroutine set_crystal_cell_CartType
 
 function get_crystal_cell_rang(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getrang
-	getrang = obj_var%rang
+	real(kind=cp),dimension(3) :: get_crystal_cell_rang
+	get_crystal_cell_rang = obj_var%rang
 end function get_crystal_cell_rang
 
 subroutine set_crystal_cell_rang(obj_var, new_value)
@@ -132,8 +132,8 @@ end subroutine set_crystal_cell_rang
 
 function get_crystal_cell_rcell(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getrcell
-	getrcell = obj_var%rcell
+	real(kind=cp),dimension(3) :: get_crystal_cell_rcell
+	get_crystal_cell_rcell = obj_var%rcell
 end function get_crystal_cell_rcell
 
 subroutine set_crystal_cell_rcell(obj_var, new_value)
@@ -144,8 +144,8 @@ end subroutine set_crystal_cell_rcell
 
 function get_crystal_cell_cell(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getcell
-	getcell = obj_var%cell
+	real(kind=cp),dimension(3) :: get_crystal_cell_cell
+	get_crystal_cell_cell = obj_var%cell
 end function get_crystal_cell_cell
 
 subroutine set_crystal_cell_cell(obj_var, new_value)
@@ -156,8 +156,8 @@ end subroutine set_crystal_cell_cell
 
 function get_crystal_cell_GD(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: getGD
-	getGD = obj_var%GD
+	real(kind=cp),dimension(3,3) :: get_crystal_cell_GD
+	get_crystal_cell_GD = obj_var%GD
 end function get_crystal_cell_GD
 
 subroutine set_crystal_cell_GD(obj_var, new_value)
@@ -168,8 +168,8 @@ end subroutine set_crystal_cell_GD
 
 function get_crystal_cell_CellVol(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp) :: getCellVol
-	getCellVol = obj_var%CellVol
+	real(kind=cp) :: get_crystal_cell_CellVol
+	get_crystal_cell_CellVol = obj_var%CellVol
 end function get_crystal_cell_CellVol
 
 subroutine set_crystal_cell_CellVol(obj_var, new_value)
@@ -180,8 +180,8 @@ end subroutine set_crystal_cell_CellVol
 
 function get_crystal_cell_ang_std(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getang_std
-	getang_std = obj_var%ang_std
+	real(kind=cp),dimension(3) :: get_crystal_cell_ang_std
+	get_crystal_cell_ang_std = obj_var%ang_std
 end function get_crystal_cell_ang_std
 
 subroutine set_crystal_cell_ang_std(obj_var, new_value)
@@ -192,8 +192,8 @@ end subroutine set_crystal_cell_ang_std
 
 function get_crystal_cell_lcell(obj_var)
 	type (Crystal_Cell_Type) :: obj_var
-	integer,      dimension(3) :: getlcell
-	getlcell = obj_var%lcell
+	integer,      dimension(3) :: get_crystal_cell_lcell
+	get_crystal_cell_lcell = obj_var%lcell
 end function get_crystal_cell_lcell
 
 subroutine set_crystal_cell_lcell(obj_var, new_value)

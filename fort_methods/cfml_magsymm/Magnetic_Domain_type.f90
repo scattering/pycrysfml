@@ -1,19 +1,7 @@
-function get_magnetic_domain_pop_std(obj_var)
-	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (2,24) :: getpop_std
-	getpop_std = obj_var%pop_std
-end function get_magnetic_domain_pop_std
-
-subroutine set_magnetic_domain_pop_std(obj_var, new_value)
-	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (2,24), intent(in) :: new_value
-	obj_var%pop_std = new_value
-end subroutine set_magnetic_domain_pop_std
-
 function get_magnetic_domain_Chir(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	logical :: getChir
-	getChir = obj_var%Chir
+	logical :: get_magnetic_domain_Chir
+	get_magnetic_domain_Chir = obj_var%Chir
 end function get_magnetic_domain_Chir
 
 subroutine set_magnetic_domain_Chir(obj_var, new_value)
@@ -22,22 +10,22 @@ subroutine set_magnetic_domain_Chir(obj_var, new_value)
 	obj_var%Chir = new_value
 end subroutine set_magnetic_domain_Chir
 
-function get_magnetic_domain_Magnetic_Domain_type(obj_var)
+function get_magnetic_domain_pop_std(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	Type, public :: getMagnetic_Domain_type
-	getMagnetic_Domain_type = obj_var%Magnetic_Domain_type
-end function get_magnetic_domain_Magnetic_Domain_type
+	real(kind=cp), dimension (2,24) :: get_magnetic_domain_pop_std
+	get_magnetic_domain_pop_std = obj_var%pop_std
+end function get_magnetic_domain_pop_std
 
-subroutine set_magnetic_domain_Magnetic_Domain_type(obj_var, new_value)
+subroutine set_magnetic_domain_pop_std(obj_var, new_value)
 	type (Magnetic_Domain_type) :: obj_var
-	Type, public, intent(in) :: new_value
-	obj_var%Magnetic_Domain_type = new_value
-end subroutine set_magnetic_domain_Magnetic_Domain_type
+	real(kind=cp), dimension (2,24), intent(in) :: new_value
+	obj_var%pop_std = new_value
+end subroutine set_magnetic_domain_pop_std
 
 function get_magnetic_domain_Mpop(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (2,24) :: getMpop
-	getMpop = obj_var%Mpop
+	real(kind=cp), dimension (2,24) :: get_magnetic_domain_Mpop
+	get_magnetic_domain_Mpop = obj_var%Mpop
 end function get_magnetic_domain_Mpop
 
 subroutine set_magnetic_domain_Mpop(obj_var, new_value)
@@ -48,8 +36,8 @@ end subroutine set_magnetic_domain_Mpop
 
 function get_magnetic_domain_nd(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	integer :: getnd
-	getnd = obj_var%nd
+	integer :: get_magnetic_domain_nd
+	get_magnetic_domain_nd = obj_var%nd
 end function get_magnetic_domain_nd
 
 subroutine set_magnetic_domain_nd(obj_var, new_value)
@@ -60,8 +48,8 @@ end subroutine set_magnetic_domain_nd
 
 function get_magnetic_domain_Lpop(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	integer      , dimension (2,24) :: getLpop
-	getLpop = obj_var%Lpop
+	integer      , dimension (2,24) :: get_magnetic_domain_Lpop
+	get_magnetic_domain_Lpop = obj_var%Lpop
 end function get_magnetic_domain_Lpop
 
 subroutine set_magnetic_domain_Lpop(obj_var, new_value)
@@ -72,8 +60,8 @@ end subroutine set_magnetic_domain_Lpop
 
 function get_magnetic_domain_pop(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (2,24) :: getpop
-	getpop = obj_var%pop
+	real(kind=cp), dimension (2,24) :: get_magnetic_domain_pop
+	get_magnetic_domain_pop = obj_var%pop
 end function get_magnetic_domain_pop
 
 subroutine set_magnetic_domain_pop(obj_var, new_value)
@@ -84,8 +72,8 @@ end subroutine set_magnetic_domain_pop
 
 function get_magnetic_domain_Twin(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	logical :: getTwin
-	getTwin = obj_var%Twin
+	logical :: get_magnetic_domain_Twin
+	get_magnetic_domain_Twin = obj_var%Twin
 end function get_magnetic_domain_Twin
 
 subroutine set_magnetic_domain_Twin(obj_var, new_value)
@@ -96,8 +84,8 @@ end subroutine set_magnetic_domain_Twin
 
 function get_magnetic_domain_Lab(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	character(len=10),dimension (2,24) :: getLab
-	getLab = obj_var%Lab
+	character(len=10),dimension (2,24) :: get_magnetic_domain_Lab
+	get_magnetic_domain_Lab = obj_var%Lab
 end function get_magnetic_domain_Lab
 
 subroutine set_magnetic_domain_Lab(obj_var, new_value)
@@ -108,8 +96,8 @@ end subroutine set_magnetic_domain_Lab
 
 function get_magnetic_domain_DMat(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	integer,dimension(3,3,24) :: getDMat
-	getDMat = obj_var%DMat
+	integer,dimension(3,3,24) :: get_magnetic_domain_DMat
+	get_magnetic_domain_DMat = obj_var%DMat
 end function get_magnetic_domain_DMat
 
 subroutine set_magnetic_domain_DMat(obj_var, new_value)
@@ -120,8 +108,8 @@ end subroutine set_magnetic_domain_DMat
 
 function get_magnetic_domain_Dt(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (3,24) :: getDt
-	getDt = obj_var%Dt
+	real(kind=cp), dimension (3,24) :: get_magnetic_domain_Dt
+	get_magnetic_domain_Dt = obj_var%Dt
 end function get_magnetic_domain_Dt
 
 subroutine set_magnetic_domain_Dt(obj_var, new_value)
@@ -132,8 +120,8 @@ end subroutine set_magnetic_domain_Dt
 
 function get_magnetic_domain_trans(obj_var)
 	type (Magnetic_Domain_type) :: obj_var
-	logical :: gettrans
-	gettrans = obj_var%trans
+	logical :: get_magnetic_domain_trans
+	get_magnetic_domain_trans = obj_var%trans
 end function get_magnetic_domain_trans
 
 subroutine set_magnetic_domain_trans(obj_var, new_value)
@@ -142,11 +130,10 @@ subroutine set_magnetic_domain_trans(obj_var, new_value)
 	obj_var%trans = new_value
 end subroutine set_magnetic_domain_trans
 
-subroutine Magnetic_Domain_type_ctor(Magnetic_Domain_type_param, pop_std_param, Chir_param, Magnetic_Domain_type_param, Mpop_param, nd_param, Lpop_param, pop_param, Twin_param, Lab_param, DMat_param, Dt_param, trans_param)
+subroutine Magnetic_Domain_type_ctor(Magnetic_Domain_type_param, Chir_param, pop_std_param, Mpop_param, nd_param, Lpop_param, pop_param, Twin_param, Lab_param, DMat_param, Dt_param, trans_param)
 	type (Magnetic_Domain_type) :: Magnetic_Domain_type_param
-	real(kind=cp), dimension (2,24), intent(in) :: pop_std_param
 	logical, intent(in) :: Chir_param
-	Type, public, intent(in) :: Magnetic_Domain_type_param
+	real(kind=cp), dimension (2,24), intent(in) :: pop_std_param
 	real(kind=cp), dimension (2,24), intent(in) :: Mpop_param
 	integer, intent(in) :: nd_param
 	integer      , dimension (2,24), intent(in) :: Lpop_param
@@ -156,9 +143,8 @@ subroutine Magnetic_Domain_type_ctor(Magnetic_Domain_type_param, pop_std_param, 
 	integer,dimension(3,3,24), intent(in) :: DMat_param
 	real(kind=cp), dimension (3,24), intent(in) :: Dt_param
 	logical, intent(in) :: trans_param
-	Magnetic_Domain_type_param%pop_std = pop_std_param
 	Magnetic_Domain_type_param%Chir = Chir_param
-	Magnetic_Domain_type_param%Magnetic_Domain_type = Magnetic_Domain_type_param
+	Magnetic_Domain_type_param%pop_std = pop_std_param
 	Magnetic_Domain_type_param%Mpop = Mpop_param
 	Magnetic_Domain_type_param%nd = nd_param
 	Magnetic_Domain_type_param%Lpop = Lpop_param

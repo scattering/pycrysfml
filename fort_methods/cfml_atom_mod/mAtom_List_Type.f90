@@ -1,7 +1,7 @@
 function get_matom_list_natoms(obj_var)
 	type (mAtom_List_Type) :: obj_var
-	integer :: getnatoms
-	getnatoms = obj_var%natoms
+	integer :: get_matom_list_natoms
+	get_matom_list_natoms = obj_var%natoms
 end function get_matom_list_natoms
 
 subroutine set_matom_list_natoms(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_matom_list_natoms
 
 function get_matom_list_Atom(obj_var)
 	type (mAtom_List_Type) :: obj_var
-	type(mAtom_Type),dimension(:),allocatable :: getAtom
-	getAtom = obj_var%Atom
+	type(mAtom_Type),dimension(:),allocatable :: get_matom_list_Atom
+	get_matom_list_Atom = obj_var%Atom
 end function get_matom_list_Atom
 
 subroutine set_matom_list_Atom(obj_var, new_value)

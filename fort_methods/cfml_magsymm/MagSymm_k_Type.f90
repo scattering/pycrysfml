@@ -1,7 +1,7 @@
 function get_magsymm_k_Latt(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=1) :: getLatt
-	getLatt = obj_var%Latt
+	character(len=1) :: get_magsymm_k_Latt
+	get_magsymm_k_Latt = obj_var%Latt
 end function get_magsymm_k_Latt
 
 subroutine set_magsymm_k_Latt(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_magsymm_k_Latt
 
 function get_magsymm_k_SymopSymb(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=40),   dimension(:),   allocatable :: getSymopSymb
-	getSymopSymb = obj_var%SymopSymb
+	character(len=40),   dimension(:),   allocatable :: get_magsymm_k_SymopSymb
+	get_magsymm_k_SymopSymb = obj_var%SymopSymb
 end function get_magsymm_k_SymopSymb
 
 subroutine set_magsymm_k_SymopSymb(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_magsymm_k_SymopSymb
 
 function get_magsymm_k_MSymopSymb(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=40),   dimension(:,:), allocatable :: getMSymopSymb
-	getMSymopSymb = obj_var%MSymopSymb
+	character(len=40),   dimension(:,:), allocatable :: get_magsymm_k_MSymopSymb
+	get_magsymm_k_MSymopSymb = obj_var%MSymopSymb
 end function get_magsymm_k_MSymopSymb
 
 subroutine set_magsymm_k_MSymopSymb(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_magsymm_k_MSymopSymb
 
 function get_magsymm_k_Numops(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer :: getNumops
-	getNumops = obj_var%Numops
+	integer :: get_magsymm_k_Numops
+	get_magsymm_k_Numops = obj_var%Numops
 end function get_magsymm_k_Numops
 
 subroutine set_magsymm_k_Numops(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_magsymm_k_Numops
 
 function get_magsymm_k_BNS_symbol(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=34) :: getBNS_symbol
-	getBNS_symbol = obj_var%BNS_symbol
+	Character(len=34) :: get_magsymm_k_BNS_symbol
+	get_magsymm_k_BNS_symbol = obj_var%BNS_symbol
 end function get_magsymm_k_BNS_symbol
 
 subroutine set_magsymm_k_BNS_symbol(obj_var, new_value)
@@ -60,8 +60,8 @@ end subroutine set_magsymm_k_BNS_symbol
 
 function get_magsymm_k_BNS_number(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=15) :: getBNS_number
-	getBNS_number = obj_var%BNS_number
+	character(len=15) :: get_magsymm_k_BNS_number
+	get_magsymm_k_BNS_number = obj_var%BNS_number
 end function get_magsymm_k_BNS_number
 
 subroutine set_magsymm_k_BNS_number(obj_var, new_value)
@@ -72,8 +72,8 @@ end subroutine set_magsymm_k_BNS_number
 
 function get_magsymm_k_mcentred(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer :: getmcentred
-	getmcentred = obj_var%mcentred
+	integer :: get_magsymm_k_mcentred
+	get_magsymm_k_mcentred = obj_var%mcentred
 end function get_magsymm_k_mcentred
 
 subroutine set_magsymm_k_mcentred(obj_var, new_value)
@@ -84,8 +84,8 @@ end subroutine set_magsymm_k_mcentred
 
 function get_magsymm_k_MagModel(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=31) :: getMagModel
-	getMagModel = obj_var%MagModel
+	character(len=31) :: get_magsymm_k_MagModel
+	get_magsymm_k_MagModel = obj_var%MagModel
 end function get_magsymm_k_MagModel
 
 subroutine set_magsymm_k_MagModel(obj_var, new_value)
@@ -96,8 +96,8 @@ end subroutine set_magsymm_k_MagModel
 
 function get_magsymm_k_kvec(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: getkvec
-	getkvec = obj_var%kvec
+	real(kind=cp),dimension(3,12) :: get_magsymm_k_kvec
+	get_magsymm_k_kvec = obj_var%kvec
 end function get_magsymm_k_kvec
 
 subroutine set_magsymm_k_kvec(obj_var, new_value)
@@ -108,8 +108,8 @@ end subroutine set_magsymm_k_kvec
 
 function get_magsymm_k_nmsym(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer :: getnmsym
-	getnmsym = obj_var%nmsym
+	integer :: get_magsymm_k_nmsym
+	get_magsymm_k_nmsym = obj_var%nmsym
 end function get_magsymm_k_nmsym
 
 subroutine set_magsymm_k_nmsym(obj_var, new_value)
@@ -120,8 +120,8 @@ end subroutine set_magsymm_k_nmsym
 
 function get_magsymm_k_MSymOp(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	type(MSym_Oper_Type),dimension(:,:), allocatable :: getMSymOp
-	getMSymOp = obj_var%MSymOp
+	type(MSym_Oper_Type),dimension(:,:), allocatable :: get_magsymm_k_MSymOp
+	get_magsymm_k_MSymOp = obj_var%MSymOp
 end function get_magsymm_k_MSymOp
 
 subroutine set_magsymm_k_MSymOp(obj_var, new_value)
@@ -132,8 +132,8 @@ end subroutine set_magsymm_k_MSymOp
 
 function get_magsymm_k_Num_Lat(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer :: getNum_Lat
-	getNum_Lat = obj_var%Num_Lat
+	integer :: get_magsymm_k_Num_Lat
+	get_magsymm_k_Num_Lat = obj_var%Num_Lat
 end function get_magsymm_k_Num_Lat
 
 subroutine set_magsymm_k_Num_Lat(obj_var, new_value)
@@ -144,8 +144,8 @@ end subroutine set_magsymm_k_Num_Lat
 
 function get_magsymm_k_irrep_action(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=20),   dimension(4) :: getirrep_action
-	getirrep_action = obj_var%irrep_action
+	Character(len=20),   dimension(4) :: get_magsymm_k_irrep_action
+	get_magsymm_k_irrep_action = obj_var%irrep_action
 end function get_magsymm_k_irrep_action
 
 subroutine set_magsymm_k_irrep_action(obj_var, new_value)
@@ -156,8 +156,8 @@ end subroutine set_magsymm_k_irrep_action
 
 function get_magsymm_k_small_irrep_dim(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Integer,             dimension(4) :: getsmall_irrep_dim
-	getsmall_irrep_dim = obj_var%small_irrep_dim
+	Integer,             dimension(4) :: get_magsymm_k_small_irrep_dim
+	get_magsymm_k_small_irrep_dim = obj_var%small_irrep_dim
 end function get_magsymm_k_small_irrep_dim
 
 subroutine set_magsymm_k_small_irrep_dim(obj_var, new_value)
@@ -168,8 +168,8 @@ end subroutine set_magsymm_k_small_irrep_dim
 
 function get_magsymm_k_Ltr(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	real(kind=cp), dimension(3,4) :: getLtr
-	getLtr = obj_var%Ltr
+	real(kind=cp), dimension(3,4) :: get_magsymm_k_Ltr
+	get_magsymm_k_Ltr = obj_var%Ltr
 end function get_magsymm_k_Ltr
 
 subroutine set_magsymm_k_Ltr(obj_var, new_value)
@@ -180,8 +180,8 @@ end subroutine set_magsymm_k_Ltr
 
 function get_magsymm_k_Parent_num(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Integer :: getParent_num
-	getParent_num = obj_var%Parent_num
+	Integer :: get_magsymm_k_Parent_num
+	get_magsymm_k_Parent_num = obj_var%Parent_num
 end function get_magsymm_k_Parent_num
 
 subroutine set_magsymm_k_Parent_num(obj_var, new_value)
@@ -192,8 +192,8 @@ end subroutine set_magsymm_k_Parent_num
 
 function get_magsymm_k_Sk_type(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=15) :: getSk_type
-	getSk_type = obj_var%Sk_type
+	character(len=15) :: get_magsymm_k_Sk_type
+	get_magsymm_k_Sk_type = obj_var%Sk_type
 end function get_magsymm_k_Sk_type
 
 subroutine set_magsymm_k_Sk_type(obj_var, new_value)
@@ -204,8 +204,8 @@ end subroutine set_magsymm_k_Sk_type
 
 function get_magsymm_k_nirreps(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer :: getnirreps
-	getnirreps = obj_var%nirreps
+	integer :: get_magsymm_k_nirreps
+	get_magsymm_k_nirreps = obj_var%nirreps
 end function get_magsymm_k_nirreps
 
 subroutine set_magsymm_k_nirreps(obj_var, new_value)
@@ -216,8 +216,8 @@ end subroutine set_magsymm_k_nirreps
 
 function get_magsymm_k_MagType(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Integer :: getMagType
-	getMagType = obj_var%MagType
+	Integer :: get_magsymm_k_MagType
+	get_magsymm_k_MagType = obj_var%MagType
 end function get_magsymm_k_MagType
 
 subroutine set_magsymm_k_MagType(obj_var, new_value)
@@ -228,8 +228,8 @@ end subroutine set_magsymm_k_MagType
 
 function get_magsymm_k_OG_number(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=15) :: getOG_number
-	getOG_number = obj_var%OG_number
+	character(len=15) :: get_magsymm_k_OG_number
+	get_magsymm_k_OG_number = obj_var%OG_number
 end function get_magsymm_k_OG_number
 
 subroutine set_magsymm_k_OG_number(obj_var, new_value)
@@ -240,8 +240,8 @@ end subroutine set_magsymm_k_OG_number
 
 function get_magsymm_k_irrep_dim(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Integer,             dimension(4) :: getirrep_dim
-	getirrep_dim = obj_var%irrep_dim
+	Integer,             dimension(4) :: get_magsymm_k_irrep_dim
+	get_magsymm_k_irrep_dim = obj_var%irrep_dim
 end function get_magsymm_k_irrep_dim
 
 subroutine set_magsymm_k_irrep_dim(obj_var, new_value)
@@ -252,8 +252,8 @@ end subroutine set_magsymm_k_irrep_dim
 
 function get_magsymm_k_irrep_modes_number(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Integer,             dimension(4) :: getirrep_modes_number
-	getirrep_modes_number = obj_var%irrep_modes_number
+	Integer,             dimension(4) :: get_magsymm_k_irrep_modes_number
+	get_magsymm_k_irrep_modes_number = obj_var%irrep_modes_number
 end function get_magsymm_k_irrep_modes_number
 
 subroutine set_magsymm_k_irrep_modes_number(obj_var, new_value)
@@ -264,8 +264,8 @@ end subroutine set_magsymm_k_irrep_modes_number
 
 function get_magsymm_k_nkv(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer :: getnkv
-	getnkv = obj_var%nkv
+	integer :: get_magsymm_k_nkv
+	get_magsymm_k_nkv = obj_var%nkv
 end function get_magsymm_k_nkv
 
 subroutine set_magsymm_k_nkv(obj_var, new_value)
@@ -276,8 +276,8 @@ end subroutine set_magsymm_k_nkv
 
 function get_magsymm_k_irrep_direction(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=20),   dimension(4) :: getirrep_direction
-	getirrep_direction = obj_var%irrep_direction
+	Character(len=20),   dimension(4) :: get_magsymm_k_irrep_direction
+	get_magsymm_k_irrep_direction = obj_var%irrep_direction
 end function get_magsymm_k_irrep_direction
 
 subroutine set_magsymm_k_irrep_direction(obj_var, new_value)
@@ -288,8 +288,8 @@ end subroutine set_magsymm_k_irrep_direction
 
 function get_magsymm_k_centred(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer :: getcentred
-	getcentred = obj_var%centred
+	integer :: get_magsymm_k_centred
+	get_magsymm_k_centred = obj_var%centred
 end function get_magsymm_k_centred
 
 subroutine set_magsymm_k_centred(obj_var, new_value)
@@ -300,8 +300,8 @@ end subroutine set_magsymm_k_centred
 
 function get_magsymm_k_basf(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Complex(kind=cp),    dimension(3,12,48,4) :: getbasf
-	getbasf = obj_var%basf
+	Complex(kind=cp),    dimension(3,12,48,4) :: get_magsymm_k_basf
+	get_magsymm_k_basf = obj_var%basf
 end function get_magsymm_k_basf
 
 subroutine set_magsymm_k_basf(obj_var, new_value)
@@ -312,8 +312,8 @@ end subroutine set_magsymm_k_basf
 
 function get_magsymm_k_Parent_spg(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=20) :: getParent_spg
-	getParent_spg = obj_var%Parent_spg
+	Character(len=20) :: get_magsymm_k_Parent_spg
+	get_magsymm_k_Parent_spg = obj_var%Parent_spg
 end function get_magsymm_k_Parent_spg
 
 subroutine set_magsymm_k_Parent_spg(obj_var, new_value)
@@ -324,8 +324,8 @@ end subroutine set_magsymm_k_Parent_spg
 
 function get_magsymm_k_OG_symbol(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=34) :: getOG_symbol
-	getOG_symbol = obj_var%OG_symbol
+	Character(len=34) :: get_magsymm_k_OG_symbol
+	get_magsymm_k_OG_symbol = obj_var%OG_symbol
 end function get_magsymm_k_OG_symbol
 
 subroutine set_magsymm_k_OG_symbol(obj_var, new_value)
@@ -336,8 +336,8 @@ end subroutine set_magsymm_k_OG_symbol
 
 function get_magsymm_k_SymOp(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	type(Sym_Oper_Type), dimension(:),   allocatable :: getSymOp
-	getSymOp = obj_var%SymOp
+	type(Sym_Oper_Type), dimension(:),   allocatable :: get_magsymm_k_SymOp
+	get_magsymm_k_SymOp = obj_var%SymOp
 end function get_magsymm_k_SymOp
 
 subroutine set_magsymm_k_SymOp(obj_var, new_value)
@@ -348,8 +348,8 @@ end subroutine set_magsymm_k_SymOp
 
 function get_magsymm_k_irrep_id(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=15),   dimension(4) :: getirrep_id
-	getirrep_id = obj_var%irrep_id
+	Character(len=15),   dimension(4) :: get_magsymm_k_irrep_id
+	get_magsymm_k_irrep_id = obj_var%irrep_id
 end function get_magsymm_k_irrep_id
 
 subroutine set_magsymm_k_irrep_id(obj_var, new_value)
@@ -360,8 +360,8 @@ end subroutine set_magsymm_k_irrep_id
 
 function get_magsymm_k_nbas(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer,             dimension(4) :: getnbas
-	getnbas = obj_var%nbas
+	integer,             dimension(4) :: get_magsymm_k_nbas
+	get_magsymm_k_nbas = obj_var%nbas
 end function get_magsymm_k_nbas
 
 subroutine set_magsymm_k_nbas(obj_var, new_value)
@@ -372,8 +372,8 @@ end subroutine set_magsymm_k_nbas
 
 function get_magsymm_k_icomp(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer,             dimension(12,4) :: geticomp
-	geticomp = obj_var%icomp
+	integer,             dimension(12,4) :: get_magsymm_k_icomp
+	get_magsymm_k_icomp = obj_var%icomp
 end function get_magsymm_k_icomp
 
 subroutine set_magsymm_k_icomp(obj_var, new_value)
@@ -384,8 +384,8 @@ end subroutine set_magsymm_k_icomp
 
 function get_magsymm_k_Multip(obj_var)
 	type (MagSymm_k_Type) :: obj_var
-	integer :: getMultip
-	getMultip = obj_var%Multip
+	integer :: get_magsymm_k_Multip
+	get_magsymm_k_Multip = obj_var%Multip
 end function get_magsymm_k_Multip
 
 subroutine set_magsymm_k_Multip(obj_var, new_value)

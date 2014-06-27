@@ -1,7 +1,7 @@
 function get_maghd_sqAMiV(obj_var)
 	type (MagHD_Type) :: obj_var
-	real(kind=cp) :: getsqAMiV
-	getsqAMiV = obj_var%sqAMiV
+	real(kind=cp) :: get_maghd_sqAMiV
+	get_maghd_sqAMiV = obj_var%sqAMiV
 end function get_maghd_sqAMiV
 
 subroutine set_maghd_sqAMiV(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_maghd_sqAMiV
 
 function get_maghd_num_k(obj_var)
 	type (MagHD_Type) :: obj_var
-	integer :: getnum_k
-	getnum_k = obj_var%num_k
+	integer :: get_maghd_num_k
+	get_maghd_num_k = obj_var%num_k
 end function get_maghd_num_k
 
 subroutine set_maghd_num_k(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_maghd_num_k
 
 function get_maghd_H(obj_var)
 	type (MagHD_Type) :: obj_var
-	real(kind=cp),   dimension(3) :: getH
-	getH = obj_var%H
+	real(kind=cp),   dimension(3) :: get_maghd_H
+	get_maghd_H = obj_var%H
 end function get_maghd_H
 
 subroutine set_maghd_H(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_maghd_H
 
 function get_maghd_sqMiV(obj_var)
 	type (MagHD_Type) :: obj_var
-	real(kind=cp) :: getsqMiV
-	getsqMiV = obj_var%sqMiV
+	real(kind=cp) :: get_maghd_sqMiV
+	get_maghd_sqMiV = obj_var%sqMiV
 end function get_maghd_sqMiV
 
 subroutine set_maghd_sqMiV(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_maghd_sqMiV
 
 function get_maghd_s(obj_var)
 	type (MagHD_Type) :: obj_var
-	real(kind=cp) :: gets
-	gets = obj_var%s
+	real(kind=cp) :: get_maghd_s
+	get_maghd_s = obj_var%s
 end function get_maghd_s
 
 subroutine set_maghd_s(obj_var, new_value)
@@ -60,8 +60,8 @@ end subroutine set_maghd_s
 
 function get_maghd_MiVC(obj_var)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: getMiVC
-	getMiVC = obj_var%MiVC
+	complex(kind=cp),dimension(3,2,24) :: get_maghd_MiVC
+	get_maghd_MiVC = obj_var%MiVC
 end function get_maghd_MiVC
 
 subroutine set_maghd_MiVC(obj_var, new_value)
@@ -72,8 +72,8 @@ end subroutine set_maghd_MiVC
 
 function get_maghd_signp(obj_var)
 	type (MagHD_Type) :: obj_var
-	real(kind=cp) :: getsignp
-	getsignp = obj_var%signp
+	real(kind=cp) :: get_maghd_signp
+	get_maghd_signp = obj_var%signp
 end function get_maghd_signp
 
 subroutine set_maghd_signp(obj_var, new_value)
@@ -84,8 +84,8 @@ end subroutine set_maghd_signp
 
 function get_maghd_MsF(obj_var)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: getMsF
-	getMsF = obj_var%MsF
+	complex(kind=cp),dimension(3,2,24) :: get_maghd_MsF
+	get_maghd_MsF = obj_var%MsF
 end function get_maghd_MsF
 
 subroutine set_maghd_MsF(obj_var, new_value)
@@ -96,8 +96,8 @@ end subroutine set_maghd_MsF
 
 function get_maghd_AMiV(obj_var)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3) :: getAMiV
-	getAMiV = obj_var%AMiV
+	complex(kind=cp),dimension(3) :: get_maghd_AMiV
+	get_maghd_AMiV = obj_var%AMiV
 end function get_maghd_AMiV
 
 subroutine set_maghd_AMiV(obj_var, new_value)
@@ -108,8 +108,8 @@ end subroutine set_maghd_AMiV
 
 function get_maghd_keqv_minus(obj_var)
 	type (MagHD_Type) :: obj_var
-	logical :: getkeqv_minus
-	getkeqv_minus = obj_var%keqv_minus
+	logical :: get_maghd_keqv_minus
+	get_maghd_keqv_minus = obj_var%keqv_minus
 end function get_maghd_keqv_minus
 
 subroutine set_maghd_keqv_minus(obj_var, new_value)
@@ -120,8 +120,8 @@ end subroutine set_maghd_keqv_minus
 
 function get_maghd_MiV(obj_var)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: getMiV
-	getMiV = obj_var%MiV
+	complex(kind=cp),dimension(3,2,24) :: get_maghd_MiV
+	get_maghd_MiV = obj_var%MiV
 end function get_maghd_MiV
 
 subroutine set_maghd_MiV(obj_var, new_value)

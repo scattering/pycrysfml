@@ -4,8 +4,6 @@
 # as well as constructors in Fortran
 # Joseph Lesniewski - NIST Center for Neutron Research
 # Summer 2014
-type_name = ""#raw_input("Enter type name: ")
-root_name = type_name.lower().split('_type')[0]
 lines = [line.strip() for line in open("./ff")]
 defs = {}
 lname = ""
@@ -17,6 +15,7 @@ for line in lines:
 		defs[lname].append(line)
 for k in defs:
 	type_name = k.split('!')[0]
+	root_name = type_name.lower().split('_type')[0]
 	ff = defs[k]
 	#ff = [line.strip() for line in open("./ff")]#+raw_input("Enter name of field file: "))]
 	fields = {}
@@ -34,7 +33,7 @@ for k in defs:
 	    # write getter
 	    outfile.write("function get_"+root_name+"_"+key+"(obj_var)\n")
 	    outfile.write("\ttype ("+type_name+") :: obj_var\n")
-	    outfile.write("\t"+fields[key]+" :: get"+key+"\n")
+	    outfile.write("\t"+fields[key]+" :: get_"+root_name+"_"+key+"\n")
 	    outfile.write("\tget_"+root_name+"_"+key+" = obj_var%"+key+"\n")
 	    outfile.write("end function get_"+root_name+"_"+key+"\n\n")
 	    # write setter

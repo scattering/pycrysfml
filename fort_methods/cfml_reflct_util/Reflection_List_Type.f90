@@ -1,7 +1,7 @@
 function get_reflection_list_Ref(obj_var)
 	type (Reflection_List_Type) :: obj_var
-	type(reflection_type),allocatable, dimension(:) :: getRef
-	getRef = obj_var%Ref
+	type(reflection_type),allocatable, dimension(:) :: get_reflection_list_Ref
+	get_reflection_list_Ref = obj_var%Ref
 end function get_reflection_list_Ref
 
 subroutine set_reflection_list_Ref(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_reflection_list_Ref
 
 function get_reflection_list_NRef(obj_var)
 	type (Reflection_List_Type) :: obj_var
-	integer :: getNRef
-	getNRef = obj_var%NRef
+	integer :: get_reflection_list_NRef
+	get_reflection_list_NRef = obj_var%NRef
 end function get_reflection_list_NRef
 
 subroutine set_reflection_list_NRef(obj_var, new_value)

@@ -1,7 +1,7 @@
 function get_reflect_H(obj_var)
 	type (Reflect_Type) :: obj_var
-	integer,dimension(3) :: getH
-	getH = obj_var%H
+	integer,dimension(3) :: get_reflect_H
+	get_reflect_H = obj_var%H
 end function get_reflect_H
 
 subroutine set_reflect_H(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_reflect_H
 
 function get_reflect_S(obj_var)
 	type (Reflect_Type) :: obj_var
-	real(kind=cp) :: getS
-	getS = obj_var%S
+	real(kind=cp) :: get_reflect_S
+	get_reflect_S = obj_var%S
 end function get_reflect_S
 
 subroutine set_reflect_S(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_reflect_S
 
 function get_reflect_Mult(obj_var)
 	type (Reflect_Type) :: obj_var
-	integer :: getMult
-	getMult = obj_var%Mult
+	integer :: get_reflect_Mult
+	get_reflect_Mult = obj_var%Mult
 end function get_reflect_Mult
 
 subroutine set_reflect_Mult(obj_var, new_value)

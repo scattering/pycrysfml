@@ -1,7 +1,7 @@
 function get_atom_equiv_list_nauas(obj_var)
 	type (Atom_Equiv_List_Type) :: obj_var
-	integer :: getnauas
-	getnauas = obj_var%nauas
+	integer :: get_atom_equiv_list_nauas
+	get_atom_equiv_list_nauas = obj_var%nauas
 end function get_atom_equiv_list_nauas
 
 subroutine set_atom_equiv_list_nauas(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_atom_equiv_list_nauas
 
 function get_atom_equiv_list_atm(obj_var)
 	type (Atom_Equiv_List_Type) :: obj_var
-	type (Atom_Equiv_Type), allocatable, dimension(:) :: getatm
-	getatm = obj_var%atm
+	type (Atom_Equiv_Type), allocatable, dimension(:) :: get_atom_equiv_list_atm
+	get_atom_equiv_list_atm = obj_var%atm
 end function get_atom_equiv_list_atm
 
 subroutine set_atom_equiv_list_atm(obj_var, new_value)

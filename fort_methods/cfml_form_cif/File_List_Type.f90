@@ -1,7 +1,7 @@
 function get_file_list_line(obj_var)
 	type (File_List_Type) :: obj_var
-	character(len=256), allocatable, dimension(:) :: getline
-	getline = obj_var%line
+	character(len=256), allocatable, dimension(:) :: get_file_list_line
+	get_file_list_line = obj_var%line
 end function get_file_list_line
 
 subroutine set_file_list_line(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_file_list_line
 
 function get_file_list_nlines(obj_var)
 	type (File_List_Type) :: obj_var
-	integer :: getnlines
-	getnlines = obj_var%nlines
+	integer :: get_file_list_nlines
+	get_file_list_nlines = obj_var%nlines
 end function get_file_list_nlines
 
 subroutine set_file_list_nlines(obj_var, new_value)

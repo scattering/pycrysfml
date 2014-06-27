@@ -1,7 +1,7 @@
 function get_atom_list_natoms(obj_var)
 	type (Atom_List_Type) :: obj_var
-	integer :: getnatoms
-	getnatoms = obj_var%natoms
+	integer :: get_atom_list_natoms
+	get_atom_list_natoms = obj_var%natoms
 end function get_atom_list_natoms
 
 subroutine set_atom_list_natoms(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_atom_list_natoms
 
 function get_atom_list_atom(obj_var)
 	type (Atom_List_Type) :: obj_var
-	type(Atom_Type),dimension(:),allocatable :: getatom
-	getatom = obj_var%atom
+	type(Atom_Type),dimension(:),allocatable :: get_atom_list_atom
+	get_atom_list_atom = obj_var%atom
 end function get_atom_list_atom
 
 subroutine set_atom_list_atom(obj_var, new_value)

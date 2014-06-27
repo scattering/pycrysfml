@@ -1,7 +1,7 @@
 function get_magnetic_space_group_m_constr(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	logical :: getm_constr
-	getm_constr = obj_var%m_constr
+	logical :: get_magnetic_space_group_m_constr
+	get_magnetic_space_group_m_constr = obj_var%m_constr
 end function get_magnetic_space_group_m_constr
 
 subroutine set_magnetic_space_group_m_constr(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_magnetic_space_group_m_constr
 
 function get_magnetic_space_group_Centre_coord(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), dimension(3) :: getCentre_coord
-	getCentre_coord = obj_var%Centre_coord
+	real(kind=cp), dimension(3) :: get_magnetic_space_group_Centre_coord
+	get_magnetic_space_group_Centre_coord = obj_var%Centre_coord
 end function get_magnetic_space_group_Centre_coord
 
 subroutine set_magnetic_space_group_Centre_coord(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_magnetic_space_group_Centre_coord
 
 function get_magnetic_space_group_aLatt_trans(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:) :: getaLatt_trans
-	getaLatt_trans = obj_var%aLatt_trans
+	real(kind=cp), allocatable,dimension(:,:) :: get_magnetic_space_group_aLatt_trans
+	get_magnetic_space_group_aLatt_trans = obj_var%aLatt_trans
 end function get_magnetic_space_group_aLatt_trans
 
 subroutine set_magnetic_space_group_aLatt_trans(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_magnetic_space_group_aLatt_trans
 
 function get_magnetic_space_group_MSymopSymb(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=40),   dimension(:),allocatable :: getMSymopSymb
-	getMSymopSymb = obj_var%MSymopSymb
+	character(len=40),   dimension(:),allocatable :: get_magnetic_space_group_MSymopSymb
+	get_magnetic_space_group_MSymopSymb = obj_var%MSymopSymb
 end function get_magnetic_space_group_MSymopSymb
 
 subroutine set_magnetic_space_group_MSymopSymb(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_magnetic_space_group_MSymopSymb
 
 function get_magnetic_space_group_n_wyck(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer :: getn_wyck
-	getn_wyck = obj_var%n_wyck
+	Integer :: get_magnetic_space_group_n_wyck
+	get_magnetic_space_group_n_wyck = obj_var%n_wyck
 end function get_magnetic_space_group_n_wyck
 
 subroutine set_magnetic_space_group_n_wyck(obj_var, new_value)
@@ -60,8 +60,8 @@ end subroutine set_magnetic_space_group_n_wyck
 
 function get_magnetic_space_group_BNS_symbol(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=34) :: getBNS_symbol
-	getBNS_symbol = obj_var%BNS_symbol
+	Character(len=34) :: get_magnetic_space_group_BNS_symbol
+	get_magnetic_space_group_BNS_symbol = obj_var%BNS_symbol
 end function get_magnetic_space_group_BNS_symbol
 
 subroutine set_magnetic_space_group_BNS_symbol(obj_var, new_value)
@@ -72,8 +72,8 @@ end subroutine set_magnetic_space_group_BNS_symbol
 
 function get_magnetic_space_group_BNS_number(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=15) :: getBNS_number
-	getBNS_number = obj_var%BNS_number
+	character(len=15) :: get_magnetic_space_group_BNS_number
+	get_magnetic_space_group_BNS_number = obj_var%BNS_number
 end function get_magnetic_space_group_BNS_number
 
 subroutine set_magnetic_space_group_BNS_number(obj_var, new_value)
@@ -84,8 +84,8 @@ end subroutine set_magnetic_space_group_BNS_number
 
 function get_magnetic_space_group_Latt_trans(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:) :: getLatt_trans
-	getLatt_trans = obj_var%Latt_trans
+	real(kind=cp), allocatable,dimension(:,:) :: get_magnetic_space_group_Latt_trans
+	get_magnetic_space_group_Latt_trans = obj_var%Latt_trans
 end function get_magnetic_space_group_Latt_trans
 
 subroutine set_magnetic_space_group_Latt_trans(obj_var, new_value)
@@ -96,8 +96,8 @@ end subroutine set_magnetic_space_group_Latt_trans
 
 function get_magnetic_space_group_Sh_number(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer :: getSh_number
-	getSh_number = obj_var%Sh_number
+	Integer :: get_magnetic_space_group_Sh_number
+	get_magnetic_space_group_Sh_number = obj_var%Sh_number
 end function get_magnetic_space_group_Sh_number
 
 subroutine set_magnetic_space_group_Sh_number(obj_var, new_value)
@@ -108,8 +108,8 @@ end subroutine set_magnetic_space_group_Sh_number
 
 function get_magnetic_space_group_Wyck_Symb(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=40),   dimension(:),allocatable :: getWyck_Symb
-	getWyck_Symb = obj_var%Wyck_Symb
+	character(len=40),   dimension(:),allocatable :: get_magnetic_space_group_Wyck_Symb
+	get_magnetic_space_group_Wyck_Symb = obj_var%Wyck_Symb
 end function get_magnetic_space_group_Wyck_Symb
 
 subroutine set_magnetic_space_group_Wyck_Symb(obj_var, new_value)
@@ -120,8 +120,8 @@ end subroutine set_magnetic_space_group_Wyck_Symb
 
 function get_magnetic_space_group_CrystalSys(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=12) :: getCrystalSys
-	getCrystalSys = obj_var%CrystalSys
+	character(len=12) :: get_magnetic_space_group_CrystalSys
+	get_magnetic_space_group_CrystalSys = obj_var%CrystalSys
 end function get_magnetic_space_group_CrystalSys
 
 subroutine set_magnetic_space_group_CrystalSys(obj_var, new_value)
@@ -132,8 +132,8 @@ end subroutine set_magnetic_space_group_CrystalSys
 
 function get_magnetic_space_group_m_cell(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	logical :: getm_cell
-	getm_cell = obj_var%m_cell
+	logical :: get_magnetic_space_group_m_cell
+	get_magnetic_space_group_m_cell = obj_var%m_cell
 end function get_magnetic_space_group_m_cell
 
 subroutine set_magnetic_space_group_m_cell(obj_var, new_value)
@@ -144,8 +144,8 @@ end subroutine set_magnetic_space_group_m_cell
 
 function get_magnetic_space_group_irrep_id(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=15),   dimension(:),allocatable :: getirrep_id
-	getirrep_id = obj_var%irrep_id
+	Character(len=15),   dimension(:),allocatable :: get_magnetic_space_group_irrep_id
+	get_magnetic_space_group_irrep_id = obj_var%irrep_id
 end function get_magnetic_space_group_irrep_id
 
 subroutine set_magnetic_space_group_irrep_id(obj_var, new_value)
@@ -156,8 +156,8 @@ end subroutine set_magnetic_space_group_irrep_id
 
 function get_magnetic_space_group_MSymOp(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	type(MSym_Oper_Type),dimension(:),allocatable :: getMSymOp
-	getMSymOp = obj_var%MSymOp
+	type(MSym_Oper_Type),dimension(:),allocatable :: get_magnetic_space_group_MSymOp
+	get_magnetic_space_group_MSymOp = obj_var%MSymOp
 end function get_magnetic_space_group_MSymOp
 
 subroutine set_magnetic_space_group_MSymOp(obj_var, new_value)
@@ -168,8 +168,8 @@ end subroutine set_magnetic_space_group_MSymOp
 
 function get_magnetic_space_group_Num_Lat(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	integer :: getNum_Lat
-	getNum_Lat = obj_var%Num_Lat
+	integer :: get_magnetic_space_group_Num_Lat
+	get_magnetic_space_group_Num_Lat = obj_var%Num_Lat
 end function get_magnetic_space_group_Num_Lat
 
 subroutine set_magnetic_space_group_Num_Lat(obj_var, new_value)
@@ -180,8 +180,8 @@ end subroutine set_magnetic_space_group_Num_Lat
 
 function get_magnetic_space_group_Num_aLat(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	integer :: getNum_aLat
-	getNum_aLat = obj_var%Num_aLat
+	integer :: get_magnetic_space_group_Num_aLat
+	get_magnetic_space_group_Num_aLat = obj_var%Num_aLat
 end function get_magnetic_space_group_Num_aLat
 
 subroutine set_magnetic_space_group_Num_aLat(obj_var, new_value)
@@ -192,8 +192,8 @@ end subroutine set_magnetic_space_group_Num_aLat
 
 function get_magnetic_space_group_small_irrep_dim(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer,             dimension(:),allocatable :: getsmall_irrep_dim
-	getsmall_irrep_dim = obj_var%small_irrep_dim
+	Integer,             dimension(:),allocatable :: get_magnetic_space_group_small_irrep_dim
+	get_magnetic_space_group_small_irrep_dim = obj_var%small_irrep_dim
 end function get_magnetic_space_group_small_irrep_dim
 
 subroutine set_magnetic_space_group_small_irrep_dim(obj_var, new_value)
@@ -204,8 +204,8 @@ end subroutine set_magnetic_space_group_small_irrep_dim
 
 function get_magnetic_space_group_Centred(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	integer :: getCentred
-	getCentred = obj_var%Centred
+	integer :: get_magnetic_space_group_Centred
+	get_magnetic_space_group_Centred = obj_var%Centred
 end function get_magnetic_space_group_Centred
 
 subroutine set_magnetic_space_group_Centred(obj_var, new_value)
@@ -216,8 +216,8 @@ end subroutine set_magnetic_space_group_Centred
 
 function get_magnetic_space_group_SPG_lat(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len= 1) :: getSPG_lat
-	getSPG_lat = obj_var%SPG_lat
+	character(len= 1) :: get_magnetic_space_group_SPG_lat
+	get_magnetic_space_group_SPG_lat = obj_var%SPG_lat
 end function get_magnetic_space_group_SPG_lat
 
 subroutine set_magnetic_space_group_SPG_lat(obj_var, new_value)
@@ -228,8 +228,8 @@ end subroutine set_magnetic_space_group_SPG_lat
 
 function get_magnetic_space_group_SymopSymb(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=40),   dimension(:),allocatable :: getSymopSymb
-	getSymopSymb = obj_var%SymopSymb
+	character(len=40),   dimension(:),allocatable :: get_magnetic_space_group_SymopSymb
+	get_magnetic_space_group_SymopSymb = obj_var%SymopSymb
 end function get_magnetic_space_group_SymopSymb
 
 subroutine set_magnetic_space_group_SymopSymb(obj_var, new_value)
@@ -240,8 +240,8 @@ end subroutine set_magnetic_space_group_SymopSymb
 
 function get_magnetic_space_group_Parent_num(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer :: getParent_num
-	getParent_num = obj_var%Parent_num
+	Integer :: get_magnetic_space_group_Parent_num
+	get_magnetic_space_group_Parent_num = obj_var%Parent_num
 end function get_magnetic_space_group_Parent_num
 
 subroutine set_magnetic_space_group_Parent_num(obj_var, new_value)
@@ -252,8 +252,8 @@ end subroutine set_magnetic_space_group_Parent_num
 
 function get_magnetic_space_group_kv_label(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=15),   dimension(:),allocatable :: getkv_label
-	getkv_label = obj_var%kv_label
+	Character(len=15),   dimension(:),allocatable :: get_magnetic_space_group_kv_label
+	get_magnetic_space_group_kv_label = obj_var%kv_label
 end function get_magnetic_space_group_kv_label
 
 subroutine set_magnetic_space_group_kv_label(obj_var, new_value)
@@ -264,8 +264,8 @@ end subroutine set_magnetic_space_group_kv_label
 
 function get_magnetic_space_group_MagType(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer :: getMagType
-	getMagType = obj_var%MagType
+	Integer :: get_magnetic_space_group_MagType
+	get_magnetic_space_group_MagType = obj_var%MagType
 end function get_magnetic_space_group_MagType
 
 subroutine set_magnetic_space_group_MagType(obj_var, new_value)
@@ -276,8 +276,8 @@ end subroutine set_magnetic_space_group_MagType
 
 function get_magnetic_space_group_irrep_action(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=20),   dimension(:),allocatable :: getirrep_action
-	getirrep_action = obj_var%irrep_action
+	Character(len=20),   dimension(:),allocatable :: get_magnetic_space_group_irrep_action
+	get_magnetic_space_group_irrep_action = obj_var%irrep_action
 end function get_magnetic_space_group_irrep_action
 
 subroutine set_magnetic_space_group_irrep_action(obj_var, new_value)
@@ -288,8 +288,8 @@ end subroutine set_magnetic_space_group_irrep_action
 
 function get_magnetic_space_group_n_kv(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer :: getn_kv
-	getn_kv = obj_var%n_kv
+	Integer :: get_magnetic_space_group_n_kv
+	get_magnetic_space_group_n_kv = obj_var%n_kv
 end function get_magnetic_space_group_n_kv
 
 subroutine set_magnetic_space_group_n_kv(obj_var, new_value)
@@ -300,8 +300,8 @@ end subroutine set_magnetic_space_group_n_kv
 
 function get_magnetic_space_group_OG_number(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=15) :: getOG_number
-	getOG_number = obj_var%OG_number
+	character(len=15) :: get_magnetic_space_group_OG_number
+	get_magnetic_space_group_OG_number = obj_var%OG_number
 end function get_magnetic_space_group_OG_number
 
 subroutine set_magnetic_space_group_OG_number(obj_var, new_value)
@@ -312,8 +312,8 @@ end subroutine set_magnetic_space_group_OG_number
 
 function get_magnetic_space_group_n_irreps(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer :: getn_irreps
-	getn_irreps = obj_var%n_irreps
+	Integer :: get_magnetic_space_group_n_irreps
+	get_magnetic_space_group_n_irreps = obj_var%n_irreps
 end function get_magnetic_space_group_n_irreps
 
 subroutine set_magnetic_space_group_n_irreps(obj_var, new_value)
@@ -324,8 +324,8 @@ end subroutine set_magnetic_space_group_n_irreps
 
 function get_magnetic_space_group_SPG_latsy(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len= 2) :: getSPG_latsy
-	getSPG_latsy = obj_var%SPG_latsy
+	character(len= 2) :: get_magnetic_space_group_SPG_latsy
+	get_magnetic_space_group_SPG_latsy = obj_var%SPG_latsy
 end function get_magnetic_space_group_SPG_latsy
 
 subroutine set_magnetic_space_group_SPG_latsy(obj_var, new_value)
@@ -336,8 +336,8 @@ end subroutine set_magnetic_space_group_SPG_latsy
 
 function get_magnetic_space_group_Num_gen(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	integer :: getNum_gen
-	getNum_gen = obj_var%Num_gen
+	integer :: get_magnetic_space_group_Num_gen
+	get_magnetic_space_group_Num_gen = obj_var%Num_gen
 end function get_magnetic_space_group_Num_gen
 
 subroutine set_magnetic_space_group_Num_gen(obj_var, new_value)
@@ -348,8 +348,8 @@ end subroutine set_magnetic_space_group_Num_gen
 
 function get_magnetic_space_group_irrep_direction(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=20),   dimension(:),allocatable :: getirrep_direction
-	getirrep_direction = obj_var%irrep_direction
+	Character(len=20),   dimension(:),allocatable :: get_magnetic_space_group_irrep_direction
+	get_magnetic_space_group_irrep_direction = obj_var%irrep_direction
 end function get_magnetic_space_group_irrep_direction
 
 subroutine set_magnetic_space_group_irrep_direction(obj_var, new_value)
@@ -360,8 +360,8 @@ end subroutine set_magnetic_space_group_irrep_direction
 
 function get_magnetic_space_group_standard_setting(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	logical :: getstandard_setting
-	getstandard_setting = obj_var%standard_setting
+	logical :: get_magnetic_space_group_standard_setting
+	get_magnetic_space_group_standard_setting = obj_var%standard_setting
 end function get_magnetic_space_group_standard_setting
 
 subroutine set_magnetic_space_group_standard_setting(obj_var, new_value)
@@ -372,8 +372,8 @@ end subroutine set_magnetic_space_group_standard_setting
 
 function get_magnetic_space_group_SymOp(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	type(Sym_Oper_Type), dimension(:),allocatable :: getSymOp
-	getSymOp = obj_var%SymOp
+	type(Sym_Oper_Type), dimension(:),allocatable :: get_magnetic_space_group_SymOp
+	get_magnetic_space_group_SymOp = obj_var%SymOp
 end function get_magnetic_space_group_SymOp
 
 subroutine set_magnetic_space_group_SymOp(obj_var, new_value)
@@ -384,8 +384,8 @@ end subroutine set_magnetic_space_group_SymOp
 
 function get_magnetic_space_group_irrep_dim(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer,             dimension(:),allocatable :: getirrep_dim
-	getirrep_dim = obj_var%irrep_dim
+	Integer,             dimension(:),allocatable :: get_magnetic_space_group_irrep_dim
+	get_magnetic_space_group_irrep_dim = obj_var%irrep_dim
 end function get_magnetic_space_group_irrep_dim
 
 subroutine set_magnetic_space_group_irrep_dim(obj_var, new_value)
@@ -396,8 +396,8 @@ end subroutine set_magnetic_space_group_irrep_dim
 
 function get_magnetic_space_group_Parent_spg(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=20) :: getParent_spg
-	getParent_spg = obj_var%Parent_spg
+	Character(len=20) :: get_magnetic_space_group_Parent_spg
+	get_magnetic_space_group_Parent_spg = obj_var%Parent_spg
 end function get_magnetic_space_group_Parent_spg
 
 subroutine set_magnetic_space_group_Parent_spg(obj_var, new_value)
@@ -408,8 +408,8 @@ end subroutine set_magnetic_space_group_Parent_spg
 
 function get_magnetic_space_group_OG_symbol(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=34) :: getOG_symbol
-	getOG_symbol = obj_var%OG_symbol
+	Character(len=34) :: get_magnetic_space_group_OG_symbol
+	get_magnetic_space_group_OG_symbol = obj_var%OG_symbol
 end function get_magnetic_space_group_OG_symbol
 
 subroutine set_magnetic_space_group_OG_symbol(obj_var, new_value)
@@ -420,8 +420,8 @@ end subroutine set_magnetic_space_group_OG_symbol
 
 function get_magnetic_space_group_Centre(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=80) :: getCentre
-	getCentre = obj_var%Centre
+	character(len=80) :: get_magnetic_space_group_Centre
+	get_magnetic_space_group_Centre = obj_var%Centre
 end function get_magnetic_space_group_Centre
 
 subroutine set_magnetic_space_group_Centre(obj_var, new_value)
@@ -432,8 +432,8 @@ end subroutine set_magnetic_space_group_Centre
 
 function get_magnetic_space_group_mcif(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	logical :: getmcif
-	getmcif = obj_var%mcif
+	logical :: get_magnetic_space_group_mcif
+	get_magnetic_space_group_mcif = obj_var%mcif
 end function get_magnetic_space_group_mcif
 
 subroutine set_magnetic_space_group_mcif(obj_var, new_value)
@@ -444,8 +444,8 @@ end subroutine set_magnetic_space_group_mcif
 
 function get_magnetic_space_group_NumOps(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	integer :: getNumOps
-	getNumOps = obj_var%NumOps
+	integer :: get_magnetic_space_group_NumOps
+	get_magnetic_space_group_NumOps = obj_var%NumOps
 end function get_magnetic_space_group_NumOps
 
 subroutine set_magnetic_space_group_NumOps(obj_var, new_value)
@@ -456,8 +456,8 @@ end subroutine set_magnetic_space_group_NumOps
 
 function get_magnetic_space_group_irrep_modes_number(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer,             dimension(:),allocatable :: getirrep_modes_number
-	getirrep_modes_number = obj_var%irrep_modes_number
+	Integer,             dimension(:),allocatable :: get_magnetic_space_group_irrep_modes_number
+	get_magnetic_space_group_irrep_modes_number = obj_var%irrep_modes_number
 end function get_magnetic_space_group_irrep_modes_number
 
 subroutine set_magnetic_space_group_irrep_modes_number(obj_var, new_value)
@@ -468,8 +468,8 @@ end subroutine set_magnetic_space_group_irrep_modes_number
 
 function get_magnetic_space_group_kv(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp),     dimension(:,:),allocatable :: getkv
-	getkv = obj_var%kv
+	real(kind=cp),     dimension(:,:),allocatable :: get_magnetic_space_group_kv
+	get_magnetic_space_group_kv = obj_var%kv
 end function get_magnetic_space_group_kv
 
 subroutine set_magnetic_space_group_kv(obj_var, new_value)
@@ -480,8 +480,8 @@ end subroutine set_magnetic_space_group_kv
 
 function get_magnetic_space_group_trn_to_standard(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=40) :: gettrn_to_standard
-	gettrn_to_standard = obj_var%trn_to_standard
+	Character(len=40) :: get_magnetic_space_group_trn_to_standard
+	get_magnetic_space_group_trn_to_standard = obj_var%trn_to_standard
 end function get_magnetic_space_group_trn_to_standard
 
 subroutine set_magnetic_space_group_trn_to_standard(obj_var, new_value)
@@ -492,8 +492,8 @@ end subroutine set_magnetic_space_group_trn_to_standard
 
 function get_magnetic_space_group_trn_from_parent(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=40) :: gettrn_from_parent
-	gettrn_from_parent = obj_var%trn_from_parent
+	Character(len=40) :: get_magnetic_space_group_trn_from_parent
+	get_magnetic_space_group_trn_from_parent = obj_var%trn_from_parent
 end function get_magnetic_space_group_trn_from_parent
 
 subroutine set_magnetic_space_group_trn_from_parent(obj_var, new_value)
@@ -504,8 +504,8 @@ end subroutine set_magnetic_space_group_trn_from_parent
 
 function get_magnetic_space_group_Multip(obj_var)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer :: getMultip
-	getMultip = obj_var%Multip
+	Integer :: get_magnetic_space_group_Multip
+	get_magnetic_space_group_Multip = obj_var%Multip
 end function get_magnetic_space_group_Multip
 
 subroutine set_magnetic_space_group_Multip(obj_var, new_value)

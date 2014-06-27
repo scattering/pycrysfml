@@ -1,7 +1,7 @@
 function get_magh_num_k(obj_var)
 	type (MagH_Type) :: obj_var
-	integer :: getnum_k
-	getnum_k = obj_var%num_k
+	integer :: get_magh_num_k
+	get_magh_num_k = obj_var%num_k
 end function get_magh_num_k
 
 subroutine set_magh_num_k(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_magh_num_k
 
 function get_magh_H(obj_var)
 	type (MagH_Type) :: obj_var
-	real(kind=cp), dimension(3) :: getH
-	getH = obj_var%H
+	real(kind=cp), dimension(3) :: get_magh_H
+	get_magh_H = obj_var%H
 end function get_magh_H
 
 subroutine set_magh_H(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_magh_H
 
 function get_magh_sqMiV(obj_var)
 	type (MagH_Type) :: obj_var
-	real(kind=cp) :: getsqMiV
-	getsqMiV = obj_var%sqMiV
+	real(kind=cp) :: get_magh_sqMiV
+	get_magh_sqMiV = obj_var%sqMiV
 end function get_magh_sqMiV
 
 subroutine set_magh_sqMiV(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_magh_sqMiV
 
 function get_magh_s(obj_var)
 	type (MagH_Type) :: obj_var
-	real(kind=cp) :: gets
-	gets = obj_var%s
+	real(kind=cp) :: get_magh_s
+	get_magh_s = obj_var%s
 end function get_magh_s
 
 subroutine set_magh_s(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_magh_s
 
 function get_magh_MiVC(obj_var)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: getMiVC
-	getMiVC = obj_var%MiVC
+	complex(kind=cp), dimension(3) :: get_magh_MiVC
+	get_magh_MiVC = obj_var%MiVC
 end function get_magh_MiVC
 
 subroutine set_magh_MiVC(obj_var, new_value)
@@ -60,8 +60,8 @@ end subroutine set_magh_MiVC
 
 function get_magh_signp(obj_var)
 	type (MagH_Type) :: obj_var
-	real(kind=cp) :: getsignp
-	getsignp = obj_var%signp
+	real(kind=cp) :: get_magh_signp
+	get_magh_signp = obj_var%signp
 end function get_magh_signp
 
 subroutine set_magh_signp(obj_var, new_value)
@@ -72,8 +72,8 @@ end subroutine set_magh_signp
 
 function get_magh_keqv_minus(obj_var)
 	type (MagH_Type) :: obj_var
-	logical :: getkeqv_minus
-	getkeqv_minus = obj_var%keqv_minus
+	logical :: get_magh_keqv_minus
+	get_magh_keqv_minus = obj_var%keqv_minus
 end function get_magh_keqv_minus
 
 subroutine set_magh_keqv_minus(obj_var, new_value)
@@ -84,8 +84,8 @@ end subroutine set_magh_keqv_minus
 
 function get_magh_MsF(obj_var)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: getMsF
-	getMsF = obj_var%MsF
+	complex(kind=cp), dimension(3) :: get_magh_MsF
+	get_magh_MsF = obj_var%MsF
 end function get_magh_MsF
 
 subroutine set_magh_MsF(obj_var, new_value)
@@ -96,8 +96,8 @@ end subroutine set_magh_MsF
 
 function get_magh_mult(obj_var)
 	type (MagH_Type) :: obj_var
-	integer :: getmult
-	getmult = obj_var%mult
+	integer :: get_magh_mult
+	get_magh_mult = obj_var%mult
 end function get_magh_mult
 
 subroutine set_magh_mult(obj_var, new_value)
@@ -108,8 +108,8 @@ end subroutine set_magh_mult
 
 function get_magh_MiV(obj_var)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: getMiV
-	getMiV = obj_var%MiV
+	complex(kind=cp), dimension(3) :: get_magh_MiV
+	get_magh_MiV = obj_var%MiV
 end function get_magh_MiV
 
 subroutine set_magh_MiV(obj_var, new_value)

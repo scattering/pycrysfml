@@ -1,7 +1,7 @@
 function get_atom_equiv_x(obj_var)
 	type (Atom_Equiv_Type) :: obj_var
-	real(kind=cp),    allocatable, dimension(:,:) :: getx
-	getx = obj_var%x
+	real(kind=cp),    allocatable, dimension(:,:) :: get_atom_equiv_x
+	get_atom_equiv_x = obj_var%x
 end function get_atom_equiv_x
 
 subroutine set_atom_equiv_x(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_atom_equiv_x
 
 function get_atom_equiv_ChemSymb(obj_var)
 	type (Atom_Equiv_Type) :: obj_var
-	character(len=2) :: getChemSymb
-	getChemSymb = obj_var%ChemSymb
+	character(len=2) :: get_atom_equiv_ChemSymb
+	get_atom_equiv_ChemSymb = obj_var%ChemSymb
 end function get_atom_equiv_ChemSymb
 
 subroutine set_atom_equiv_ChemSymb(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_atom_equiv_ChemSymb
 
 function get_atom_equiv_mult(obj_var)
 	type (Atom_Equiv_Type) :: obj_var
-	integer :: getmult
-	getmult = obj_var%mult
+	integer :: get_atom_equiv_mult
+	get_atom_equiv_mult = obj_var%mult
 end function get_atom_equiv_mult
 
 subroutine set_atom_equiv_mult(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_atom_equiv_mult
 
 function get_atom_equiv_Lab(obj_var)
 	type (Atom_Equiv_Type) :: obj_var
-	character(len=20),allocatable, dimension(:) :: getLab
-	getLab = obj_var%Lab
+	character(len=20),allocatable, dimension(:) :: get_atom_equiv_Lab
+	get_atom_equiv_Lab = obj_var%Lab
 end function get_atom_equiv_Lab
 
 subroutine set_atom_equiv_Lab(obj_var, new_value)

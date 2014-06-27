@@ -1,7 +1,7 @@
 function get_zone_axis_nlayer(obj_var)
 	type (Zone_Axis_Type) :: obj_var
-	Integer :: getnlayer
-	getnlayer = obj_var%nlayer
+	Integer :: get_zone_axis_nlayer
+	get_zone_axis_nlayer = obj_var%nlayer
 end function get_zone_axis_nlayer
 
 subroutine set_zone_axis_nlayer(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_zone_axis_nlayer
 
 function get_zone_axis_rx(obj_var)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: getrx
-	getrx = obj_var%rx
+	Integer, dimension(3) :: get_zone_axis_rx
+	get_zone_axis_rx = obj_var%rx
 end function get_zone_axis_rx
 
 subroutine set_zone_axis_rx(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_zone_axis_rx
 
 function get_zone_axis_ry(obj_var)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: getry
-	getry = obj_var%ry
+	Integer, dimension(3) :: get_zone_axis_ry
+	get_zone_axis_ry = obj_var%ry
 end function get_zone_axis_ry
 
 subroutine set_zone_axis_ry(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_zone_axis_ry
 
 function get_zone_axis_uvw(obj_var)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: getuvw
-	getuvw = obj_var%uvw
+	Integer, dimension(3) :: get_zone_axis_uvw
+	get_zone_axis_uvw = obj_var%uvw
 end function get_zone_axis_uvw
 
 subroutine set_zone_axis_uvw(obj_var, new_value)

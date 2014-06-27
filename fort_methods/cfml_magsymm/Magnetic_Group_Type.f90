@@ -1,7 +1,7 @@
 function get_magnetic_group_tinv(obj_var)
 	type (Magnetic_Group_Type) :: obj_var
-	integer, dimension(192) :: gettinv
-	gettinv = obj_var%tinv
+	integer, dimension(192) :: get_magnetic_group_tinv
+	get_magnetic_group_tinv = obj_var%tinv
 end function get_magnetic_group_tinv
 
 subroutine set_magnetic_group_tinv(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_magnetic_group_tinv
 
 function get_magnetic_group_Shubnikov(obj_var)
 	type (Magnetic_Group_Type) :: obj_var
-	Character(len=30) :: getShubnikov
-	getShubnikov = obj_var%Shubnikov
+	Character(len=30) :: get_magnetic_group_Shubnikov
+	get_magnetic_group_Shubnikov = obj_var%Shubnikov
 end function get_magnetic_group_Shubnikov
 
 subroutine set_magnetic_group_Shubnikov(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_magnetic_group_Shubnikov
 
 function get_magnetic_group_SpG(obj_var)
 	type (Magnetic_Group_Type) :: obj_var
-	type(Space_Group_Type) :: getSpG
-	getSpG = obj_var%SpG
+	type(Space_Group_Type) :: get_magnetic_group_SpG
+	get_magnetic_group_SpG = obj_var%SpG
 end function get_magnetic_group_SpG
 
 subroutine set_magnetic_group_SpG(obj_var, new_value)

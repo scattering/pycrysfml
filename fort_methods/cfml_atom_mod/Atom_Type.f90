@@ -1,7 +1,7 @@
 function get_atom_LOcc(obj_var)
 	type (Atom_Type) :: obj_var
-	integer :: getLOcc
-	getLOcc = obj_var%LOcc
+	integer :: get_atom_LOcc
+	get_atom_LOcc = obj_var%LOcc
 end function get_atom_LOcc
 
 subroutine set_atom_LOcc(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_atom_LOcc
 
 function get_atom_Utype(obj_var)
 	type (Atom_Type) :: obj_var
-	character(len=4) :: getUtype
-	getUtype = obj_var%Utype
+	character(len=4) :: get_atom_Utype
+	get_atom_Utype = obj_var%Utype
 end function get_atom_Utype
 
 subroutine set_atom_Utype(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_atom_Utype
 
 function get_atom_MBiso(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getMBiso
-	getMBiso = obj_var%MBiso
+	real(kind=cp) :: get_atom_MBiso
+	get_atom_MBiso = obj_var%MBiso
 end function get_atom_MBiso
 
 subroutine set_atom_MBiso(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_atom_MBiso
 
 function get_atom_Occ(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getOcc
-	getOcc = obj_var%Occ
+	real(kind=cp) :: get_atom_Occ
+	get_atom_Occ = obj_var%Occ
 end function get_atom_Occ
 
 subroutine set_atom_Occ(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_atom_Occ
 
 function get_atom_Charge(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getCharge
-	getCharge = obj_var%Charge
+	real(kind=cp) :: get_atom_Charge
+	get_atom_Charge = obj_var%Charge
 end function get_atom_Charge
 
 subroutine set_atom_Charge(obj_var, new_value)
@@ -60,8 +60,8 @@ end subroutine set_atom_Charge
 
 function get_atom_SfacSymb(obj_var)
 	type (Atom_Type) :: obj_var
-	character(len=4) :: getSfacSymb
-	getSfacSymb = obj_var%SfacSymb
+	character(len=4) :: get_atom_SfacSymb
+	get_atom_SfacSymb = obj_var%SfacSymb
 end function get_atom_SfacSymb
 
 subroutine set_atom_SfacSymb(obj_var, new_value)
@@ -72,8 +72,8 @@ end subroutine set_atom_SfacSymb
 
 function get_atom_Lab(obj_var)
 	type (Atom_Type) :: obj_var
-	character(len=20) :: getLab
-	getLab = obj_var%Lab
+	character(len=20) :: get_atom_Lab
+	get_atom_Lab = obj_var%Lab
 end function get_atom_Lab
 
 subroutine set_atom_Lab(obj_var, new_value)
@@ -84,8 +84,8 @@ end subroutine set_atom_Lab
 
 function get_atom_Moment(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getMoment
-	getMoment = obj_var%Moment
+	real(kind=cp) :: get_atom_Moment
+	get_atom_Moment = obj_var%Moment
 end function get_atom_Moment
 
 subroutine set_atom_Moment(obj_var, new_value)
@@ -96,8 +96,8 @@ end subroutine set_atom_Moment
 
 function get_atom_LU(obj_var)
 	type (Atom_Type) :: obj_var
-	integer,      dimension(6) :: getLU
-	getLU = obj_var%LU
+	integer,      dimension(6) :: get_atom_LU
+	get_atom_LU = obj_var%LU
 end function get_atom_LU
 
 subroutine set_atom_LU(obj_var, new_value)
@@ -108,8 +108,8 @@ end subroutine set_atom_LU
 
 function get_atom_MOcc(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getMOcc
-	getMOcc = obj_var%MOcc
+	real(kind=cp) :: get_atom_MOcc
+	get_atom_MOcc = obj_var%MOcc
 end function get_atom_MOcc
 
 subroutine set_atom_MOcc(obj_var, new_value)
@@ -120,8 +120,8 @@ end subroutine set_atom_MOcc
 
 function get_atom_Active(obj_var)
 	type (Atom_Type) :: obj_var
-	logical :: getActive
-	getActive = obj_var%Active
+	logical :: get_atom_Active
+	get_atom_Active = obj_var%Active
 end function get_atom_Active
 
 subroutine set_atom_Active(obj_var, new_value)
@@ -132,8 +132,8 @@ end subroutine set_atom_Active
 
 function get_atom_Mult(obj_var)
 	type (Atom_Type) :: obj_var
-	integer :: getMult
-	getMult = obj_var%Mult
+	integer :: get_atom_Mult
+	get_atom_Mult = obj_var%Mult
 end function get_atom_Mult
 
 subroutine set_atom_Mult(obj_var, new_value)
@@ -144,8 +144,8 @@ end subroutine set_atom_Mult
 
 function get_atom_X_Std(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getX_Std
-	getX_Std = obj_var%X_Std
+	real(kind=cp),dimension(3) :: get_atom_X_Std
+	get_atom_X_Std = obj_var%X_Std
 end function get_atom_X_Std
 
 subroutine set_atom_X_Std(obj_var, new_value)
@@ -156,8 +156,8 @@ end subroutine set_atom_X_Std
 
 function get_atom_U_std(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: getU_std
-	getU_std = obj_var%U_std
+	real(kind=cp),dimension(6) :: get_atom_U_std
+	get_atom_U_std = obj_var%U_std
 end function get_atom_U_std
 
 subroutine set_atom_U_std(obj_var, new_value)
@@ -168,8 +168,8 @@ end subroutine set_atom_U_std
 
 function get_atom_NVar(obj_var)
 	type (Atom_Type) :: obj_var
-	integer :: getNVar
-	getNVar = obj_var%NVar
+	integer :: get_atom_NVar
+	get_atom_NVar = obj_var%NVar
 end function get_atom_NVar
 
 subroutine set_atom_NVar(obj_var, new_value)
@@ -180,8 +180,8 @@ end subroutine set_atom_NVar
 
 function get_atom_wyck(obj_var)
 	type (Atom_Type) :: obj_var
-	character(len=1) :: getwyck
-	getwyck = obj_var%wyck
+	character(len=1) :: get_atom_wyck
+	get_atom_wyck = obj_var%wyck
 end function get_atom_wyck
 
 subroutine set_atom_wyck(obj_var, new_value)
@@ -192,8 +192,8 @@ end subroutine set_atom_wyck
 
 function get_atom_Biso_std(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getBiso_std
-	getBiso_std = obj_var%Biso_std
+	real(kind=cp) :: get_atom_Biso_std
+	get_atom_Biso_std = obj_var%Biso_std
 end function get_atom_Biso_std
 
 subroutine set_atom_Biso_std(obj_var, new_value)
@@ -204,8 +204,8 @@ end subroutine set_atom_Biso_std
 
 function get_atom_LBiso(obj_var)
 	type (Atom_Type) :: obj_var
-	integer :: getLBiso
-	getLBiso = obj_var%LBiso
+	integer :: get_atom_LBiso
+	get_atom_LBiso = obj_var%LBiso
 end function get_atom_LBiso
 
 subroutine set_atom_LBiso(obj_var, new_value)
@@ -216,8 +216,8 @@ end subroutine set_atom_LBiso
 
 function get_atom_Biso(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getBiso
-	getBiso = obj_var%Biso
+	real(kind=cp) :: get_atom_Biso
+	get_atom_Biso = obj_var%Biso
 end function get_atom_Biso
 
 subroutine set_atom_Biso(obj_var, new_value)
@@ -228,8 +228,8 @@ end subroutine set_atom_Biso
 
 function get_atom_VarF(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(10) :: getVarF
-	getVarF = obj_var%VarF
+	real(kind=cp),dimension(10) :: get_atom_VarF
+	get_atom_VarF = obj_var%VarF
 end function get_atom_VarF
 
 subroutine set_atom_VarF(obj_var, new_value)
@@ -240,8 +240,8 @@ end subroutine set_atom_VarF
 
 function get_atom_U(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: getU
-	getU = obj_var%U
+	real(kind=cp),dimension(6) :: get_atom_U
+	get_atom_U = obj_var%U
 end function get_atom_U
 
 subroutine set_atom_U(obj_var, new_value)
@@ -252,8 +252,8 @@ end subroutine set_atom_U
 
 function get_atom_Occ_Std(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getOcc_Std
-	getOcc_Std = obj_var%Occ_Std
+	real(kind=cp) :: get_atom_Occ_Std
+	get_atom_Occ_Std = obj_var%Occ_Std
 end function get_atom_Occ_Std
 
 subroutine set_atom_Occ_Std(obj_var, new_value)
@@ -264,8 +264,8 @@ end subroutine set_atom_Occ_Std
 
 function get_atom_X(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getX
-	getX = obj_var%X
+	real(kind=cp),dimension(3) :: get_atom_X
+	get_atom_X = obj_var%X
 end function get_atom_X
 
 subroutine set_atom_X(obj_var, new_value)
@@ -276,8 +276,8 @@ end subroutine set_atom_X
 
 function get_atom_Z(obj_var)
 	type (Atom_Type) :: obj_var
-	integer :: getZ
-	getZ = obj_var%Z
+	integer :: get_atom_Z
+	get_atom_Z = obj_var%Z
 end function get_atom_Z
 
 subroutine set_atom_Z(obj_var, new_value)
@@ -288,8 +288,8 @@ end subroutine set_atom_Z
 
 function get_atom_MU(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: getMU
-	getMU = obj_var%MU
+	real(kind=cp),dimension(6) :: get_atom_MU
+	get_atom_MU = obj_var%MU
 end function get_atom_MU
 
 subroutine set_atom_MU(obj_var, new_value)
@@ -300,8 +300,8 @@ end subroutine set_atom_MU
 
 function get_atom_LX(obj_var)
 	type (Atom_Type) :: obj_var
-	integer,      dimension(3) :: getLX
-	getLX = obj_var%LX
+	integer,      dimension(3) :: get_atom_LX
+	get_atom_LX = obj_var%LX
 end function get_atom_LX
 
 subroutine set_atom_LX(obj_var, new_value)
@@ -312,8 +312,8 @@ end subroutine set_atom_LX
 
 function get_atom_ChemSymb(obj_var)
 	type (Atom_Type) :: obj_var
-	character(len=2) :: getChemSymb
-	getChemSymb = obj_var%ChemSymb
+	character(len=2) :: get_atom_ChemSymb
+	get_atom_ChemSymb = obj_var%ChemSymb
 end function get_atom_ChemSymb
 
 subroutine set_atom_ChemSymb(obj_var, new_value)
@@ -324,8 +324,8 @@ end subroutine set_atom_ChemSymb
 
 function get_atom_Ind(obj_var)
 	type (Atom_Type) :: obj_var
-	integer, dimension(5) :: getInd
-	getInd = obj_var%Ind
+	integer, dimension(5) :: get_atom_Ind
+	get_atom_Ind = obj_var%Ind
 end function get_atom_Ind
 
 subroutine set_atom_Ind(obj_var, new_value)
@@ -336,8 +336,8 @@ end subroutine set_atom_Ind
 
 function get_atom_ThType(obj_var)
 	type (Atom_Type) :: obj_var
-	character(len=5) :: getThType
-	getThType = obj_var%ThType
+	character(len=5) :: get_atom_ThType
+	get_atom_ThType = obj_var%ThType
 end function get_atom_ThType
 
 subroutine set_atom_ThType(obj_var, new_value)
@@ -348,8 +348,8 @@ end subroutine set_atom_ThType
 
 function get_atom_AtmInfo(obj_var)
 	type (Atom_Type) :: obj_var
-	character(len=40) :: getAtmInfo
-	getAtmInfo = obj_var%AtmInfo
+	character(len=40) :: get_atom_AtmInfo
+	get_atom_AtmInfo = obj_var%AtmInfo
 end function get_atom_AtmInfo
 
 subroutine set_atom_AtmInfo(obj_var, new_value)
@@ -360,8 +360,8 @@ end subroutine set_atom_AtmInfo
 
 function get_atom_Ueq(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp) :: getUeq
-	getUeq = obj_var%Ueq
+	real(kind=cp) :: get_atom_Ueq
+	get_atom_Ueq = obj_var%Ueq
 end function get_atom_Ueq
 
 subroutine set_atom_Ueq(obj_var, new_value)
@@ -372,8 +372,8 @@ end subroutine set_atom_Ueq
 
 function get_atom_MX(obj_var)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: getMX
-	getMX = obj_var%MX
+	real(kind=cp),dimension(3) :: get_atom_MX
+	get_atom_MX = obj_var%MX
 end function get_atom_MX
 
 subroutine set_atom_MX(obj_var, new_value)

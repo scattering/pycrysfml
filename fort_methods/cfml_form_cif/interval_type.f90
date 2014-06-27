@@ -1,7 +1,7 @@
 function get_interval_maxb(obj_var)
 	type (interval_type) :: obj_var
-	real(kind=cp) :: getmaxb
-	getmaxb = obj_var%maxb
+	real(kind=cp) :: get_interval_maxb
+	get_interval_maxb = obj_var%maxb
 end function get_interval_maxb
 
 subroutine set_interval_maxb(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_interval_maxb
 
 function get_interval_mina(obj_var)
 	type (interval_type) :: obj_var
-	real(kind=cp) :: getmina
-	getmina = obj_var%mina
+	real(kind=cp) :: get_interval_mina
+	get_interval_mina = obj_var%mina
 end function get_interval_mina
 
 subroutine set_interval_mina(obj_var, new_value)

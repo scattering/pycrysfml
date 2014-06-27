@@ -9,6 +9,6 @@ for line in lines:
 		#print("$COMP", s[2], "$OPT1", s1[0]+".o", sep=" ")
 		#fortwrap list
 		#print("/home/jel/TestEnv/crysfml/Src/"+s[2])
-		print(getcwd()+"/crysfml/Src/"+s[2])
+		print(getcwd()+"/Src/"+s[2])
 		#print("../"+s1[0]+".o", end=" ")
 		#print(s[2])

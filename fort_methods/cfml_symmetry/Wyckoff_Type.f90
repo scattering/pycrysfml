@@ -1,7 +1,7 @@
 function get_wyckoff_num_orbit(obj_var)
 	type (Wyckoff_Type) :: obj_var
-	integer :: getnum_orbit
-	getnum_orbit = obj_var%num_orbit
+	integer :: get_wyckoff_num_orbit
+	get_wyckoff_num_orbit = obj_var%num_orbit
 end function get_wyckoff_num_orbit
 
 subroutine set_wyckoff_num_orbit(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_wyckoff_num_orbit
 
 function get_wyckoff_orbit(obj_var)
 	type (Wyckoff_Type) :: obj_var
-	type(wyck_pos_type), dimension(26) :: getorbit
-	getorbit = obj_var%orbit
+	type(wyck_pos_type), dimension(26) :: get_wyckoff_orbit
+	get_wyckoff_orbit = obj_var%orbit
 end function get_wyckoff_orbit
 
 subroutine set_wyckoff_orbit(obj_var, new_value)

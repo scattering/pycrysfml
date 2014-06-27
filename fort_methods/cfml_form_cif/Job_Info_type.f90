@@ -1,7 +1,7 @@
 function get_job_info_dtt1(obj_var)
 	type (Job_Info_type) :: obj_var
-	real(kind=cp)      ,dimension(:), allocatable :: getdtt1
-	getdtt1 = obj_var%dtt1
+	real(kind=cp)      ,dimension(:), allocatable :: get_job_info_dtt1
+	get_job_info_dtt1 = obj_var%dtt1
 end function get_job_info_dtt1
 
 subroutine set_job_info_dtt1(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_job_info_dtt1
 
 function get_job_info_dtt2(obj_var)
 	type (Job_Info_type) :: obj_var
-	real(kind=cp)      ,dimension(:), allocatable :: getdtt2
-	getdtt2 = obj_var%dtt2
+	real(kind=cp)      ,dimension(:), allocatable :: get_job_info_dtt2
+	get_job_info_dtt2 = obj_var%dtt2
 end function get_job_info_dtt2
 
 subroutine set_job_info_dtt2(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_job_info_dtt2
 
 function get_job_info_range_2theta(obj_var)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: getrange_2theta
-	getrange_2theta = obj_var%range_2theta
+	type(interval_type),dimension(:), allocatable :: get_job_info_range_2theta
+	get_job_info_range_2theta = obj_var%range_2theta
 end function get_job_info_range_2theta
 
 subroutine set_job_info_range_2theta(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_job_info_range_2theta
 
 function get_job_info_Title(obj_var)
 	type (Job_Info_type) :: obj_var
-	character(len=120) :: getTitle
-	getTitle = obj_var%Title
+	character(len=120) :: get_job_info_Title
+	get_job_info_Title = obj_var%Title
 end function get_job_info_Title
 
 subroutine set_job_info_Title(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_job_info_Title
 
 function get_job_info_range_tof(obj_var)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: getrange_tof
-	getrange_tof = obj_var%range_tof
+	type(interval_type),dimension(:), allocatable :: get_job_info_range_tof
+	get_job_info_range_tof = obj_var%range_tof
 end function get_job_info_range_tof
 
 subroutine set_job_info_range_tof(obj_var, new_value)
@@ -60,8 +60,8 @@ end subroutine set_job_info_range_tof
 
 function get_job_info_Num_Phases(obj_var)
 	type (Job_Info_type) :: obj_var
-	integer :: getNum_Phases
-	getNum_Phases = obj_var%Num_Phases
+	integer :: get_job_info_Num_Phases
+	get_job_info_Num_Phases = obj_var%Num_Phases
 end function get_job_info_Num_Phases
 
 subroutine set_job_info_Num_Phases(obj_var, new_value)
@@ -72,8 +72,8 @@ end subroutine set_job_info_Num_Phases
 
 function get_job_info_cmd(obj_var)
 	type (Job_Info_type) :: obj_var
-	character(len=128), dimension(:), allocatable :: getcmd
-	getcmd = obj_var%cmd
+	character(len=128), dimension(:), allocatable :: get_job_info_cmd
+	get_job_info_cmd = obj_var%cmd
 end function get_job_info_cmd
 
 subroutine set_job_info_cmd(obj_var, new_value)
@@ -84,8 +84,8 @@ end subroutine set_job_info_cmd
 
 function get_job_info_range_stl(obj_var)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: getrange_stl
-	getrange_stl = obj_var%range_stl
+	type(interval_type),dimension(:), allocatable :: get_job_info_range_stl
+	get_job_info_range_stl = obj_var%range_stl
 end function get_job_info_range_stl
 
 subroutine set_job_info_range_stl(obj_var, new_value)
@@ -96,8 +96,8 @@ end subroutine set_job_info_range_stl
 
 function get_job_info_range_d(obj_var)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: getrange_d
-	getrange_d = obj_var%range_d
+	type(interval_type),dimension(:), allocatable :: get_job_info_range_d
+	get_job_info_range_d = obj_var%range_d
 end function get_job_info_range_d
 
 subroutine set_job_info_range_d(obj_var, new_value)
@@ -108,8 +108,8 @@ end subroutine set_job_info_range_d
 
 function get_job_info_Num_Patterns(obj_var)
 	type (Job_Info_type) :: obj_var
-	integer :: getNum_Patterns
-	getNum_Patterns = obj_var%Num_Patterns
+	integer :: get_job_info_Num_Patterns
+	get_job_info_Num_Patterns = obj_var%Num_Patterns
 end function get_job_info_Num_Patterns
 
 subroutine set_job_info_Num_Patterns(obj_var, new_value)
@@ -120,8 +120,8 @@ end subroutine set_job_info_Num_Patterns
 
 function get_job_info_Patt_typ(obj_var)
 	type (Job_Info_type) :: obj_var
-	character(len=16),  dimension(:), allocatable :: getPatt_typ
-	getPatt_typ = obj_var%Patt_typ
+	character(len=16),  dimension(:), allocatable :: get_job_info_Patt_typ
+	get_job_info_Patt_typ = obj_var%Patt_typ
 end function get_job_info_Patt_typ
 
 subroutine set_job_info_Patt_typ(obj_var, new_value)
@@ -132,8 +132,8 @@ end subroutine set_job_info_Patt_typ
 
 function get_job_info_Phas_nam(obj_var)
 	type (Job_Info_type) :: obj_var
-	character(len=128), dimension(:), allocatable :: getPhas_nam
-	getPhas_nam = obj_var%Phas_nam
+	character(len=128), dimension(:), allocatable :: get_job_info_Phas_nam
+	get_job_info_Phas_nam = obj_var%Phas_nam
 end function get_job_info_Phas_nam
 
 subroutine set_job_info_Phas_nam(obj_var, new_value)
@@ -144,8 +144,8 @@ end subroutine set_job_info_Phas_nam
 
 function get_job_info_Num_cmd(obj_var)
 	type (Job_Info_type) :: obj_var
-	integer :: getNum_cmd
-	getNum_cmd = obj_var%Num_cmd
+	integer :: get_job_info_Num_cmd
+	get_job_info_Num_cmd = obj_var%Num_cmd
 end function get_job_info_Num_cmd
 
 subroutine set_job_info_Num_cmd(obj_var, new_value)
@@ -156,8 +156,8 @@ end subroutine set_job_info_Num_cmd
 
 function get_job_info_range_q(obj_var)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: getrange_q
-	getrange_q = obj_var%range_q
+	type(interval_type),dimension(:), allocatable :: get_job_info_range_q
+	get_job_info_range_q = obj_var%range_q
 end function get_job_info_range_q
 
 subroutine set_job_info_range_q(obj_var, new_value)
@@ -168,8 +168,8 @@ end subroutine set_job_info_range_q
 
 function get_job_info_ratio(obj_var)
 	type (Job_Info_type) :: obj_var
-	real(kind=cp)      ,dimension(:), allocatable :: getratio
-	getratio = obj_var%ratio
+	real(kind=cp)      ,dimension(:), allocatable :: get_job_info_ratio
+	get_job_info_ratio = obj_var%ratio
 end function get_job_info_ratio
 
 subroutine set_job_info_ratio(obj_var, new_value)
@@ -180,8 +180,8 @@ end subroutine set_job_info_ratio
 
 function get_job_info_range_Energy(obj_var)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: getrange_Energy
-	getrange_Energy = obj_var%range_Energy
+	type(interval_type),dimension(:), allocatable :: get_job_info_range_Energy
+	get_job_info_range_Energy = obj_var%range_Energy
 end function get_job_info_range_Energy
 
 subroutine set_job_info_range_Energy(obj_var, new_value)
@@ -192,8 +192,8 @@ end subroutine set_job_info_range_Energy
 
 function get_job_info_Lambda(obj_var)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: getLambda
-	getLambda = obj_var%Lambda
+	type(interval_type),dimension(:), allocatable :: get_job_info_Lambda
+	get_job_info_Lambda = obj_var%Lambda
 end function get_job_info_Lambda
 
 subroutine set_job_info_Lambda(obj_var, new_value)

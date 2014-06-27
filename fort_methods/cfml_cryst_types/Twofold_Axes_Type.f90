@@ -1,7 +1,7 @@
 function get_twofold_axes_a(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: geta
-	geta = obj_var%a
+	real(kind=cp), dimension(3) :: get_twofold_axes_a
+	get_twofold_axes_a = obj_var%a
 end function get_twofold_axes_a
 
 subroutine set_twofold_axes_a(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_twofold_axes_a
 
 function get_twofold_axes_c(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: getc
-	getc = obj_var%c
+	real(kind=cp), dimension(3) :: get_twofold_axes_c
+	get_twofold_axes_c = obj_var%c
 end function get_twofold_axes_c
 
 subroutine set_twofold_axes_c(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_twofold_axes_c
 
 function get_twofold_axes_b(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: getb
-	getb = obj_var%b
+	real(kind=cp), dimension(3) :: get_twofold_axes_b
+	get_twofold_axes_b = obj_var%b
 end function get_twofold_axes_b
 
 subroutine set_twofold_axes_b(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_twofold_axes_b
 
 function get_twofold_axes_maxes(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(12) :: getmaxes
-	getmaxes = obj_var%maxes
+	real(kind=cp), dimension(12) :: get_twofold_axes_maxes
+	get_twofold_axes_maxes = obj_var%maxes
 end function get_twofold_axes_maxes
 
 subroutine set_twofold_axes_maxes(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_twofold_axes_maxes
 
 function get_twofold_axes_ntwo(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	integer :: getntwo
-	getntwo = obj_var%ntwo
+	integer :: get_twofold_axes_ntwo
+	get_twofold_axes_ntwo = obj_var%ntwo
 end function get_twofold_axes_ntwo
 
 subroutine set_twofold_axes_ntwo(obj_var, new_value)
@@ -60,8 +60,8 @@ end subroutine set_twofold_axes_ntwo
 
 function get_twofold_axes_cross(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(12) :: getcross
-	getcross = obj_var%cross
+	real(kind=cp), dimension(12) :: get_twofold_axes_cross
+	get_twofold_axes_cross = obj_var%cross
 end function get_twofold_axes_cross
 
 subroutine set_twofold_axes_cross(obj_var, new_value)
@@ -72,8 +72,8 @@ end subroutine set_twofold_axes_cross
 
 function get_twofold_axes_tol(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp) :: gettol
-	gettol = obj_var%tol
+	real(kind=cp) :: get_twofold_axes_tol
+	get_twofold_axes_tol = obj_var%tol
 end function get_twofold_axes_tol
 
 subroutine set_twofold_axes_tol(obj_var, new_value)
@@ -84,8 +84,8 @@ end subroutine set_twofold_axes_tol
 
 function get_twofold_axes_rtwofold(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(3,12) :: getrtwofold
-	getrtwofold = obj_var%rtwofold
+	integer,dimension(3,12) :: get_twofold_axes_rtwofold
+	get_twofold_axes_rtwofold = obj_var%rtwofold
 end function get_twofold_axes_rtwofold
 
 subroutine set_twofold_axes_rtwofold(obj_var, new_value)
@@ -96,8 +96,8 @@ end subroutine set_twofold_axes_rtwofold
 
 function get_twofold_axes_caxes(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp) ,dimension(3,12) :: getcaxes
-	getcaxes = obj_var%caxes
+	real(kind=cp) ,dimension(3,12) :: get_twofold_axes_caxes
+	get_twofold_axes_caxes = obj_var%caxes
 end function get_twofold_axes_caxes
 
 subroutine set_twofold_axes_caxes(obj_var, new_value)
@@ -108,8 +108,8 @@ end subroutine set_twofold_axes_caxes
 
 function get_twofold_axes_dot(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(12) :: getdot
-	getdot = obj_var%dot
+	integer,dimension(12) :: get_twofold_axes_dot
+	get_twofold_axes_dot = obj_var%dot
 end function get_twofold_axes_dot
 
 subroutine set_twofold_axes_dot(obj_var, new_value)
@@ -120,8 +120,8 @@ end subroutine set_twofold_axes_dot
 
 function get_twofold_axes_dtwofold(obj_var)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(3,12) :: getdtwofold
-	getdtwofold = obj_var%dtwofold
+	integer,dimension(3,12) :: get_twofold_axes_dtwofold
+	get_twofold_axes_dtwofold = obj_var%dtwofold
 end function get_twofold_axes_dtwofold
 
 subroutine set_twofold_axes_dtwofold(obj_var, new_value)

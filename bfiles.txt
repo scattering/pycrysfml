@@ -19,7 +19,7 @@ $COMP $OPT2 CFML_Bonds_Table.f90
 $COMP $OPT1 CFML_Cryst_Types.f90
 $COMP $OPT1 CFML_Symmetry.f90
 $COMP $OPT1 CFML_ILL_Instrm_Data.f90
-$COMP $OPT1 CFML_EoS_Mod.f90
+#$COMP $OPT1 CFML_EoS_Mod.f90
 $COMP $OPT1 CFML_Reflct_Util.f90
 $COMP $OPT1 CFML_Atom_Mod.f90
 $COMP $OPT1 CFML_Export_Vtk.f90

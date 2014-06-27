@@ -1,0 +1,120 @@
+__cfml_io_formats_MOD_readn_set_xtal_structure_split
+__cfml_io_formats_MOD_readn_set_xtal_structure_split
+about to call fn
+read info
+__cfml_crystal_metrics_MOD_set_crystal_cell
+__cfml_crystal_metrics_MOD_set_crystal_cell
+__cfml_io_formats_MOD_readn_set_xtal_structure_split
+__cfml_io_formats_MOD_readn_set_xtal_structure_split
+about to call fn
+read info
+__cfml_reflections_utilities_MOD_get_maxnumref
+__cfml_reflections_utilities_MOD_get_maxnumref
+__cfml_reflections_utilities_MOD_hkl_uni_refllist
+__cfml_reflections_utilities_MOD_hkl_uni_refllist
+__cfml_structure_factors_MOD_init_calc_strfactors
+__cfml_structure_factors_MOD_init_calc_strfactors
+__cfml_structure_factors_MOD_calc_strfactor
+__cfml_structure_factors_MOD_calc_strfactor
+Cell information (Trigonal cell)
+----------------------------------------
+ a = 4.761   alpha = 90.000
+ b = 4.761   beta  = 90.000
+ c = 13.000   gamma = 120.000
+----------------------------------------
+
+Space group information
+----------------------------------------
+               Number:  167
+           H-M Symbol:  R -3 c              
+          Hall Symbol:  -R 3 2"c        
+       Crystal System:  Trigonal    
+           Laue Class:  -3m1 
+          Point Group:  -3m  
+ General Multiplicity:  36
+----------------------------------------
+
+Atom information (2 atoms)
+----------------------------------------
+label     x     y     z     mult   occ 
+ Al1   (0.000 0.000 0.352)   12   1.000
+  O1   (0.694 0.000 0.250)   18   1.000
+----------------------------------------
+
+Reflection information (67 reflections)
+----------------------------------------
+__cfml_structure_factors_MOD_init_calc_strfactors
+__cfml_structure_factors_MOD_init_calc_strfactors
+__cfml_structure_factors_MOD_calc_strfactor
+__cfml_structure_factors_MOD_calc_strfactor
+  h k l    mult  2*theta  intensity
+ (0 1  2)   6     25.559    304.526
+ (1 0  4)   6     35.124    193.959
+ (1 1  0)   6     37.752     24.265
+ (0 0  6)   2     41.643    430.852
+ (1 1  3)   12    43.324   3477.640
+ (2 0  2)   6     46.147      7.818
+ (0 2  4)   6     52.513    453.422
+ (1 1  6)   12    57.455   1819.871
+ (2 1  1)   12    59.700    185.025
+ (1 2  2)   12    61.088      3.335
+ (0 1  8)   6     61.250     93.053
+ (2 1  4)   12    66.469    393.667
+ (3 0  0)   6     68.162   1927.378
+ (1 2  5)   12    70.363    135.845
+ (2 0  8)   6     74.238      0.000
+ (1 0 10)   6     76.804    233.079
+ (1 1  9)   12    77.168   1311.086
+ (2 1  7)   12    80.351    121.966
+ (2 2  0)   6     80.639      2.580
+ (3 0  6)   6     83.148    316.408
+ (0 3  6)   6     83.148    315.202
+ (2 2  3)   12    84.291    961.557
+ (1 3  1)   12    85.075     54.362
+ (3 1  2)   12    86.285    182.862
+ (1 2  8)   12    86.427     12.882
+ (0 2 10)   6     88.914     35.054
+ (0 0 12)   2     90.618    280.355
+ (1 3  4)   12    91.113     16.966
+ (3 1  5)   12    94.738     43.773
+ (2 2  6)   12    95.166    825.395
+ (0 4  2)   6     98.310    208.143
+ (2 1 10)   12   100.975    141.063
+ (1 1 12)   12   102.716    248.346
+ (4 0  4)   6    103.225      6.704
+ (1 3  7)   12   104.541     49.132
+ (3 2  1)   12   109.440    127.386
+ (1 2 11)   12   109.742     80.301
+ (2 3  2)   12   110.724     39.579
+ (3 1  8)   12   110.877    196.082
+ (2 2  9)   12   113.948    758.543
+ (3 2  4)   12   115.983    523.612
+ (0 1 14)   6    116.459     46.993
+ (4 1  0)   12   117.733      0.130
+ (2 3  5)   12   120.085    125.272
+ (1 4  3)   12   121.906    656.151
+ (4 1  3)   12   121.906    658.904
+ (0 4  8)   6    124.451    234.186
+ (1 3 10)   12   127.521    543.091
+ (0 3 12)   6    129.701    643.411
+ (3 0 12)   6    129.701    646.522
+ (2 0 14)   6    130.912    191.440
+ (3 2  7)   12   132.047    136.690
+ (2 1 13)   12   132.432    101.351
+ (4 1  6)   12   135.894    708.857
+ (1 4  6)   12   135.894    705.395
+ (3 1 11)   12   139.153     41.301
+ (5 0  2)   6    140.583     33.134
+ (2 3  8)   12   140.808     18.705
+ (1 1 15)   12   142.062   1123.497
+ (4 0 10)   6    144.924    595.377
+ (2 2 12)   12   148.008    283.826
+ (0 5  4)   6    148.957    420.448
+ (1 2 14)   12   149.795    371.096
+ (1 0 16)   6    150.080     22.805
+ (3 3  0)   6    152.132   1354.283
+ (3 3  3)   12   161.298      3.911
+ (2 4  1)   12   163.909    526.583
+
+----------------------------------------
+

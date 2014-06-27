@@ -1,7 +1,7 @@
 function get_wyck_pos_norb(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
-	integer :: getnorb
-	getnorb = obj_var%norb
+	integer :: get_wyck_pos_norb
+	get_wyck_pos_norb = obj_var%norb
 end function get_wyck_pos_norb
 
 subroutine set_wyck_pos_norb(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_wyck_pos_norb
 
 function get_wyck_pos_str_orig(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
-	character(len=40) :: getstr_orig
-	getstr_orig = obj_var%str_orig
+	character(len=40) :: get_wyck_pos_str_orig
+	get_wyck_pos_str_orig = obj_var%str_orig
 end function get_wyck_pos_str_orig
 
 subroutine set_wyck_pos_str_orig(obj_var, new_value)
@@ -24,8 +24,8 @@ end subroutine set_wyck_pos_str_orig
 
 function get_wyck_pos_multp(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
-	integer :: getmultp
-	getmultp = obj_var%multp
+	integer :: get_wyck_pos_multp
+	get_wyck_pos_multp = obj_var%multp
 end function get_wyck_pos_multp
 
 subroutine set_wyck_pos_multp(obj_var, new_value)
@@ -36,8 +36,8 @@ end subroutine set_wyck_pos_multp
 
 function get_wyck_pos_site(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
-	character(len= 6) :: getsite
-	getsite = obj_var%site
+	character(len= 6) :: get_wyck_pos_site
+	get_wyck_pos_site = obj_var%site
 end function get_wyck_pos_site
 
 subroutine set_wyck_pos_site(obj_var, new_value)
@@ -48,8 +48,8 @@ end subroutine set_wyck_pos_site
 
 function get_wyck_pos_str_orbit(obj_var)
 	type (Wyck_Pos_Type) :: obj_var
-	character(len=40),dimension(48) :: getstr_orbit
-	getstr_orbit = obj_var%str_orbit
+	character(len=40),dimension(48) :: get_wyck_pos_str_orbit
+	get_wyck_pos_str_orbit = obj_var%str_orbit
 end function get_wyck_pos_str_orbit
 
 subroutine set_wyck_pos_str_orbit(obj_var, new_value)

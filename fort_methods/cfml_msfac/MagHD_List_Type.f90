@@ -1,7 +1,7 @@
 function get_maghd_list_Nref(obj_var)
 	type (MagHD_List_Type) :: obj_var
-	integer :: getNref
-	getNref = obj_var%Nref
+	integer :: get_maghd_list_Nref
+	get_maghd_list_Nref = obj_var%Nref
 end function get_maghd_list_Nref
 
 subroutine set_maghd_list_Nref(obj_var, new_value)
@@ -12,8 +12,8 @@ end subroutine set_maghd_list_Nref
 
 function get_maghd_list_Mh(obj_var)
 	type (MagHD_List_Type) :: obj_var
-	Type(MagHD_Type),allocatable, dimension(:) :: getMh
-	getMh = obj_var%Mh
+	Type(MagHD_Type),allocatable, dimension(:) :: get_maghd_list_Mh
+	get_maghd_list_Mh = obj_var%Mh
 end function get_maghd_list_Mh
 
 subroutine set_maghd_list_Mh(obj_var, new_value)
