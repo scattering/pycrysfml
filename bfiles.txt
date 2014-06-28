@@ -36,3 +36,4 @@ $COMP $OPT1 CFML_MagSymm.f90
 $COMP $OPT1 CFML_Msfac.f90
 $COMP $OPT1 CFML_Polar.f90
 $COMP $OPT1 CFML_Refcodes.f90
+$COMP $OPT1 cfml_python.f90
