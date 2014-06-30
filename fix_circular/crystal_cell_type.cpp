@@ -1,4 +1,4 @@
-/* This source file automatically generated on 2014-06-18 using 
+/* This source file automatically generated on 2014-06-30 using 
    FortWrap wrapper generator version 1.0.4 */
 
 #include <cstring> // For strcpy
@@ -123,5 +123,35 @@ void crystal_cell_type::calc_magnetic_strf_miv_dom(magsymm_k_type* mgp, matom_li
 
 void crystal_cell_type::gen_satellites(magsymm_k_type* grp, float smax, magh_list_type* h, const int* ord, const int* powder, reflection_list_type* hkl) {
   __cfml_magnetic_structure_factors_MOD_gen_satellites(data_ptr, grp->data_ptr, &smax, h->data_ptr, ord, powder, hkl ? hkl->data_ptr : NULL);
+}
+
+void crystal_cell_type::hklgen_sxtal_reflection(space_group_type* spacegroup, float stlmin, float stlmax, int* num_ref, reflct_array_list* reflex, const std::vector<int>* ord, const FortranMatrix<int> *hlim) {
+  __cfml_python_MOD_hklgen_sxtal_reflection(data_ptr, spacegroup->data_ptr, &stlmin, &stlmax, num_ref, reflex->data_ptr, ord ? &(*ord)[0] : NULL, hlim ? hlim->data : NULL);
+}
+
+void crystal_cell_type::hklgen_sxtal_list(space_group_type* spacegroup, float stlmin, float stlmax, int* num_ref, reflection_list_type* reflex, const std::vector<int>* ord, const FortranMatrix<int> *hlim) {
+  __cfml_python_MOD_hklgen_sxtal_list(data_ptr, spacegroup->data_ptr, &stlmin, &stlmax, num_ref, reflex->data_ptr, ord ? &(*ord)[0] : NULL, hlim ? hlim->data : NULL);
+}
+
+void crystal_cell_type::hkluni_reflection(space_group_type* spacegroup, int friedel, float value1, float value2, const char* code, int* num_ref, reflct_array_list* reflex, const int* no_order) {
+  // Create C array for Fortran input string data
+  char code_c__[1+1];
+  if (code) {
+    int i;
+    strncpy(code_c__, code, 1+1); code_c__[1+1] = 0; // strncpy protects in case code is too long
+    for (i=strlen(code_c__); i<1+1; i++) code_c__[i] = ' '; // Add whitespace for Fortran
+  }
+  __cfml_python_MOD_hkluni_reflection(data_ptr, spacegroup->data_ptr, &friedel, &value1, &value2, code ? code_c__ : NULL, num_ref, reflex->data_ptr, no_order, 1);
+}
+
+void crystal_cell_type::hkluni_refllist(space_group_type* spacegroup, int friedel, float value1, float value2, const char* code, int num_ref, reflection_list_type* reflex, const int* no_order) {
+  // Create C array for Fortran input string data
+  char code_c__[1+1];
+  if (code) {
+    int i;
+    strncpy(code_c__, code, 1+1); code_c__[1+1] = 0; // strncpy protects in case code is too long
+    for (i=strlen(code_c__); i<1+1; i++) code_c__[i] = ' '; // Add whitespace for Fortran
+  }
+  __cfml_python_MOD_hkluni_refllist(data_ptr, spacegroup->data_ptr, &friedel, &value1, &value2, code ? code_c__ : NULL, &num_ref, reflex->data_ptr, no_order, 1);
 }
 

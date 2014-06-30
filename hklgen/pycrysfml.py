@@ -655,6 +655,10 @@ class FortFuncs(_object):
     if _newclass:write_info_refparams = staticmethod(_pycrysfml.FortFuncs_write_info_refparams)
     __swig_getmethods__["readxtal_structure_file"] = lambda x: _pycrysfml.FortFuncs_readxtal_structure_file
     if _newclass:readxtal_structure_file = staticmethod(_pycrysfml.FortFuncs_readxtal_structure_file)
+    __swig_getmethods__["hkls_r"] = lambda x: _pycrysfml.FortFuncs_hkls_r
+    if _newclass:hkls_r = staticmethod(_pycrysfml.FortFuncs_hkls_r)
+    __swig_getmethods__["read_mag_mcif_file"] = lambda x: _pycrysfml.FortFuncs_read_mag_mcif_file
+    if _newclass:read_mag_mcif_file = staticmethod(_pycrysfml.FortFuncs_read_mag_mcif_file)
     def __init__(self): 
         this = _pycrysfml.new_FortFuncs()
         try: self.this.append(this)
@@ -1672,6 +1676,14 @@ def FortFuncs_readxtal_structure_file(*args):
   return _pycrysfml.FortFuncs_readxtal_structure_file(*args)
 FortFuncs_readxtal_structure_file = _pycrysfml.FortFuncs_readxtal_structure_file
 
+def FortFuncs_hkls_r(*args):
+  return _pycrysfml.FortFuncs_hkls_r(*args)
+FortFuncs_hkls_r = _pycrysfml.FortFuncs_hkls_r
+
+def FortFuncs_read_mag_mcif_file(*args):
+  return _pycrysfml.FortFuncs_read_mag_mcif_file(*args)
+FortFuncs_read_mag_mcif_file = _pycrysfml.FortFuncs_read_mag_mcif_file
+
 class angle_restraint_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, angle_restraint_type, name, value)
@@ -1992,6 +2004,10 @@ class crystal_cell_type(_object):
     def calc_magnetic_strf_miv(self, *args): return _pycrysfml.crystal_cell_type_calc_magnetic_strf_miv(self, *args)
     def calc_magnetic_strf_miv_dom(self, *args): return _pycrysfml.crystal_cell_type_calc_magnetic_strf_miv_dom(self, *args)
     def gen_satellites(self, *args): return _pycrysfml.crystal_cell_type_gen_satellites(self, *args)
+    def hklgen_sxtal_reflection(self, *args): return _pycrysfml.crystal_cell_type_hklgen_sxtal_reflection(self, *args)
+    def hklgen_sxtal_list(self, *args): return _pycrysfml.crystal_cell_type_hklgen_sxtal_list(self, *args)
+    def hkluni_reflection(self, *args): return _pycrysfml.crystal_cell_type_hkluni_reflection(self, *args)
+    def hkluni_refllist(self, *args): return _pycrysfml.crystal_cell_type_hkluni_refllist(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.crystal_cell_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.crystal_cell_type_data_ptr_get
     if _newclass:data_ptr = _swig_property(_pycrysfml.crystal_cell_type_data_ptr_get, _pycrysfml.crystal_cell_type_data_ptr_set)
@@ -2125,6 +2141,7 @@ class file_list_type(_object):
     __del__ = lambda self : None;
     def allocate_restparam(self): return _pycrysfml.file_list_type_allocate_restparam(self)
     def read_refgcodes_file(self, *args): return _pycrysfml.file_list_type_read_refgcodes_file(self, *args)
+    def read_mag_cfl_file(self, *args): return _pycrysfml.file_list_type_read_mag_cfl_file(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.file_list_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.file_list_type_data_ptr_get
     if _newclass:data_ptr = _swig_property(_pycrysfml.file_list_type_data_ptr_get, _pycrysfml.file_list_type_data_ptr_set)
@@ -2903,6 +2920,25 @@ class psd_val_type(_object):
     if _newclass:data_ptr = _swig_property(_pycrysfml.psd_val_type_data_ptr_get, _pycrysfml.psd_val_type_data_ptr_set)
 psd_val_type_swigregister = _pycrysfml.psd_val_type_swigregister
 psd_val_type_swigregister(psd_val_type)
+
+class reflct_array_list(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, reflct_array_list, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, reflct_array_list, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_reflct_array_list()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_reflct_array_list
+    __del__ = lambda self : None;
+    def reflct_append(self, *args): return _pycrysfml.reflct_array_list_reflct_append(self, *args)
+    __swig_setmethods__["data_ptr"] = _pycrysfml.reflct_array_list_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.reflct_array_list_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.reflct_array_list_data_ptr_get, _pycrysfml.reflct_array_list_data_ptr_set)
+reflct_array_list_swigregister = _pycrysfml.reflct_array_list_swigregister
+reflct_array_list_swigregister(reflct_array_list)
 
 class reflect_type(_object):
     __swig_setmethods__ = {}

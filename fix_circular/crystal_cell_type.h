@@ -1,4 +1,4 @@
-/* This source file automatically generated on 2014-06-18 using 
+/* This source file automatically generated on 2014-06-30 using 
    FortWrap wrapper generator version 1.0.4 */
 
 #ifndef CRYSTAL_CELL_TYPE_H_
@@ -13,6 +13,7 @@
 #include "reflection_list_type.h"
 #include "magsymm_k_type.h"
 #include "magh_list_type.h"
+#include "reflct_array_list.h"
 #include "space_group_type.h"
 #include "magnetic_domain_type.h"
 #include "matom_list_type.h"
@@ -40,6 +41,10 @@ extern "C" {
   void __cfml_magnetic_structure_factors_MOD_calc_magnetic_strf_miv(ADDRESS cell, ADDRESS mgp, ADDRESS atm, ADDRESS mh);
   void __cfml_magnetic_structure_factors_MOD_calc_magnetic_strf_miv_dom(ADDRESS cell, ADDRESS mgp, ADDRESS atm, ADDRESS mag_dom, ADDRESS mh);
   void __cfml_magnetic_structure_factors_MOD_gen_satellites(ADDRESS cell, ADDRESS grp, float* smax, ADDRESS h, const int* ord, const int* powder, ADDRESS hkl);
+  void __cfml_python_MOD_hklgen_sxtal_reflection(ADDRESS crystalcell, ADDRESS spacegroup, float* stlmin, float* stlmax, int* num_ref, ADDRESS reflex, const int ord[], int* hlim);
+  void __cfml_python_MOD_hklgen_sxtal_list(ADDRESS crystalcell, ADDRESS spacegroup, float* stlmin, float* stlmax, int* num_ref, ADDRESS reflex, const int ord[], int* hlim);
+  void __cfml_python_MOD_hkluni_reflection(ADDRESS crystalcell, ADDRESS spacegroup, int* friedel, float* value1, float* value2, const char* code, int* num_ref, ADDRESS reflex, const int* no_order, int code_len__);
+  void __cfml_python_MOD_hkluni_refllist(ADDRESS crystalcell, ADDRESS spacegroup, int* friedel, float* value1, float* value2, const char* code, int* num_ref, ADDRESS reflex, const int* no_order, int code_len__);
 }
 #endif // SWIG
 class atom_list_type;
@@ -107,6 +112,28 @@ public:
  *  \param[in] hkl OPTIONAL
 */
   void gen_satellites(magsymm_k_type* grp, float smax, magh_list_type* h, const int* ord=NULL, const int* powder=NULL, reflection_list_type* hkl=NULL);
+
+/*! \param[in] ord OPTIONAL
+ *  ARRAY
+ *
+ *  \param[in] hlim OPTIONAL
+*/
+  void hklgen_sxtal_reflection(space_group_type* spacegroup, float stlmin, float stlmax, int* num_ref, reflct_array_list* reflex, const std::vector<int>* ord=NULL, const FortranMatrix<int> *hlim=NULL);
+
+/*! \param[in] ord OPTIONAL
+ *  ARRAY
+ *
+ *  \param[in] hlim OPTIONAL
+*/
+  void hklgen_sxtal_list(space_group_type* spacegroup, float stlmin, float stlmax, int* num_ref, reflection_list_type* reflex, const std::vector<int>* ord=NULL, const FortranMatrix<int> *hlim=NULL);
+
+/*! \param[in] no_order OPTIONAL
+*/
+  void hkluni_reflection(space_group_type* spacegroup, int friedel, float value1, float value2, const char* code, int* num_ref, reflct_array_list* reflex, const int* no_order=NULL);
+
+/*! \param[in] no_order OPTIONAL
+*/
+  void hkluni_refllist(space_group_type* spacegroup, int friedel, float value1, float value2, const char* code, int num_ref, reflection_list_type* reflex, const int* no_order=NULL);
 
   ADDRESS data_ptr;
 
