@@ -10,6 +10,10 @@
 from pycrysfml import *
 import os
 import numpy as np
+import pylab
+from math import floor, sqrt, log, tan, radians
+from string import rstrip, ljust, rjust, center
+from collections import OrderedDict
 funcs = FortFuncs()
 
 # class definitions:
@@ -17,14 +21,16 @@ funcs = FortFuncs()
 # SymmetryOp Attributes:
 #   rot     - rotational part of symmetry operator (3 by 3 matrix)
 #   trans   - translational part of symmetry operator (vector)
-class SymmetryOp(Structure):
-    _fields_ = [("rot", c_int*3*3), ("trans", c_float*3)]
-
+class SymmetryOp(sym_oper_type):
+    def __init__(self):
+        sym_oper_type.__init__(self)
+    
 # MagSymmetryOp attributes:
 #   rot     - roatational part of symmetry operator
 #   phase   - phase as a fraction of 2*pi
-class MagSymmetryOp(Structure):
-    _fields_ = [("rot", c_int*3*3), ("phase", c_float)]
+class MagSymmetryOp(msym_oper_type):
+    def __init__(self):
+        msym_oper_type.__init__(self)
 
 # WyckoffPos attributes:
 #   multip      - multiplicity
@@ -32,17 +38,17 @@ class MagSymmetryOp(Structure):
 #   numElements - number of elements in orbit
 #   origin      - origin
 #   orbit       - strings containing orbit information
-class WyckoffPos(Structure):
-    _fields_ = [("multip", c_int), ("site", c_char*6),
-                ("numElements", c_int), ("origin", c_char*40),
-                ("orbit", c_char*40*48)]
-
+class WyckoffPos(wyck_pos_type):
+    def __init__(self):
+        wyck_pos_type.__init__(self)
+        
 # Wyckoff attributes:
 #   numOrbits   - number of orbits
 #   orbits      - list of Wyckoff position objects
-class Wyckoff(Structure):
-    _fields_ = [("numOrbits", c_int), ("orbits", WyckoffPos*26)]
-
+class Wyckoff(wyckoff_type):
+    def __init__(self):
+        wyckoff_type.__init__(self)
+    
 # SpaceGroup attributes:
 #   number          - space group number
 #   symbol          - Hermann-Mauguin symbol
@@ -122,26 +128,20 @@ class CrystalCell(crystal_cell_type):
 #   magSymOpsSymb   - symbolic form of magnetic operators
 #   magSymOps       - magnetic symmetry operators
 #   basis           - coeffs of basis functions of irreducible representations
-class MagSymmetry(Structure):
-    _fields_ = [("name", c_char*31), ("SkType", c_char*15), ("lattice", c_char),
-                ("numIrreps", c_int), ("magSymOpsNum", c_int),
-                ("centerType", c_int), ("magCenterType", c_int),
-                ("numk", c_int), ("k", c_float*3*12), ("numCentVec", c_int),
-                ("centVec", c_float*3*4), ("numSymOps", c_int),
-                ("multip", c_int), ("numBasisFunc", c_int*4),
-                ("coeffType", c_int*12*4), ("symOpsSymb", c_char*40*48),
-                ("symOps", SymmetryOp*48), ("magSymOpsSymb", c_char*40*48*8),
-                ("magSymOps", MagSymmetryOp*48*8), ("basis", c_float*2*3*12*48*4)]
-
+class MagSymmetry(magsymm_k_type):
+    def __init__(self):
+        magsymm_k_type.__init__(self)    
     def setBasis(self, irrRepNum, symOpNum, vectorNum, v):
-        c_array2 = c_float*2
-        self.basis[irrRepNum][symOpNum][vectorNum] = \
-            (c_array2*3)(c_array2(v[0].real, v[0].imag),
-                         c_array2(v[1].real, v[1].imag),
-                         c_array2(v[2].real, v[2].imag))
+        # TODO: fix this method, sets basf array
+        #c_array2 = c_float*2
+        #self.basis[irrRepNum][symOpNum][vectorNum] = \
+        #    (c_array2*3)(c_array2(v[0].real, v[0].imag),
+        #                 c_array2(v[1].real, v[1].imag),
+        #                 c_array2(v[2].real, v[2].imag))
+        pass
                                                                 
 # Atom attributes:
-#   label       - label for the atom
+#   lab --> label       - label for the atom
 #   element     - chemical symbol of the element 
 #   strFactSymb - chemical symbol used in the structure factor
 #   active      - used for program control
@@ -164,40 +164,29 @@ class MagSymmetry(Structure):
 #   atomInfo    - string containing miscellaneous information
 #   *** mult, lsq prefixes indicate multipliers and positions in the list of
 #       LSQ parameters, respectively; SD indicates standard deviation
-class Atom(Structure):
-    _fields_ = [("label", c_char*10), ("element", c_char*2),
-                ("strFactSymb", c_char*4), ("active", c_int),
-                ("atomicNum", c_int), ("multip", c_int), ("coords", c_float*3),
-                ("coordsSD", c_float*3), ("multCoords", c_float*3),
-                ("lsqCoords", c_int*3), ("occupancy", c_float),
-                ("occupancySD", c_float), ("multOccupancy", c_float),
-                ("lsqOccupancy", c_int), ("BIso", c_float), ("BIsoSD", c_float),
-                ("multBIso", c_float), ("lsqBIso", c_float),
-                ("uType", c_char*4), ("thType", c_char*5), ("U", c_float*6),
-                ("USD", c_float*6), ("UEquiv", c_float), ("multU", c_float*6),
-                ("lsqU", c_int*6), ("charge", c_float), ("moment", c_float),
-                ("index", c_int*5), ("numVars", c_int),
-                ("freeVars", c_float*10), ("atomInfo", c_char*40)]
-
+class Atom(atom_type):
     def __init__(self, *args):
         # construct an atom from a list of attributes
+        atom_type.__init__(self)
         if (len(args) == 6):
-            init = getattr(lib, "__cfml_atom_typedef_MOD_init_atom_type")
-            init.argtypes = [POINTER(Atom)]
-            init.restype = None
-            init(self)
-            
-            self.label = ljust(args[0], 10)
-            self.element = ljust(args[1], 2)
-            self.strFactSymb = ljust(self.element, 4)
-            self.coords = (c_float*3)(*args[2])
-            self.multip = args[3]
-            self.occupancy = c_float(args[4])
-            self.BIso = c_float(args[5])
-#        # copy over attributes from a magnetic atom
-#        for field in Atom._fields_:
-#            setattr(self, field[0], getattr(magAtom, field[0]))
-
+            funcs.init_atom_type(self)
+            self.set_atom_lab(ljust(args[0],20)) # set atom label
+            self.label = ljust(args[0],20) # old field preserved for lack of fortstring get methods TODO: fix this
+            self.set_atom_chemsymb(ljust(args[1], 2)) # set element
+            self.element = ljust(args[1], 2) # see above
+            self.set_atom_sfacsymb(ljust(self.element, 4))
+            self.set_atom_x(args[2])
+            self.coords = args[2] # preserved for lack of get method TODO: add fortwrap support for array return types
+            self.set_atom_mult(args[3])
+            self.set_atom_occ(float(args[4]))
+            self.set_atom_biso(float(args[5]))
+    def multip(self):
+        return self.get_atom_mult()
+    def occupancy(self):
+        return self.get_atom_occ()
+    def BIso(self):
+        return self.get_atom_biso()
+    
     def sameSite(self, other):
         # TODO: make this work for equivalent sites, not just identical ones
         # returns true if two atoms occupy the same position
@@ -215,29 +204,9 @@ class Atom(Structure):
 #   SkimSphere      - imaginary part of Fourier coefficient (spherical coords)
 #   phase           - magnetic phase (fraction of 2*pi)
 #   basis           - coefficients of the basis functions
-class MagAtom(Structure):
-    _fields_ = [("label", c_char*10), ("element", c_char*2),
-                ("strFactSymb", c_char*4), ("active", c_int),
-                ("atomicNum", c_int), ("multip", c_int), ("coords", c_float*3),
-                ("coordsSD", c_float*3), ("multCoords", c_float*3),
-                ("lsqCoords", c_int*3), ("occupancy", c_float),
-                ("occupancySD", c_float), ("multOccupancy", c_float),
-                ("lsqOccupancy", c_int), ("BIso", c_float), ("BIsoSD", c_float),
-                ("multBIso", c_float), ("lsqBIso", c_float),
-                ("uType", c_char*4), ("thType", c_char*5), ("U", c_float*6),
-                ("USD", c_float*6), ("UEquiv", c_float), ("multU", c_float*6),
-                ("lsqU", c_int*6), ("charge", c_float), ("moment", c_float),
-                ("index", c_int*5), ("numVars", c_int),
-                ("freeVars", c_float*10), ("atomInfo", c_char*40),
-                ("numkVectors", c_int), ("irrepNum", c_int*12),
-                ("SkReal", c_float*3*12), ("SkRealSphere", c_float*3*12),
-                ("multSkReal", c_float*3*12), ("lsqSkReal", c_int*3*12),
-                ("SkIm", c_float*3*12), ("SkImSphere", c_float*3*12),
-                ("multSkIm", c_float*3*12), ("lsqSkIm", c_int*3*12),
-                ("phase", c_float*12), ("multPhase", c_float*12),
-                ("lsqPhase", c_int*12), ("basis", c_float*12*12),
-                ("multBasis", c_float*12*12), ("lsqBasis", c_int*12*12)]
-
+class MagAtom(matom_type):
+    def __init__(self):
+        matom_type.__init__(self)
     def sameSite(self, other):
         # returns true if two atoms occupy the same position
         # Warning: they must be specified with identical starting coordinates
@@ -249,43 +218,32 @@ class MagAtom(Structure):
 #   numAtoms    - the number of atoms
 #   atoms       - a list of Atom objects
 #   magnetic    - True if this is a list of MagAtoms
-class AtomList(Structure):
-    _fields_ = [("numAtoms", c_int), ("atoms", DV)]
-
+class AtomList(atom_list_type, matom_list_type):
     def __init__(self, atoms=None, magnetic=False):
         self.magnetic = magnetic
+        if magnetic:
+            matom_list_type.__init__(self)
+        else:
+            atom_list_type.__init__(self)
         if (atoms != None):
-            init = getattr(lib, "__cfml_atom_typedef_MOD_allocate_atom_list")
-            init.argtypes = [POINTER(c_int), POINTER(AtomList), POINTER(c_int)]
-            init.restype = None
-            numAtoms = len(atoms)
-            init(c_int(numAtoms), self, None)
-            self.numAtoms = c_int(numAtoms)
-
-            # copy information from provided atom list
-            for i, atom in enumerate(self):
-                for field in atom._fields_:
-                    setattr(atom, field[0], getattr(atoms[i], field[0]))
-#            atoms = self.atoms.data(Atom)
-#            c_array3 = c_float*3
-#            if not isinstance(elements[0], Atom):
-#                # build atoms from scratch
-#                for i in xrange(numAtoms):
-#                    atoms[i].element = elements[i]
-#                    atoms[i].atomicNum = c_int(atomicNums[i])
-#                    atoms[i].coords = c_array3(*coords[i])
-#                    atoms[i].occupancy = c_float(occupancies[i])
-#                    atoms[i].BIso = c_float(BIsos[i])  
-#                    atoms[i].label = elements[i]
-
+            self.numAtoms = len(atoms)
+            funcs.allocate_atom_list(numAtoms, self, None)
+            self.numAtoms = numAtoms
+            self.set_atom_list_natoms(numAtoms)
+            
+            # TODO: replace following with pycrysfml equivalent
+            ## copy information from provided atom list
+            #for i, atom in enumerate(self):
+            #    for field in atom._fields_:
+            #        setattr(atom, field[0], getattr(atoms[i], field[0]))
     def __len__(self):
         return int(self.numAtoms)
-    
-    def __getitem__(self, index):
-        if (index < 0): index += len(self)
-        if (self.magnetic): dtype = MagAtom
-        else: dtype = Atom
-        return self.atoms.data(dtype)[index]
+    #TODO: fix iterator code
+    #def __getitem__(self, index):
+    #    if (index < 0): index += len(self)
+    #    if (self.magnetic): dtype = MagAtom
+    #    else: dtype = Atom
+    #    return self.atoms.data(dtype)[index]
 
 # Reflection attributes:
 #   hkl         - list containing hkl indices for the reflection
@@ -317,32 +275,41 @@ class Reflection(reflection_type):
 #   magStrFact      - magnetic structure factor
 #   magIntVec       - magnetic interaction vector
 #   magIntVecCart   - magnetic interaction vector (Cartesian coordinates)
-class MagReflection(Structure):
-    _fields_ = [("equalMinus", c_int),  ("multip", c_int), ("knum", c_int),
-                ("signk", c_float), ("s", c_float), ("magIntVecSq", c_float),
-                ("hkl", c_float*3), ("magStrFact", c_float*2*3),
-                ("magIntVec", c_float*2*3), ("magIntVecCart", c_float*2*3)]
-
+class MagReflection(magh_type):
     # can initialize this from a regular (non-magnetic) reflection
     def __init__(self, reflection=None):
+        magh_type.__init__(self)
         if (reflection != None):
-            self.hkl = reflection.hkl
-            self.multip = reflection.multip
-            self.s = reflection.s
-
+            self.hkl = reflection.hkl # preserved for lack of working getter
+            self.set_magh_h(reflection.hkl)
+            self.set_magh_mult(reflection.multip())
+            self.set_magh_s(reflection.s())
+    def multip(self):
+        return self.get_magh_mult()
+    
+    def s(self):
+        return self.get_magh_s()
+    
 # ReflectionList attributes
 #   numReflections  - the number of reflections
 #   reflections     - list of Reflection objects
 #   magnetic        - True if this is a list of MagReflections
-class ReflectionList(reflection_list_type):
+class ReflectionList(reflection_list_type, magh_list_type):
     # TODO: fix this... add get/set methods and rewrite python list operator methods
     #     : also add get/ set to crystal_cell_type
-#    _fields_ = [("numReflections", c_int), ("reflections", DV)]
     def __init__(self, magnetic=False):
-        reflection_list_type.__init__(self)
+        if not magnetic:
+            reflection_list_type.__init__(self)
+        else:
+            magh_list_type.__init__(self)
         self.magnetic = magnetic
-    #def __len__(self):
-    #    return int(self.numReflections)
+    def __len__(self):
+        #    return int(self.numReflections)
+        if self.magnetic:
+            return self.get_magh_list_nref()
+        else:
+            return self.get_reflection_list_nref()
+    #TODO: fix iterator code
     #def __getitem__(self, index):
     #    if (index < 0): index += len(self)
     #    if (self.magnetic): dtype = MagReflection
@@ -361,9 +328,9 @@ class FileList(file_list_type):
 #   .cfl, .pcr, or .shx file
 def readInfo(filename):
     # read the file
-    cell = crystal_cell_type()
-    spaceGroup = space_group_type()
-    atomList = atom_list_type()
+    cell = CrystalCell()
+    spaceGroup = SpaceGroup()
+    atomList = AtomList()
     ext = filename.split(".")[len(filename.split("."))-1]
     funcs.readxtal_structure_file(filename, cell, spaceGroup, atomList, ext, None, None, None)
     return (spaceGroup, cell, atomList)
@@ -464,6 +431,14 @@ def twoTheta(s, wavelength):
 def getS(tt, wavelength):
     return np.sin(np.radians(tt/2))/wavelength
 
+# hklString: converts an hkl list into a string
+def hklString(hkl):
+    try:
+        for x in hkl:
+            assert(x == int(x))
+        return "%d %d %d" % tuple(hkl)
+    except(AssertionError):
+        return "%.1f %.1f %.1f" % tuple(hkl)
 
 # getMaxNumRef: returns the maximum number of reflections for a given cell
 def getMaxNumRef(sMax, volume, sMin=0.0, multip=2):
@@ -477,6 +452,7 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
     # Create a reference that will be modified by calling Fortran
     reflectionCount = maxReflections
     if (not getList):
+        # TODO: fix this
         #c_ReflectionArray = Reflection*max(maxReflections,1)
         #reflections = c_ReflectionArray()        
         #if xtal:
@@ -503,10 +479,10 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
     else:
         if xtal:
             reflections = ReflectionList()
-            cell.hklgen_sxtal_list(spaceGroup, sMin, sMax, reflectionCount, reflections)
+            funcs.hklgen_sxtal_list(cell, spaceGroup, sMin, sMax, reflectionCount, reflections)
         else:
             reflections = ReflectionList()
-            cell.hkluni_refllist(spaceGroup, True, sMin, sMax, 's', reflectionCount, reflections, False)
+            funcs.hkluni_refllist(cell, spaceGroup, True, sMin, sMax, 's', reflectionCount, reflections, False)
     if (not isinstance(reflections, ReflectionList)):
         reflections = reflections[:reflectionCount]    
     return reflections
@@ -514,8 +490,8 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
 # calcStructFact: calculates the structure factor squared for a list of planes
 #   using provided atomic positions
 def calcStructFact(refList, atomList, spaceGroup, wavelength):
-    refList.init_calc_strfactors(atomList, spaceGroup, 'NUC', wavelength, None, 3)
-    structFacts = [float() for i in xrange(refList.numReflections)]
+    funcs.init_calc_strfactors(refList, atomList, spaceGroup, 'NUC', wavelength, None, 3)
+    structFacts = [float() for i in xrange(refList.get_reflection_list_nref())]
     reflections = refList[:]
     for i, reflection in enumerate(reflections):
         # calculates the square of the structure factor
@@ -526,25 +502,11 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength):
 #   of lattice reflections
 # TODO: convert to pycrysfml
 def calcMagStructFact(refList, atomList, symmetry, cell):
-    init = lib.__cfml_magnetic_structure_factors_MOD_init_mag_structure_factors
-    init.argtypes = [POINTER(ReflectionList), POINTER(AtomList),
-                     POINTER(MagSymmetry), POINTER(c_int)]
-    init.restype = None
-    init(refList, atomList, symmetry, None)
-
-    calc = lib.__cfml_magnetic_structure_factors_MOD_mag_structure_factors
-    calc.argtypes = [POINTER(AtomList), POINTER(MagSymmetry),
-                     POINTER(ReflectionList)]
-    calc.restype = None
-    calc(atomList, symmetry, refList)
-
+    funcs.init_mag_structure_factors(refList, atomList, symmetry, None)
+    funcs.mag_structure_factors(atomList, symmetry, refList)
     # calculate the "magnetic interaction vector" (the square of which is
     #   proportional to the intensity)    
-    calcMiv = lib.__cfml_magnetic_structure_factors_MOD_calc_mag_interaction_vector
-    calcMiv.argtypes = [POINTER(ReflectionList), POINTER(CrystalCell)]
-    calcMiv.restype = None
-    calcMiv(refList, cell)
-#    strFacts = np.array([ref.magStrFact for ref in refList])
+    funcs.calc_mag_interaction_vector(refList, cell)
     mivs = np.array([ref.magIntVec for ref in refList])
     return mivs
 
@@ -571,7 +533,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
 #   diffraction pattern
 def makeGaussians(reflections, coeffs, I, scale, wavelength):
     Gaussian.scaleFactor = scale
-    gaussians = [Gaussian(twoTheta(rk.s, wavelength),
+    gaussians = [Gaussian(twoTheta(rk.s(), wavelength),
                           coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl)
                  for rk,Ik in zip(reflections,I)]
     return gaussians
@@ -673,7 +635,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
     return (tt, intensity)
 
-
+# TODO: fix print info
 # printInfo: prints out information about the provided space group and atoms,
 #   as well as the generated reflections
 def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
@@ -798,4 +760,4 @@ if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
     infoFile = os.path.join(DATAPATH,"Al2O3.cif")
     (sG, cC, atoms) = readInfo(infoFile)
-    print sG
+    print sG.get_space_group_numspg()
