@@ -736,7 +736,7 @@ def parse_proc(file,line,abstract=False):
             # defined.  Make sure the Fortran source file that
             # contains those definitions is parsed first
             invalid = True
-        if arg.pos==1 and arg.type.dt:
+        if arg.pos==1 and arg.type.dt and any(s in proc_name for s in ['get', 'set']) and 'twofold' not in arg.type.type:
             method = True
     if retval:
         if retval.type:
@@ -933,7 +933,7 @@ def associate_procedures():
     def flag_native_args(proc):
         # Check for arguments to pass as native classes:
         for pos,arg in proc.args_by_pos.iteritems():
-            if pos>1 and arg.type.dt and not arg.type.array and arg.type.type in objects:
+            if arg.type.dt and not arg.type.array and arg.type.type in objects:
                 arg.native = True
 
     for proc in procedures:
@@ -941,7 +941,7 @@ def associate_procedures():
         if proc.method:
             typename = proc.args_by_pos[1].type.type
             if typename in objects:
-                # print "Associating procedure:", typename +'.'+proc.name
+                print "Associating procedure:", typename +'.'+proc.name
                 objects[typename].procs.append(proc)
                 flag_native_args(proc)
             elif typename.lower() not in name_exclusions:
@@ -1007,19 +1007,19 @@ def c_arg_list(proc,bind=False,call=False,definition=True):
     opposed to declared (prototype)
     """
     # dt check is necessary to handle orphan functions in the dummy class
-    if (not call) and (proc.nargs == 0 or (not bind and proc.nargs==1 and proc.args_by_pos[1].type.dt)):
+    if (not call) and (proc.nargs == 0): # or (not bind and proc.nargs==1 and proc.args_by_pos[1].type.dt)):
         return 'void'
     string = ''
     # Pass "data_ptr" as first arg, if necessary. dt check is necessary to
     # handle orphan functions in the dummy class correctly
-    if bind and call and proc.nargs>0 and proc.args_by_pos[1].type.dt:
+    if bind and call and proc.nargs>0 and proc.args_by_pos[1].type.dt and any(s in proc.name for s in ['get', 'set']) and 'twofold' not in proc.args_by_pos[1].type.type:
         if proc.nargs==1:
             return 'data_ptr'
         else:
             string = 'data_ptr, '
     # Add argument names and possibly types
     for pos,arg in proc.args_by_pos.iteritems():
-        if (call or not bind) and pos == 1 and proc.args_by_pos[1].type.dt:
+        if (call or not bind) and pos == 1 and proc.args_by_pos[1].type.dt and any(s in proc.name for s in ['get', 'set']) and 'twofold' not in proc.args_by_pos[1].type.type:
             # dt check above excludes the cases where this is an
             # orphan function in the dummy class
             continue
