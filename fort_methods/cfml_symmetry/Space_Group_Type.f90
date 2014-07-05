@@ -24,13 +24,13 @@ end subroutine set_space_group_Centre_coord
 
 subroutine get_space_group_Latt_trans(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	real(kind=cp), dimension(:,:), intent(out) :: output_value
 	output_value = obj_var%Latt_trans
 end subroutine get_space_group_Latt_trans
 
 subroutine set_space_group_Latt_trans(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: new_value
+	real(kind=cp), dimension(:,:), intent(in) :: new_value
 	obj_var%Latt_trans = new_value
 end subroutine set_space_group_Latt_trans
 
@@ -60,13 +60,13 @@ end subroutine set_space_group_NumSpg
 
 subroutine get_space_group_SymopSymb(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=50),   allocatable,dimension(:), intent(out) :: output_value
+	character(len=50),   dimension(:), intent(out) :: output_value
 	output_value = obj_var%SymopSymb
 end subroutine get_space_group_SymopSymb
 
 subroutine set_space_group_SymopSymb(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=50),   allocatable,dimension(:), intent(in) :: new_value
+	character(len=50),   dimension(:), intent(in) :: new_value
 	obj_var%SymopSymb = new_value
 end subroutine set_space_group_SymopSymb
 
@@ -252,13 +252,13 @@ end subroutine set_space_group_Centre
 
 subroutine get_space_group_SymOp(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	type(Sym_Oper_Type), allocatable,dimension(:), intent(out) :: output_value
+	type(Sym_Oper_Type), dimension(:), intent(out) :: output_value
 	output_value = obj_var%SymOp
 end subroutine get_space_group_SymOp
 
 subroutine set_space_group_SymOp(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
-	type(Sym_Oper_Type), allocatable,dimension(:), intent(in) :: new_value
+	type(Sym_Oper_Type), dimension(:), intent(in) :: new_value
 	obj_var%SymOp = new_value
 end subroutine set_space_group_SymOp
 
@@ -302,10 +302,10 @@ subroutine Space_Group_Type_ctor(Space_Group_Type_param, Centred_param, Centre_c
 	type (Space_Group_Type) :: Space_Group_Type_param
 	integer, intent(in) :: Centred_param
 	real(kind=cp), dimension(3), intent(in) :: Centre_coord_param
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: Latt_trans_param
+	real(kind=cp), dimension(:,:), intent(in) :: Latt_trans_param
 	logical, intent(in) :: Hexa_param
 	integer, intent(in) :: NumSpg_param
-	character(len=50),   allocatable,dimension(:), intent(in) :: SymopSymb_param
+	character(len=50),   dimension(:), intent(in) :: SymopSymb_param
 	character(len=12), intent(in) :: CrystalSys_param
 	integer, intent(in) :: NumLat_param
 	character(len= 5), intent(in) :: PG_param
@@ -321,7 +321,7 @@ subroutine Space_Group_Type_ctor(Space_Group_Type_param, Centred_param, Centre_c
 	character(len=90), intent(in) :: gHall_param
 	character(len=20), intent(in) :: SPG_Symb_param
 	character(len=80), intent(in) :: Centre_param
-	type(Sym_Oper_Type), allocatable,dimension(:), intent(in) :: SymOp_param
+	type(Sym_Oper_Type), dimension(:), intent(in) :: SymOp_param
 	integer, intent(in) :: NumOps_param
 	real(kind=cp),dimension(3,2), intent(in) :: R_Asym_Unit_param
 	integer, intent(in) :: Multip_param

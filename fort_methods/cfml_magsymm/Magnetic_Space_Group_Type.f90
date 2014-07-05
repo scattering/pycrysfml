@@ -24,13 +24,13 @@ end subroutine set_magnetic_space_group_Centre_coord
 
 subroutine get_magnetic_space_group_aLatt_trans(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	real(kind=cp), dimension(:,:), intent(out) :: output_value
 	output_value = obj_var%aLatt_trans
 end subroutine get_magnetic_space_group_aLatt_trans
 
 subroutine set_magnetic_space_group_aLatt_trans(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: new_value
+	real(kind=cp), dimension(:,:), intent(in) :: new_value
 	obj_var%aLatt_trans = new_value
 end subroutine set_magnetic_space_group_aLatt_trans
 
@@ -84,13 +84,13 @@ end subroutine set_magnetic_space_group_BNS_number
 
 subroutine get_magnetic_space_group_Latt_trans(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	real(kind=cp), dimension(:,:), intent(out) :: output_value
 	output_value = obj_var%Latt_trans
 end subroutine get_magnetic_space_group_Latt_trans
 
 subroutine set_magnetic_space_group_Latt_trans(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: new_value
+	real(kind=cp), dimension(:,:), intent(in) :: new_value
 	obj_var%Latt_trans = new_value
 end subroutine set_magnetic_space_group_Latt_trans
 
@@ -518,12 +518,12 @@ subroutine Magnetic_Space_Group_Type_ctor(Magnetic_Space_Group_Type_param, m_con
 	type (Magnetic_Space_Group_Type) :: Magnetic_Space_Group_Type_param
 	logical, intent(in) :: m_constr_param
 	real(kind=cp), dimension(3), intent(in) :: Centre_coord_param
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: aLatt_trans_param
+	real(kind=cp), dimension(:,:), intent(in) :: aLatt_trans_param
 	character(len=40),   dimension(:),allocatable, intent(in) :: MSymopSymb_param
 	Integer, intent(in) :: n_wyck_param
 	Character(len=34), intent(in) :: BNS_symbol_param
 	character(len=15), intent(in) :: BNS_number_param
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: Latt_trans_param
+	real(kind=cp), dimension(:,:), intent(in) :: Latt_trans_param
 	Integer, intent(in) :: Sh_number_param
 	character(len=40),   dimension(:),allocatable, intent(in) :: Wyck_Symb_param
 	character(len=12), intent(in) :: CrystalSys_param

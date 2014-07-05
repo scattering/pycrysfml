@@ -27,7 +27,8 @@ array%reflections(array%current_index) = rflctn
 array%current_index = array%current_index+1
 END SUBROUTINE reflct_append
 ! wrapper for procedure in CFML_IO_Formats
-SUBROUTINE ReadXtal_Structure_File(filenam, Cell, SpG, A, Mode, Iphase, Job_Info, file_list, CFrame)
+SUBROUTINE ReadXtal_Structure_File(filenam, Cell, SpG, A, Mode, &
+Iphase, Job_Info, file_list, CFrame)
 !---- Arguments ----!
 character(len=*), intent(in) :: filenam
 Type (Crystal_Cell_Type), intent(out) :: Cell
@@ -38,7 +39,8 @@ Integer, optional, intent(in) :: Iphase
 Type(Job_Info_type), optional, intent(out) :: Job_Info
 Type(file_list_type), optional, intent(in out) :: file_list
 Character(len=*), optional, intent(in) :: CFrame
-call Readn_Set_Xtal_Structure(filenam, Cell, SpG, A, Mode, Iphase, Job_Info, file_list, CFrame)
+call Readn_Set_Xtal_Structure(filenam, Cell, SpG, A, Mode, Iphase, &
+Job_Info, file_list, CFrame)
 END SUBROUTINE ReadXtal_Structure_File
 
 ! wrapper for Hkl_S --> HS_R procedure from CFML_Reflect_Util
@@ -51,7 +53,8 @@ END FUNCTION HklS_R
 
 ! wrappers for HKL_GEN_SXTAL from CFML_Reflect_Util
 ! _reflection
-SUBROUTINE hklgen_sxtal_reflection(Crystalcell, Spacegroup, stlmin, stlmax, Num_Ref, Reflex, ord, hlim)
+SUBROUTINE hklgen_sxtal_reflection(Crystalcell, Spacegroup, stlmin, &
+stlmax, Num_Ref, Reflex, ord, hlim)
 type (Crystal_Cell_Type), intent(in) :: crystalcell
 type (Space_Group_Type), intent(in) :: spacegroup
 real(kind=cp), intent(in) :: stlmin,stlmax
@@ -59,11 +62,13 @@ integer, intent(out) :: num_ref
 type (reflct_array_list), intent(out) :: reflex
 Integer, dimension(3), optional, intent(in) :: ord
 Integer, dimension(3,2), optional, intent(in) :: hlim
-call HKL_GEN_SXTAL(Crystalcell, Spacegroup, stlmin, stlmax, Num_Ref, Reflex%reflections, ord, hlim)
+call HKL_GEN_SXTAL(Crystalcell, Spacegroup, stlmin, stlmax, Num_Ref, &
+Reflex%reflections, ord, hlim)
 END SUBROUTINE hklgen_sxtal_reflection
 
 ! _list
-SUBROUTINE hklgen_sxtal_list(Crystalcell, Spacegroup, stlmin, stlmax, Num_Ref, Reflex, ord, hlim)
+SUBROUTINE hklgen_sxtal_list(Crystalcell, Spacegroup, stlmin, stlmax, &
+Num_Ref, Reflex, ord, hlim)
 type (Crystal_Cell_Type), intent(in) :: crystalcell
 type (Space_Group_Type), intent(in) :: spacegroup
 real(kind=cp), intent(in) :: stlmin,stlmax
@@ -71,12 +76,14 @@ integer, intent(out) :: num_ref
 Type(Reflection_List_Type), intent(out) :: reflex
 Integer, dimension(3), optional, intent(in) :: ord
 Integer, dimension(3,2), optional, intent(in) :: hlim
-call HKL_GEN_SXTAL(Crystalcell, Spacegroup, stlmin, stlmax, Num_Ref, Reflex, ord, hlim)
+call HKL_GEN_SXTAL(Crystalcell, Spacegroup, stlmin, stlmax, Num_Ref, &
+Reflex, ord, hlim)
 END SUBROUTINE hklgen_sxtal_list
 
 ! wrappers for Hkl_Uni from CFML_Reflect_Util
 ! _reflection
-SUBROUTINE hkluni_reflection(Crystalcell, Spacegroup, Friedel, Value1, Value2, Code, Num_Ref, Reflex, no_order)
+SUBROUTINE hkluni_reflection(Crystalcell, Spacegroup, Friedel, &
+Value1, Value2, Code, Num_Ref, Reflex, no_order)
 !---- Arguments ----!
 type (Crystal_Cell_Type), intent(in) :: crystalcell
 type (Space_Group_Type), intent(in) :: spacegroup
@@ -86,11 +93,13 @@ character(len=1), intent(in) :: code
 integer, intent(out) :: num_ref
 type (reflct_array_list), intent(out) :: reflex
 logical, optional, intent(in) :: no_order
-call Hkl_Uni(Crystalcell, Spacegroup, Friedel, Value1, Value2, Code, Num_Ref, Reflex%reflections, no_order)
+call Hkl_Uni(Crystalcell, Spacegroup, Friedel, Value1, Value2, Code, &
+Num_Ref, Reflex%reflections, no_order)
 END SUBROUTINE hkluni_reflection
 
 ! _ReflList
-SUBROUTINE hkluni_refllist(Crystalcell, Spacegroup, Friedel, Value1, Value2, Code, Num_Ref, Reflex, no_order)
+SUBROUTINE hkluni_refllist(Crystalcell, Spacegroup, Friedel, Value1, &
+Value2, Code, Num_Ref, Reflex, no_order)
 !---- Arguments ----!
 type (Crystal_Cell_Type), intent(in) :: crystalcell
 type (Space_Group_Type), intent(in) :: spacegroup
@@ -100,12 +109,14 @@ character(len=1), intent(in) :: code
 integer, intent(in) :: Num_Ref
 type (Reflection_List_Type), intent(out) :: reflex
 logical, optional, intent(in) :: no_order
-call Hkl_Uni(Crystalcell, Spacegroup, Friedel, Value1, Value2, Code, Num_Ref, Reflex, no_order)
+call Hkl_Uni(Crystalcell, Spacegroup, Friedel, Value1, Value2, Code, &
+Num_Ref, Reflex, no_order)
 END SUBROUTINE hkluni_refllist
 
 ! wrappers for Readn_Set_Magnetic_Structure from CFML_Magnetic_Symmetry
 ! _CFL
-SUBROUTINE read_mag_cfl_file(file_cfl, n_ini, n_end, MGp, Am, SGo, Mag_dom, Cell)
+SUBROUTINE read_mag_cfl_file(file_cfl, n_ini, n_end, MGp, Am, SGo, &
+Mag_dom, Cell)
 !---- Arguments ----!
 type(file_list_type), intent(in) :: file_cfl
 integer, intent(in out) :: n_ini, n_end
@@ -114,7 +125,8 @@ type(mAtom_List_Type), intent(out) :: Am
 type(Magnetic_Group_Type), optional, intent(out) :: SGo
 type(Magnetic_Domain_type),optional, intent(out) :: Mag_dom
 type(Crystal_Cell_type), optional, intent(in) :: Cell
-call Readn_Set_Magnetic_Structure(file_cfl, n_ini, n_end, MGp, Am, SGo, Mag_dom, Cell)
+call Readn_Set_Magnetic_Structure(file_cfl, n_ini, n_end, MGp, Am, &
+SGo, Mag_dom, Cell)
 END SUBROUTINE read_mag_cfl_file
 
 ! _MCIF
@@ -131,6 +143,8 @@ END SUBROUTINE read_mag_mcif_file
 
 !!-- Getters and Setters --!!
 
+
+
 	function get_atom_equiv_list_nauas(obj_var)
 	type (Atom_Equiv_List_Type) :: obj_var
 	integer :: get_atom_equiv_list_nauas
@@ -145,32 +159,32 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_atom_equiv_list_atm(obj_var, output_value)
 	type (Atom_Equiv_List_Type) :: obj_var
-	type (Atom_Equiv_Type), allocatable, dimension(:), intent(out) :: output_value
+	type (Atom_Equiv_Type),  dimension(:), intent(out) :: output_value
 	output_value = obj_var%atm
 	end subroutine get_atom_equiv_list_atm
 	
 	subroutine set_atom_equiv_list_atm(obj_var, new_value)
 	type (Atom_Equiv_List_Type) :: obj_var
-	type (Atom_Equiv_Type), allocatable, dimension(:), intent(in) :: new_value
+	type (Atom_Equiv_Type),  dimension(:), intent(in) :: new_value
 	obj_var%atm = new_value
 	end subroutine set_atom_equiv_list_atm
 	
 	subroutine Atom_Equiv_List_Type_ctor(Atom_Equiv_List_Type_param, nauas_param, atm_param)
 	type (Atom_Equiv_List_Type) :: Atom_Equiv_List_Type_param
 	integer, intent(in) :: nauas_param
-	type (Atom_Equiv_Type), allocatable, dimension(:), intent(in) :: atm_param
+	type (Atom_Equiv_Type),  dimension(:), intent(in) :: atm_param
 	Atom_Equiv_List_Type_param%nauas = nauas_param
 	Atom_Equiv_List_Type_param%atm = atm_param
 	end subroutine Atom_Equiv_List_Type_ctor
 	subroutine get_atom_equiv_x(obj_var, output_value)
 	type (Atom_Equiv_Type) :: obj_var
-	real(kind=cp),    allocatable, dimension(:,:), intent(out) :: output_value
+	real(kind=cp),     dimension(:,:), intent(out) :: output_value
 	output_value = obj_var%x
 	end subroutine get_atom_equiv_x
 	
 	subroutine set_atom_equiv_x(obj_var, new_value)
 	type (Atom_Equiv_Type) :: obj_var
-	real(kind=cp),    allocatable, dimension(:,:), intent(in) :: new_value
+	real(kind=cp),     dimension(:,:), intent(in) :: new_value
 	obj_var%x = new_value
 	end subroutine set_atom_equiv_x
 	
@@ -200,22 +214,22 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_atom_equiv_Lab(obj_var, output_value)
 	type (Atom_Equiv_Type) :: obj_var
-	character(len=20),allocatable, dimension(:), intent(out) :: output_value
+	character(len=20), dimension(:), intent(out) :: output_value
 	output_value = obj_var%Lab
 	end subroutine get_atom_equiv_Lab
 	
 	subroutine set_atom_equiv_Lab(obj_var, new_value)
 	type (Atom_Equiv_Type) :: obj_var
-	character(len=20),allocatable, dimension(:), intent(in) :: new_value
+	character(len=20), dimension(:), intent(in) :: new_value
 	obj_var%Lab = new_value
 	end subroutine set_atom_equiv_Lab
 	
 	subroutine Atom_Equiv_Type_ctor(Atom_Equiv_Type_param, x_param, ChemSymb_param, mult_param, Lab_param)
 	type (Atom_Equiv_Type) :: Atom_Equiv_Type_param
-	real(kind=cp),    allocatable, dimension(:,:), intent(in) :: x_param
+	real(kind=cp),     dimension(:,:), intent(in) :: x_param
 	character(len=2), intent(in) :: ChemSymb_param
 	integer, intent(in) :: mult_param
-	character(len=20),allocatable, dimension(:), intent(in) :: Lab_param
+	character(len=20), dimension(:), intent(in) :: Lab_param
 	Atom_Equiv_Type_param%x = x_param
 	Atom_Equiv_Type_param%ChemSymb = ChemSymb_param
 	Atom_Equiv_Type_param%mult = mult_param
@@ -2137,13 +2151,13 @@ END SUBROUTINE read_mag_mcif_file
 	end subroutine Zone_Axis_Type_ctor
 	subroutine get_file_list_line(obj_var, output_value)
 	type (File_List_Type) :: obj_var
-	character(len=256), allocatable, dimension(:), intent(out) :: output_value
+	character(len=256),  dimension(:), intent(out) :: output_value
 	output_value = obj_var%line
 	end subroutine get_file_list_line
 	
 	subroutine set_file_list_line(obj_var, new_value)
 	type (File_List_Type) :: obj_var
-	character(len=256), allocatable, dimension(:), intent(in) :: new_value
+	character(len=256),  dimension(:), intent(in) :: new_value
 	obj_var%line = new_value
 	end subroutine set_file_list_line
 	
@@ -2161,7 +2175,7 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine File_List_Type_ctor(File_List_Type_param, line_param, nlines_param)
 	type (File_List_Type) :: File_List_Type_param
-	character(len=256), allocatable, dimension(:), intent(in) :: line_param
+	character(len=256),  dimension(:), intent(in) :: line_param
 	integer, intent(in) :: nlines_param
 	File_List_Type_param%line = line_param
 	File_List_Type_param%nlines = nlines_param
@@ -3162,13 +3176,13 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_magnetic_space_group_aLatt_trans(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	real(kind=cp), dimension(:,:), intent(out) :: output_value
 	output_value = obj_var%aLatt_trans
 	end subroutine get_magnetic_space_group_aLatt_trans
 	
 	subroutine set_magnetic_space_group_aLatt_trans(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: new_value
+	real(kind=cp), dimension(:,:), intent(in) :: new_value
 	obj_var%aLatt_trans = new_value
 	end subroutine set_magnetic_space_group_aLatt_trans
 	
@@ -3222,13 +3236,13 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_magnetic_space_group_Latt_trans(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	real(kind=cp), dimension(:,:), intent(out) :: output_value
 	output_value = obj_var%Latt_trans
 	end subroutine get_magnetic_space_group_Latt_trans
 	
 	subroutine set_magnetic_space_group_Latt_trans(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: new_value
+	real(kind=cp), dimension(:,:), intent(in) :: new_value
 	obj_var%Latt_trans = new_value
 	end subroutine set_magnetic_space_group_Latt_trans
 	
@@ -3656,12 +3670,12 @@ END SUBROUTINE read_mag_mcif_file
 	type (Magnetic_Space_Group_Type) :: Magnetic_Space_Group_Type_param
 	logical, intent(in) :: m_constr_param
 	real(kind=cp), dimension(3), intent(in) :: Centre_coord_param
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: aLatt_trans_param
+	real(kind=cp), dimension(:,:), intent(in) :: aLatt_trans_param
 	character(len=40),   dimension(:),allocatable, intent(in) :: MSymopSymb_param
 	Integer, intent(in) :: n_wyck_param
 	Character(len=34), intent(in) :: BNS_symbol_param
 	character(len=15), intent(in) :: BNS_number_param
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: Latt_trans_param
+	real(kind=cp), dimension(:,:), intent(in) :: Latt_trans_param
 	Integer, intent(in) :: Sh_number_param
 	character(len=40),   dimension(:),allocatable, intent(in) :: Wyck_Symb_param
 	character(len=12), intent(in) :: CrystalSys_param
@@ -3755,20 +3769,20 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_maghd_list_Mh(obj_var, output_value)
 	type (MagHD_List_Type) :: obj_var
-	Type(MagHD_Type),allocatable, dimension(:), intent(out) :: output_value
+	Type(MagHD_Type), dimension(:), intent(out) :: output_value
 	output_value = obj_var%Mh
 	end subroutine get_maghd_list_Mh
 	
 	subroutine set_maghd_list_Mh(obj_var, new_value)
 	type (MagHD_List_Type) :: obj_var
-	Type(MagHD_Type),allocatable, dimension(:), intent(in) :: new_value
+	Type(MagHD_Type), dimension(:), intent(in) :: new_value
 	obj_var%Mh = new_value
 	end subroutine set_maghd_list_Mh
 	
 	subroutine MagHD_List_Type_ctor(MagHD_List_Type_param, Nref_param, Mh_param)
 	type (MagHD_List_Type) :: MagHD_List_Type_param
 	integer, intent(in) :: Nref_param
-	Type(MagHD_Type),allocatable, dimension(:), intent(in) :: Mh_param
+	Type(MagHD_Type), dimension(:), intent(in) :: Mh_param
 	MagHD_List_Type_param%Nref = Nref_param
 	MagHD_List_Type_param%Mh = Mh_param
 	end subroutine MagHD_List_Type_ctor
@@ -3943,20 +3957,20 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_magh_list_Mh(obj_var, output_value)
 	type (MagH_List_Type) :: obj_var
-	Type(MagH_Type),allocatable, dimension(:), intent(out) :: output_value
+	Type(MagH_Type), dimension(:), intent(out) :: output_value
 	output_value = obj_var%Mh
 	end subroutine get_magh_list_Mh
 	
 	subroutine set_magh_list_Mh(obj_var, new_value)
 	type (MagH_List_Type) :: obj_var
-	Type(MagH_Type),allocatable, dimension(:), intent(in) :: new_value
+	Type(MagH_Type), dimension(:), intent(in) :: new_value
 	obj_var%Mh = new_value
 	end subroutine set_magh_list_Mh
 	
 	subroutine MagH_List_Type_ctor(MagH_List_Type_param, Nref_param, Mh_param)
 	type (MagH_List_Type) :: MagH_List_Type_param
 	integer, intent(in) :: Nref_param
-	Type(MagH_Type),allocatable, dimension(:), intent(in) :: Mh_param
+	Type(MagH_Type), dimension(:), intent(in) :: Mh_param
 	MagH_List_Type_param%Nref = Nref_param
 	MagH_List_Type_param%Mh = Mh_param
 	end subroutine MagH_List_Type_ctor
@@ -4150,13 +4164,13 @@ END SUBROUTINE read_mag_mcif_file
 	end subroutine Reflect_Type_ctor
 	subroutine get_reflection_list_Ref(obj_var, output_value)
 	type (Reflection_List_Type) :: obj_var
-	type(reflection_type),allocatable, dimension(:), intent(out) :: output_value
+	type(reflection_type), dimension(:), intent(out) :: output_value
 	output_value = obj_var%Ref
 	end subroutine get_reflection_list_Ref
 	
 	subroutine set_reflection_list_Ref(obj_var, new_value)
 	type (Reflection_List_Type) :: obj_var
-	type(reflection_type),allocatable, dimension(:), intent(in) :: new_value
+	type(reflection_type), dimension(:), intent(in) :: new_value
 	obj_var%Ref = new_value
 	end subroutine set_reflection_list_Ref
 	
@@ -4174,7 +4188,7 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine Reflection_List_Type_ctor(Reflection_List_Type_param, Ref_param, NRef_param)
 	type (Reflection_List_Type) :: Reflection_List_Type_param
-	type(reflection_type),allocatable, dimension(:), intent(in) :: Ref_param
+	type(reflection_type), dimension(:), intent(in) :: Ref_param
 	integer, intent(in) :: NRef_param
 	Reflection_List_Type_param%Ref = Ref_param
 	Reflection_List_Type_param%NRef = NRef_param
@@ -4364,13 +4378,13 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_ns_space_group_SymopSymb(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=50),      allocatable,dimension(:), intent(out) :: output_value
+	character(len=50),      dimension(:), intent(out) :: output_value
 	output_value = obj_var%SymopSymb
 	end subroutine get_ns_space_group_SymopSymb
 	
 	subroutine set_ns_space_group_SymopSymb(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=50),      allocatable,dimension(:), intent(in) :: new_value
+	character(len=50),      dimension(:), intent(in) :: new_value
 	obj_var%SymopSymb = new_value
 	end subroutine set_ns_space_group_SymopSymb
 	
@@ -4388,13 +4402,13 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_ns_space_group_Latt_trans(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	real(kind=cp), dimension(:,:), intent(out) :: output_value
 	output_value = obj_var%Latt_trans
 	end subroutine get_ns_space_group_Latt_trans
 	
 	subroutine set_ns_space_group_Latt_trans(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: new_value
+	real(kind=cp), dimension(:,:), intent(in) :: new_value
 	obj_var%Latt_trans = new_value
 	end subroutine set_ns_space_group_Latt_trans
 	
@@ -4568,13 +4582,13 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_ns_space_group_SymOp(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	type(NS_Sym_Oper_Type), allocatable,dimension(:), intent(out) :: output_value
+	type(NS_Sym_Oper_Type), dimension(:), intent(out) :: output_value
 	output_value = obj_var%SymOp
 	end subroutine get_ns_space_group_SymOp
 	
 	subroutine set_ns_space_group_SymOp(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
-	type(NS_Sym_Oper_Type), allocatable,dimension(:), intent(in) :: new_value
+	type(NS_Sym_Oper_Type), dimension(:), intent(in) :: new_value
 	obj_var%SymOp = new_value
 	end subroutine set_ns_space_group_SymOp
 	
@@ -4617,9 +4631,9 @@ END SUBROUTINE read_mag_mcif_file
 	subroutine NS_Space_Group_Type_ctor(NS_Space_Group_Type_param, Centred_param, SymopSymb_param, NumSpg_param, Latt_trans_param, CrystalSys_param, NumLat_param, PG_param, Hall_param, Info_param, SPG_lat_param, Laue_param, SPG_latsy_param, Num_gen_param, Bravais_param, SG_setting_param, gHall_param, SPG_Symb_param, Centre_coord_param, SymOp_param, Centre_param, NumOps_param, Multip_param)
 	type (NS_Space_Group_Type) :: NS_Space_Group_Type_param
 	integer, intent(in) :: Centred_param
-	character(len=50),      allocatable,dimension(:), intent(in) :: SymopSymb_param
+	character(len=50),      dimension(:), intent(in) :: SymopSymb_param
 	integer, intent(in) :: NumSpg_param
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: Latt_trans_param
+	real(kind=cp), dimension(:,:), intent(in) :: Latt_trans_param
 	character(len=12), intent(in) :: CrystalSys_param
 	integer, intent(in) :: NumLat_param
 	character(len= 5), intent(in) :: PG_param
@@ -4634,7 +4648,7 @@ END SUBROUTINE read_mag_mcif_file
 	character(len=90), intent(in) :: gHall_param
 	character(len=20), intent(in) :: SPG_Symb_param
 	real(kind=cp), dimension(3), intent(in) :: Centre_coord_param
-	type(NS_Sym_Oper_Type), allocatable,dimension(:), intent(in) :: SymOp_param
+	type(NS_Sym_Oper_Type), dimension(:), intent(in) :: SymOp_param
 	character(len=80), intent(in) :: Centre_param
 	integer, intent(in) :: NumOps_param
 	integer, intent(in) :: Multip_param
@@ -4718,13 +4732,13 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_space_group_Latt_trans(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	real(kind=cp), dimension(:,:), intent(out) :: output_value
 	output_value = obj_var%Latt_trans
 	end subroutine get_space_group_Latt_trans
 	
 	subroutine set_space_group_Latt_trans(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: new_value
+	real(kind=cp), dimension(:,:), intent(in) :: new_value
 	obj_var%Latt_trans = new_value
 	end subroutine set_space_group_Latt_trans
 	
@@ -4754,13 +4768,13 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_space_group_SymopSymb(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=50),   allocatable,dimension(:), intent(out) :: output_value
+	character(len=50),   dimension(:), intent(out) :: output_value
 	output_value = obj_var%SymopSymb
 	end subroutine get_space_group_SymopSymb
 	
 	subroutine set_space_group_SymopSymb(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=50),   allocatable,dimension(:), intent(in) :: new_value
+	character(len=50),   dimension(:), intent(in) :: new_value
 	obj_var%SymopSymb = new_value
 	end subroutine set_space_group_SymopSymb
 	
@@ -4946,13 +4960,13 @@ END SUBROUTINE read_mag_mcif_file
 	
 	subroutine get_space_group_SymOp(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	type(Sym_Oper_Type), allocatable,dimension(:), intent(out) :: output_value
+	type(Sym_Oper_Type), dimension(:), intent(out) :: output_value
 	output_value = obj_var%SymOp
 	end subroutine get_space_group_SymOp
 	
 	subroutine set_space_group_SymOp(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
-	type(Sym_Oper_Type), allocatable,dimension(:), intent(in) :: new_value
+	type(Sym_Oper_Type), dimension(:), intent(in) :: new_value
 	obj_var%SymOp = new_value
 	end subroutine set_space_group_SymOp
 	
@@ -4996,10 +5010,10 @@ END SUBROUTINE read_mag_mcif_file
 	type (Space_Group_Type) :: Space_Group_Type_param
 	integer, intent(in) :: Centred_param
 	real(kind=cp), dimension(3), intent(in) :: Centre_coord_param
-	real(kind=cp), allocatable,dimension(:,:), intent(in) :: Latt_trans_param
+	real(kind=cp), dimension(:,:), intent(in) :: Latt_trans_param
 	logical, intent(in) :: Hexa_param
 	integer, intent(in) :: NumSpg_param
-	character(len=50),   allocatable,dimension(:), intent(in) :: SymopSymb_param
+	character(len=50),   dimension(:), intent(in) :: SymopSymb_param
 	character(len=12), intent(in) :: CrystalSys_param
 	integer, intent(in) :: NumLat_param
 	character(len= 5), intent(in) :: PG_param
@@ -5015,7 +5029,7 @@ END SUBROUTINE read_mag_mcif_file
 	character(len=90), intent(in) :: gHall_param
 	character(len=20), intent(in) :: SPG_Symb_param
 	character(len=80), intent(in) :: Centre_param
-	type(Sym_Oper_Type), allocatable,dimension(:), intent(in) :: SymOp_param
+	type(Sym_Oper_Type), dimension(:), intent(in) :: SymOp_param
 	integer, intent(in) :: NumOps_param
 	real(kind=cp),dimension(3,2), intent(in) :: R_Asym_Unit_param
 	integer, intent(in) :: Multip_param

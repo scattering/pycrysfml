@@ -42,13 +42,13 @@ for k in defs:
 		    # use subroutine and modify arguments for strings, derived types, and arrays
 		    outfile.write("subroutine get_"+root_name+"_"+key+"(obj_var, output_value)\n")
 		    outfile.write("\ttype ("+type_name+") :: obj_var\n")
-		    outfile.write("\t"+fields[key]+", intent(out) :: output_value\n")
+		    outfile.write("\t"+fields[key].replace("allocatable,", "")+", intent(out) :: output_value\n")
 		    outfile.write("\toutput_value = obj_var%"+key+"\n")
 		    outfile.write("end subroutine get_"+root_name+"_"+key+"\n\n")
 		# write setter
 		outfile.write("subroutine set_"+root_name+"_"+key+"(obj_var, new_value)\n")
 		outfile.write("\ttype ("+type_name+") :: obj_var\n")
-		outfile.write("\t"+fields[key]+", intent(in) :: new_value\n")
+		outfile.write("\t"+fields[key].replace("allocatable,", "")+", intent(in) :: new_value\n")
 		outfile.write("\tobj_var%"+key+" = new_value\n")
 		outfile.write("end subroutine set_"+root_name+"_"+key+"\n\n")
 	# write constructor
@@ -62,7 +62,7 @@ for k in defs:
 		outfile.write(key+"_param, ")
 	outfile.write("\ttype ("+type_name+") :: "+type_name+"_param\n")
 	for key in fields:
-	    outfile.write("\t"+fields[key]+", intent(in) :: "+key+"_param\n")
+	    outfile.write("\t"+fields[key].replace("allocatable,", "")+", intent(in) :: "+key+"_param\n")
 	for key in fields:
 	    outfile.write("\t"+type_name+"_param%"+key+" = "+key+"_param\n")
 	outfile.write("end subroutine "+type_name+"_ctor\n")
