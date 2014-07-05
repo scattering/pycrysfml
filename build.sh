@@ -50,7 +50,7 @@ for f in *.h
 do
 a=$a$b$f"\"\n"
 done
-a=$a"%}\n%include \"std_vector.i\"\nnamespace std {\n\t%template(FloatVector) vector<float>;\n}\n"
+a=$a"%}\n%include \"typemaps.i\"\n%include \"std_vector.i\"\nnamespace std {\n\t%template(FloatVector) vector<float>;\n}\n"
 b="%include \""
 for f in *.h
 do
