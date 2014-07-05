@@ -10,11 +10,11 @@ subroutine set_magh_num_k(obj_var, new_value)
 	obj_var%num_k = new_value
 end subroutine set_magh_num_k
 
-function get_magh_H(obj_var)
+subroutine get_magh_H(obj_var, output_value)
 	type (MagH_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_magh_H
-	get_magh_H = obj_var%H
-end function get_magh_H
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%H
+end subroutine get_magh_H
 
 subroutine set_magh_H(obj_var, new_value)
 	type (MagH_Type) :: obj_var
@@ -46,11 +46,11 @@ subroutine set_magh_s(obj_var, new_value)
 	obj_var%s = new_value
 end subroutine set_magh_s
 
-function get_magh_MiVC(obj_var)
+subroutine get_magh_MiVC(obj_var, output_value)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: get_magh_MiVC
-	get_magh_MiVC = obj_var%MiVC
-end function get_magh_MiVC
+	complex(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%MiVC
+end subroutine get_magh_MiVC
 
 subroutine set_magh_MiVC(obj_var, new_value)
 	type (MagH_Type) :: obj_var
@@ -82,11 +82,11 @@ subroutine set_magh_keqv_minus(obj_var, new_value)
 	obj_var%keqv_minus = new_value
 end subroutine set_magh_keqv_minus
 
-function get_magh_MsF(obj_var)
+subroutine get_magh_MsF(obj_var, output_value)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: get_magh_MsF
-	get_magh_MsF = obj_var%MsF
-end function get_magh_MsF
+	complex(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%MsF
+end subroutine get_magh_MsF
 
 subroutine set_magh_MsF(obj_var, new_value)
 	type (MagH_Type) :: obj_var
@@ -106,11 +106,11 @@ subroutine set_magh_mult(obj_var, new_value)
 	obj_var%mult = new_value
 end subroutine set_magh_mult
 
-function get_magh_MiV(obj_var)
+subroutine get_magh_MiV(obj_var, output_value)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: get_magh_MiV
-	get_magh_MiV = obj_var%MiV
-end function get_magh_MiV
+	complex(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%MiV
+end subroutine get_magh_MiV
 
 subroutine set_magh_MiV(obj_var, new_value)
 	type (MagH_Type) :: obj_var

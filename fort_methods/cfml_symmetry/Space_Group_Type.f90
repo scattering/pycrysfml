@@ -10,11 +10,11 @@ subroutine set_space_group_Centred(obj_var, new_value)
 	obj_var%Centred = new_value
 end subroutine set_space_group_Centred
 
-function get_space_group_Centre_coord(obj_var)
+subroutine get_space_group_Centre_coord(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_space_group_Centre_coord
-	get_space_group_Centre_coord = obj_var%Centre_coord
-end function get_space_group_Centre_coord
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%Centre_coord
+end subroutine get_space_group_Centre_coord
 
 subroutine set_space_group_Centre_coord(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -22,11 +22,11 @@ subroutine set_space_group_Centre_coord(obj_var, new_value)
 	obj_var%Centre_coord = new_value
 end subroutine set_space_group_Centre_coord
 
-function get_space_group_Latt_trans(obj_var)
+subroutine get_space_group_Latt_trans(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:) :: get_space_group_Latt_trans
-	get_space_group_Latt_trans = obj_var%Latt_trans
-end function get_space_group_Latt_trans
+	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	output_value = obj_var%Latt_trans
+end subroutine get_space_group_Latt_trans
 
 subroutine set_space_group_Latt_trans(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -58,11 +58,11 @@ subroutine set_space_group_NumSpg(obj_var, new_value)
 	obj_var%NumSpg = new_value
 end subroutine set_space_group_NumSpg
 
-function get_space_group_SymopSymb(obj_var)
+subroutine get_space_group_SymopSymb(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=50),   allocatable,dimension(:) :: get_space_group_SymopSymb
-	get_space_group_SymopSymb = obj_var%SymopSymb
-end function get_space_group_SymopSymb
+	character(len=50),   allocatable,dimension(:), intent(out) :: output_value
+	output_value = obj_var%SymopSymb
+end subroutine get_space_group_SymopSymb
 
 subroutine set_space_group_SymopSymb(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -70,11 +70,11 @@ subroutine set_space_group_SymopSymb(obj_var, new_value)
 	obj_var%SymopSymb = new_value
 end subroutine set_space_group_SymopSymb
 
-function get_space_group_CrystalSys(obj_var)
+subroutine get_space_group_CrystalSys(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=12) :: get_space_group_CrystalSys
-	get_space_group_CrystalSys = obj_var%CrystalSys
-end function get_space_group_CrystalSys
+	character(len=12), intent(out) :: output_value
+	output_value = obj_var%CrystalSys
+end subroutine get_space_group_CrystalSys
 
 subroutine set_space_group_CrystalSys(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -94,11 +94,11 @@ subroutine set_space_group_NumLat(obj_var, new_value)
 	obj_var%NumLat = new_value
 end subroutine set_space_group_NumLat
 
-function get_space_group_PG(obj_var)
+subroutine get_space_group_PG(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 5) :: get_space_group_PG
-	get_space_group_PG = obj_var%PG
-end function get_space_group_PG
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%PG
+end subroutine get_space_group_PG
 
 subroutine set_space_group_PG(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -106,11 +106,11 @@ subroutine set_space_group_PG(obj_var, new_value)
 	obj_var%PG = new_value
 end subroutine set_space_group_PG
 
-function get_space_group_Wyckoff(obj_var)
+subroutine get_space_group_Wyckoff(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	type(Wyckoff_Type) :: get_space_group_Wyckoff
-	get_space_group_Wyckoff = obj_var%Wyckoff
-end function get_space_group_Wyckoff
+	type(Wyckoff_Type), intent(out) :: output_value
+	output_value = obj_var%Wyckoff
+end subroutine get_space_group_Wyckoff
 
 subroutine set_space_group_Wyckoff(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -118,11 +118,11 @@ subroutine set_space_group_Wyckoff(obj_var, new_value)
 	obj_var%Wyckoff = new_value
 end subroutine set_space_group_Wyckoff
 
-function get_space_group_Hall(obj_var)
+subroutine get_space_group_Hall(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=16) :: get_space_group_Hall
-	get_space_group_Hall = obj_var%Hall
-end function get_space_group_Hall
+	character(len=16), intent(out) :: output_value
+	output_value = obj_var%Hall
+end subroutine get_space_group_Hall
 
 subroutine set_space_group_Hall(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -130,11 +130,11 @@ subroutine set_space_group_Hall(obj_var, new_value)
 	obj_var%Hall = new_value
 end subroutine set_space_group_Hall
 
-function get_space_group_Info(obj_var)
+subroutine get_space_group_Info(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 5) :: get_space_group_Info
-	get_space_group_Info = obj_var%Info
-end function get_space_group_Info
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%Info
+end subroutine get_space_group_Info
 
 subroutine set_space_group_Info(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -142,11 +142,11 @@ subroutine set_space_group_Info(obj_var, new_value)
 	obj_var%Info = new_value
 end subroutine set_space_group_Info
 
-function get_space_group_SPG_lat(obj_var)
+subroutine get_space_group_SPG_lat(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 1) :: get_space_group_SPG_lat
-	get_space_group_SPG_lat = obj_var%SPG_lat
-end function get_space_group_SPG_lat
+	character(len= 1), intent(out) :: output_value
+	output_value = obj_var%SPG_lat
+end subroutine get_space_group_SPG_lat
 
 subroutine set_space_group_SPG_lat(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -154,11 +154,11 @@ subroutine set_space_group_SPG_lat(obj_var, new_value)
 	obj_var%SPG_lat = new_value
 end subroutine set_space_group_SPG_lat
 
-function get_space_group_Laue(obj_var)
+subroutine get_space_group_Laue(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 5) :: get_space_group_Laue
-	get_space_group_Laue = obj_var%Laue
-end function get_space_group_Laue
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%Laue
+end subroutine get_space_group_Laue
 
 subroutine set_space_group_Laue(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -166,11 +166,11 @@ subroutine set_space_group_Laue(obj_var, new_value)
 	obj_var%Laue = new_value
 end subroutine set_space_group_Laue
 
-function get_space_group_SPG_latsy(obj_var)
+subroutine get_space_group_SPG_latsy(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 2) :: get_space_group_SPG_latsy
-	get_space_group_SPG_latsy = obj_var%SPG_latsy
-end function get_space_group_SPG_latsy
+	character(len= 2), intent(out) :: output_value
+	output_value = obj_var%SPG_latsy
+end subroutine get_space_group_SPG_latsy
 
 subroutine set_space_group_SPG_latsy(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -190,11 +190,11 @@ subroutine set_space_group_Num_gen(obj_var, new_value)
 	obj_var%Num_gen = new_value
 end subroutine set_space_group_Num_gen
 
-function get_space_group_Bravais(obj_var)
+subroutine get_space_group_Bravais(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=51) :: get_space_group_Bravais
-	get_space_group_Bravais = obj_var%Bravais
-end function get_space_group_Bravais
+	character(len=51), intent(out) :: output_value
+	output_value = obj_var%Bravais
+end subroutine get_space_group_Bravais
 
 subroutine set_space_group_Bravais(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -202,11 +202,11 @@ subroutine set_space_group_Bravais(obj_var, new_value)
 	obj_var%Bravais = new_value
 end subroutine set_space_group_Bravais
 
-function get_space_group_SG_setting(obj_var)
+subroutine get_space_group_SG_setting(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=90) :: get_space_group_SG_setting
-	get_space_group_SG_setting = obj_var%SG_setting
-end function get_space_group_SG_setting
+	character(len=90), intent(out) :: output_value
+	output_value = obj_var%SG_setting
+end subroutine get_space_group_SG_setting
 
 subroutine set_space_group_SG_setting(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -214,11 +214,11 @@ subroutine set_space_group_SG_setting(obj_var, new_value)
 	obj_var%SG_setting = new_value
 end subroutine set_space_group_SG_setting
 
-function get_space_group_gHall(obj_var)
+subroutine get_space_group_gHall(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=90) :: get_space_group_gHall
-	get_space_group_gHall = obj_var%gHall
-end function get_space_group_gHall
+	character(len=90), intent(out) :: output_value
+	output_value = obj_var%gHall
+end subroutine get_space_group_gHall
 
 subroutine set_space_group_gHall(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -226,11 +226,11 @@ subroutine set_space_group_gHall(obj_var, new_value)
 	obj_var%gHall = new_value
 end subroutine set_space_group_gHall
 
-function get_space_group_SPG_Symb(obj_var)
+subroutine get_space_group_SPG_Symb(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=20) :: get_space_group_SPG_Symb
-	get_space_group_SPG_Symb = obj_var%SPG_Symb
-end function get_space_group_SPG_Symb
+	character(len=20), intent(out) :: output_value
+	output_value = obj_var%SPG_Symb
+end subroutine get_space_group_SPG_Symb
 
 subroutine set_space_group_SPG_Symb(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -238,11 +238,11 @@ subroutine set_space_group_SPG_Symb(obj_var, new_value)
 	obj_var%SPG_Symb = new_value
 end subroutine set_space_group_SPG_Symb
 
-function get_space_group_Centre(obj_var)
+subroutine get_space_group_Centre(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=80) :: get_space_group_Centre
-	get_space_group_Centre = obj_var%Centre
-end function get_space_group_Centre
+	character(len=80), intent(out) :: output_value
+	output_value = obj_var%Centre
+end subroutine get_space_group_Centre
 
 subroutine set_space_group_Centre(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -250,11 +250,11 @@ subroutine set_space_group_Centre(obj_var, new_value)
 	obj_var%Centre = new_value
 end subroutine set_space_group_Centre
 
-function get_space_group_SymOp(obj_var)
+subroutine get_space_group_SymOp(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	type(Sym_Oper_Type), allocatable,dimension(:) :: get_space_group_SymOp
-	get_space_group_SymOp = obj_var%SymOp
-end function get_space_group_SymOp
+	type(Sym_Oper_Type), allocatable,dimension(:), intent(out) :: output_value
+	output_value = obj_var%SymOp
+end subroutine get_space_group_SymOp
 
 subroutine set_space_group_SymOp(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -274,11 +274,11 @@ subroutine set_space_group_NumOps(obj_var, new_value)
 	obj_var%NumOps = new_value
 end subroutine set_space_group_NumOps
 
-function get_space_group_R_Asym_Unit(obj_var)
+subroutine get_space_group_R_Asym_Unit(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp),dimension(3,2) :: get_space_group_R_Asym_Unit
-	get_space_group_R_Asym_Unit = obj_var%R_Asym_Unit
-end function get_space_group_R_Asym_Unit
+	real(kind=cp),dimension(3,2), intent(out) :: output_value
+	output_value = obj_var%R_Asym_Unit
+end subroutine get_space_group_R_Asym_Unit
 
 subroutine set_space_group_R_Asym_Unit(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var

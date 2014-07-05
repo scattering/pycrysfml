@@ -1,8 +1,8 @@
-function get_reflect_H(obj_var)
+subroutine get_reflect_H(obj_var, output_value)
 	type (Reflect_Type) :: obj_var
-	integer,dimension(3) :: get_reflect_H
-	get_reflect_H = obj_var%H
-end function get_reflect_H
+	integer,dimension(3), intent(out) :: output_value
+	output_value = obj_var%H
+end subroutine get_reflect_H
 
 subroutine set_reflect_H(obj_var, new_value)
 	type (Reflect_Type) :: obj_var

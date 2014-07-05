@@ -1,8 +1,8 @@
-function get_file_list_line(obj_var)
+subroutine get_file_list_line(obj_var, output_value)
 	type (File_List_Type) :: obj_var
-	character(len=256), allocatable, dimension(:) :: get_file_list_line
-	get_file_list_line = obj_var%line
-end function get_file_list_line
+	character(len=256), allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%line
+end subroutine get_file_list_line
 
 subroutine set_file_list_line(obj_var, new_value)
 	type (File_List_Type) :: obj_var

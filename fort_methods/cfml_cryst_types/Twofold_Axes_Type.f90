@@ -1,8 +1,8 @@
-function get_twofold_axes_a(obj_var)
+subroutine get_twofold_axes_a(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_twofold_axes_a
-	get_twofold_axes_a = obj_var%a
-end function get_twofold_axes_a
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%a
+end subroutine get_twofold_axes_a
 
 subroutine set_twofold_axes_a(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -10,11 +10,11 @@ subroutine set_twofold_axes_a(obj_var, new_value)
 	obj_var%a = new_value
 end subroutine set_twofold_axes_a
 
-function get_twofold_axes_c(obj_var)
+subroutine get_twofold_axes_c(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_twofold_axes_c
-	get_twofold_axes_c = obj_var%c
-end function get_twofold_axes_c
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%c
+end subroutine get_twofold_axes_c
 
 subroutine set_twofold_axes_c(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -22,11 +22,11 @@ subroutine set_twofold_axes_c(obj_var, new_value)
 	obj_var%c = new_value
 end subroutine set_twofold_axes_c
 
-function get_twofold_axes_b(obj_var)
+subroutine get_twofold_axes_b(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_twofold_axes_b
-	get_twofold_axes_b = obj_var%b
-end function get_twofold_axes_b
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%b
+end subroutine get_twofold_axes_b
 
 subroutine set_twofold_axes_b(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -34,11 +34,11 @@ subroutine set_twofold_axes_b(obj_var, new_value)
 	obj_var%b = new_value
 end subroutine set_twofold_axes_b
 
-function get_twofold_axes_maxes(obj_var)
+subroutine get_twofold_axes_maxes(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(12) :: get_twofold_axes_maxes
-	get_twofold_axes_maxes = obj_var%maxes
-end function get_twofold_axes_maxes
+	real(kind=cp), dimension(12), intent(out) :: output_value
+	output_value = obj_var%maxes
+end subroutine get_twofold_axes_maxes
 
 subroutine set_twofold_axes_maxes(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -58,11 +58,11 @@ subroutine set_twofold_axes_ntwo(obj_var, new_value)
 	obj_var%ntwo = new_value
 end subroutine set_twofold_axes_ntwo
 
-function get_twofold_axes_cross(obj_var)
+subroutine get_twofold_axes_cross(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(12) :: get_twofold_axes_cross
-	get_twofold_axes_cross = obj_var%cross
-end function get_twofold_axes_cross
+	real(kind=cp), dimension(12), intent(out) :: output_value
+	output_value = obj_var%cross
+end subroutine get_twofold_axes_cross
 
 subroutine set_twofold_axes_cross(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -82,11 +82,11 @@ subroutine set_twofold_axes_tol(obj_var, new_value)
 	obj_var%tol = new_value
 end subroutine set_twofold_axes_tol
 
-function get_twofold_axes_rtwofold(obj_var)
+subroutine get_twofold_axes_rtwofold(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(3,12) :: get_twofold_axes_rtwofold
-	get_twofold_axes_rtwofold = obj_var%rtwofold
-end function get_twofold_axes_rtwofold
+	integer,dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%rtwofold
+end subroutine get_twofold_axes_rtwofold
 
 subroutine set_twofold_axes_rtwofold(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -94,11 +94,11 @@ subroutine set_twofold_axes_rtwofold(obj_var, new_value)
 	obj_var%rtwofold = new_value
 end subroutine set_twofold_axes_rtwofold
 
-function get_twofold_axes_caxes(obj_var)
+subroutine get_twofold_axes_caxes(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp) ,dimension(3,12) :: get_twofold_axes_caxes
-	get_twofold_axes_caxes = obj_var%caxes
-end function get_twofold_axes_caxes
+	real(kind=cp) ,dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%caxes
+end subroutine get_twofold_axes_caxes
 
 subroutine set_twofold_axes_caxes(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -106,11 +106,11 @@ subroutine set_twofold_axes_caxes(obj_var, new_value)
 	obj_var%caxes = new_value
 end subroutine set_twofold_axes_caxes
 
-function get_twofold_axes_dot(obj_var)
+subroutine get_twofold_axes_dot(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(12) :: get_twofold_axes_dot
-	get_twofold_axes_dot = obj_var%dot
-end function get_twofold_axes_dot
+	integer,dimension(12), intent(out) :: output_value
+	output_value = obj_var%dot
+end subroutine get_twofold_axes_dot
 
 subroutine set_twofold_axes_dot(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -118,11 +118,11 @@ subroutine set_twofold_axes_dot(obj_var, new_value)
 	obj_var%dot = new_value
 end subroutine set_twofold_axes_dot
 
-function get_twofold_axes_dtwofold(obj_var)
+subroutine get_twofold_axes_dtwofold(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(3,12) :: get_twofold_axes_dtwofold
-	get_twofold_axes_dtwofold = obj_var%dtwofold
-end function get_twofold_axes_dtwofold
+	integer,dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%dtwofold
+end subroutine get_twofold_axes_dtwofold
 
 subroutine set_twofold_axes_dtwofold(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var

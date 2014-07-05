@@ -10,11 +10,11 @@ subroutine set_atom_equiv_list_nauas(obj_var, new_value)
 	obj_var%nauas = new_value
 end subroutine set_atom_equiv_list_nauas
 
-function get_atom_equiv_list_atm(obj_var)
+subroutine get_atom_equiv_list_atm(obj_var, output_value)
 	type (Atom_Equiv_List_Type) :: obj_var
-	type (Atom_Equiv_Type), allocatable, dimension(:) :: get_atom_equiv_list_atm
-	get_atom_equiv_list_atm = obj_var%atm
-end function get_atom_equiv_list_atm
+	type (Atom_Equiv_Type), allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%atm
+end subroutine get_atom_equiv_list_atm
 
 subroutine set_atom_equiv_list_atm(obj_var, new_value)
 	type (Atom_Equiv_List_Type) :: obj_var

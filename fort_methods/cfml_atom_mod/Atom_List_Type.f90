@@ -10,11 +10,11 @@ subroutine set_atom_list_natoms(obj_var, new_value)
 	obj_var%natoms = new_value
 end subroutine set_atom_list_natoms
 
-function get_atom_list_atom(obj_var)
+subroutine get_atom_list_atom(obj_var, output_value)
 	type (Atom_List_Type) :: obj_var
-	type(Atom_Type),dimension(:),allocatable :: get_atom_list_atom
-	get_atom_list_atom = obj_var%atom
-end function get_atom_list_atom
+	type(Atom_Type),dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%atom
+end subroutine get_atom_list_atom
 
 subroutine set_atom_list_atom(obj_var, new_value)
 	type (Atom_List_Type) :: obj_var

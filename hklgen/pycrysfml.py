@@ -857,30 +857,48 @@ class FortFuncs(_object):
     if _newclass:matom_type_ctor = staticmethod(_pycrysfml.FortFuncs_matom_type_ctor)
     __swig_getmethods__["crystal_cell_type_ctor"] = lambda x: _pycrysfml.FortFuncs_crystal_cell_type_ctor
     if _newclass:crystal_cell_type_ctor = staticmethod(_pycrysfml.FortFuncs_crystal_cell_type_ctor)
+    __swig_getmethods__["get_twofold_axes_a"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_a
+    if _newclass:get_twofold_axes_a = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_a)
     __swig_getmethods__["set_twofold_axes_a"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_a
     if _newclass:set_twofold_axes_a = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_a)
+    __swig_getmethods__["get_twofold_axes_c"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_c
+    if _newclass:get_twofold_axes_c = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_c)
     __swig_getmethods__["set_twofold_axes_c"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_c
     if _newclass:set_twofold_axes_c = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_c)
+    __swig_getmethods__["get_twofold_axes_b"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_b
+    if _newclass:get_twofold_axes_b = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_b)
     __swig_getmethods__["set_twofold_axes_b"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_b
     if _newclass:set_twofold_axes_b = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_b)
+    __swig_getmethods__["get_twofold_axes_maxes"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_maxes
+    if _newclass:get_twofold_axes_maxes = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_maxes)
     __swig_getmethods__["set_twofold_axes_maxes"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_maxes
     if _newclass:set_twofold_axes_maxes = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_maxes)
     __swig_getmethods__["get_twofold_axes_ntwo"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_ntwo
     if _newclass:get_twofold_axes_ntwo = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_ntwo)
     __swig_getmethods__["set_twofold_axes_ntwo"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_ntwo
     if _newclass:set_twofold_axes_ntwo = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_ntwo)
+    __swig_getmethods__["get_twofold_axes_cross"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_cross
+    if _newclass:get_twofold_axes_cross = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_cross)
     __swig_getmethods__["set_twofold_axes_cross"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_cross
     if _newclass:set_twofold_axes_cross = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_cross)
     __swig_getmethods__["get_twofold_axes_tol"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_tol
     if _newclass:get_twofold_axes_tol = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_tol)
     __swig_getmethods__["set_twofold_axes_tol"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_tol
     if _newclass:set_twofold_axes_tol = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_tol)
+    __swig_getmethods__["get_twofold_axes_rtwofold"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_rtwofold
+    if _newclass:get_twofold_axes_rtwofold = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_rtwofold)
     __swig_getmethods__["set_twofold_axes_rtwofold"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_rtwofold
     if _newclass:set_twofold_axes_rtwofold = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_rtwofold)
+    __swig_getmethods__["get_twofold_axes_caxes"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_caxes
+    if _newclass:get_twofold_axes_caxes = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_caxes)
     __swig_getmethods__["set_twofold_axes_caxes"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_caxes
     if _newclass:set_twofold_axes_caxes = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_caxes)
+    __swig_getmethods__["get_twofold_axes_dot"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_dot
+    if _newclass:get_twofold_axes_dot = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_dot)
     __swig_getmethods__["set_twofold_axes_dot"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_dot
     if _newclass:set_twofold_axes_dot = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_dot)
+    __swig_getmethods__["get_twofold_axes_dtwofold"] = lambda x: _pycrysfml.FortFuncs_get_twofold_axes_dtwofold
+    if _newclass:get_twofold_axes_dtwofold = staticmethod(_pycrysfml.FortFuncs_get_twofold_axes_dtwofold)
     __swig_getmethods__["set_twofold_axes_dtwofold"] = lambda x: _pycrysfml.FortFuncs_set_twofold_axes_dtwofold
     if _newclass:set_twofold_axes_dtwofold = staticmethod(_pycrysfml.FortFuncs_set_twofold_axes_dtwofold)
     __swig_getmethods__["twofold_axes_type_ctor"] = lambda x: _pycrysfml.FortFuncs_twofold_axes_type_ctor
@@ -2322,17 +2340,33 @@ def FortFuncs_crystal_cell_type_ctor(*args):
   return _pycrysfml.FortFuncs_crystal_cell_type_ctor(*args)
 FortFuncs_crystal_cell_type_ctor = _pycrysfml.FortFuncs_crystal_cell_type_ctor
 
+def FortFuncs_get_twofold_axes_a(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_a(*args)
+FortFuncs_get_twofold_axes_a = _pycrysfml.FortFuncs_get_twofold_axes_a
+
 def FortFuncs_set_twofold_axes_a(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_a(*args)
 FortFuncs_set_twofold_axes_a = _pycrysfml.FortFuncs_set_twofold_axes_a
+
+def FortFuncs_get_twofold_axes_c(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_c(*args)
+FortFuncs_get_twofold_axes_c = _pycrysfml.FortFuncs_get_twofold_axes_c
 
 def FortFuncs_set_twofold_axes_c(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_c(*args)
 FortFuncs_set_twofold_axes_c = _pycrysfml.FortFuncs_set_twofold_axes_c
 
+def FortFuncs_get_twofold_axes_b(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_b(*args)
+FortFuncs_get_twofold_axes_b = _pycrysfml.FortFuncs_get_twofold_axes_b
+
 def FortFuncs_set_twofold_axes_b(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_b(*args)
 FortFuncs_set_twofold_axes_b = _pycrysfml.FortFuncs_set_twofold_axes_b
+
+def FortFuncs_get_twofold_axes_maxes(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_maxes(*args)
+FortFuncs_get_twofold_axes_maxes = _pycrysfml.FortFuncs_get_twofold_axes_maxes
 
 def FortFuncs_set_twofold_axes_maxes(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_maxes(*args)
@@ -2346,6 +2380,10 @@ def FortFuncs_set_twofold_axes_ntwo(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_ntwo(*args)
 FortFuncs_set_twofold_axes_ntwo = _pycrysfml.FortFuncs_set_twofold_axes_ntwo
 
+def FortFuncs_get_twofold_axes_cross(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_cross(*args)
+FortFuncs_get_twofold_axes_cross = _pycrysfml.FortFuncs_get_twofold_axes_cross
+
 def FortFuncs_set_twofold_axes_cross(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_cross(*args)
 FortFuncs_set_twofold_axes_cross = _pycrysfml.FortFuncs_set_twofold_axes_cross
@@ -2358,17 +2396,33 @@ def FortFuncs_set_twofold_axes_tol(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_tol(*args)
 FortFuncs_set_twofold_axes_tol = _pycrysfml.FortFuncs_set_twofold_axes_tol
 
+def FortFuncs_get_twofold_axes_rtwofold(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_rtwofold(*args)
+FortFuncs_get_twofold_axes_rtwofold = _pycrysfml.FortFuncs_get_twofold_axes_rtwofold
+
 def FortFuncs_set_twofold_axes_rtwofold(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_rtwofold(*args)
 FortFuncs_set_twofold_axes_rtwofold = _pycrysfml.FortFuncs_set_twofold_axes_rtwofold
+
+def FortFuncs_get_twofold_axes_caxes(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_caxes(*args)
+FortFuncs_get_twofold_axes_caxes = _pycrysfml.FortFuncs_get_twofold_axes_caxes
 
 def FortFuncs_set_twofold_axes_caxes(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_caxes(*args)
 FortFuncs_set_twofold_axes_caxes = _pycrysfml.FortFuncs_set_twofold_axes_caxes
 
+def FortFuncs_get_twofold_axes_dot(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_dot(*args)
+FortFuncs_get_twofold_axes_dot = _pycrysfml.FortFuncs_get_twofold_axes_dot
+
 def FortFuncs_set_twofold_axes_dot(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_dot(*args)
 FortFuncs_set_twofold_axes_dot = _pycrysfml.FortFuncs_set_twofold_axes_dot
+
+def FortFuncs_get_twofold_axes_dtwofold(*args):
+  return _pycrysfml.FortFuncs_get_twofold_axes_dtwofold(*args)
+FortFuncs_get_twofold_axes_dtwofold = _pycrysfml.FortFuncs_get_twofold_axes_dtwofold
 
 def FortFuncs_set_twofold_axes_dtwofold(*args):
   return _pycrysfml.FortFuncs_set_twofold_axes_dtwofold(*args)
@@ -2478,6 +2532,7 @@ class atom_equiv_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_atom_equiv_type
     __del__ = lambda self : None;
+    def get_atom_equiv_chemsymb(self, *args): return _pycrysfml.atom_equiv_type_get_atom_equiv_chemsymb(self, *args)
     def set_atom_equiv_chemsymb(self, *args): return _pycrysfml.atom_equiv_type_set_atom_equiv_chemsymb(self, *args)
     def get_atom_equiv_mult(self): return _pycrysfml.atom_equiv_type_get_atom_equiv_mult(self)
     def set_atom_equiv_mult(self, *args): return _pycrysfml.atom_equiv_type_set_atom_equiv_mult(self, *args)
@@ -2521,6 +2576,7 @@ class atom_type(_object):
     __del__ = lambda self : None;
     def get_atom_locc(self): return _pycrysfml.atom_type_get_atom_locc(self)
     def set_atom_locc(self, *args): return _pycrysfml.atom_type_set_atom_locc(self, *args)
+    def get_atom_utype(self, *args): return _pycrysfml.atom_type_get_atom_utype(self, *args)
     def set_atom_utype(self, *args): return _pycrysfml.atom_type_set_atom_utype(self, *args)
     def get_atom_mbiso(self): return _pycrysfml.atom_type_get_atom_mbiso(self)
     def set_atom_mbiso(self, *args): return _pycrysfml.atom_type_set_atom_mbiso(self, *args)
@@ -2528,10 +2584,13 @@ class atom_type(_object):
     def set_atom_occ(self, *args): return _pycrysfml.atom_type_set_atom_occ(self, *args)
     def get_atom_charge(self): return _pycrysfml.atom_type_get_atom_charge(self)
     def set_atom_charge(self, *args): return _pycrysfml.atom_type_set_atom_charge(self, *args)
+    def get_atom_sfacsymb(self, *args): return _pycrysfml.atom_type_get_atom_sfacsymb(self, *args)
     def set_atom_sfacsymb(self, *args): return _pycrysfml.atom_type_set_atom_sfacsymb(self, *args)
+    def get_atom_lab(self, *args): return _pycrysfml.atom_type_get_atom_lab(self, *args)
     def set_atom_lab(self, *args): return _pycrysfml.atom_type_set_atom_lab(self, *args)
     def get_atom_moment(self): return _pycrysfml.atom_type_get_atom_moment(self)
     def set_atom_moment(self, *args): return _pycrysfml.atom_type_set_atom_moment(self, *args)
+    def get_atom_lu(self, *args): return _pycrysfml.atom_type_get_atom_lu(self, *args)
     def set_atom_lu(self, *args): return _pycrysfml.atom_type_set_atom_lu(self, *args)
     def get_atom_mocc(self): return _pycrysfml.atom_type_get_atom_mocc(self)
     def set_atom_mocc(self, *args): return _pycrysfml.atom_type_set_atom_mocc(self, *args)
@@ -2539,10 +2598,13 @@ class atom_type(_object):
     def set_atom_active(self, *args): return _pycrysfml.atom_type_set_atom_active(self, *args)
     def get_atom_mult(self): return _pycrysfml.atom_type_get_atom_mult(self)
     def set_atom_mult(self, *args): return _pycrysfml.atom_type_set_atom_mult(self, *args)
+    def get_atom_x_std(self, *args): return _pycrysfml.atom_type_get_atom_x_std(self, *args)
     def set_atom_x_std(self, *args): return _pycrysfml.atom_type_set_atom_x_std(self, *args)
+    def get_atom_u_std(self, *args): return _pycrysfml.atom_type_get_atom_u_std(self, *args)
     def set_atom_u_std(self, *args): return _pycrysfml.atom_type_set_atom_u_std(self, *args)
     def get_atom_nvar(self): return _pycrysfml.atom_type_get_atom_nvar(self)
     def set_atom_nvar(self, *args): return _pycrysfml.atom_type_set_atom_nvar(self, *args)
+    def get_atom_wyck(self, *args): return _pycrysfml.atom_type_get_atom_wyck(self, *args)
     def set_atom_wyck(self, *args): return _pycrysfml.atom_type_set_atom_wyck(self, *args)
     def get_atom_biso_std(self): return _pycrysfml.atom_type_get_atom_biso_std(self)
     def set_atom_biso_std(self, *args): return _pycrysfml.atom_type_set_atom_biso_std(self, *args)
@@ -2550,21 +2612,31 @@ class atom_type(_object):
     def set_atom_lbiso(self, *args): return _pycrysfml.atom_type_set_atom_lbiso(self, *args)
     def get_atom_biso(self): return _pycrysfml.atom_type_get_atom_biso(self)
     def set_atom_biso(self, *args): return _pycrysfml.atom_type_set_atom_biso(self, *args)
+    def get_atom_varf(self, *args): return _pycrysfml.atom_type_get_atom_varf(self, *args)
     def set_atom_varf(self, *args): return _pycrysfml.atom_type_set_atom_varf(self, *args)
+    def get_atom_u(self, *args): return _pycrysfml.atom_type_get_atom_u(self, *args)
     def set_atom_u(self, *args): return _pycrysfml.atom_type_set_atom_u(self, *args)
     def get_atom_occ_std(self): return _pycrysfml.atom_type_get_atom_occ_std(self)
     def set_atom_occ_std(self, *args): return _pycrysfml.atom_type_set_atom_occ_std(self, *args)
+    def get_atom_x(self, *args): return _pycrysfml.atom_type_get_atom_x(self, *args)
     def set_atom_x(self, *args): return _pycrysfml.atom_type_set_atom_x(self, *args)
     def get_atom_z(self): return _pycrysfml.atom_type_get_atom_z(self)
     def set_atom_z(self, *args): return _pycrysfml.atom_type_set_atom_z(self, *args)
+    def get_atom_mu(self, *args): return _pycrysfml.atom_type_get_atom_mu(self, *args)
     def set_atom_mu(self, *args): return _pycrysfml.atom_type_set_atom_mu(self, *args)
+    def get_atom_lx(self, *args): return _pycrysfml.atom_type_get_atom_lx(self, *args)
     def set_atom_lx(self, *args): return _pycrysfml.atom_type_set_atom_lx(self, *args)
+    def get_atom_chemsymb(self, *args): return _pycrysfml.atom_type_get_atom_chemsymb(self, *args)
     def set_atom_chemsymb(self, *args): return _pycrysfml.atom_type_set_atom_chemsymb(self, *args)
+    def get_atom_ind(self, *args): return _pycrysfml.atom_type_get_atom_ind(self, *args)
     def set_atom_ind(self, *args): return _pycrysfml.atom_type_set_atom_ind(self, *args)
+    def get_atom_thtype(self, *args): return _pycrysfml.atom_type_get_atom_thtype(self, *args)
     def set_atom_thtype(self, *args): return _pycrysfml.atom_type_set_atom_thtype(self, *args)
+    def get_atom_atminfo(self, *args): return _pycrysfml.atom_type_get_atom_atminfo(self, *args)
     def set_atom_atminfo(self, *args): return _pycrysfml.atom_type_set_atom_atminfo(self, *args)
     def get_atom_ueq(self): return _pycrysfml.atom_type_get_atom_ueq(self)
     def set_atom_ueq(self, *args): return _pycrysfml.atom_type_set_atom_ueq(self, *args)
+    def get_atom_mx(self, *args): return _pycrysfml.atom_type_get_atom_mx(self, *args)
     def set_atom_mx(self, *args): return _pycrysfml.atom_type_set_atom_mx(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.atom_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.atom_type_data_ptr_get
@@ -2756,24 +2828,39 @@ class crystal_cell_type(_object):
     def get_deriv_orth_cell(self, *args): return _pycrysfml.crystal_cell_type_get_deriv_orth_cell(self, *args)
     def get_transfm_matrix(self, *args): return _pycrysfml.crystal_cell_type_get_transfm_matrix(self, *args)
     def get_twofold_axes(self, *args): return _pycrysfml.crystal_cell_type_get_twofold_axes(self, *args)
+    def get_crystal_cell_lang(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_lang(self, *args)
     def set_crystal_cell_lang(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_lang(self, *args)
     def get_crystal_cell_rcellvol(self): return _pycrysfml.crystal_cell_type_get_crystal_cell_rcellvol(self)
     def set_crystal_cell_rcellvol(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_rcellvol(self, *args)
+    def get_crystal_cell_cell_std(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_cell_std(self, *args)
     def set_crystal_cell_cell_std(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_cell_std(self, *args)
+    def get_crystal_cell_ang(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_ang(self, *args)
     def set_crystal_cell_ang(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_ang(self, *args)
+    def get_crystal_cell_bl_minv(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_bl_minv(self, *args)
     def set_crystal_cell_bl_minv(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_bl_minv(self, *args)
+    def get_crystal_cell_gr(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_gr(self, *args)
     def set_crystal_cell_gr(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_gr(self, *args)
+    def get_crystal_cell_cr_orth_cel(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_cr_orth_cel(self, *args)
     def set_crystal_cell_cr_orth_cel(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_cr_orth_cel(self, *args)
+    def get_crystal_cell_bl_m(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_bl_m(self, *args)
     def set_crystal_cell_bl_m(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_bl_m(self, *args)
+    def get_crystal_cell_orth_cr_cel(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_orth_cr_cel(self, *args)
     def set_crystal_cell_orth_cr_cel(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_orth_cr_cel(self, *args)
+    def get_crystal_cell_carttype(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_carttype(self, *args)
     def set_crystal_cell_carttype(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_carttype(self, *args)
+    def get_crystal_cell_rang(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_rang(self, *args)
     def set_crystal_cell_rang(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_rang(self, *args)
+    def get_crystal_cell_rcell(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_rcell(self, *args)
     def set_crystal_cell_rcell(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_rcell(self, *args)
+    def get_crystal_cell_cell(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_cell(self, *args)
     def set_crystal_cell_cell(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_cell(self, *args)
+    def get_crystal_cell_gd(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_gd(self, *args)
     def set_crystal_cell_gd(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_gd(self, *args)
     def get_crystal_cell_cellvol(self): return _pycrysfml.crystal_cell_type_get_crystal_cell_cellvol(self)
     def set_crystal_cell_cellvol(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_cellvol(self, *args)
+    def get_crystal_cell_ang_std(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_ang_std(self, *args)
     def set_crystal_cell_ang_std(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_ang_std(self, *args)
+    def get_crystal_cell_lcell(self, *args): return _pycrysfml.crystal_cell_type_get_crystal_cell_lcell(self, *args)
     def set_crystal_cell_lcell(self, *args): return _pycrysfml.crystal_cell_type_set_crystal_cell_lcell(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.crystal_cell_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.crystal_cell_type_data_ptr_get
@@ -2997,6 +3084,7 @@ class job_info_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_job_info_type
     __del__ = lambda self : None;
+    def get_job_info_title(self, *args): return _pycrysfml.job_info_type_get_job_info_title(self, *args)
     def set_job_info_title(self, *args): return _pycrysfml.job_info_type_set_job_info_title(self, *args)
     def get_job_info_num_phases(self): return _pycrysfml.job_info_type_get_job_info_num_phases(self)
     def set_job_info_num_phases(self, *args): return _pycrysfml.job_info_type_set_job_info_num_phases(self, *args)
@@ -3098,6 +3186,7 @@ class magh_type(_object):
     __del__ = lambda self : None;
     def get_magh_num_k(self): return _pycrysfml.magh_type_get_magh_num_k(self)
     def set_magh_num_k(self, *args): return _pycrysfml.magh_type_set_magh_num_k(self, *args)
+    def get_magh_h(self, *args): return _pycrysfml.magh_type_get_magh_h(self, *args)
     def set_magh_h(self, *args): return _pycrysfml.magh_type_set_magh_h(self, *args)
     def get_magh_sqmiv(self): return _pycrysfml.magh_type_get_magh_sqmiv(self)
     def set_magh_sqmiv(self, *args): return _pycrysfml.magh_type_set_magh_sqmiv(self, *args)
@@ -3151,6 +3240,7 @@ class maghd_type(_object):
     def set_maghd_sqamiv(self, *args): return _pycrysfml.maghd_type_set_maghd_sqamiv(self, *args)
     def get_maghd_num_k(self): return _pycrysfml.maghd_type_get_maghd_num_k(self)
     def set_maghd_num_k(self, *args): return _pycrysfml.maghd_type_set_maghd_num_k(self, *args)
+    def get_maghd_h(self, *args): return _pycrysfml.maghd_type_get_maghd_h(self, *args)
     def set_maghd_h(self, *args): return _pycrysfml.maghd_type_set_maghd_h(self, *args)
     def get_maghd_sqmiv(self): return _pycrysfml.maghd_type_get_maghd_sqmiv(self)
     def set_maghd_sqmiv(self, *args): return _pycrysfml.maghd_type_set_maghd_sqmiv(self, *args)
@@ -3180,15 +3270,21 @@ class magnetic_domain_type(_object):
     __del__ = lambda self : None;
     def get_magnetic_domain_chir(self): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_chir(self)
     def set_magnetic_domain_chir(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_chir(self, *args)
+    def get_magnetic_domain_pop_std(self, *args): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_pop_std(self, *args)
     def set_magnetic_domain_pop_std(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_pop_std(self, *args)
+    def get_magnetic_domain_mpop(self, *args): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_mpop(self, *args)
     def set_magnetic_domain_mpop(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_mpop(self, *args)
     def get_magnetic_domain_nd(self): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_nd(self)
     def set_magnetic_domain_nd(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_nd(self, *args)
+    def get_magnetic_domain_lpop(self, *args): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_lpop(self, *args)
     def set_magnetic_domain_lpop(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_lpop(self, *args)
+    def get_magnetic_domain_pop(self, *args): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_pop(self, *args)
     def set_magnetic_domain_pop(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_pop(self, *args)
     def get_magnetic_domain_twin(self): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_twin(self)
     def set_magnetic_domain_twin(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_twin(self, *args)
+    def get_magnetic_domain_dmat(self, *args): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_dmat(self, *args)
     def set_magnetic_domain_dmat(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_dmat(self, *args)
+    def get_magnetic_domain_dt(self, *args): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_dt(self, *args)
     def set_magnetic_domain_dt(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_dt(self, *args)
     def get_magnetic_domain_trans(self): return _pycrysfml.magnetic_domain_type_get_magnetic_domain_trans(self)
     def set_magnetic_domain_trans(self, *args): return _pycrysfml.magnetic_domain_type_set_magnetic_domain_trans(self, *args)
@@ -3228,8 +3324,11 @@ class magnetic_group_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_magnetic_group_type
     __del__ = lambda self : None;
+    def get_magnetic_group_tinv(self, *args): return _pycrysfml.magnetic_group_type_get_magnetic_group_tinv(self, *args)
     def set_magnetic_group_tinv(self, *args): return _pycrysfml.magnetic_group_type_set_magnetic_group_tinv(self, *args)
+    def get_magnetic_group_shubnikov(self, *args): return _pycrysfml.magnetic_group_type_get_magnetic_group_shubnikov(self, *args)
     def set_magnetic_group_shubnikov(self, *args): return _pycrysfml.magnetic_group_type_set_magnetic_group_shubnikov(self, *args)
+    def get_magnetic_group_spg(self, *args): return _pycrysfml.magnetic_group_type_get_magnetic_group_spg(self, *args)
     def set_magnetic_group_spg(self, *args): return _pycrysfml.magnetic_group_type_set_magnetic_group_spg(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.magnetic_group_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.magnetic_group_type_data_ptr_get
@@ -3251,13 +3350,17 @@ class magnetic_space_group_type(_object):
     __del__ = lambda self : None;
     def get_magnetic_space_group_m_constr(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_m_constr(self)
     def set_magnetic_space_group_m_constr(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_m_constr(self, *args)
+    def get_magnetic_space_group_centre_coord(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_centre_coord(self, *args)
     def set_magnetic_space_group_centre_coord(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_centre_coord(self, *args)
     def get_magnetic_space_group_n_wyck(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_n_wyck(self)
     def set_magnetic_space_group_n_wyck(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_n_wyck(self, *args)
+    def get_magnetic_space_group_bns_symbol(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_bns_symbol(self, *args)
     def set_magnetic_space_group_bns_symbol(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_bns_symbol(self, *args)
+    def get_magnetic_space_group_bns_number(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_bns_number(self, *args)
     def set_magnetic_space_group_bns_number(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_bns_number(self, *args)
     def get_magnetic_space_group_sh_number(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_sh_number(self)
     def set_magnetic_space_group_sh_number(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_sh_number(self, *args)
+    def get_magnetic_space_group_crystalsys(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_crystalsys(self, *args)
     def set_magnetic_space_group_crystalsys(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_crystalsys(self, *args)
     def get_magnetic_space_group_m_cell(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_m_cell(self)
     def set_magnetic_space_group_m_cell(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_m_cell(self, *args)
@@ -3267,6 +3370,7 @@ class magnetic_space_group_type(_object):
     def set_magnetic_space_group_num_alat(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_num_alat(self, *args)
     def get_magnetic_space_group_centred(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_centred(self)
     def set_magnetic_space_group_centred(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_centred(self, *args)
+    def get_magnetic_space_group_spg_lat(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_spg_lat(self, *args)
     def set_magnetic_space_group_spg_lat(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_spg_lat(self, *args)
     def get_magnetic_space_group_parent_num(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_parent_num(self)
     def set_magnetic_space_group_parent_num(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_parent_num(self, *args)
@@ -3274,22 +3378,29 @@ class magnetic_space_group_type(_object):
     def set_magnetic_space_group_magtype(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_magtype(self, *args)
     def get_magnetic_space_group_n_kv(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_n_kv(self)
     def set_magnetic_space_group_n_kv(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_n_kv(self, *args)
+    def get_magnetic_space_group_og_number(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_og_number(self, *args)
     def set_magnetic_space_group_og_number(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_og_number(self, *args)
     def get_magnetic_space_group_n_irreps(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_n_irreps(self)
     def set_magnetic_space_group_n_irreps(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_n_irreps(self, *args)
+    def get_magnetic_space_group_spg_latsy(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_spg_latsy(self, *args)
     def set_magnetic_space_group_spg_latsy(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_spg_latsy(self, *args)
     def get_magnetic_space_group_num_gen(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_num_gen(self)
     def set_magnetic_space_group_num_gen(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_num_gen(self, *args)
     def get_magnetic_space_group_standard_setting(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_standard_setting(self)
     def set_magnetic_space_group_standard_setting(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_standard_setting(self, *args)
+    def get_magnetic_space_group_parent_spg(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_parent_spg(self, *args)
     def set_magnetic_space_group_parent_spg(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_parent_spg(self, *args)
+    def get_magnetic_space_group_og_symbol(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_og_symbol(self, *args)
     def set_magnetic_space_group_og_symbol(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_og_symbol(self, *args)
+    def get_magnetic_space_group_centre(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_centre(self, *args)
     def set_magnetic_space_group_centre(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_centre(self, *args)
     def get_magnetic_space_group_mcif(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_mcif(self)
     def set_magnetic_space_group_mcif(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_mcif(self, *args)
     def get_magnetic_space_group_numops(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_numops(self)
     def set_magnetic_space_group_numops(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_numops(self, *args)
+    def get_magnetic_space_group_trn_to_standard(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_trn_to_standard(self, *args)
     def set_magnetic_space_group_trn_to_standard(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_trn_to_standard(self, *args)
+    def get_magnetic_space_group_trn_from_parent(self, *args): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_trn_from_parent(self, *args)
     def set_magnetic_space_group_trn_from_parent(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_trn_from_parent(self, *args)
     def get_magnetic_space_group_multip(self): return _pycrysfml.magnetic_space_group_type_get_magnetic_space_group_multip(self)
     def set_magnetic_space_group_multip(self, *args): return _pycrysfml.magnetic_space_group_type_set_magnetic_space_group_multip(self, *args)
@@ -3311,38 +3422,53 @@ class magsymm_k_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_magsymm_k_type
     __del__ = lambda self : None;
+    def get_magsymm_k_latt(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_latt(self, *args)
     def set_magsymm_k_latt(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_latt(self, *args)
     def get_magsymm_k_numops(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_numops(self)
     def set_magsymm_k_numops(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_numops(self, *args)
+    def get_magsymm_k_bns_symbol(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_bns_symbol(self, *args)
     def set_magsymm_k_bns_symbol(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_bns_symbol(self, *args)
+    def get_magsymm_k_bns_number(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_bns_number(self, *args)
     def set_magsymm_k_bns_number(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_bns_number(self, *args)
     def get_magsymm_k_mcentred(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_mcentred(self)
     def set_magsymm_k_mcentred(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_mcentred(self, *args)
+    def get_magsymm_k_magmodel(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_magmodel(self, *args)
     def set_magsymm_k_magmodel(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_magmodel(self, *args)
+    def get_magsymm_k_kvec(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_kvec(self, *args)
     def set_magsymm_k_kvec(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_kvec(self, *args)
     def get_magsymm_k_nmsym(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_nmsym(self)
     def set_magsymm_k_nmsym(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_nmsym(self, *args)
     def get_magsymm_k_num_lat(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_num_lat(self)
     def set_magsymm_k_num_lat(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_num_lat(self, *args)
+    def get_magsymm_k_small_irrep_dim(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_small_irrep_dim(self, *args)
     def set_magsymm_k_small_irrep_dim(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_small_irrep_dim(self, *args)
+    def get_magsymm_k_ltr(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_ltr(self, *args)
     def set_magsymm_k_ltr(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_ltr(self, *args)
     def get_magsymm_k_parent_num(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_parent_num(self)
     def set_magsymm_k_parent_num(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_parent_num(self, *args)
+    def get_magsymm_k_sk_type(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_sk_type(self, *args)
     def set_magsymm_k_sk_type(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_sk_type(self, *args)
     def get_magsymm_k_nirreps(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_nirreps(self)
     def set_magsymm_k_nirreps(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_nirreps(self, *args)
     def get_magsymm_k_magtype(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_magtype(self)
     def set_magsymm_k_magtype(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_magtype(self, *args)
+    def get_magsymm_k_og_number(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_og_number(self, *args)
     def set_magsymm_k_og_number(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_og_number(self, *args)
+    def get_magsymm_k_irrep_dim(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_irrep_dim(self, *args)
     def set_magsymm_k_irrep_dim(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_irrep_dim(self, *args)
+    def get_magsymm_k_irrep_modes_number(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_irrep_modes_number(self, *args)
     def set_magsymm_k_irrep_modes_number(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_irrep_modes_number(self, *args)
     def get_magsymm_k_nkv(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_nkv(self)
     def set_magsymm_k_nkv(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_nkv(self, *args)
     def get_magsymm_k_centred(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_centred(self)
     def set_magsymm_k_centred(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_centred(self, *args)
+    def get_magsymm_k_parent_spg(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_parent_spg(self, *args)
     def set_magsymm_k_parent_spg(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_parent_spg(self, *args)
+    def get_magsymm_k_og_symbol(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_og_symbol(self, *args)
     def set_magsymm_k_og_symbol(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_og_symbol(self, *args)
+    def get_magsymm_k_nbas(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_nbas(self, *args)
     def set_magsymm_k_nbas(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_nbas(self, *args)
+    def get_magsymm_k_icomp(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_icomp(self, *args)
     def set_magsymm_k_icomp(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_icomp(self, *args)
     def get_magsymm_k_multip(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_multip(self)
     def set_magsymm_k_multip(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_multip(self, *args)
@@ -3384,75 +3510,113 @@ class matom_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_matom_type
     __del__ = lambda self : None;
+    def get_matom_mmphas(self, *args): return _pycrysfml.matom_type_get_matom_mmphas(self, *args)
     def set_matom_mmphas(self, *args): return _pycrysfml.matom_type_set_matom_mmphas(self, *args)
     def get_matom_locc(self): return _pycrysfml.matom_type_get_matom_locc(self)
     def set_matom_locc(self, *args): return _pycrysfml.matom_type_set_matom_locc(self, *args)
+    def get_matom_ski_std(self, *args): return _pycrysfml.matom_type_get_matom_ski_std(self, *args)
     def set_matom_ski_std(self, *args): return _pycrysfml.matom_type_set_matom_ski_std(self, *args)
+    def get_matom_utype(self, *args): return _pycrysfml.matom_type_get_matom_utype(self, *args)
     def set_matom_utype(self, *args): return _pycrysfml.matom_type_set_matom_utype(self, *args)
     def get_matom_mbiso(self): return _pycrysfml.matom_type_get_matom_mbiso(self)
     def set_matom_mbiso(self, *args): return _pycrysfml.matom_type_set_matom_mbiso(self, *args)
     def get_matom_occ(self): return _pycrysfml.matom_type_get_matom_occ(self)
     def set_matom_occ(self, *args): return _pycrysfml.matom_type_set_matom_occ(self, *args)
+    def get_matom_lbas(self, *args): return _pycrysfml.matom_type_get_matom_lbas(self, *args)
     def set_matom_lbas(self, *args): return _pycrysfml.matom_type_set_matom_lbas(self, *args)
     def get_matom_charge(self): return _pycrysfml.matom_type_get_matom_charge(self)
     def set_matom_charge(self, *args): return _pycrysfml.matom_type_set_matom_charge(self, *args)
+    def get_matom_sfacsymb(self, *args): return _pycrysfml.matom_type_get_matom_sfacsymb(self, *args)
     def set_matom_sfacsymb(self, *args): return _pycrysfml.matom_type_set_matom_sfacsymb(self, *args)
+    def get_matom_imat(self, *args): return _pycrysfml.matom_type_get_matom_imat(self, *args)
     def set_matom_imat(self, *args): return _pycrysfml.matom_type_set_matom_imat(self, *args)
+    def get_matom_lmphas(self, *args): return _pycrysfml.matom_type_get_matom_lmphas(self, *args)
     def set_matom_lmphas(self, *args): return _pycrysfml.matom_type_set_matom_lmphas(self, *args)
+    def get_matom_mphas(self, *args): return _pycrysfml.matom_type_get_matom_mphas(self, *args)
     def set_matom_mphas(self, *args): return _pycrysfml.matom_type_set_matom_mphas(self, *args)
+    def get_matom_spher_ski(self, *args): return _pycrysfml.matom_type_get_matom_spher_ski(self, *args)
     def set_matom_spher_ski(self, *args): return _pycrysfml.matom_type_set_matom_spher_ski(self, *args)
+    def get_matom_skr(self, *args): return _pycrysfml.matom_type_get_matom_skr(self, *args)
     def set_matom_skr(self, *args): return _pycrysfml.matom_type_set_matom_skr(self, *args)
+    def get_matom_lskr(self, *args): return _pycrysfml.matom_type_get_matom_lskr(self, *args)
     def set_matom_lskr(self, *args): return _pycrysfml.matom_type_set_matom_lskr(self, *args)
+    def get_matom_lab(self, *args): return _pycrysfml.matom_type_get_matom_lab(self, *args)
     def set_matom_lab(self, *args): return _pycrysfml.matom_type_set_matom_lab(self, *args)
     def get_matom_moment(self): return _pycrysfml.matom_type_get_matom_moment(self)
     def set_matom_moment(self, *args): return _pycrysfml.matom_type_set_matom_moment(self, *args)
+    def get_matom_lu(self, *args): return _pycrysfml.matom_type_get_matom_lu(self, *args)
     def set_matom_lu(self, *args): return _pycrysfml.matom_type_set_matom_lu(self, *args)
     def get_matom_mocc(self): return _pycrysfml.matom_type_get_matom_mocc(self)
     def set_matom_mocc(self, *args): return _pycrysfml.matom_type_set_matom_mocc(self, *args)
     def get_matom_active(self): return _pycrysfml.matom_type_get_matom_active(self)
     def set_matom_active(self, *args): return _pycrysfml.matom_type_set_matom_active(self, *args)
+    def get_matom_ski(self, *args): return _pycrysfml.matom_type_get_matom_ski(self, *args)
     def set_matom_ski(self, *args): return _pycrysfml.matom_type_set_matom_ski(self, *args)
     def get_matom_mult(self): return _pycrysfml.matom_type_get_matom_mult(self)
     def set_matom_mult(self, *args): return _pycrysfml.matom_type_set_matom_mult(self, *args)
+    def get_matom_spher_skr_std(self, *args): return _pycrysfml.matom_type_get_matom_spher_skr_std(self, *args)
     def set_matom_spher_skr_std(self, *args): return _pycrysfml.matom_type_set_matom_spher_skr_std(self, *args)
+    def get_matom_x_std(self, *args): return _pycrysfml.matom_type_get_matom_x_std(self, *args)
     def set_matom_x_std(self, *args): return _pycrysfml.matom_type_set_matom_x_std(self, *args)
+    def get_matom_u_std(self, *args): return _pycrysfml.matom_type_get_matom_u_std(self, *args)
     def set_matom_u_std(self, *args): return _pycrysfml.matom_type_set_matom_u_std(self, *args)
+    def get_matom_lski(self, *args): return _pycrysfml.matom_type_get_matom_lski(self, *args)
     def set_matom_lski(self, *args): return _pycrysfml.matom_type_set_matom_lski(self, *args)
     def get_matom_nvar(self): return _pycrysfml.matom_type_get_matom_nvar(self)
     def set_matom_nvar(self, *args): return _pycrysfml.matom_type_set_matom_nvar(self, *args)
+    def get_matom_wyck(self, *args): return _pycrysfml.matom_type_get_matom_wyck(self, *args)
     def set_matom_wyck(self, *args): return _pycrysfml.matom_type_set_matom_wyck(self, *args)
     def get_matom_biso_std(self): return _pycrysfml.matom_type_get_matom_biso_std(self)
     def set_matom_biso_std(self, *args): return _pycrysfml.matom_type_set_matom_biso_std(self, *args)
     def get_matom_lbiso(self): return _pycrysfml.matom_type_get_matom_lbiso(self)
     def set_matom_lbiso(self, *args): return _pycrysfml.matom_type_set_matom_lbiso(self, *args)
+    def get_matom_mphas_std(self, *args): return _pycrysfml.matom_type_get_matom_mphas_std(self, *args)
     def set_matom_mphas_std(self, *args): return _pycrysfml.matom_type_set_matom_mphas_std(self, *args)
     def get_matom_biso(self): return _pycrysfml.matom_type_get_matom_biso(self)
     def set_matom_biso(self, *args): return _pycrysfml.matom_type_set_matom_biso(self, *args)
+    def get_matom_varf(self, *args): return _pycrysfml.matom_type_get_matom_varf(self, *args)
     def set_matom_varf(self, *args): return _pycrysfml.matom_type_set_matom_varf(self, *args)
+    def get_matom_u(self, *args): return _pycrysfml.matom_type_get_matom_u(self, *args)
     def set_matom_u(self, *args): return _pycrysfml.matom_type_set_matom_u(self, *args)
     def get_matom_occ_std(self): return _pycrysfml.matom_type_get_matom_occ_std(self)
     def set_matom_occ_std(self, *args): return _pycrysfml.matom_type_set_matom_occ_std(self, *args)
+    def get_matom_x(self, *args): return _pycrysfml.matom_type_get_matom_x(self, *args)
     def set_matom_x(self, *args): return _pycrysfml.matom_type_set_matom_x(self, *args)
     def get_matom_z(self): return _pycrysfml.matom_type_get_matom_z(self)
     def set_matom_z(self, *args): return _pycrysfml.matom_type_set_matom_z(self, *args)
     def get_matom_nvk(self): return _pycrysfml.matom_type_get_matom_nvk(self)
     def set_matom_nvk(self, *args): return _pycrysfml.matom_type_set_matom_nvk(self, *args)
+    def get_matom_mbas(self, *args): return _pycrysfml.matom_type_get_matom_mbas(self, *args)
     def set_matom_mbas(self, *args): return _pycrysfml.matom_type_set_matom_mbas(self, *args)
+    def get_matom_spher_ski_std(self, *args): return _pycrysfml.matom_type_get_matom_spher_ski_std(self, *args)
     def set_matom_spher_ski_std(self, *args): return _pycrysfml.matom_type_set_matom_spher_ski_std(self, *args)
+    def get_matom_spher_skr(self, *args): return _pycrysfml.matom_type_get_matom_spher_skr(self, *args)
     def set_matom_spher_skr(self, *args): return _pycrysfml.matom_type_set_matom_spher_skr(self, *args)
+    def get_matom_mski(self, *args): return _pycrysfml.matom_type_get_matom_mski(self, *args)
     def set_matom_mski(self, *args): return _pycrysfml.matom_type_set_matom_mski(self, *args)
+    def get_matom_skr_std(self, *args): return _pycrysfml.matom_type_get_matom_skr_std(self, *args)
     def set_matom_skr_std(self, *args): return _pycrysfml.matom_type_set_matom_skr_std(self, *args)
+    def get_matom_mu(self, *args): return _pycrysfml.matom_type_get_matom_mu(self, *args)
     def set_matom_mu(self, *args): return _pycrysfml.matom_type_set_matom_mu(self, *args)
+    def get_matom_mskr(self, *args): return _pycrysfml.matom_type_get_matom_mskr(self, *args)
     def set_matom_mskr(self, *args): return _pycrysfml.matom_type_set_matom_mskr(self, *args)
+    def get_matom_lx(self, *args): return _pycrysfml.matom_type_get_matom_lx(self, *args)
     def set_matom_lx(self, *args): return _pycrysfml.matom_type_set_matom_lx(self, *args)
+    def get_matom_chemsymb(self, *args): return _pycrysfml.matom_type_get_matom_chemsymb(self, *args)
     def set_matom_chemsymb(self, *args): return _pycrysfml.matom_type_set_matom_chemsymb(self, *args)
+    def get_matom_cbas(self, *args): return _pycrysfml.matom_type_get_matom_cbas(self, *args)
     def set_matom_cbas(self, *args): return _pycrysfml.matom_type_set_matom_cbas(self, *args)
+    def get_matom_ind(self, *args): return _pycrysfml.matom_type_get_matom_ind(self, *args)
     def set_matom_ind(self, *args): return _pycrysfml.matom_type_set_matom_ind(self, *args)
+    def get_matom_cbas_std(self, *args): return _pycrysfml.matom_type_get_matom_cbas_std(self, *args)
     def set_matom_cbas_std(self, *args): return _pycrysfml.matom_type_set_matom_cbas_std(self, *args)
+    def get_matom_thtype(self, *args): return _pycrysfml.matom_type_get_matom_thtype(self, *args)
     def set_matom_thtype(self, *args): return _pycrysfml.matom_type_set_matom_thtype(self, *args)
+    def get_matom_atminfo(self, *args): return _pycrysfml.matom_type_get_matom_atminfo(self, *args)
     def set_matom_atminfo(self, *args): return _pycrysfml.matom_type_set_matom_atminfo(self, *args)
     def get_matom_ueq(self): return _pycrysfml.matom_type_get_matom_ueq(self)
     def set_matom_ueq(self, *args): return _pycrysfml.matom_type_set_matom_ueq(self, *args)
+    def get_matom_mx(self, *args): return _pycrysfml.matom_type_get_matom_mx(self, *args)
     def set_matom_mx(self, *args): return _pycrysfml.matom_type_set_matom_mx(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.matom_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.matom_type_data_ptr_get
@@ -3510,6 +3674,7 @@ class msym_oper_type(_object):
     __del__ = lambda self : None;
     def get_msym_oper_phas(self): return _pycrysfml.msym_oper_type_get_msym_oper_phas(self)
     def set_msym_oper_phas(self, *args): return _pycrysfml.msym_oper_type_set_msym_oper_phas(self, *args)
+    def get_msym_oper_rot(self, *args): return _pycrysfml.msym_oper_type_get_msym_oper_rot(self, *args)
     def set_msym_oper_rot(self, *args): return _pycrysfml.msym_oper_type_set_msym_oper_rot(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.msym_oper_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.msym_oper_type_data_ptr_get
@@ -3569,22 +3734,35 @@ class ns_space_group_type(_object):
     def set_ns_space_group_centred(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_centred(self, *args)
     def get_ns_space_group_numspg(self): return _pycrysfml.ns_space_group_type_get_ns_space_group_numspg(self)
     def set_ns_space_group_numspg(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_numspg(self, *args)
+    def get_ns_space_group_crystalsys(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_crystalsys(self, *args)
     def set_ns_space_group_crystalsys(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_crystalsys(self, *args)
     def get_ns_space_group_numlat(self): return _pycrysfml.ns_space_group_type_get_ns_space_group_numlat(self)
     def set_ns_space_group_numlat(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_numlat(self, *args)
+    def get_ns_space_group_pg(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_pg(self, *args)
     def set_ns_space_group_pg(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_pg(self, *args)
+    def get_ns_space_group_hall(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_hall(self, *args)
     def set_ns_space_group_hall(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_hall(self, *args)
+    def get_ns_space_group_info(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_info(self, *args)
     def set_ns_space_group_info(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_info(self, *args)
+    def get_ns_space_group_spg_lat(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_spg_lat(self, *args)
     def set_ns_space_group_spg_lat(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_spg_lat(self, *args)
+    def get_ns_space_group_laue(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_laue(self, *args)
     def set_ns_space_group_laue(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_laue(self, *args)
+    def get_ns_space_group_spg_latsy(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_spg_latsy(self, *args)
     def set_ns_space_group_spg_latsy(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_spg_latsy(self, *args)
     def get_ns_space_group_num_gen(self): return _pycrysfml.ns_space_group_type_get_ns_space_group_num_gen(self)
     def set_ns_space_group_num_gen(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_num_gen(self, *args)
+    def get_ns_space_group_bravais(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_bravais(self, *args)
     def set_ns_space_group_bravais(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_bravais(self, *args)
+    def get_ns_space_group_sg_setting(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_sg_setting(self, *args)
     def set_ns_space_group_sg_setting(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_sg_setting(self, *args)
+    def get_ns_space_group_ghall(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_ghall(self, *args)
     def set_ns_space_group_ghall(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_ghall(self, *args)
+    def get_ns_space_group_spg_symb(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_spg_symb(self, *args)
     def set_ns_space_group_spg_symb(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_spg_symb(self, *args)
+    def get_ns_space_group_centre_coord(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_centre_coord(self, *args)
     def set_ns_space_group_centre_coord(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_centre_coord(self, *args)
+    def get_ns_space_group_centre(self, *args): return _pycrysfml.ns_space_group_type_get_ns_space_group_centre(self, *args)
     def set_ns_space_group_centre(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_centre(self, *args)
     def get_ns_space_group_numops(self): return _pycrysfml.ns_space_group_type_get_ns_space_group_numops(self)
     def set_ns_space_group_numops(self, *args): return _pycrysfml.ns_space_group_type_set_ns_space_group_numops(self, *args)
@@ -3608,7 +3786,9 @@ class ns_sym_oper_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_ns_sym_oper_type
     __del__ = lambda self : None;
+    def get_ns_sym_oper_tr(self, *args): return _pycrysfml.ns_sym_oper_type_get_ns_sym_oper_tr(self, *args)
     def set_ns_sym_oper_tr(self, *args): return _pycrysfml.ns_sym_oper_type_set_ns_sym_oper_tr(self, *args)
+    def get_ns_sym_oper_rot(self, *args): return _pycrysfml.ns_sym_oper_type_get_ns_sym_oper_rot(self, *args)
     def set_ns_sym_oper_rot(self, *args): return _pycrysfml.ns_sym_oper_type_set_ns_sym_oper_rot(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.ns_sym_oper_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.ns_sym_oper_type_data_ptr_get
@@ -3916,6 +4096,7 @@ class reflect_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_reflect_type
     __del__ = lambda self : None;
+    def get_reflect_h(self, *args): return _pycrysfml.reflect_type_get_reflect_h(self, *args)
     def set_reflect_h(self, *args): return _pycrysfml.reflect_type_set_reflect_h(self, *args)
     def get_reflect_s(self): return _pycrysfml.reflect_type_get_reflect_s(self)
     def set_reflect_s(self, *args): return _pycrysfml.reflect_type_set_reflect_s(self, *args)
@@ -3967,6 +4148,7 @@ class reflection_type(_object):
     def set_reflection_b(self, *args): return _pycrysfml.reflection_type_set_reflection_b(self, *args)
     def get_reflection_bb(self): return _pycrysfml.reflection_type_get_reflection_bb(self)
     def set_reflection_bb(self, *args): return _pycrysfml.reflection_type_set_reflection_bb(self, *args)
+    def get_reflection_h(self, *args): return _pycrysfml.reflection_type_get_reflection_h(self, *args)
     def set_reflection_h(self, *args): return _pycrysfml.reflection_type_set_reflection_h(self, *args)
     def get_reflection_sfo(self): return _pycrysfml.reflection_type_get_reflection_sfo(self)
     def set_reflection_sfo(self, *args): return _pycrysfml.reflection_type_set_reflection_sfo(self, *args)
@@ -4007,30 +4189,45 @@ class space_group_type(_object):
     def set_orbits_inlist(self, *args): return _pycrysfml.space_group_type_set_orbits_inlist(self, *args)
     def get_space_group_centred(self): return _pycrysfml.space_group_type_get_space_group_centred(self)
     def set_space_group_centred(self, *args): return _pycrysfml.space_group_type_set_space_group_centred(self, *args)
+    def get_space_group_centre_coord(self, *args): return _pycrysfml.space_group_type_get_space_group_centre_coord(self, *args)
     def set_space_group_centre_coord(self, *args): return _pycrysfml.space_group_type_set_space_group_centre_coord(self, *args)
     def get_space_group_hexa(self): return _pycrysfml.space_group_type_get_space_group_hexa(self)
     def set_space_group_hexa(self, *args): return _pycrysfml.space_group_type_set_space_group_hexa(self, *args)
     def get_space_group_numspg(self): return _pycrysfml.space_group_type_get_space_group_numspg(self)
     def set_space_group_numspg(self, *args): return _pycrysfml.space_group_type_set_space_group_numspg(self, *args)
+    def get_space_group_crystalsys(self, *args): return _pycrysfml.space_group_type_get_space_group_crystalsys(self, *args)
     def set_space_group_crystalsys(self, *args): return _pycrysfml.space_group_type_set_space_group_crystalsys(self, *args)
     def get_space_group_numlat(self): return _pycrysfml.space_group_type_get_space_group_numlat(self)
     def set_space_group_numlat(self, *args): return _pycrysfml.space_group_type_set_space_group_numlat(self, *args)
+    def get_space_group_pg(self, *args): return _pycrysfml.space_group_type_get_space_group_pg(self, *args)
     def set_space_group_pg(self, *args): return _pycrysfml.space_group_type_set_space_group_pg(self, *args)
+    def get_space_group_wyckoff(self, *args): return _pycrysfml.space_group_type_get_space_group_wyckoff(self, *args)
     def set_space_group_wyckoff(self, *args): return _pycrysfml.space_group_type_set_space_group_wyckoff(self, *args)
+    def get_space_group_hall(self, *args): return _pycrysfml.space_group_type_get_space_group_hall(self, *args)
     def set_space_group_hall(self, *args): return _pycrysfml.space_group_type_set_space_group_hall(self, *args)
+    def get_space_group_info(self, *args): return _pycrysfml.space_group_type_get_space_group_info(self, *args)
     def set_space_group_info(self, *args): return _pycrysfml.space_group_type_set_space_group_info(self, *args)
+    def get_space_group_spg_lat(self, *args): return _pycrysfml.space_group_type_get_space_group_spg_lat(self, *args)
     def set_space_group_spg_lat(self, *args): return _pycrysfml.space_group_type_set_space_group_spg_lat(self, *args)
+    def get_space_group_laue(self, *args): return _pycrysfml.space_group_type_get_space_group_laue(self, *args)
     def set_space_group_laue(self, *args): return _pycrysfml.space_group_type_set_space_group_laue(self, *args)
+    def get_space_group_spg_latsy(self, *args): return _pycrysfml.space_group_type_get_space_group_spg_latsy(self, *args)
     def set_space_group_spg_latsy(self, *args): return _pycrysfml.space_group_type_set_space_group_spg_latsy(self, *args)
     def get_space_group_num_gen(self): return _pycrysfml.space_group_type_get_space_group_num_gen(self)
     def set_space_group_num_gen(self, *args): return _pycrysfml.space_group_type_set_space_group_num_gen(self, *args)
+    def get_space_group_bravais(self, *args): return _pycrysfml.space_group_type_get_space_group_bravais(self, *args)
     def set_space_group_bravais(self, *args): return _pycrysfml.space_group_type_set_space_group_bravais(self, *args)
+    def get_space_group_sg_setting(self, *args): return _pycrysfml.space_group_type_get_space_group_sg_setting(self, *args)
     def set_space_group_sg_setting(self, *args): return _pycrysfml.space_group_type_set_space_group_sg_setting(self, *args)
+    def get_space_group_ghall(self, *args): return _pycrysfml.space_group_type_get_space_group_ghall(self, *args)
     def set_space_group_ghall(self, *args): return _pycrysfml.space_group_type_set_space_group_ghall(self, *args)
+    def get_space_group_spg_symb(self, *args): return _pycrysfml.space_group_type_get_space_group_spg_symb(self, *args)
     def set_space_group_spg_symb(self, *args): return _pycrysfml.space_group_type_set_space_group_spg_symb(self, *args)
+    def get_space_group_centre(self, *args): return _pycrysfml.space_group_type_get_space_group_centre(self, *args)
     def set_space_group_centre(self, *args): return _pycrysfml.space_group_type_set_space_group_centre(self, *args)
     def get_space_group_numops(self): return _pycrysfml.space_group_type_get_space_group_numops(self)
     def set_space_group_numops(self, *args): return _pycrysfml.space_group_type_set_space_group_numops(self, *args)
+    def get_space_group_r_asym_unit(self, *args): return _pycrysfml.space_group_type_get_space_group_r_asym_unit(self, *args)
     def set_space_group_r_asym_unit(self, *args): return _pycrysfml.space_group_type_set_space_group_r_asym_unit(self, *args)
     def get_space_group_multip(self): return _pycrysfml.space_group_type_get_space_group_multip(self)
     def set_space_group_multip(self, *args): return _pycrysfml.space_group_type_set_space_group_multip(self, *args)
@@ -4124,7 +4321,9 @@ class sym_oper_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_sym_oper_type
     __del__ = lambda self : None;
+    def get_sym_oper_tr(self, *args): return _pycrysfml.sym_oper_type_get_sym_oper_tr(self, *args)
     def set_sym_oper_tr(self, *args): return _pycrysfml.sym_oper_type_set_sym_oper_tr(self, *args)
+    def get_sym_oper_rot(self, *args): return _pycrysfml.sym_oper_type_get_sym_oper_rot(self, *args)
     def set_sym_oper_rot(self, *args): return _pycrysfml.sym_oper_type_set_sym_oper_rot(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.sym_oper_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.sym_oper_type_data_ptr_get
@@ -4218,9 +4417,11 @@ class wyck_pos_type(_object):
     __del__ = lambda self : None;
     def get_wyck_pos_norb(self): return _pycrysfml.wyck_pos_type_get_wyck_pos_norb(self)
     def set_wyck_pos_norb(self, *args): return _pycrysfml.wyck_pos_type_set_wyck_pos_norb(self, *args)
+    def get_wyck_pos_str_orig(self, *args): return _pycrysfml.wyck_pos_type_get_wyck_pos_str_orig(self, *args)
     def set_wyck_pos_str_orig(self, *args): return _pycrysfml.wyck_pos_type_set_wyck_pos_str_orig(self, *args)
     def get_wyck_pos_multp(self): return _pycrysfml.wyck_pos_type_get_wyck_pos_multp(self)
     def set_wyck_pos_multp(self, *args): return _pycrysfml.wyck_pos_type_set_wyck_pos_multp(self, *args)
+    def get_wyck_pos_site(self, *args): return _pycrysfml.wyck_pos_type_get_wyck_pos_site(self, *args)
     def set_wyck_pos_site(self, *args): return _pycrysfml.wyck_pos_type_set_wyck_pos_site(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.wyck_pos_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.wyck_pos_type_data_ptr_get
@@ -4298,8 +4499,11 @@ class zone_axis_type(_object):
     __del__ = lambda self : None;
     def get_zone_axis_nlayer(self): return _pycrysfml.zone_axis_type_get_zone_axis_nlayer(self)
     def set_zone_axis_nlayer(self, *args): return _pycrysfml.zone_axis_type_set_zone_axis_nlayer(self, *args)
+    def get_zone_axis_rx(self, *args): return _pycrysfml.zone_axis_type_get_zone_axis_rx(self, *args)
     def set_zone_axis_rx(self, *args): return _pycrysfml.zone_axis_type_set_zone_axis_rx(self, *args)
+    def get_zone_axis_ry(self, *args): return _pycrysfml.zone_axis_type_get_zone_axis_ry(self, *args)
     def set_zone_axis_ry(self, *args): return _pycrysfml.zone_axis_type_set_zone_axis_ry(self, *args)
+    def get_zone_axis_uvw(self, *args): return _pycrysfml.zone_axis_type_get_zone_axis_uvw(self, *args)
     def set_zone_axis_uvw(self, *args): return _pycrysfml.zone_axis_type_set_zone_axis_uvw(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.zone_axis_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.zone_axis_type_data_ptr_get

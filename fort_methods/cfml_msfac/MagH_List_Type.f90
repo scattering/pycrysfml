@@ -10,11 +10,11 @@ subroutine set_magh_list_Nref(obj_var, new_value)
 	obj_var%Nref = new_value
 end subroutine set_magh_list_Nref
 
-function get_magh_list_Mh(obj_var)
+subroutine get_magh_list_Mh(obj_var, output_value)
 	type (MagH_List_Type) :: obj_var
-	Type(MagH_Type),allocatable, dimension(:) :: get_magh_list_Mh
-	get_magh_list_Mh = obj_var%Mh
-end function get_magh_list_Mh
+	Type(MagH_Type),allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%Mh
+end subroutine get_magh_list_Mh
 
 subroutine set_magh_list_Mh(obj_var, new_value)
 	type (MagH_List_Type) :: obj_var

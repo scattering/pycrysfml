@@ -30,18 +30,27 @@ for k in defs:
 	    else:
 		fields[ind.split('=')[0].strip()] = s[0].strip()
 	for key in fields:
-	    # write getter
-	    outfile.write("function get_"+root_name+"_"+key+"(obj_var)\n")
-	    outfile.write("\ttype ("+type_name+") :: obj_var\n")
-	    outfile.write("\t"+fields[key]+" :: get_"+root_name+"_"+key+"\n")
-	    outfile.write("\tget_"+root_name+"_"+key+" = obj_var%"+key+"\n")
-	    outfile.write("end function get_"+root_name+"_"+key+"\n\n")
-	    # write setter
-	    outfile.write("subroutine set_"+root_name+"_"+key+"(obj_var, new_value)\n")
-	    outfile.write("\ttype ("+type_name+") :: obj_var\n")
-	    outfile.write("\t"+fields[key]+", intent(in) :: new_value\n")
-	    outfile.write("\tobj_var%"+key+" = new_value\n")
-	    outfile.write("end subroutine set_"+root_name+"_"+key+"\n\n")
+		if not any(word in fields[key].lower() for word in ['character', 'type', 'dimension']):
+		    # write getter
+		    outfile.write("function get_"+root_name+"_"+key+"(obj_var)\n")
+		    outfile.write("\ttype ("+type_name+") :: obj_var\n")
+		    outfile.write("\t"+fields[key]+" :: get_"+root_name+"_"+key+"\n")
+		    outfile.write("\tget_"+root_name+"_"+key+" = obj_var%"+key+"\n")
+		    outfile.write("end function get_"+root_name+"_"+key+"\n\n")
+		else:
+		    # write getter
+		    # use subroutine and modify arguments for strings, derived types, and arrays
+		    outfile.write("subroutine get_"+root_name+"_"+key+"(obj_var, output_value)\n")
+		    outfile.write("\ttype ("+type_name+") :: obj_var\n")
+		    outfile.write("\t"+fields[key]+", intent(out) :: output_value\n")
+		    outfile.write("\toutput_value = obj_var%"+key+"\n")
+		    outfile.write("end subroutine get_"+root_name+"_"+key+"\n\n")
+		# write setter
+		outfile.write("subroutine set_"+root_name+"_"+key+"(obj_var, new_value)\n")
+		outfile.write("\ttype ("+type_name+") :: obj_var\n")
+		outfile.write("\t"+fields[key]+", intent(in) :: new_value\n")
+		outfile.write("\tobj_var%"+key+" = new_value\n")
+		outfile.write("end subroutine set_"+root_name+"_"+key+"\n\n")
 	# write constructor
 	outfile.write("subroutine "+type_name+"_ctor("+type_name+"_param, ")
 	count = 0

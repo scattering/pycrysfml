@@ -10,11 +10,11 @@ subroutine set_zone_axis_nlayer(obj_var, new_value)
 	obj_var%nlayer = new_value
 end subroutine set_zone_axis_nlayer
 
-function get_zone_axis_rx(obj_var)
+subroutine get_zone_axis_rx(obj_var, output_value)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: get_zone_axis_rx
-	get_zone_axis_rx = obj_var%rx
-end function get_zone_axis_rx
+	Integer, dimension(3), intent(out) :: output_value
+	output_value = obj_var%rx
+end subroutine get_zone_axis_rx
 
 subroutine set_zone_axis_rx(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
@@ -22,11 +22,11 @@ subroutine set_zone_axis_rx(obj_var, new_value)
 	obj_var%rx = new_value
 end subroutine set_zone_axis_rx
 
-function get_zone_axis_ry(obj_var)
+subroutine get_zone_axis_ry(obj_var, output_value)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: get_zone_axis_ry
-	get_zone_axis_ry = obj_var%ry
-end function get_zone_axis_ry
+	Integer, dimension(3), intent(out) :: output_value
+	output_value = obj_var%ry
+end subroutine get_zone_axis_ry
 
 subroutine set_zone_axis_ry(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
@@ -34,11 +34,11 @@ subroutine set_zone_axis_ry(obj_var, new_value)
 	obj_var%ry = new_value
 end subroutine set_zone_axis_ry
 
-function get_zone_axis_uvw(obj_var)
+subroutine get_zone_axis_uvw(obj_var, output_value)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: get_zone_axis_uvw
-	get_zone_axis_uvw = obj_var%uvw
-end function get_zone_axis_uvw
+	Integer, dimension(3), intent(out) :: output_value
+	output_value = obj_var%uvw
+end subroutine get_zone_axis_uvw
 
 subroutine set_zone_axis_uvw(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var

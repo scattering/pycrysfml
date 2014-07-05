@@ -1,8 +1,8 @@
-function get_ns_sym_oper_Tr(obj_var)
+subroutine get_ns_sym_oper_Tr(obj_var, output_value)
 	type (NS_Sym_Oper_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_ns_sym_oper_Tr
-	get_ns_sym_oper_Tr = obj_var%Tr
-end function get_ns_sym_oper_Tr
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%Tr
+end subroutine get_ns_sym_oper_Tr
 
 subroutine set_ns_sym_oper_Tr(obj_var, new_value)
 	type (NS_Sym_Oper_Type) :: obj_var
@@ -10,11 +10,11 @@ subroutine set_ns_sym_oper_Tr(obj_var, new_value)
 	obj_var%Tr = new_value
 end subroutine set_ns_sym_oper_Tr
 
-function get_ns_sym_oper_Rot(obj_var)
+subroutine get_ns_sym_oper_Rot(obj_var, output_value)
 	type (NS_Sym_Oper_Type) :: obj_var
-	real(kind=cp), dimension(3,3) :: get_ns_sym_oper_Rot
-	get_ns_sym_oper_Rot = obj_var%Rot
-end function get_ns_sym_oper_Rot
+	real(kind=cp), dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%Rot
+end subroutine get_ns_sym_oper_Rot
 
 subroutine set_ns_sym_oper_Rot(obj_var, new_value)
 	type (NS_Sym_Oper_Type) :: obj_var

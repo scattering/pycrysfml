@@ -1,8 +1,8 @@
-function get_atoms_cell_distance(obj_var)
+subroutine get_atoms_cell_distance(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),        dimension( :,:), allocatable :: get_atoms_cell_distance
-	get_atoms_cell_distance = obj_var%distance
-end function get_atoms_cell_distance
+	real(kind=cp),        dimension( :,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%distance
+end subroutine get_atoms_cell_distance
 
 subroutine set_atoms_cell_distance(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -22,11 +22,11 @@ subroutine set_atoms_cell_ndist(obj_var, new_value)
 	obj_var%ndist = new_value
 end subroutine set_atoms_cell_ndist
 
-function get_atoms_cell_ddist(obj_var)
+subroutine get_atoms_cell_ddist(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),           dimension(:), allocatable :: get_atoms_cell_ddist
-	get_atoms_cell_ddist = obj_var%ddist
-end function get_atoms_cell_ddist
+	real(kind=cp),           dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%ddist
+end subroutine get_atoms_cell_ddist
 
 subroutine set_atoms_cell_ddist(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -34,11 +34,11 @@ subroutine set_atoms_cell_ddist(obj_var, new_value)
 	obj_var%ddist = new_value
 end subroutine set_atoms_cell_ddist
 
-function get_atoms_cell_xyz(obj_var)
+subroutine get_atoms_cell_xyz(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),         dimension(:,:), allocatable :: get_atoms_cell_xyz
-	get_atoms_cell_xyz = obj_var%xyz
-end function get_atoms_cell_xyz
+	real(kind=cp),         dimension(:,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%xyz
+end subroutine get_atoms_cell_xyz
 
 subroutine set_atoms_cell_xyz(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -46,11 +46,11 @@ subroutine set_atoms_cell_xyz(obj_var, new_value)
 	obj_var%xyz = new_value
 end subroutine set_atoms_cell_xyz
 
-function get_atoms_cell_charge(obj_var)
+subroutine get_atoms_cell_charge(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),           dimension(:), allocatable :: get_atoms_cell_charge
-	get_atoms_cell_charge = obj_var%charge
-end function get_atoms_cell_charge
+	real(kind=cp),           dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%charge
+end subroutine get_atoms_cell_charge
 
 subroutine set_atoms_cell_charge(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -58,11 +58,11 @@ subroutine set_atoms_cell_charge(obj_var, new_value)
 	obj_var%charge = new_value
 end subroutine set_atoms_cell_charge
 
-function get_atoms_cell_ddlab(obj_var)
+subroutine get_atoms_cell_ddlab(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	character (len=20),      dimension(:), allocatable :: get_atoms_cell_ddlab
-	get_atoms_cell_ddlab = obj_var%ddlab
-end function get_atoms_cell_ddlab
+	character (len=20),      dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%ddlab
+end subroutine get_atoms_cell_ddlab
 
 subroutine set_atoms_cell_ddlab(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -70,11 +70,11 @@ subroutine set_atoms_cell_ddlab(obj_var, new_value)
 	obj_var%ddlab = new_value
 end subroutine set_atoms_cell_ddlab
 
-function get_atoms_cell_noms(obj_var)
+subroutine get_atoms_cell_noms(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	character (len=20),      dimension(:), allocatable :: get_atoms_cell_noms
-	get_atoms_cell_noms = obj_var%noms
-end function get_atoms_cell_noms
+	character (len=20),      dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%noms
+end subroutine get_atoms_cell_noms
 
 subroutine set_atoms_cell_noms(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -82,11 +82,11 @@ subroutine set_atoms_cell_noms(obj_var, new_value)
 	obj_var%noms = new_value
 end subroutine set_atoms_cell_noms
 
-function get_atoms_cell_moment(obj_var)
+subroutine get_atoms_cell_moment(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),           dimension(:), allocatable :: get_atoms_cell_moment
-	get_atoms_cell_moment = obj_var%moment
-end function get_atoms_cell_moment
+	real(kind=cp),           dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%moment
+end subroutine get_atoms_cell_moment
 
 subroutine set_atoms_cell_moment(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -94,11 +94,11 @@ subroutine set_atoms_cell_moment(obj_var, new_value)
 	obj_var%moment = new_value
 end subroutine set_atoms_cell_moment
 
-function get_atoms_cell_neighb_atom(obj_var)
+subroutine get_atoms_cell_neighb_atom(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	integer,              dimension( :,:), allocatable :: get_atoms_cell_neighb_atom
-	get_atoms_cell_neighb_atom = obj_var%neighb_atom
-end function get_atoms_cell_neighb_atom
+	integer,              dimension( :,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%neighb_atom
+end subroutine get_atoms_cell_neighb_atom
 
 subroutine set_atoms_cell_neighb_atom(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -118,11 +118,11 @@ subroutine set_atoms_cell_nat(obj_var, new_value)
 	obj_var%nat = new_value
 end subroutine set_atoms_cell_nat
 
-function get_atoms_cell_var_free(obj_var)
+subroutine get_atoms_cell_var_free(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),         dimension(:,:), allocatable :: get_atoms_cell_var_free
-	get_atoms_cell_var_free = obj_var%var_free
-end function get_atoms_cell_var_free
+	real(kind=cp),         dimension(:,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%var_free
+end subroutine get_atoms_cell_var_free
 
 subroutine set_atoms_cell_var_free(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -130,11 +130,11 @@ subroutine set_atoms_cell_var_free(obj_var, new_value)
 	obj_var%var_free = new_value
 end subroutine set_atoms_cell_var_free
 
-function get_atoms_cell_trans(obj_var)
+subroutine get_atoms_cell_trans(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),      dimension(:, :,:), allocatable :: get_atoms_cell_trans
-	get_atoms_cell_trans = obj_var%trans
-end function get_atoms_cell_trans
+	real(kind=cp),      dimension(:, :,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%trans
+end subroutine get_atoms_cell_trans
 
 subroutine set_atoms_cell_trans(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -142,11 +142,11 @@ subroutine set_atoms_cell_trans(obj_var, new_value)
 	obj_var%trans = new_value
 end subroutine set_atoms_cell_trans
 
-function get_atoms_cell_neighb(obj_var)
+subroutine get_atoms_cell_neighb(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	integer,                 dimension(:), allocatable :: get_atoms_cell_neighb
-	get_atoms_cell_neighb = obj_var%neighb
-end function get_atoms_cell_neighb
+	integer,                 dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%neighb
+end subroutine get_atoms_cell_neighb
 
 subroutine set_atoms_cell_neighb(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var

@@ -46,11 +46,11 @@ subroutine set_reflection_BB(obj_var, new_value)
 	obj_var%BB = new_value
 end subroutine set_reflection_BB
 
-function get_reflection_H(obj_var)
+subroutine get_reflection_H(obj_var, output_value)
 	type (Reflection_Type) :: obj_var
-	integer,dimension(3) :: get_reflection_H
-	get_reflection_H = obj_var%H
-end function get_reflection_H
+	integer,dimension(3), intent(out) :: output_value
+	output_value = obj_var%H
+end subroutine get_reflection_H
 
 subroutine set_reflection_H(obj_var, new_value)
 	type (Reflection_Type) :: obj_var

@@ -1,8 +1,8 @@
-function get_matom_mmphas(obj_var)
+subroutine get_matom_mmphas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12) :: get_matom_mmphas
-	get_matom_mmphas = obj_var%mmphas
-end function get_matom_mmphas
+	real(kind=cp),dimension(12), intent(out) :: output_value
+	output_value = obj_var%mmphas
+end subroutine get_matom_mmphas
 
 subroutine set_matom_mmphas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -22,11 +22,11 @@ subroutine set_matom_LOcc(obj_var, new_value)
 	obj_var%LOcc = new_value
 end subroutine set_matom_LOcc
 
-function get_matom_SkI_std(obj_var)
+subroutine get_matom_SkI_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_SkI_std
-	get_matom_SkI_std = obj_var%SkI_std
-end function get_matom_SkI_std
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%SkI_std
+end subroutine get_matom_SkI_std
 
 subroutine set_matom_SkI_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -34,11 +34,11 @@ subroutine set_matom_SkI_std(obj_var, new_value)
 	obj_var%SkI_std = new_value
 end subroutine set_matom_SkI_std
 
-function get_matom_Utype(obj_var)
+subroutine get_matom_Utype(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=4) :: get_matom_Utype
-	get_matom_Utype = obj_var%Utype
-end function get_matom_Utype
+	character(len=4), intent(out) :: output_value
+	output_value = obj_var%Utype
+end subroutine get_matom_Utype
 
 subroutine set_matom_Utype(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -70,11 +70,11 @@ subroutine set_matom_Occ(obj_var, new_value)
 	obj_var%Occ = new_value
 end subroutine set_matom_Occ
 
-function get_matom_lbas(obj_var)
+subroutine get_matom_lbas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,dimension(12,12) :: get_matom_lbas
-	get_matom_lbas = obj_var%lbas
-end function get_matom_lbas
+	integer,dimension(12,12), intent(out) :: output_value
+	output_value = obj_var%lbas
+end subroutine get_matom_lbas
 
 subroutine set_matom_lbas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -94,11 +94,11 @@ subroutine set_matom_Charge(obj_var, new_value)
 	obj_var%Charge = new_value
 end subroutine set_matom_Charge
 
-function get_matom_SfacSymb(obj_var)
+subroutine get_matom_SfacSymb(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=4) :: get_matom_SfacSymb
-	get_matom_SfacSymb = obj_var%SfacSymb
-end function get_matom_SfacSymb
+	character(len=4), intent(out) :: output_value
+	output_value = obj_var%SfacSymb
+end subroutine get_matom_SfacSymb
 
 subroutine set_matom_SfacSymb(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -106,11 +106,11 @@ subroutine set_matom_SfacSymb(obj_var, new_value)
 	obj_var%SfacSymb = new_value
 end subroutine set_matom_SfacSymb
 
-function get_matom_imat(obj_var)
+subroutine get_matom_imat(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(12) :: get_matom_imat
-	get_matom_imat = obj_var%imat
-end function get_matom_imat
+	integer,      dimension(12), intent(out) :: output_value
+	output_value = obj_var%imat
+end subroutine get_matom_imat
 
 subroutine set_matom_imat(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -118,11 +118,11 @@ subroutine set_matom_imat(obj_var, new_value)
 	obj_var%imat = new_value
 end subroutine set_matom_imat
 
-function get_matom_lmphas(obj_var)
+subroutine get_matom_lmphas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,dimension(12) :: get_matom_lmphas
-	get_matom_lmphas = obj_var%lmphas
-end function get_matom_lmphas
+	integer,dimension(12), intent(out) :: output_value
+	output_value = obj_var%lmphas
+end subroutine get_matom_lmphas
 
 subroutine set_matom_lmphas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -130,11 +130,11 @@ subroutine set_matom_lmphas(obj_var, new_value)
 	obj_var%lmphas = new_value
 end subroutine set_matom_lmphas
 
-function get_matom_mphas(obj_var)
+subroutine get_matom_mphas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12) :: get_matom_mphas
-	get_matom_mphas = obj_var%mphas
-end function get_matom_mphas
+	real(kind=cp),dimension(12), intent(out) :: output_value
+	output_value = obj_var%mphas
+end subroutine get_matom_mphas
 
 subroutine set_matom_mphas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -142,11 +142,11 @@ subroutine set_matom_mphas(obj_var, new_value)
 	obj_var%mphas = new_value
 end subroutine set_matom_mphas
 
-function get_matom_Spher_SkI(obj_var)
+subroutine get_matom_Spher_SkI(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_Spher_SkI
-	get_matom_Spher_SkI = obj_var%Spher_SkI
-end function get_matom_Spher_SkI
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%Spher_SkI
+end subroutine get_matom_Spher_SkI
 
 subroutine set_matom_Spher_SkI(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -154,11 +154,11 @@ subroutine set_matom_Spher_SkI(obj_var, new_value)
 	obj_var%Spher_SkI = new_value
 end subroutine set_matom_Spher_SkI
 
-function get_matom_SkR(obj_var)
+subroutine get_matom_SkR(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_SkR
-	get_matom_SkR = obj_var%SkR
-end function get_matom_SkR
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%SkR
+end subroutine get_matom_SkR
 
 subroutine set_matom_SkR(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -166,11 +166,11 @@ subroutine set_matom_SkR(obj_var, new_value)
 	obj_var%SkR = new_value
 end subroutine set_matom_SkR
 
-function get_matom_lskr(obj_var)
+subroutine get_matom_lskr(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(3,12) :: get_matom_lskr
-	get_matom_lskr = obj_var%lskr
-end function get_matom_lskr
+	integer,      dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%lskr
+end subroutine get_matom_lskr
 
 subroutine set_matom_lskr(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -178,11 +178,11 @@ subroutine set_matom_lskr(obj_var, new_value)
 	obj_var%lskr = new_value
 end subroutine set_matom_lskr
 
-function get_matom_Lab(obj_var)
+subroutine get_matom_Lab(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=10) :: get_matom_Lab
-	get_matom_Lab = obj_var%Lab
-end function get_matom_Lab
+	character(len=10), intent(out) :: output_value
+	output_value = obj_var%Lab
+end subroutine get_matom_Lab
 
 subroutine set_matom_Lab(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -202,11 +202,11 @@ subroutine set_matom_Moment(obj_var, new_value)
 	obj_var%Moment = new_value
 end subroutine set_matom_Moment
 
-function get_matom_LU(obj_var)
+subroutine get_matom_LU(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(6) :: get_matom_LU
-	get_matom_LU = obj_var%LU
-end function get_matom_LU
+	integer,      dimension(6), intent(out) :: output_value
+	output_value = obj_var%LU
+end subroutine get_matom_LU
 
 subroutine set_matom_LU(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -238,11 +238,11 @@ subroutine set_matom_Active(obj_var, new_value)
 	obj_var%Active = new_value
 end subroutine set_matom_Active
 
-function get_matom_SkI(obj_var)
+subroutine get_matom_SkI(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_SkI
-	get_matom_SkI = obj_var%SkI
-end function get_matom_SkI
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%SkI
+end subroutine get_matom_SkI
 
 subroutine set_matom_SkI(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -262,11 +262,11 @@ subroutine set_matom_Mult(obj_var, new_value)
 	obj_var%Mult = new_value
 end subroutine set_matom_Mult
 
-function get_matom_Spher_SkR_std(obj_var)
+subroutine get_matom_Spher_SkR_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_Spher_SkR_std
-	get_matom_Spher_SkR_std = obj_var%Spher_SkR_std
-end function get_matom_Spher_SkR_std
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%Spher_SkR_std
+end subroutine get_matom_Spher_SkR_std
 
 subroutine set_matom_Spher_SkR_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -274,11 +274,11 @@ subroutine set_matom_Spher_SkR_std(obj_var, new_value)
 	obj_var%Spher_SkR_std = new_value
 end subroutine set_matom_Spher_SkR_std
 
-function get_matom_X_Std(obj_var)
+subroutine get_matom_X_Std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_matom_X_Std
-	get_matom_X_Std = obj_var%X_Std
-end function get_matom_X_Std
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%X_Std
+end subroutine get_matom_X_Std
 
 subroutine set_matom_X_Std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -286,11 +286,11 @@ subroutine set_matom_X_Std(obj_var, new_value)
 	obj_var%X_Std = new_value
 end subroutine set_matom_X_Std
 
-function get_matom_U_std(obj_var)
+subroutine get_matom_U_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_matom_U_std
-	get_matom_U_std = obj_var%U_std
-end function get_matom_U_std
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%U_std
+end subroutine get_matom_U_std
 
 subroutine set_matom_U_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -298,11 +298,11 @@ subroutine set_matom_U_std(obj_var, new_value)
 	obj_var%U_std = new_value
 end subroutine set_matom_U_std
 
-function get_matom_lski(obj_var)
+subroutine get_matom_lski(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(3,12) :: get_matom_lski
-	get_matom_lski = obj_var%lski
-end function get_matom_lski
+	integer,      dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%lski
+end subroutine get_matom_lski
 
 subroutine set_matom_lski(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -322,11 +322,11 @@ subroutine set_matom_NVar(obj_var, new_value)
 	obj_var%NVar = new_value
 end subroutine set_matom_NVar
 
-function get_matom_wyck(obj_var)
+subroutine get_matom_wyck(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=1) :: get_matom_wyck
-	get_matom_wyck = obj_var%wyck
-end function get_matom_wyck
+	character(len=1), intent(out) :: output_value
+	output_value = obj_var%wyck
+end subroutine get_matom_wyck
 
 subroutine set_matom_wyck(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -358,11 +358,11 @@ subroutine set_matom_LBiso(obj_var, new_value)
 	obj_var%LBiso = new_value
 end subroutine set_matom_LBiso
 
-function get_matom_mphas_std(obj_var)
+subroutine get_matom_mphas_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12) :: get_matom_mphas_std
-	get_matom_mphas_std = obj_var%mphas_std
-end function get_matom_mphas_std
+	real(kind=cp),dimension(12), intent(out) :: output_value
+	output_value = obj_var%mphas_std
+end subroutine get_matom_mphas_std
 
 subroutine set_matom_mphas_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -382,11 +382,11 @@ subroutine set_matom_Biso(obj_var, new_value)
 	obj_var%Biso = new_value
 end subroutine set_matom_Biso
 
-function get_matom_VarF(obj_var)
+subroutine get_matom_VarF(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(10) :: get_matom_VarF
-	get_matom_VarF = obj_var%VarF
-end function get_matom_VarF
+	real(kind=cp),dimension(10), intent(out) :: output_value
+	output_value = obj_var%VarF
+end subroutine get_matom_VarF
 
 subroutine set_matom_VarF(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -394,11 +394,11 @@ subroutine set_matom_VarF(obj_var, new_value)
 	obj_var%VarF = new_value
 end subroutine set_matom_VarF
 
-function get_matom_U(obj_var)
+subroutine get_matom_U(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_matom_U
-	get_matom_U = obj_var%U
-end function get_matom_U
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%U
+end subroutine get_matom_U
 
 subroutine set_matom_U(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -418,11 +418,11 @@ subroutine set_matom_Occ_Std(obj_var, new_value)
 	obj_var%Occ_Std = new_value
 end subroutine set_matom_Occ_Std
 
-function get_matom_X(obj_var)
+subroutine get_matom_X(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_matom_X
-	get_matom_X = obj_var%X
-end function get_matom_X
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%X
+end subroutine get_matom_X
 
 subroutine set_matom_X(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -454,11 +454,11 @@ subroutine set_matom_nvk(obj_var, new_value)
 	obj_var%nvk = new_value
 end subroutine set_matom_nvk
 
-function get_matom_mbas(obj_var)
+subroutine get_matom_mbas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12,12) :: get_matom_mbas
-	get_matom_mbas = obj_var%mbas
-end function get_matom_mbas
+	real(kind=cp),dimension(12,12), intent(out) :: output_value
+	output_value = obj_var%mbas
+end subroutine get_matom_mbas
 
 subroutine set_matom_mbas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -466,11 +466,11 @@ subroutine set_matom_mbas(obj_var, new_value)
 	obj_var%mbas = new_value
 end subroutine set_matom_mbas
 
-function get_matom_Spher_SkI_std(obj_var)
+subroutine get_matom_Spher_SkI_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_Spher_SkI_std
-	get_matom_Spher_SkI_std = obj_var%Spher_SkI_std
-end function get_matom_Spher_SkI_std
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%Spher_SkI_std
+end subroutine get_matom_Spher_SkI_std
 
 subroutine set_matom_Spher_SkI_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -478,11 +478,11 @@ subroutine set_matom_Spher_SkI_std(obj_var, new_value)
 	obj_var%Spher_SkI_std = new_value
 end subroutine set_matom_Spher_SkI_std
 
-function get_matom_Spher_SkR(obj_var)
+subroutine get_matom_Spher_SkR(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_Spher_SkR
-	get_matom_Spher_SkR = obj_var%Spher_SkR
-end function get_matom_Spher_SkR
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%Spher_SkR
+end subroutine get_matom_Spher_SkR
 
 subroutine set_matom_Spher_SkR(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -490,11 +490,11 @@ subroutine set_matom_Spher_SkR(obj_var, new_value)
 	obj_var%Spher_SkR = new_value
 end subroutine set_matom_Spher_SkR
 
-function get_matom_mSki(obj_var)
+subroutine get_matom_mSki(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_mSki
-	get_matom_mSki = obj_var%mSki
-end function get_matom_mSki
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%mSki
+end subroutine get_matom_mSki
 
 subroutine set_matom_mSki(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -502,11 +502,11 @@ subroutine set_matom_mSki(obj_var, new_value)
 	obj_var%mSki = new_value
 end subroutine set_matom_mSki
 
-function get_matom_SkR_std(obj_var)
+subroutine get_matom_SkR_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_SkR_std
-	get_matom_SkR_std = obj_var%SkR_std
-end function get_matom_SkR_std
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%SkR_std
+end subroutine get_matom_SkR_std
 
 subroutine set_matom_SkR_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -514,11 +514,11 @@ subroutine set_matom_SkR_std(obj_var, new_value)
 	obj_var%SkR_std = new_value
 end subroutine set_matom_SkR_std
 
-function get_matom_MU(obj_var)
+subroutine get_matom_MU(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_matom_MU
-	get_matom_MU = obj_var%MU
-end function get_matom_MU
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%MU
+end subroutine get_matom_MU
 
 subroutine set_matom_MU(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -526,11 +526,11 @@ subroutine set_matom_MU(obj_var, new_value)
 	obj_var%MU = new_value
 end subroutine set_matom_MU
 
-function get_matom_mSkR(obj_var)
+subroutine get_matom_mSkR(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_mSkR
-	get_matom_mSkR = obj_var%mSkR
-end function get_matom_mSkR
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%mSkR
+end subroutine get_matom_mSkR
 
 subroutine set_matom_mSkR(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -538,11 +538,11 @@ subroutine set_matom_mSkR(obj_var, new_value)
 	obj_var%mSkR = new_value
 end subroutine set_matom_mSkR
 
-function get_matom_LX(obj_var)
+subroutine get_matom_LX(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(3) :: get_matom_LX
-	get_matom_LX = obj_var%LX
-end function get_matom_LX
+	integer,      dimension(3), intent(out) :: output_value
+	output_value = obj_var%LX
+end subroutine get_matom_LX
 
 subroutine set_matom_LX(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -550,11 +550,11 @@ subroutine set_matom_LX(obj_var, new_value)
 	obj_var%LX = new_value
 end subroutine set_matom_LX
 
-function get_matom_ChemSymb(obj_var)
+subroutine get_matom_ChemSymb(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=2) :: get_matom_ChemSymb
-	get_matom_ChemSymb = obj_var%ChemSymb
-end function get_matom_ChemSymb
+	character(len=2), intent(out) :: output_value
+	output_value = obj_var%ChemSymb
+end subroutine get_matom_ChemSymb
 
 subroutine set_matom_ChemSymb(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -562,11 +562,11 @@ subroutine set_matom_ChemSymb(obj_var, new_value)
 	obj_var%ChemSymb = new_value
 end subroutine set_matom_ChemSymb
 
-function get_matom_cbas(obj_var)
+subroutine get_matom_cbas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12,12) :: get_matom_cbas
-	get_matom_cbas = obj_var%cbas
-end function get_matom_cbas
+	real(kind=cp),dimension(12,12), intent(out) :: output_value
+	output_value = obj_var%cbas
+end subroutine get_matom_cbas
 
 subroutine set_matom_cbas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -574,11 +574,11 @@ subroutine set_matom_cbas(obj_var, new_value)
 	obj_var%cbas = new_value
 end subroutine set_matom_cbas
 
-function get_matom_Ind(obj_var)
+subroutine get_matom_Ind(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer, dimension(5) :: get_matom_Ind
-	get_matom_Ind = obj_var%Ind
-end function get_matom_Ind
+	integer, dimension(5), intent(out) :: output_value
+	output_value = obj_var%Ind
+end subroutine get_matom_Ind
 
 subroutine set_matom_Ind(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -586,11 +586,11 @@ subroutine set_matom_Ind(obj_var, new_value)
 	obj_var%Ind = new_value
 end subroutine set_matom_Ind
 
-function get_matom_cbas_std(obj_var)
+subroutine get_matom_cbas_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12,12) :: get_matom_cbas_std
-	get_matom_cbas_std = obj_var%cbas_std
-end function get_matom_cbas_std
+	real(kind=cp),dimension(12,12), intent(out) :: output_value
+	output_value = obj_var%cbas_std
+end subroutine get_matom_cbas_std
 
 subroutine set_matom_cbas_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -598,11 +598,11 @@ subroutine set_matom_cbas_std(obj_var, new_value)
 	obj_var%cbas_std = new_value
 end subroutine set_matom_cbas_std
 
-function get_matom_ThType(obj_var)
+subroutine get_matom_ThType(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=5) :: get_matom_ThType
-	get_matom_ThType = obj_var%ThType
-end function get_matom_ThType
+	character(len=5), intent(out) :: output_value
+	output_value = obj_var%ThType
+end subroutine get_matom_ThType
 
 subroutine set_matom_ThType(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -610,11 +610,11 @@ subroutine set_matom_ThType(obj_var, new_value)
 	obj_var%ThType = new_value
 end subroutine set_matom_ThType
 
-function get_matom_AtmInfo(obj_var)
+subroutine get_matom_AtmInfo(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=40) :: get_matom_AtmInfo
-	get_matom_AtmInfo = obj_var%AtmInfo
-end function get_matom_AtmInfo
+	character(len=40), intent(out) :: output_value
+	output_value = obj_var%AtmInfo
+end subroutine get_matom_AtmInfo
 
 subroutine set_matom_AtmInfo(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -634,11 +634,11 @@ subroutine set_matom_Ueq(obj_var, new_value)
 	obj_var%Ueq = new_value
 end subroutine set_matom_Ueq
 
-function get_matom_MX(obj_var)
+subroutine get_matom_MX(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_matom_MX
-	get_matom_MX = obj_var%MX
-end function get_matom_MX
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%MX
+end subroutine get_matom_MX
 
 subroutine set_matom_MX(obj_var, new_value)
 	type (mAtom_Type) :: obj_var

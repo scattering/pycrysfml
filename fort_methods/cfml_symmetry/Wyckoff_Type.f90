@@ -10,11 +10,11 @@ subroutine set_wyckoff_num_orbit(obj_var, new_value)
 	obj_var%num_orbit = new_value
 end subroutine set_wyckoff_num_orbit
 
-function get_wyckoff_orbit(obj_var)
+subroutine get_wyckoff_orbit(obj_var, output_value)
 	type (Wyckoff_Type) :: obj_var
-	type(wyck_pos_type), dimension(26) :: get_wyckoff_orbit
-	get_wyckoff_orbit = obj_var%orbit
-end function get_wyckoff_orbit
+	type(wyck_pos_type), dimension(26), intent(out) :: output_value
+	output_value = obj_var%orbit
+end subroutine get_wyckoff_orbit
 
 subroutine set_wyckoff_orbit(obj_var, new_value)
 	type (Wyckoff_Type) :: obj_var

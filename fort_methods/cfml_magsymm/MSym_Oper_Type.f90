@@ -10,11 +10,11 @@ subroutine set_msym_oper_Phas(obj_var, new_value)
 	obj_var%Phas = new_value
 end subroutine set_msym_oper_Phas
 
-function get_msym_oper_Rot(obj_var)
+subroutine get_msym_oper_Rot(obj_var, output_value)
 	type (MSym_Oper_Type) :: obj_var
-	integer, dimension(3,3) :: get_msym_oper_Rot
-	get_msym_oper_Rot = obj_var%Rot
-end function get_msym_oper_Rot
+	integer, dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%Rot
+end subroutine get_msym_oper_Rot
 
 subroutine set_msym_oper_Rot(obj_var, new_value)
 	type (MSym_Oper_Type) :: obj_var

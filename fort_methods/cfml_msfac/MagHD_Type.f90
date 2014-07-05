@@ -22,11 +22,11 @@ subroutine set_maghd_num_k(obj_var, new_value)
 	obj_var%num_k = new_value
 end subroutine set_maghd_num_k
 
-function get_maghd_H(obj_var)
+subroutine get_maghd_H(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	real(kind=cp),   dimension(3) :: get_maghd_H
-	get_maghd_H = obj_var%H
-end function get_maghd_H
+	real(kind=cp),   dimension(3), intent(out) :: output_value
+	output_value = obj_var%H
+end subroutine get_maghd_H
 
 subroutine set_maghd_H(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -58,11 +58,11 @@ subroutine set_maghd_s(obj_var, new_value)
 	obj_var%s = new_value
 end subroutine set_maghd_s
 
-function get_maghd_MiVC(obj_var)
+subroutine get_maghd_MiVC(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: get_maghd_MiVC
-	get_maghd_MiVC = obj_var%MiVC
-end function get_maghd_MiVC
+	complex(kind=cp),dimension(3,2,24), intent(out) :: output_value
+	output_value = obj_var%MiVC
+end subroutine get_maghd_MiVC
 
 subroutine set_maghd_MiVC(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -82,11 +82,11 @@ subroutine set_maghd_signp(obj_var, new_value)
 	obj_var%signp = new_value
 end subroutine set_maghd_signp
 
-function get_maghd_MsF(obj_var)
+subroutine get_maghd_MsF(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: get_maghd_MsF
-	get_maghd_MsF = obj_var%MsF
-end function get_maghd_MsF
+	complex(kind=cp),dimension(3,2,24), intent(out) :: output_value
+	output_value = obj_var%MsF
+end subroutine get_maghd_MsF
 
 subroutine set_maghd_MsF(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -94,11 +94,11 @@ subroutine set_maghd_MsF(obj_var, new_value)
 	obj_var%MsF = new_value
 end subroutine set_maghd_MsF
 
-function get_maghd_AMiV(obj_var)
+subroutine get_maghd_AMiV(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3) :: get_maghd_AMiV
-	get_maghd_AMiV = obj_var%AMiV
-end function get_maghd_AMiV
+	complex(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%AMiV
+end subroutine get_maghd_AMiV
 
 subroutine set_maghd_AMiV(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -118,11 +118,11 @@ subroutine set_maghd_keqv_minus(obj_var, new_value)
 	obj_var%keqv_minus = new_value
 end subroutine set_maghd_keqv_minus
 
-function get_maghd_MiV(obj_var)
+subroutine get_maghd_MiV(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: get_maghd_MiV
-	get_maghd_MiV = obj_var%MiV
-end function get_maghd_MiV
+	complex(kind=cp),dimension(3,2,24), intent(out) :: output_value
+	output_value = obj_var%MiV
+end subroutine get_maghd_MiV
 
 subroutine set_maghd_MiV(obj_var, new_value)
 	type (MagHD_Type) :: obj_var

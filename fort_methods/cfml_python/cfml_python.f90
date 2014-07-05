@@ -131,7 +131,6 @@ END SUBROUTINE read_mag_mcif_file
 
 !!-- Getters and Setters --!!
 
-
 	function get_atom_equiv_list_nauas(obj_var)
 	type (Atom_Equiv_List_Type) :: obj_var
 	integer :: get_atom_equiv_list_nauas
@@ -144,11 +143,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%nauas = new_value
 	end subroutine set_atom_equiv_list_nauas
 	
-	function get_atom_equiv_list_atm(obj_var)
+	subroutine get_atom_equiv_list_atm(obj_var, output_value)
 	type (Atom_Equiv_List_Type) :: obj_var
-	type (Atom_Equiv_Type), allocatable, dimension(:) :: get_atom_equiv_list_atm
-	get_atom_equiv_list_atm = obj_var%atm
-	end function get_atom_equiv_list_atm
+	type (Atom_Equiv_Type), allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%atm
+	end subroutine get_atom_equiv_list_atm
 	
 	subroutine set_atom_equiv_list_atm(obj_var, new_value)
 	type (Atom_Equiv_List_Type) :: obj_var
@@ -163,11 +162,11 @@ END SUBROUTINE read_mag_mcif_file
 	Atom_Equiv_List_Type_param%nauas = nauas_param
 	Atom_Equiv_List_Type_param%atm = atm_param
 	end subroutine Atom_Equiv_List_Type_ctor
-	function get_atom_equiv_x(obj_var)
+	subroutine get_atom_equiv_x(obj_var, output_value)
 	type (Atom_Equiv_Type) :: obj_var
-	real(kind=cp),    allocatable, dimension(:,:) :: get_atom_equiv_x
-	get_atom_equiv_x = obj_var%x
-	end function get_atom_equiv_x
+	real(kind=cp),    allocatable, dimension(:,:), intent(out) :: output_value
+	output_value = obj_var%x
+	end subroutine get_atom_equiv_x
 	
 	subroutine set_atom_equiv_x(obj_var, new_value)
 	type (Atom_Equiv_Type) :: obj_var
@@ -175,11 +174,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%x = new_value
 	end subroutine set_atom_equiv_x
 	
-	function get_atom_equiv_ChemSymb(obj_var)
+	subroutine get_atom_equiv_ChemSymb(obj_var, output_value)
 	type (Atom_Equiv_Type) :: obj_var
-	character(len=2) :: get_atom_equiv_ChemSymb
-	get_atom_equiv_ChemSymb = obj_var%ChemSymb
-	end function get_atom_equiv_ChemSymb
+	character(len=2), intent(out) :: output_value
+	output_value = obj_var%ChemSymb
+	end subroutine get_atom_equiv_ChemSymb
 	
 	subroutine set_atom_equiv_ChemSymb(obj_var, new_value)
 	type (Atom_Equiv_Type) :: obj_var
@@ -199,11 +198,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%mult = new_value
 	end subroutine set_atom_equiv_mult
 	
-	function get_atom_equiv_Lab(obj_var)
+	subroutine get_atom_equiv_Lab(obj_var, output_value)
 	type (Atom_Equiv_Type) :: obj_var
-	character(len=20),allocatable, dimension(:) :: get_atom_equiv_Lab
-	get_atom_equiv_Lab = obj_var%Lab
-	end function get_atom_equiv_Lab
+	character(len=20),allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%Lab
+	end subroutine get_atom_equiv_Lab
 	
 	subroutine set_atom_equiv_Lab(obj_var, new_value)
 	type (Atom_Equiv_Type) :: obj_var
@@ -234,11 +233,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%natoms = new_value
 	end subroutine set_atom_list_natoms
 	
-	function get_atom_list_atom(obj_var)
+	subroutine get_atom_list_atom(obj_var, output_value)
 	type (Atom_List_Type) :: obj_var
-	type(Atom_Type),dimension(:),allocatable :: get_atom_list_atom
-	get_atom_list_atom = obj_var%atom
-	end function get_atom_list_atom
+	type(Atom_Type),dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%atom
+	end subroutine get_atom_list_atom
 	
 	subroutine set_atom_list_atom(obj_var, new_value)
 	type (Atom_List_Type) :: obj_var
@@ -265,11 +264,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%LOcc = new_value
 	end subroutine set_atom_LOcc
 	
-	function get_atom_Utype(obj_var)
+	subroutine get_atom_Utype(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	character(len=4) :: get_atom_Utype
-	get_atom_Utype = obj_var%Utype
-	end function get_atom_Utype
+	character(len=4), intent(out) :: output_value
+	output_value = obj_var%Utype
+	end subroutine get_atom_Utype
 	
 	subroutine set_atom_Utype(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -313,11 +312,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Charge = new_value
 	end subroutine set_atom_Charge
 	
-	function get_atom_SfacSymb(obj_var)
+	subroutine get_atom_SfacSymb(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	character(len=4) :: get_atom_SfacSymb
-	get_atom_SfacSymb = obj_var%SfacSymb
-	end function get_atom_SfacSymb
+	character(len=4), intent(out) :: output_value
+	output_value = obj_var%SfacSymb
+	end subroutine get_atom_SfacSymb
 	
 	subroutine set_atom_SfacSymb(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -325,11 +324,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SfacSymb = new_value
 	end subroutine set_atom_SfacSymb
 	
-	function get_atom_Lab(obj_var)
+	subroutine get_atom_Lab(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	character(len=20) :: get_atom_Lab
-	get_atom_Lab = obj_var%Lab
-	end function get_atom_Lab
+	character(len=20), intent(out) :: output_value
+	output_value = obj_var%Lab
+	end subroutine get_atom_Lab
 	
 	subroutine set_atom_Lab(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -349,11 +348,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Moment = new_value
 	end subroutine set_atom_Moment
 	
-	function get_atom_LU(obj_var)
+	subroutine get_atom_LU(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	integer,      dimension(6) :: get_atom_LU
-	get_atom_LU = obj_var%LU
-	end function get_atom_LU
+	integer,      dimension(6), intent(out) :: output_value
+	output_value = obj_var%LU
+	end subroutine get_atom_LU
 	
 	subroutine set_atom_LU(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -397,11 +396,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Mult = new_value
 	end subroutine set_atom_Mult
 	
-	function get_atom_X_Std(obj_var)
+	subroutine get_atom_X_Std(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_atom_X_Std
-	get_atom_X_Std = obj_var%X_Std
-	end function get_atom_X_Std
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%X_Std
+	end subroutine get_atom_X_Std
 	
 	subroutine set_atom_X_Std(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -409,11 +408,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%X_Std = new_value
 	end subroutine set_atom_X_Std
 	
-	function get_atom_U_std(obj_var)
+	subroutine get_atom_U_std(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_atom_U_std
-	get_atom_U_std = obj_var%U_std
-	end function get_atom_U_std
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%U_std
+	end subroutine get_atom_U_std
 	
 	subroutine set_atom_U_std(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -433,11 +432,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%NVar = new_value
 	end subroutine set_atom_NVar
 	
-	function get_atom_wyck(obj_var)
+	subroutine get_atom_wyck(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	character(len=1) :: get_atom_wyck
-	get_atom_wyck = obj_var%wyck
-	end function get_atom_wyck
+	character(len=1), intent(out) :: output_value
+	output_value = obj_var%wyck
+	end subroutine get_atom_wyck
 	
 	subroutine set_atom_wyck(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -481,11 +480,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Biso = new_value
 	end subroutine set_atom_Biso
 	
-	function get_atom_VarF(obj_var)
+	subroutine get_atom_VarF(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(10) :: get_atom_VarF
-	get_atom_VarF = obj_var%VarF
-	end function get_atom_VarF
+	real(kind=cp),dimension(10), intent(out) :: output_value
+	output_value = obj_var%VarF
+	end subroutine get_atom_VarF
 	
 	subroutine set_atom_VarF(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -493,11 +492,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%VarF = new_value
 	end subroutine set_atom_VarF
 	
-	function get_atom_U(obj_var)
+	subroutine get_atom_U(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_atom_U
-	get_atom_U = obj_var%U
-	end function get_atom_U
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%U
+	end subroutine get_atom_U
 	
 	subroutine set_atom_U(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -517,11 +516,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Occ_Std = new_value
 	end subroutine set_atom_Occ_Std
 	
-	function get_atom_X(obj_var)
+	subroutine get_atom_X(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_atom_X
-	get_atom_X = obj_var%X
-	end function get_atom_X
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%X
+	end subroutine get_atom_X
 	
 	subroutine set_atom_X(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -541,11 +540,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Z = new_value
 	end subroutine set_atom_Z
 	
-	function get_atom_MU(obj_var)
+	subroutine get_atom_MU(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_atom_MU
-	get_atom_MU = obj_var%MU
-	end function get_atom_MU
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%MU
+	end subroutine get_atom_MU
 	
 	subroutine set_atom_MU(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -553,11 +552,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%MU = new_value
 	end subroutine set_atom_MU
 	
-	function get_atom_LX(obj_var)
+	subroutine get_atom_LX(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	integer,      dimension(3) :: get_atom_LX
-	get_atom_LX = obj_var%LX
-	end function get_atom_LX
+	integer,      dimension(3), intent(out) :: output_value
+	output_value = obj_var%LX
+	end subroutine get_atom_LX
 	
 	subroutine set_atom_LX(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -565,11 +564,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%LX = new_value
 	end subroutine set_atom_LX
 	
-	function get_atom_ChemSymb(obj_var)
+	subroutine get_atom_ChemSymb(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	character(len=2) :: get_atom_ChemSymb
-	get_atom_ChemSymb = obj_var%ChemSymb
-	end function get_atom_ChemSymb
+	character(len=2), intent(out) :: output_value
+	output_value = obj_var%ChemSymb
+	end subroutine get_atom_ChemSymb
 	
 	subroutine set_atom_ChemSymb(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -577,11 +576,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ChemSymb = new_value
 	end subroutine set_atom_ChemSymb
 	
-	function get_atom_Ind(obj_var)
+	subroutine get_atom_Ind(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	integer, dimension(5) :: get_atom_Ind
-	get_atom_Ind = obj_var%Ind
-	end function get_atom_Ind
+	integer, dimension(5), intent(out) :: output_value
+	output_value = obj_var%Ind
+	end subroutine get_atom_Ind
 	
 	subroutine set_atom_Ind(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -589,11 +588,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Ind = new_value
 	end subroutine set_atom_Ind
 	
-	function get_atom_ThType(obj_var)
+	subroutine get_atom_ThType(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	character(len=5) :: get_atom_ThType
-	get_atom_ThType = obj_var%ThType
-	end function get_atom_ThType
+	character(len=5), intent(out) :: output_value
+	output_value = obj_var%ThType
+	end subroutine get_atom_ThType
 	
 	subroutine set_atom_ThType(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -601,11 +600,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ThType = new_value
 	end subroutine set_atom_ThType
 	
-	function get_atom_AtmInfo(obj_var)
+	subroutine get_atom_AtmInfo(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	character(len=40) :: get_atom_AtmInfo
-	get_atom_AtmInfo = obj_var%AtmInfo
-	end function get_atom_AtmInfo
+	character(len=40), intent(out) :: output_value
+	output_value = obj_var%AtmInfo
+	end subroutine get_atom_AtmInfo
 	
 	subroutine set_atom_AtmInfo(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -625,11 +624,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Ueq = new_value
 	end subroutine set_atom_Ueq
 	
-	function get_atom_MX(obj_var)
+	subroutine get_atom_MX(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_atom_MX
-	get_atom_MX = obj_var%MX
-	end function get_atom_MX
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%MX
+	end subroutine get_atom_MX
 	
 	subroutine set_atom_MX(obj_var, new_value)
 	type (Atom_Type) :: obj_var
@@ -704,11 +703,11 @@ END SUBROUTINE read_mag_mcif_file
 	Atom_Type_param%Ueq = Ueq_param
 	Atom_Type_param%MX = MX_param
 	end subroutine Atom_Type_ctor
-	function get_atoms_cell_distance(obj_var)
+	subroutine get_atoms_cell_distance(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),        dimension( :,:), allocatable :: get_atoms_cell_distance
-	get_atoms_cell_distance = obj_var%distance
-	end function get_atoms_cell_distance
+	real(kind=cp),        dimension( :,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%distance
+	end subroutine get_atoms_cell_distance
 	
 	subroutine set_atoms_cell_distance(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -728,11 +727,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ndist = new_value
 	end subroutine set_atoms_cell_ndist
 	
-	function get_atoms_cell_ddist(obj_var)
+	subroutine get_atoms_cell_ddist(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),           dimension(:), allocatable :: get_atoms_cell_ddist
-	get_atoms_cell_ddist = obj_var%ddist
-	end function get_atoms_cell_ddist
+	real(kind=cp),           dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%ddist
+	end subroutine get_atoms_cell_ddist
 	
 	subroutine set_atoms_cell_ddist(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -740,11 +739,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ddist = new_value
 	end subroutine set_atoms_cell_ddist
 	
-	function get_atoms_cell_xyz(obj_var)
+	subroutine get_atoms_cell_xyz(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),         dimension(:,:), allocatable :: get_atoms_cell_xyz
-	get_atoms_cell_xyz = obj_var%xyz
-	end function get_atoms_cell_xyz
+	real(kind=cp),         dimension(:,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%xyz
+	end subroutine get_atoms_cell_xyz
 	
 	subroutine set_atoms_cell_xyz(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -752,11 +751,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%xyz = new_value
 	end subroutine set_atoms_cell_xyz
 	
-	function get_atoms_cell_charge(obj_var)
+	subroutine get_atoms_cell_charge(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),           dimension(:), allocatable :: get_atoms_cell_charge
-	get_atoms_cell_charge = obj_var%charge
-	end function get_atoms_cell_charge
+	real(kind=cp),           dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%charge
+	end subroutine get_atoms_cell_charge
 	
 	subroutine set_atoms_cell_charge(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -764,11 +763,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%charge = new_value
 	end subroutine set_atoms_cell_charge
 	
-	function get_atoms_cell_ddlab(obj_var)
+	subroutine get_atoms_cell_ddlab(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	character (len=20),      dimension(:), allocatable :: get_atoms_cell_ddlab
-	get_atoms_cell_ddlab = obj_var%ddlab
-	end function get_atoms_cell_ddlab
+	character (len=20),      dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%ddlab
+	end subroutine get_atoms_cell_ddlab
 	
 	subroutine set_atoms_cell_ddlab(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -776,11 +775,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ddlab = new_value
 	end subroutine set_atoms_cell_ddlab
 	
-	function get_atoms_cell_noms(obj_var)
+	subroutine get_atoms_cell_noms(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	character (len=20),      dimension(:), allocatable :: get_atoms_cell_noms
-	get_atoms_cell_noms = obj_var%noms
-	end function get_atoms_cell_noms
+	character (len=20),      dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%noms
+	end subroutine get_atoms_cell_noms
 	
 	subroutine set_atoms_cell_noms(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -788,11 +787,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%noms = new_value
 	end subroutine set_atoms_cell_noms
 	
-	function get_atoms_cell_moment(obj_var)
+	subroutine get_atoms_cell_moment(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),           dimension(:), allocatable :: get_atoms_cell_moment
-	get_atoms_cell_moment = obj_var%moment
-	end function get_atoms_cell_moment
+	real(kind=cp),           dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%moment
+	end subroutine get_atoms_cell_moment
 	
 	subroutine set_atoms_cell_moment(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -800,11 +799,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%moment = new_value
 	end subroutine set_atoms_cell_moment
 	
-	function get_atoms_cell_neighb_atom(obj_var)
+	subroutine get_atoms_cell_neighb_atom(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	integer,              dimension( :,:), allocatable :: get_atoms_cell_neighb_atom
-	get_atoms_cell_neighb_atom = obj_var%neighb_atom
-	end function get_atoms_cell_neighb_atom
+	integer,              dimension( :,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%neighb_atom
+	end subroutine get_atoms_cell_neighb_atom
 	
 	subroutine set_atoms_cell_neighb_atom(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -824,11 +823,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%nat = new_value
 	end subroutine set_atoms_cell_nat
 	
-	function get_atoms_cell_var_free(obj_var)
+	subroutine get_atoms_cell_var_free(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),         dimension(:,:), allocatable :: get_atoms_cell_var_free
-	get_atoms_cell_var_free = obj_var%var_free
-	end function get_atoms_cell_var_free
+	real(kind=cp),         dimension(:,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%var_free
+	end subroutine get_atoms_cell_var_free
 	
 	subroutine set_atoms_cell_var_free(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -836,11 +835,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%var_free = new_value
 	end subroutine set_atoms_cell_var_free
 	
-	function get_atoms_cell_trans(obj_var)
+	subroutine get_atoms_cell_trans(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	real(kind=cp),      dimension(:, :,:), allocatable :: get_atoms_cell_trans
-	get_atoms_cell_trans = obj_var%trans
-	end function get_atoms_cell_trans
+	real(kind=cp),      dimension(:, :,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%trans
+	end subroutine get_atoms_cell_trans
 	
 	subroutine set_atoms_cell_trans(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -848,11 +847,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%trans = new_value
 	end subroutine set_atoms_cell_trans
 	
-	function get_atoms_cell_neighb(obj_var)
+	subroutine get_atoms_cell_neighb(obj_var, output_value)
 	type (Atoms_Cell_Type) :: obj_var
-	integer,                 dimension(:), allocatable :: get_atoms_cell_neighb
-	get_atoms_cell_neighb = obj_var%neighb
-	end function get_atoms_cell_neighb
+	integer,                 dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%neighb
+	end subroutine get_atoms_cell_neighb
 	
 	subroutine set_atoms_cell_neighb(obj_var, new_value)
 	type (Atoms_Cell_Type) :: obj_var
@@ -901,11 +900,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%natoms = new_value
 	end subroutine set_matom_list_natoms
 	
-	function get_matom_list_Atom(obj_var)
+	subroutine get_matom_list_Atom(obj_var, output_value)
 	type (mAtom_List_Type) :: obj_var
-	type(mAtom_Type),dimension(:),allocatable :: get_matom_list_Atom
-	get_matom_list_Atom = obj_var%Atom
-	end function get_matom_list_Atom
+	type(mAtom_Type),dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%Atom
+	end subroutine get_matom_list_Atom
 	
 	subroutine set_matom_list_Atom(obj_var, new_value)
 	type (mAtom_List_Type) :: obj_var
@@ -920,11 +919,11 @@ END SUBROUTINE read_mag_mcif_file
 	mAtom_List_Type_param%natoms = natoms_param
 	mAtom_List_Type_param%Atom = Atom_param
 	end subroutine mAtom_List_Type_ctor
-	function get_matom_mmphas(obj_var)
+	subroutine get_matom_mmphas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12) :: get_matom_mmphas
-	get_matom_mmphas = obj_var%mmphas
-	end function get_matom_mmphas
+	real(kind=cp),dimension(12), intent(out) :: output_value
+	output_value = obj_var%mmphas
+	end subroutine get_matom_mmphas
 	
 	subroutine set_matom_mmphas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -944,11 +943,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%LOcc = new_value
 	end subroutine set_matom_LOcc
 	
-	function get_matom_SkI_std(obj_var)
+	subroutine get_matom_SkI_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_SkI_std
-	get_matom_SkI_std = obj_var%SkI_std
-	end function get_matom_SkI_std
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%SkI_std
+	end subroutine get_matom_SkI_std
 	
 	subroutine set_matom_SkI_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -956,11 +955,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SkI_std = new_value
 	end subroutine set_matom_SkI_std
 	
-	function get_matom_Utype(obj_var)
+	subroutine get_matom_Utype(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=4) :: get_matom_Utype
-	get_matom_Utype = obj_var%Utype
-	end function get_matom_Utype
+	character(len=4), intent(out) :: output_value
+	output_value = obj_var%Utype
+	end subroutine get_matom_Utype
 	
 	subroutine set_matom_Utype(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -992,11 +991,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Occ = new_value
 	end subroutine set_matom_Occ
 	
-	function get_matom_lbas(obj_var)
+	subroutine get_matom_lbas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,dimension(12,12) :: get_matom_lbas
-	get_matom_lbas = obj_var%lbas
-	end function get_matom_lbas
+	integer,dimension(12,12), intent(out) :: output_value
+	output_value = obj_var%lbas
+	end subroutine get_matom_lbas
 	
 	subroutine set_matom_lbas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1016,11 +1015,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Charge = new_value
 	end subroutine set_matom_Charge
 	
-	function get_matom_SfacSymb(obj_var)
+	subroutine get_matom_SfacSymb(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=4) :: get_matom_SfacSymb
-	get_matom_SfacSymb = obj_var%SfacSymb
-	end function get_matom_SfacSymb
+	character(len=4), intent(out) :: output_value
+	output_value = obj_var%SfacSymb
+	end subroutine get_matom_SfacSymb
 	
 	subroutine set_matom_SfacSymb(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1028,11 +1027,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SfacSymb = new_value
 	end subroutine set_matom_SfacSymb
 	
-	function get_matom_imat(obj_var)
+	subroutine get_matom_imat(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(12) :: get_matom_imat
-	get_matom_imat = obj_var%imat
-	end function get_matom_imat
+	integer,      dimension(12), intent(out) :: output_value
+	output_value = obj_var%imat
+	end subroutine get_matom_imat
 	
 	subroutine set_matom_imat(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1040,11 +1039,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%imat = new_value
 	end subroutine set_matom_imat
 	
-	function get_matom_lmphas(obj_var)
+	subroutine get_matom_lmphas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,dimension(12) :: get_matom_lmphas
-	get_matom_lmphas = obj_var%lmphas
-	end function get_matom_lmphas
+	integer,dimension(12), intent(out) :: output_value
+	output_value = obj_var%lmphas
+	end subroutine get_matom_lmphas
 	
 	subroutine set_matom_lmphas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1052,11 +1051,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%lmphas = new_value
 	end subroutine set_matom_lmphas
 	
-	function get_matom_mphas(obj_var)
+	subroutine get_matom_mphas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12) :: get_matom_mphas
-	get_matom_mphas = obj_var%mphas
-	end function get_matom_mphas
+	real(kind=cp),dimension(12), intent(out) :: output_value
+	output_value = obj_var%mphas
+	end subroutine get_matom_mphas
 	
 	subroutine set_matom_mphas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1064,11 +1063,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%mphas = new_value
 	end subroutine set_matom_mphas
 	
-	function get_matom_Spher_SkI(obj_var)
+	subroutine get_matom_Spher_SkI(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_Spher_SkI
-	get_matom_Spher_SkI = obj_var%Spher_SkI
-	end function get_matom_Spher_SkI
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%Spher_SkI
+	end subroutine get_matom_Spher_SkI
 	
 	subroutine set_matom_Spher_SkI(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1076,11 +1075,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Spher_SkI = new_value
 	end subroutine set_matom_Spher_SkI
 	
-	function get_matom_SkR(obj_var)
+	subroutine get_matom_SkR(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_SkR
-	get_matom_SkR = obj_var%SkR
-	end function get_matom_SkR
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%SkR
+	end subroutine get_matom_SkR
 	
 	subroutine set_matom_SkR(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1088,11 +1087,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SkR = new_value
 	end subroutine set_matom_SkR
 	
-	function get_matom_lskr(obj_var)
+	subroutine get_matom_lskr(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(3,12) :: get_matom_lskr
-	get_matom_lskr = obj_var%lskr
-	end function get_matom_lskr
+	integer,      dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%lskr
+	end subroutine get_matom_lskr
 	
 	subroutine set_matom_lskr(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1100,11 +1099,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%lskr = new_value
 	end subroutine set_matom_lskr
 	
-	function get_matom_Lab(obj_var)
+	subroutine get_matom_Lab(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=10) :: get_matom_Lab
-	get_matom_Lab = obj_var%Lab
-	end function get_matom_Lab
+	character(len=10), intent(out) :: output_value
+	output_value = obj_var%Lab
+	end subroutine get_matom_Lab
 	
 	subroutine set_matom_Lab(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1124,11 +1123,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Moment = new_value
 	end subroutine set_matom_Moment
 	
-	function get_matom_LU(obj_var)
+	subroutine get_matom_LU(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(6) :: get_matom_LU
-	get_matom_LU = obj_var%LU
-	end function get_matom_LU
+	integer,      dimension(6), intent(out) :: output_value
+	output_value = obj_var%LU
+	end subroutine get_matom_LU
 	
 	subroutine set_matom_LU(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1160,11 +1159,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Active = new_value
 	end subroutine set_matom_Active
 	
-	function get_matom_SkI(obj_var)
+	subroutine get_matom_SkI(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_SkI
-	get_matom_SkI = obj_var%SkI
-	end function get_matom_SkI
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%SkI
+	end subroutine get_matom_SkI
 	
 	subroutine set_matom_SkI(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1184,11 +1183,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Mult = new_value
 	end subroutine set_matom_Mult
 	
-	function get_matom_Spher_SkR_std(obj_var)
+	subroutine get_matom_Spher_SkR_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_Spher_SkR_std
-	get_matom_Spher_SkR_std = obj_var%Spher_SkR_std
-	end function get_matom_Spher_SkR_std
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%Spher_SkR_std
+	end subroutine get_matom_Spher_SkR_std
 	
 	subroutine set_matom_Spher_SkR_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1196,11 +1195,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Spher_SkR_std = new_value
 	end subroutine set_matom_Spher_SkR_std
 	
-	function get_matom_X_Std(obj_var)
+	subroutine get_matom_X_Std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_matom_X_Std
-	get_matom_X_Std = obj_var%X_Std
-	end function get_matom_X_Std
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%X_Std
+	end subroutine get_matom_X_Std
 	
 	subroutine set_matom_X_Std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1208,11 +1207,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%X_Std = new_value
 	end subroutine set_matom_X_Std
 	
-	function get_matom_U_std(obj_var)
+	subroutine get_matom_U_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_matom_U_std
-	get_matom_U_std = obj_var%U_std
-	end function get_matom_U_std
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%U_std
+	end subroutine get_matom_U_std
 	
 	subroutine set_matom_U_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1220,11 +1219,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%U_std = new_value
 	end subroutine set_matom_U_std
 	
-	function get_matom_lski(obj_var)
+	subroutine get_matom_lski(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(3,12) :: get_matom_lski
-	get_matom_lski = obj_var%lski
-	end function get_matom_lski
+	integer,      dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%lski
+	end subroutine get_matom_lski
 	
 	subroutine set_matom_lski(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1244,11 +1243,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%NVar = new_value
 	end subroutine set_matom_NVar
 	
-	function get_matom_wyck(obj_var)
+	subroutine get_matom_wyck(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=1) :: get_matom_wyck
-	get_matom_wyck = obj_var%wyck
-	end function get_matom_wyck
+	character(len=1), intent(out) :: output_value
+	output_value = obj_var%wyck
+	end subroutine get_matom_wyck
 	
 	subroutine set_matom_wyck(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1280,11 +1279,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%LBiso = new_value
 	end subroutine set_matom_LBiso
 	
-	function get_matom_mphas_std(obj_var)
+	subroutine get_matom_mphas_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12) :: get_matom_mphas_std
-	get_matom_mphas_std = obj_var%mphas_std
-	end function get_matom_mphas_std
+	real(kind=cp),dimension(12), intent(out) :: output_value
+	output_value = obj_var%mphas_std
+	end subroutine get_matom_mphas_std
 	
 	subroutine set_matom_mphas_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1304,11 +1303,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Biso = new_value
 	end subroutine set_matom_Biso
 	
-	function get_matom_VarF(obj_var)
+	subroutine get_matom_VarF(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(10) :: get_matom_VarF
-	get_matom_VarF = obj_var%VarF
-	end function get_matom_VarF
+	real(kind=cp),dimension(10), intent(out) :: output_value
+	output_value = obj_var%VarF
+	end subroutine get_matom_VarF
 	
 	subroutine set_matom_VarF(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1316,11 +1315,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%VarF = new_value
 	end subroutine set_matom_VarF
 	
-	function get_matom_U(obj_var)
+	subroutine get_matom_U(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_matom_U
-	get_matom_U = obj_var%U
-	end function get_matom_U
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%U
+	end subroutine get_matom_U
 	
 	subroutine set_matom_U(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1340,11 +1339,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Occ_Std = new_value
 	end subroutine set_matom_Occ_Std
 	
-	function get_matom_X(obj_var)
+	subroutine get_matom_X(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_matom_X
-	get_matom_X = obj_var%X
-	end function get_matom_X
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%X
+	end subroutine get_matom_X
 	
 	subroutine set_matom_X(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1376,11 +1375,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%nvk = new_value
 	end subroutine set_matom_nvk
 	
-	function get_matom_mbas(obj_var)
+	subroutine get_matom_mbas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12,12) :: get_matom_mbas
-	get_matom_mbas = obj_var%mbas
-	end function get_matom_mbas
+	real(kind=cp),dimension(12,12), intent(out) :: output_value
+	output_value = obj_var%mbas
+	end subroutine get_matom_mbas
 	
 	subroutine set_matom_mbas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1388,11 +1387,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%mbas = new_value
 	end subroutine set_matom_mbas
 	
-	function get_matom_Spher_SkI_std(obj_var)
+	subroutine get_matom_Spher_SkI_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_Spher_SkI_std
-	get_matom_Spher_SkI_std = obj_var%Spher_SkI_std
-	end function get_matom_Spher_SkI_std
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%Spher_SkI_std
+	end subroutine get_matom_Spher_SkI_std
 	
 	subroutine set_matom_Spher_SkI_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1400,11 +1399,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Spher_SkI_std = new_value
 	end subroutine set_matom_Spher_SkI_std
 	
-	function get_matom_Spher_SkR(obj_var)
+	subroutine get_matom_Spher_SkR(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_Spher_SkR
-	get_matom_Spher_SkR = obj_var%Spher_SkR
-	end function get_matom_Spher_SkR
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%Spher_SkR
+	end subroutine get_matom_Spher_SkR
 	
 	subroutine set_matom_Spher_SkR(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1412,11 +1411,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Spher_SkR = new_value
 	end subroutine set_matom_Spher_SkR
 	
-	function get_matom_mSki(obj_var)
+	subroutine get_matom_mSki(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_mSki
-	get_matom_mSki = obj_var%mSki
-	end function get_matom_mSki
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%mSki
+	end subroutine get_matom_mSki
 	
 	subroutine set_matom_mSki(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1424,11 +1423,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%mSki = new_value
 	end subroutine set_matom_mSki
 	
-	function get_matom_SkR_std(obj_var)
+	subroutine get_matom_SkR_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_SkR_std
-	get_matom_SkR_std = obj_var%SkR_std
-	end function get_matom_SkR_std
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%SkR_std
+	end subroutine get_matom_SkR_std
 	
 	subroutine set_matom_SkR_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1436,11 +1435,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SkR_std = new_value
 	end subroutine set_matom_SkR_std
 	
-	function get_matom_MU(obj_var)
+	subroutine get_matom_MU(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(6) :: get_matom_MU
-	get_matom_MU = obj_var%MU
-	end function get_matom_MU
+	real(kind=cp),dimension(6), intent(out) :: output_value
+	output_value = obj_var%MU
+	end subroutine get_matom_MU
 	
 	subroutine set_matom_MU(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1448,11 +1447,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%MU = new_value
 	end subroutine set_matom_MU
 	
-	function get_matom_mSkR(obj_var)
+	subroutine get_matom_mSkR(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_matom_mSkR
-	get_matom_mSkR = obj_var%mSkR
-	end function get_matom_mSkR
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%mSkR
+	end subroutine get_matom_mSkR
 	
 	subroutine set_matom_mSkR(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1460,11 +1459,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%mSkR = new_value
 	end subroutine set_matom_mSkR
 	
-	function get_matom_LX(obj_var)
+	subroutine get_matom_LX(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer,      dimension(3) :: get_matom_LX
-	get_matom_LX = obj_var%LX
-	end function get_matom_LX
+	integer,      dimension(3), intent(out) :: output_value
+	output_value = obj_var%LX
+	end subroutine get_matom_LX
 	
 	subroutine set_matom_LX(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1472,11 +1471,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%LX = new_value
 	end subroutine set_matom_LX
 	
-	function get_matom_ChemSymb(obj_var)
+	subroutine get_matom_ChemSymb(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=2) :: get_matom_ChemSymb
-	get_matom_ChemSymb = obj_var%ChemSymb
-	end function get_matom_ChemSymb
+	character(len=2), intent(out) :: output_value
+	output_value = obj_var%ChemSymb
+	end subroutine get_matom_ChemSymb
 	
 	subroutine set_matom_ChemSymb(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1484,11 +1483,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ChemSymb = new_value
 	end subroutine set_matom_ChemSymb
 	
-	function get_matom_cbas(obj_var)
+	subroutine get_matom_cbas(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12,12) :: get_matom_cbas
-	get_matom_cbas = obj_var%cbas
-	end function get_matom_cbas
+	real(kind=cp),dimension(12,12), intent(out) :: output_value
+	output_value = obj_var%cbas
+	end subroutine get_matom_cbas
 	
 	subroutine set_matom_cbas(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1496,11 +1495,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%cbas = new_value
 	end subroutine set_matom_cbas
 	
-	function get_matom_Ind(obj_var)
+	subroutine get_matom_Ind(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	integer, dimension(5) :: get_matom_Ind
-	get_matom_Ind = obj_var%Ind
-	end function get_matom_Ind
+	integer, dimension(5), intent(out) :: output_value
+	output_value = obj_var%Ind
+	end subroutine get_matom_Ind
 	
 	subroutine set_matom_Ind(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1508,11 +1507,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Ind = new_value
 	end subroutine set_matom_Ind
 	
-	function get_matom_cbas_std(obj_var)
+	subroutine get_matom_cbas_std(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(12,12) :: get_matom_cbas_std
-	get_matom_cbas_std = obj_var%cbas_std
-	end function get_matom_cbas_std
+	real(kind=cp),dimension(12,12), intent(out) :: output_value
+	output_value = obj_var%cbas_std
+	end subroutine get_matom_cbas_std
 	
 	subroutine set_matom_cbas_std(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1520,11 +1519,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%cbas_std = new_value
 	end subroutine set_matom_cbas_std
 	
-	function get_matom_ThType(obj_var)
+	subroutine get_matom_ThType(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=5) :: get_matom_ThType
-	get_matom_ThType = obj_var%ThType
-	end function get_matom_ThType
+	character(len=5), intent(out) :: output_value
+	output_value = obj_var%ThType
+	end subroutine get_matom_ThType
 	
 	subroutine set_matom_ThType(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1532,11 +1531,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ThType = new_value
 	end subroutine set_matom_ThType
 	
-	function get_matom_AtmInfo(obj_var)
+	subroutine get_matom_AtmInfo(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	character(len=40) :: get_matom_AtmInfo
-	get_matom_AtmInfo = obj_var%AtmInfo
-	end function get_matom_AtmInfo
+	character(len=40), intent(out) :: output_value
+	output_value = obj_var%AtmInfo
+	end subroutine get_matom_AtmInfo
 	
 	subroutine set_matom_AtmInfo(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1556,11 +1555,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Ueq = new_value
 	end subroutine set_matom_Ueq
 	
-	function get_matom_MX(obj_var)
+	subroutine get_matom_MX(obj_var, output_value)
 	type (mAtom_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_matom_MX
-	get_matom_MX = obj_var%MX
-	end function get_matom_MX
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%MX
+	end subroutine get_matom_MX
 	
 	subroutine set_matom_MX(obj_var, new_value)
 	type (mAtom_Type) :: obj_var
@@ -1679,11 +1678,11 @@ END SUBROUTINE read_mag_mcif_file
 	mAtom_Type_param%Ueq = Ueq_param
 	mAtom_Type_param%MX = MX_param
 	end subroutine mAtom_Type_ctor
-	function get_crystal_cell_lang(obj_var)
+	subroutine get_crystal_cell_lang(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	integer,      dimension(3) :: get_crystal_cell_lang
-	get_crystal_cell_lang = obj_var%lang
-	end function get_crystal_cell_lang
+	integer,      dimension(3), intent(out) :: output_value
+	output_value = obj_var%lang
+	end subroutine get_crystal_cell_lang
 	
 	subroutine set_crystal_cell_lang(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1703,11 +1702,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%RCellVol = new_value
 	end subroutine set_crystal_cell_RCellVol
 	
-	function get_crystal_cell_cell_std(obj_var)
+	subroutine get_crystal_cell_cell_std(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_crystal_cell_cell_std
-	get_crystal_cell_cell_std = obj_var%cell_std
-	end function get_crystal_cell_cell_std
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%cell_std
+	end subroutine get_crystal_cell_cell_std
 	
 	subroutine set_crystal_cell_cell_std(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1715,11 +1714,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%cell_std = new_value
 	end subroutine set_crystal_cell_cell_std
 	
-	function get_crystal_cell_ang(obj_var)
+	subroutine get_crystal_cell_ang(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_crystal_cell_ang
-	get_crystal_cell_ang = obj_var%ang
-	end function get_crystal_cell_ang
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%ang
+	end subroutine get_crystal_cell_ang
 	
 	subroutine set_crystal_cell_ang(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1727,11 +1726,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ang = new_value
 	end subroutine set_crystal_cell_ang
 	
-	function get_crystal_cell_BL_Minv(obj_var)
+	subroutine get_crystal_cell_BL_Minv(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: get_crystal_cell_BL_Minv
-	get_crystal_cell_BL_Minv = obj_var%BL_Minv
-	end function get_crystal_cell_BL_Minv
+	real(kind=cp),dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%BL_Minv
+	end subroutine get_crystal_cell_BL_Minv
 	
 	subroutine set_crystal_cell_BL_Minv(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1739,11 +1738,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%BL_Minv = new_value
 	end subroutine set_crystal_cell_BL_Minv
 	
-	function get_crystal_cell_GR(obj_var)
+	subroutine get_crystal_cell_GR(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: get_crystal_cell_GR
-	get_crystal_cell_GR = obj_var%GR
-	end function get_crystal_cell_GR
+	real(kind=cp),dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%GR
+	end subroutine get_crystal_cell_GR
 	
 	subroutine set_crystal_cell_GR(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1751,11 +1750,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%GR = new_value
 	end subroutine set_crystal_cell_GR
 	
-	function get_crystal_cell_Cr_Orth_cel(obj_var)
+	subroutine get_crystal_cell_Cr_Orth_cel(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: get_crystal_cell_Cr_Orth_cel
-	get_crystal_cell_Cr_Orth_cel = obj_var%Cr_Orth_cel
-	end function get_crystal_cell_Cr_Orth_cel
+	real(kind=cp),dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%Cr_Orth_cel
+	end subroutine get_crystal_cell_Cr_Orth_cel
 	
 	subroutine set_crystal_cell_Cr_Orth_cel(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1763,11 +1762,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Cr_Orth_cel = new_value
 	end subroutine set_crystal_cell_Cr_Orth_cel
 	
-	function get_crystal_cell_BL_M(obj_var)
+	subroutine get_crystal_cell_BL_M(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: get_crystal_cell_BL_M
-	get_crystal_cell_BL_M = obj_var%BL_M
-	end function get_crystal_cell_BL_M
+	real(kind=cp),dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%BL_M
+	end subroutine get_crystal_cell_BL_M
 	
 	subroutine set_crystal_cell_BL_M(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1775,11 +1774,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%BL_M = new_value
 	end subroutine set_crystal_cell_BL_M
 	
-	function get_crystal_cell_Orth_Cr_cel(obj_var)
+	subroutine get_crystal_cell_Orth_Cr_cel(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: get_crystal_cell_Orth_Cr_cel
-	get_crystal_cell_Orth_Cr_cel = obj_var%Orth_Cr_cel
-	end function get_crystal_cell_Orth_Cr_cel
+	real(kind=cp),dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%Orth_Cr_cel
+	end subroutine get_crystal_cell_Orth_Cr_cel
 	
 	subroutine set_crystal_cell_Orth_Cr_cel(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1787,11 +1786,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Orth_Cr_cel = new_value
 	end subroutine set_crystal_cell_Orth_Cr_cel
 	
-	function get_crystal_cell_CartType(obj_var)
+	subroutine get_crystal_cell_CartType(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	character (len=1) :: get_crystal_cell_CartType
-	get_crystal_cell_CartType = obj_var%CartType
-	end function get_crystal_cell_CartType
+	character (len=1), intent(out) :: output_value
+	output_value = obj_var%CartType
+	end subroutine get_crystal_cell_CartType
 	
 	subroutine set_crystal_cell_CartType(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1799,11 +1798,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%CartType = new_value
 	end subroutine set_crystal_cell_CartType
 	
-	function get_crystal_cell_rang(obj_var)
+	subroutine get_crystal_cell_rang(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_crystal_cell_rang
-	get_crystal_cell_rang = obj_var%rang
-	end function get_crystal_cell_rang
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%rang
+	end subroutine get_crystal_cell_rang
 	
 	subroutine set_crystal_cell_rang(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1811,11 +1810,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%rang = new_value
 	end subroutine set_crystal_cell_rang
 	
-	function get_crystal_cell_rcell(obj_var)
+	subroutine get_crystal_cell_rcell(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_crystal_cell_rcell
-	get_crystal_cell_rcell = obj_var%rcell
-	end function get_crystal_cell_rcell
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%rcell
+	end subroutine get_crystal_cell_rcell
 	
 	subroutine set_crystal_cell_rcell(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1823,11 +1822,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%rcell = new_value
 	end subroutine set_crystal_cell_rcell
 	
-	function get_crystal_cell_cell(obj_var)
+	subroutine get_crystal_cell_cell(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_crystal_cell_cell
-	get_crystal_cell_cell = obj_var%cell
-	end function get_crystal_cell_cell
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%cell
+	end subroutine get_crystal_cell_cell
 	
 	subroutine set_crystal_cell_cell(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1835,11 +1834,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%cell = new_value
 	end subroutine set_crystal_cell_cell
 	
-	function get_crystal_cell_GD(obj_var)
+	subroutine get_crystal_cell_GD(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3,3) :: get_crystal_cell_GD
-	get_crystal_cell_GD = obj_var%GD
-	end function get_crystal_cell_GD
+	real(kind=cp),dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%GD
+	end subroutine get_crystal_cell_GD
 	
 	subroutine set_crystal_cell_GD(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1859,11 +1858,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%CellVol = new_value
 	end subroutine set_crystal_cell_CellVol
 	
-	function get_crystal_cell_ang_std(obj_var)
+	subroutine get_crystal_cell_ang_std(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	real(kind=cp),dimension(3) :: get_crystal_cell_ang_std
-	get_crystal_cell_ang_std = obj_var%ang_std
-	end function get_crystal_cell_ang_std
+	real(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%ang_std
+	end subroutine get_crystal_cell_ang_std
 	
 	subroutine set_crystal_cell_ang_std(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1871,11 +1870,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ang_std = new_value
 	end subroutine set_crystal_cell_ang_std
 	
-	function get_crystal_cell_lcell(obj_var)
+	subroutine get_crystal_cell_lcell(obj_var, output_value)
 	type (Crystal_Cell_Type) :: obj_var
-	integer,      dimension(3) :: get_crystal_cell_lcell
-	get_crystal_cell_lcell = obj_var%lcell
-	end function get_crystal_cell_lcell
+	integer,      dimension(3), intent(out) :: output_value
+	output_value = obj_var%lcell
+	end subroutine get_crystal_cell_lcell
 	
 	subroutine set_crystal_cell_lcell(obj_var, new_value)
 	type (Crystal_Cell_Type) :: obj_var
@@ -1920,11 +1919,11 @@ END SUBROUTINE read_mag_mcif_file
 	Crystal_Cell_Type_param%ang_std = ang_std_param
 	Crystal_Cell_Type_param%lcell = lcell_param
 	end subroutine Crystal_Cell_Type_ctor
-	function get_twofold_axes_a(obj_var)
+	subroutine get_twofold_axes_a(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_twofold_axes_a
-	get_twofold_axes_a = obj_var%a
-	end function get_twofold_axes_a
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%a
+	end subroutine get_twofold_axes_a
 	
 	subroutine set_twofold_axes_a(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -1932,11 +1931,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%a = new_value
 	end subroutine set_twofold_axes_a
 	
-	function get_twofold_axes_c(obj_var)
+	subroutine get_twofold_axes_c(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_twofold_axes_c
-	get_twofold_axes_c = obj_var%c
-	end function get_twofold_axes_c
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%c
+	end subroutine get_twofold_axes_c
 	
 	subroutine set_twofold_axes_c(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -1944,11 +1943,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%c = new_value
 	end subroutine set_twofold_axes_c
 	
-	function get_twofold_axes_b(obj_var)
+	subroutine get_twofold_axes_b(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_twofold_axes_b
-	get_twofold_axes_b = obj_var%b
-	end function get_twofold_axes_b
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%b
+	end subroutine get_twofold_axes_b
 	
 	subroutine set_twofold_axes_b(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -1956,11 +1955,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%b = new_value
 	end subroutine set_twofold_axes_b
 	
-	function get_twofold_axes_maxes(obj_var)
+	subroutine get_twofold_axes_maxes(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(12) :: get_twofold_axes_maxes
-	get_twofold_axes_maxes = obj_var%maxes
-	end function get_twofold_axes_maxes
+	real(kind=cp), dimension(12), intent(out) :: output_value
+	output_value = obj_var%maxes
+	end subroutine get_twofold_axes_maxes
 	
 	subroutine set_twofold_axes_maxes(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -1980,11 +1979,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ntwo = new_value
 	end subroutine set_twofold_axes_ntwo
 	
-	function get_twofold_axes_cross(obj_var)
+	subroutine get_twofold_axes_cross(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp), dimension(12) :: get_twofold_axes_cross
-	get_twofold_axes_cross = obj_var%cross
-	end function get_twofold_axes_cross
+	real(kind=cp), dimension(12), intent(out) :: output_value
+	output_value = obj_var%cross
+	end subroutine get_twofold_axes_cross
 	
 	subroutine set_twofold_axes_cross(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -2004,11 +2003,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%tol = new_value
 	end subroutine set_twofold_axes_tol
 	
-	function get_twofold_axes_rtwofold(obj_var)
+	subroutine get_twofold_axes_rtwofold(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(3,12) :: get_twofold_axes_rtwofold
-	get_twofold_axes_rtwofold = obj_var%rtwofold
-	end function get_twofold_axes_rtwofold
+	integer,dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%rtwofold
+	end subroutine get_twofold_axes_rtwofold
 	
 	subroutine set_twofold_axes_rtwofold(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -2016,11 +2015,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%rtwofold = new_value
 	end subroutine set_twofold_axes_rtwofold
 	
-	function get_twofold_axes_caxes(obj_var)
+	subroutine get_twofold_axes_caxes(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	real(kind=cp) ,dimension(3,12) :: get_twofold_axes_caxes
-	get_twofold_axes_caxes = obj_var%caxes
-	end function get_twofold_axes_caxes
+	real(kind=cp) ,dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%caxes
+	end subroutine get_twofold_axes_caxes
 	
 	subroutine set_twofold_axes_caxes(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -2028,11 +2027,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%caxes = new_value
 	end subroutine set_twofold_axes_caxes
 	
-	function get_twofold_axes_dot(obj_var)
+	subroutine get_twofold_axes_dot(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(12) :: get_twofold_axes_dot
-	get_twofold_axes_dot = obj_var%dot
-	end function get_twofold_axes_dot
+	integer,dimension(12), intent(out) :: output_value
+	output_value = obj_var%dot
+	end subroutine get_twofold_axes_dot
 	
 	subroutine set_twofold_axes_dot(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -2040,11 +2039,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%dot = new_value
 	end subroutine set_twofold_axes_dot
 	
-	function get_twofold_axes_dtwofold(obj_var)
+	subroutine get_twofold_axes_dtwofold(obj_var, output_value)
 	type (Twofold_Axes_Type) :: obj_var
-	integer,dimension(3,12) :: get_twofold_axes_dtwofold
-	get_twofold_axes_dtwofold = obj_var%dtwofold
-	end function get_twofold_axes_dtwofold
+	integer,dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%dtwofold
+	end subroutine get_twofold_axes_dtwofold
 	
 	subroutine set_twofold_axes_dtwofold(obj_var, new_value)
 	type (Twofold_Axes_Type) :: obj_var
@@ -2089,11 +2088,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%nlayer = new_value
 	end subroutine set_zone_axis_nlayer
 	
-	function get_zone_axis_rx(obj_var)
+	subroutine get_zone_axis_rx(obj_var, output_value)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: get_zone_axis_rx
-	get_zone_axis_rx = obj_var%rx
-	end function get_zone_axis_rx
+	Integer, dimension(3), intent(out) :: output_value
+	output_value = obj_var%rx
+	end subroutine get_zone_axis_rx
 	
 	subroutine set_zone_axis_rx(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
@@ -2101,11 +2100,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%rx = new_value
 	end subroutine set_zone_axis_rx
 	
-	function get_zone_axis_ry(obj_var)
+	subroutine get_zone_axis_ry(obj_var, output_value)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: get_zone_axis_ry
-	get_zone_axis_ry = obj_var%ry
-	end function get_zone_axis_ry
+	Integer, dimension(3), intent(out) :: output_value
+	output_value = obj_var%ry
+	end subroutine get_zone_axis_ry
 	
 	subroutine set_zone_axis_ry(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
@@ -2113,11 +2112,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ry = new_value
 	end subroutine set_zone_axis_ry
 	
-	function get_zone_axis_uvw(obj_var)
+	subroutine get_zone_axis_uvw(obj_var, output_value)
 	type (Zone_Axis_Type) :: obj_var
-	Integer, dimension(3) :: get_zone_axis_uvw
-	get_zone_axis_uvw = obj_var%uvw
-	end function get_zone_axis_uvw
+	Integer, dimension(3), intent(out) :: output_value
+	output_value = obj_var%uvw
+	end subroutine get_zone_axis_uvw
 	
 	subroutine set_zone_axis_uvw(obj_var, new_value)
 	type (Zone_Axis_Type) :: obj_var
@@ -2136,11 +2135,11 @@ END SUBROUTINE read_mag_mcif_file
 	Zone_Axis_Type_param%ry = ry_param
 	Zone_Axis_Type_param%uvw = uvw_param
 	end subroutine Zone_Axis_Type_ctor
-	function get_file_list_line(obj_var)
+	subroutine get_file_list_line(obj_var, output_value)
 	type (File_List_Type) :: obj_var
-	character(len=256), allocatable, dimension(:) :: get_file_list_line
-	get_file_list_line = obj_var%line
-	end function get_file_list_line
+	character(len=256), allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%line
+	end subroutine get_file_list_line
 	
 	subroutine set_file_list_line(obj_var, new_value)
 	type (File_List_Type) :: obj_var
@@ -2167,11 +2166,11 @@ END SUBROUTINE read_mag_mcif_file
 	File_List_Type_param%line = line_param
 	File_List_Type_param%nlines = nlines_param
 	end subroutine File_List_Type_ctor
-	function get_job_info_dtt1(obj_var)
+	subroutine get_job_info_dtt1(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	real(kind=cp)      ,dimension(:), allocatable :: get_job_info_dtt1
-	get_job_info_dtt1 = obj_var%dtt1
-	end function get_job_info_dtt1
+	real(kind=cp)      ,dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%dtt1
+	end subroutine get_job_info_dtt1
 	
 	subroutine set_job_info_dtt1(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2179,11 +2178,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%dtt1 = new_value
 	end subroutine set_job_info_dtt1
 	
-	function get_job_info_dtt2(obj_var)
+	subroutine get_job_info_dtt2(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	real(kind=cp)      ,dimension(:), allocatable :: get_job_info_dtt2
-	get_job_info_dtt2 = obj_var%dtt2
-	end function get_job_info_dtt2
+	real(kind=cp)      ,dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%dtt2
+	end subroutine get_job_info_dtt2
 	
 	subroutine set_job_info_dtt2(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2191,11 +2190,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%dtt2 = new_value
 	end subroutine set_job_info_dtt2
 	
-	function get_job_info_range_2theta(obj_var)
+	subroutine get_job_info_range_2theta(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: get_job_info_range_2theta
-	get_job_info_range_2theta = obj_var%range_2theta
-	end function get_job_info_range_2theta
+	type(interval_type),dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%range_2theta
+	end subroutine get_job_info_range_2theta
 	
 	subroutine set_job_info_range_2theta(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2203,11 +2202,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%range_2theta = new_value
 	end subroutine set_job_info_range_2theta
 	
-	function get_job_info_Title(obj_var)
+	subroutine get_job_info_Title(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	character(len=120) :: get_job_info_Title
-	get_job_info_Title = obj_var%Title
-	end function get_job_info_Title
+	character(len=120), intent(out) :: output_value
+	output_value = obj_var%Title
+	end subroutine get_job_info_Title
 	
 	subroutine set_job_info_Title(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2215,11 +2214,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Title = new_value
 	end subroutine set_job_info_Title
 	
-	function get_job_info_range_tof(obj_var)
+	subroutine get_job_info_range_tof(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: get_job_info_range_tof
-	get_job_info_range_tof = obj_var%range_tof
-	end function get_job_info_range_tof
+	type(interval_type),dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%range_tof
+	end subroutine get_job_info_range_tof
 	
 	subroutine set_job_info_range_tof(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2239,11 +2238,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Num_Phases = new_value
 	end subroutine set_job_info_Num_Phases
 	
-	function get_job_info_cmd(obj_var)
+	subroutine get_job_info_cmd(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	character(len=128), dimension(:), allocatable :: get_job_info_cmd
-	get_job_info_cmd = obj_var%cmd
-	end function get_job_info_cmd
+	character(len=128), dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%cmd
+	end subroutine get_job_info_cmd
 	
 	subroutine set_job_info_cmd(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2251,11 +2250,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%cmd = new_value
 	end subroutine set_job_info_cmd
 	
-	function get_job_info_range_stl(obj_var)
+	subroutine get_job_info_range_stl(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: get_job_info_range_stl
-	get_job_info_range_stl = obj_var%range_stl
-	end function get_job_info_range_stl
+	type(interval_type),dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%range_stl
+	end subroutine get_job_info_range_stl
 	
 	subroutine set_job_info_range_stl(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2263,11 +2262,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%range_stl = new_value
 	end subroutine set_job_info_range_stl
 	
-	function get_job_info_range_d(obj_var)
+	subroutine get_job_info_range_d(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: get_job_info_range_d
-	get_job_info_range_d = obj_var%range_d
-	end function get_job_info_range_d
+	type(interval_type),dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%range_d
+	end subroutine get_job_info_range_d
 	
 	subroutine set_job_info_range_d(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2287,11 +2286,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Num_Patterns = new_value
 	end subroutine set_job_info_Num_Patterns
 	
-	function get_job_info_Patt_typ(obj_var)
+	subroutine get_job_info_Patt_typ(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	character(len=16),  dimension(:), allocatable :: get_job_info_Patt_typ
-	get_job_info_Patt_typ = obj_var%Patt_typ
-	end function get_job_info_Patt_typ
+	character(len=16),  dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%Patt_typ
+	end subroutine get_job_info_Patt_typ
 	
 	subroutine set_job_info_Patt_typ(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2299,11 +2298,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Patt_typ = new_value
 	end subroutine set_job_info_Patt_typ
 	
-	function get_job_info_Phas_nam(obj_var)
+	subroutine get_job_info_Phas_nam(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	character(len=128), dimension(:), allocatable :: get_job_info_Phas_nam
-	get_job_info_Phas_nam = obj_var%Phas_nam
-	end function get_job_info_Phas_nam
+	character(len=128), dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%Phas_nam
+	end subroutine get_job_info_Phas_nam
 	
 	subroutine set_job_info_Phas_nam(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2323,11 +2322,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Num_cmd = new_value
 	end subroutine set_job_info_Num_cmd
 	
-	function get_job_info_range_q(obj_var)
+	subroutine get_job_info_range_q(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: get_job_info_range_q
-	get_job_info_range_q = obj_var%range_q
-	end function get_job_info_range_q
+	type(interval_type),dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%range_q
+	end subroutine get_job_info_range_q
 	
 	subroutine set_job_info_range_q(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2335,11 +2334,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%range_q = new_value
 	end subroutine set_job_info_range_q
 	
-	function get_job_info_ratio(obj_var)
+	subroutine get_job_info_ratio(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	real(kind=cp)      ,dimension(:), allocatable :: get_job_info_ratio
-	get_job_info_ratio = obj_var%ratio
-	end function get_job_info_ratio
+	real(kind=cp)      ,dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%ratio
+	end subroutine get_job_info_ratio
 	
 	subroutine set_job_info_ratio(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2347,11 +2346,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%ratio = new_value
 	end subroutine set_job_info_ratio
 	
-	function get_job_info_range_Energy(obj_var)
+	subroutine get_job_info_range_Energy(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: get_job_info_range_Energy
-	get_job_info_range_Energy = obj_var%range_Energy
-	end function get_job_info_range_Energy
+	type(interval_type),dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%range_Energy
+	end subroutine get_job_info_range_Energy
 	
 	subroutine set_job_info_range_Energy(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2359,11 +2358,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%range_Energy = new_value
 	end subroutine set_job_info_range_Energy
 	
-	function get_job_info_Lambda(obj_var)
+	subroutine get_job_info_Lambda(obj_var, output_value)
 	type (Job_Info_type) :: obj_var
-	type(interval_type),dimension(:), allocatable :: get_job_info_Lambda
-	get_job_info_Lambda = obj_var%Lambda
-	end function get_job_info_Lambda
+	type(interval_type),dimension(:), allocatable, intent(out) :: output_value
+	output_value = obj_var%Lambda
+	end subroutine get_job_info_Lambda
 	
 	subroutine set_job_info_Lambda(obj_var, new_value)
 	type (Job_Info_type) :: obj_var
@@ -2451,11 +2450,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Phas = new_value
 	end subroutine set_msym_oper_Phas
 	
-	function get_msym_oper_Rot(obj_var)
+	subroutine get_msym_oper_Rot(obj_var, output_value)
 	type (MSym_Oper_Type) :: obj_var
-	integer, dimension(3,3) :: get_msym_oper_Rot
-	get_msym_oper_Rot = obj_var%Rot
-	end function get_msym_oper_Rot
+	integer, dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%Rot
+	end subroutine get_msym_oper_Rot
 	
 	subroutine set_msym_oper_Rot(obj_var, new_value)
 	type (MSym_Oper_Type) :: obj_var
@@ -2470,11 +2469,11 @@ END SUBROUTINE read_mag_mcif_file
 	MSym_Oper_Type_param%Phas = Phas_param
 	MSym_Oper_Type_param%Rot = Rot_param
 	end subroutine MSym_Oper_Type_ctor
-	function get_magsymm_k_Latt(obj_var)
+	subroutine get_magsymm_k_Latt(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=1) :: get_magsymm_k_Latt
-	get_magsymm_k_Latt = obj_var%Latt
-	end function get_magsymm_k_Latt
+	character(len=1), intent(out) :: output_value
+	output_value = obj_var%Latt
+	end subroutine get_magsymm_k_Latt
 	
 	subroutine set_magsymm_k_Latt(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2482,11 +2481,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Latt = new_value
 	end subroutine set_magsymm_k_Latt
 	
-	function get_magsymm_k_SymopSymb(obj_var)
+	subroutine get_magsymm_k_SymopSymb(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=40),   dimension(:),   allocatable :: get_magsymm_k_SymopSymb
-	get_magsymm_k_SymopSymb = obj_var%SymopSymb
-	end function get_magsymm_k_SymopSymb
+	character(len=40),   dimension(:),   allocatable, intent(out) :: output_value
+	output_value = obj_var%SymopSymb
+	end subroutine get_magsymm_k_SymopSymb
 	
 	subroutine set_magsymm_k_SymopSymb(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2494,11 +2493,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SymopSymb = new_value
 	end subroutine set_magsymm_k_SymopSymb
 	
-	function get_magsymm_k_MSymopSymb(obj_var)
+	subroutine get_magsymm_k_MSymopSymb(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=40),   dimension(:,:), allocatable :: get_magsymm_k_MSymopSymb
-	get_magsymm_k_MSymopSymb = obj_var%MSymopSymb
-	end function get_magsymm_k_MSymopSymb
+	character(len=40),   dimension(:,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%MSymopSymb
+	end subroutine get_magsymm_k_MSymopSymb
 	
 	subroutine set_magsymm_k_MSymopSymb(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2518,11 +2517,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Numops = new_value
 	end subroutine set_magsymm_k_Numops
 	
-	function get_magsymm_k_BNS_symbol(obj_var)
+	subroutine get_magsymm_k_BNS_symbol(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=34) :: get_magsymm_k_BNS_symbol
-	get_magsymm_k_BNS_symbol = obj_var%BNS_symbol
-	end function get_magsymm_k_BNS_symbol
+	Character(len=34), intent(out) :: output_value
+	output_value = obj_var%BNS_symbol
+	end subroutine get_magsymm_k_BNS_symbol
 	
 	subroutine set_magsymm_k_BNS_symbol(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2530,11 +2529,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%BNS_symbol = new_value
 	end subroutine set_magsymm_k_BNS_symbol
 	
-	function get_magsymm_k_BNS_number(obj_var)
+	subroutine get_magsymm_k_BNS_number(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=15) :: get_magsymm_k_BNS_number
-	get_magsymm_k_BNS_number = obj_var%BNS_number
-	end function get_magsymm_k_BNS_number
+	character(len=15), intent(out) :: output_value
+	output_value = obj_var%BNS_number
+	end subroutine get_magsymm_k_BNS_number
 	
 	subroutine set_magsymm_k_BNS_number(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2554,11 +2553,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%mcentred = new_value
 	end subroutine set_magsymm_k_mcentred
 	
-	function get_magsymm_k_MagModel(obj_var)
+	subroutine get_magsymm_k_MagModel(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=31) :: get_magsymm_k_MagModel
-	get_magsymm_k_MagModel = obj_var%MagModel
-	end function get_magsymm_k_MagModel
+	character(len=31), intent(out) :: output_value
+	output_value = obj_var%MagModel
+	end subroutine get_magsymm_k_MagModel
 	
 	subroutine set_magsymm_k_MagModel(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2566,11 +2565,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%MagModel = new_value
 	end subroutine set_magsymm_k_MagModel
 	
-	function get_magsymm_k_kvec(obj_var)
+	subroutine get_magsymm_k_kvec(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	real(kind=cp),dimension(3,12) :: get_magsymm_k_kvec
-	get_magsymm_k_kvec = obj_var%kvec
-	end function get_magsymm_k_kvec
+	real(kind=cp),dimension(3,12), intent(out) :: output_value
+	output_value = obj_var%kvec
+	end subroutine get_magsymm_k_kvec
 	
 	subroutine set_magsymm_k_kvec(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2590,11 +2589,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%nmsym = new_value
 	end subroutine set_magsymm_k_nmsym
 	
-	function get_magsymm_k_MSymOp(obj_var)
+	subroutine get_magsymm_k_MSymOp(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	type(MSym_Oper_Type),dimension(:,:), allocatable :: get_magsymm_k_MSymOp
-	get_magsymm_k_MSymOp = obj_var%MSymOp
-	end function get_magsymm_k_MSymOp
+	type(MSym_Oper_Type),dimension(:,:), allocatable, intent(out) :: output_value
+	output_value = obj_var%MSymOp
+	end subroutine get_magsymm_k_MSymOp
 	
 	subroutine set_magsymm_k_MSymOp(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2614,11 +2613,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Num_Lat = new_value
 	end subroutine set_magsymm_k_Num_Lat
 	
-	function get_magsymm_k_irrep_action(obj_var)
+	subroutine get_magsymm_k_irrep_action(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=20),   dimension(4) :: get_magsymm_k_irrep_action
-	get_magsymm_k_irrep_action = obj_var%irrep_action
-	end function get_magsymm_k_irrep_action
+	Character(len=20),   dimension(4), intent(out) :: output_value
+	output_value = obj_var%irrep_action
+	end subroutine get_magsymm_k_irrep_action
 	
 	subroutine set_magsymm_k_irrep_action(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2626,11 +2625,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%irrep_action = new_value
 	end subroutine set_magsymm_k_irrep_action
 	
-	function get_magsymm_k_small_irrep_dim(obj_var)
+	subroutine get_magsymm_k_small_irrep_dim(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Integer,             dimension(4) :: get_magsymm_k_small_irrep_dim
-	get_magsymm_k_small_irrep_dim = obj_var%small_irrep_dim
-	end function get_magsymm_k_small_irrep_dim
+	Integer,             dimension(4), intent(out) :: output_value
+	output_value = obj_var%small_irrep_dim
+	end subroutine get_magsymm_k_small_irrep_dim
 	
 	subroutine set_magsymm_k_small_irrep_dim(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2638,11 +2637,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%small_irrep_dim = new_value
 	end subroutine set_magsymm_k_small_irrep_dim
 	
-	function get_magsymm_k_Ltr(obj_var)
+	subroutine get_magsymm_k_Ltr(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	real(kind=cp), dimension(3,4) :: get_magsymm_k_Ltr
-	get_magsymm_k_Ltr = obj_var%Ltr
-	end function get_magsymm_k_Ltr
+	real(kind=cp), dimension(3,4), intent(out) :: output_value
+	output_value = obj_var%Ltr
+	end subroutine get_magsymm_k_Ltr
 	
 	subroutine set_magsymm_k_Ltr(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2662,11 +2661,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Parent_num = new_value
 	end subroutine set_magsymm_k_Parent_num
 	
-	function get_magsymm_k_Sk_type(obj_var)
+	subroutine get_magsymm_k_Sk_type(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=15) :: get_magsymm_k_Sk_type
-	get_magsymm_k_Sk_type = obj_var%Sk_type
-	end function get_magsymm_k_Sk_type
+	character(len=15), intent(out) :: output_value
+	output_value = obj_var%Sk_type
+	end subroutine get_magsymm_k_Sk_type
 	
 	subroutine set_magsymm_k_Sk_type(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2698,11 +2697,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%MagType = new_value
 	end subroutine set_magsymm_k_MagType
 	
-	function get_magsymm_k_OG_number(obj_var)
+	subroutine get_magsymm_k_OG_number(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	character(len=15) :: get_magsymm_k_OG_number
-	get_magsymm_k_OG_number = obj_var%OG_number
-	end function get_magsymm_k_OG_number
+	character(len=15), intent(out) :: output_value
+	output_value = obj_var%OG_number
+	end subroutine get_magsymm_k_OG_number
 	
 	subroutine set_magsymm_k_OG_number(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2710,11 +2709,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%OG_number = new_value
 	end subroutine set_magsymm_k_OG_number
 	
-	function get_magsymm_k_irrep_dim(obj_var)
+	subroutine get_magsymm_k_irrep_dim(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Integer,             dimension(4) :: get_magsymm_k_irrep_dim
-	get_magsymm_k_irrep_dim = obj_var%irrep_dim
-	end function get_magsymm_k_irrep_dim
+	Integer,             dimension(4), intent(out) :: output_value
+	output_value = obj_var%irrep_dim
+	end subroutine get_magsymm_k_irrep_dim
 	
 	subroutine set_magsymm_k_irrep_dim(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2722,11 +2721,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%irrep_dim = new_value
 	end subroutine set_magsymm_k_irrep_dim
 	
-	function get_magsymm_k_irrep_modes_number(obj_var)
+	subroutine get_magsymm_k_irrep_modes_number(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Integer,             dimension(4) :: get_magsymm_k_irrep_modes_number
-	get_magsymm_k_irrep_modes_number = obj_var%irrep_modes_number
-	end function get_magsymm_k_irrep_modes_number
+	Integer,             dimension(4), intent(out) :: output_value
+	output_value = obj_var%irrep_modes_number
+	end subroutine get_magsymm_k_irrep_modes_number
 	
 	subroutine set_magsymm_k_irrep_modes_number(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2746,11 +2745,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%nkv = new_value
 	end subroutine set_magsymm_k_nkv
 	
-	function get_magsymm_k_irrep_direction(obj_var)
+	subroutine get_magsymm_k_irrep_direction(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=20),   dimension(4) :: get_magsymm_k_irrep_direction
-	get_magsymm_k_irrep_direction = obj_var%irrep_direction
-	end function get_magsymm_k_irrep_direction
+	Character(len=20),   dimension(4), intent(out) :: output_value
+	output_value = obj_var%irrep_direction
+	end subroutine get_magsymm_k_irrep_direction
 	
 	subroutine set_magsymm_k_irrep_direction(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2770,11 +2769,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%centred = new_value
 	end subroutine set_magsymm_k_centred
 	
-	function get_magsymm_k_basf(obj_var)
+	subroutine get_magsymm_k_basf(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Complex(kind=cp),    dimension(3,12,48,4) :: get_magsymm_k_basf
-	get_magsymm_k_basf = obj_var%basf
-	end function get_magsymm_k_basf
+	Complex(kind=cp),    dimension(3,12,48,4), intent(out) :: output_value
+	output_value = obj_var%basf
+	end subroutine get_magsymm_k_basf
 	
 	subroutine set_magsymm_k_basf(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2782,11 +2781,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%basf = new_value
 	end subroutine set_magsymm_k_basf
 	
-	function get_magsymm_k_Parent_spg(obj_var)
+	subroutine get_magsymm_k_Parent_spg(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=20) :: get_magsymm_k_Parent_spg
-	get_magsymm_k_Parent_spg = obj_var%Parent_spg
-	end function get_magsymm_k_Parent_spg
+	Character(len=20), intent(out) :: output_value
+	output_value = obj_var%Parent_spg
+	end subroutine get_magsymm_k_Parent_spg
 	
 	subroutine set_magsymm_k_Parent_spg(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2794,11 +2793,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Parent_spg = new_value
 	end subroutine set_magsymm_k_Parent_spg
 	
-	function get_magsymm_k_OG_symbol(obj_var)
+	subroutine get_magsymm_k_OG_symbol(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=34) :: get_magsymm_k_OG_symbol
-	get_magsymm_k_OG_symbol = obj_var%OG_symbol
-	end function get_magsymm_k_OG_symbol
+	Character(len=34), intent(out) :: output_value
+	output_value = obj_var%OG_symbol
+	end subroutine get_magsymm_k_OG_symbol
 	
 	subroutine set_magsymm_k_OG_symbol(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2806,11 +2805,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%OG_symbol = new_value
 	end subroutine set_magsymm_k_OG_symbol
 	
-	function get_magsymm_k_SymOp(obj_var)
+	subroutine get_magsymm_k_SymOp(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	type(Sym_Oper_Type), dimension(:),   allocatable :: get_magsymm_k_SymOp
-	get_magsymm_k_SymOp = obj_var%SymOp
-	end function get_magsymm_k_SymOp
+	type(Sym_Oper_Type), dimension(:),   allocatable, intent(out) :: output_value
+	output_value = obj_var%SymOp
+	end subroutine get_magsymm_k_SymOp
 	
 	subroutine set_magsymm_k_SymOp(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2818,11 +2817,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SymOp = new_value
 	end subroutine set_magsymm_k_SymOp
 	
-	function get_magsymm_k_irrep_id(obj_var)
+	subroutine get_magsymm_k_irrep_id(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	Character(len=15),   dimension(4) :: get_magsymm_k_irrep_id
-	get_magsymm_k_irrep_id = obj_var%irrep_id
-	end function get_magsymm_k_irrep_id
+	Character(len=15),   dimension(4), intent(out) :: output_value
+	output_value = obj_var%irrep_id
+	end subroutine get_magsymm_k_irrep_id
 	
 	subroutine set_magsymm_k_irrep_id(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2830,11 +2829,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%irrep_id = new_value
 	end subroutine set_magsymm_k_irrep_id
 	
-	function get_magsymm_k_nbas(obj_var)
+	subroutine get_magsymm_k_nbas(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	integer,             dimension(4) :: get_magsymm_k_nbas
-	get_magsymm_k_nbas = obj_var%nbas
-	end function get_magsymm_k_nbas
+	integer,             dimension(4), intent(out) :: output_value
+	output_value = obj_var%nbas
+	end subroutine get_magsymm_k_nbas
 	
 	subroutine set_magsymm_k_nbas(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2842,11 +2841,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%nbas = new_value
 	end subroutine set_magsymm_k_nbas
 	
-	function get_magsymm_k_icomp(obj_var)
+	subroutine get_magsymm_k_icomp(obj_var, output_value)
 	type (MagSymm_k_Type) :: obj_var
-	integer,             dimension(12,4) :: get_magsymm_k_icomp
-	get_magsymm_k_icomp = obj_var%icomp
-	end function get_magsymm_k_icomp
+	integer,             dimension(12,4), intent(out) :: output_value
+	output_value = obj_var%icomp
+	end subroutine get_magsymm_k_icomp
 	
 	subroutine set_magsymm_k_icomp(obj_var, new_value)
 	type (MagSymm_k_Type) :: obj_var
@@ -2947,11 +2946,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Chir = new_value
 	end subroutine set_magnetic_domain_Chir
 	
-	function get_magnetic_domain_pop_std(obj_var)
+	subroutine get_magnetic_domain_pop_std(obj_var, output_value)
 	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (2,24) :: get_magnetic_domain_pop_std
-	get_magnetic_domain_pop_std = obj_var%pop_std
-	end function get_magnetic_domain_pop_std
+	real(kind=cp), dimension (2,24), intent(out) :: output_value
+	output_value = obj_var%pop_std
+	end subroutine get_magnetic_domain_pop_std
 	
 	subroutine set_magnetic_domain_pop_std(obj_var, new_value)
 	type (Magnetic_Domain_type) :: obj_var
@@ -2959,11 +2958,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%pop_std = new_value
 	end subroutine set_magnetic_domain_pop_std
 	
-	function get_magnetic_domain_Mpop(obj_var)
+	subroutine get_magnetic_domain_Mpop(obj_var, output_value)
 	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (2,24) :: get_magnetic_domain_Mpop
-	get_magnetic_domain_Mpop = obj_var%Mpop
-	end function get_magnetic_domain_Mpop
+	real(kind=cp), dimension (2,24), intent(out) :: output_value
+	output_value = obj_var%Mpop
+	end subroutine get_magnetic_domain_Mpop
 	
 	subroutine set_magnetic_domain_Mpop(obj_var, new_value)
 	type (Magnetic_Domain_type) :: obj_var
@@ -2983,11 +2982,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%nd = new_value
 	end subroutine set_magnetic_domain_nd
 	
-	function get_magnetic_domain_Lpop(obj_var)
+	subroutine get_magnetic_domain_Lpop(obj_var, output_value)
 	type (Magnetic_Domain_type) :: obj_var
-	integer      , dimension (2,24) :: get_magnetic_domain_Lpop
-	get_magnetic_domain_Lpop = obj_var%Lpop
-	end function get_magnetic_domain_Lpop
+	integer      , dimension (2,24), intent(out) :: output_value
+	output_value = obj_var%Lpop
+	end subroutine get_magnetic_domain_Lpop
 	
 	subroutine set_magnetic_domain_Lpop(obj_var, new_value)
 	type (Magnetic_Domain_type) :: obj_var
@@ -2995,11 +2994,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Lpop = new_value
 	end subroutine set_magnetic_domain_Lpop
 	
-	function get_magnetic_domain_pop(obj_var)
+	subroutine get_magnetic_domain_pop(obj_var, output_value)
 	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (2,24) :: get_magnetic_domain_pop
-	get_magnetic_domain_pop = obj_var%pop
-	end function get_magnetic_domain_pop
+	real(kind=cp), dimension (2,24), intent(out) :: output_value
+	output_value = obj_var%pop
+	end subroutine get_magnetic_domain_pop
 	
 	subroutine set_magnetic_domain_pop(obj_var, new_value)
 	type (Magnetic_Domain_type) :: obj_var
@@ -3019,11 +3018,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Twin = new_value
 	end subroutine set_magnetic_domain_Twin
 	
-	function get_magnetic_domain_Lab(obj_var)
+	subroutine get_magnetic_domain_Lab(obj_var, output_value)
 	type (Magnetic_Domain_type) :: obj_var
-	character(len=10),dimension (2,24) :: get_magnetic_domain_Lab
-	get_magnetic_domain_Lab = obj_var%Lab
-	end function get_magnetic_domain_Lab
+	character(len=10),dimension (2,24), intent(out) :: output_value
+	output_value = obj_var%Lab
+	end subroutine get_magnetic_domain_Lab
 	
 	subroutine set_magnetic_domain_Lab(obj_var, new_value)
 	type (Magnetic_Domain_type) :: obj_var
@@ -3031,11 +3030,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Lab = new_value
 	end subroutine set_magnetic_domain_Lab
 	
-	function get_magnetic_domain_DMat(obj_var)
+	subroutine get_magnetic_domain_DMat(obj_var, output_value)
 	type (Magnetic_Domain_type) :: obj_var
-	integer,dimension(3,3,24) :: get_magnetic_domain_DMat
-	get_magnetic_domain_DMat = obj_var%DMat
-	end function get_magnetic_domain_DMat
+	integer,dimension(3,3,24), intent(out) :: output_value
+	output_value = obj_var%DMat
+	end subroutine get_magnetic_domain_DMat
 	
 	subroutine set_magnetic_domain_DMat(obj_var, new_value)
 	type (Magnetic_Domain_type) :: obj_var
@@ -3043,11 +3042,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%DMat = new_value
 	end subroutine set_magnetic_domain_DMat
 	
-	function get_magnetic_domain_Dt(obj_var)
+	subroutine get_magnetic_domain_Dt(obj_var, output_value)
 	type (Magnetic_Domain_type) :: obj_var
-	real(kind=cp), dimension (3,24) :: get_magnetic_domain_Dt
-	get_magnetic_domain_Dt = obj_var%Dt
-	end function get_magnetic_domain_Dt
+	real(kind=cp), dimension (3,24), intent(out) :: output_value
+	output_value = obj_var%Dt
+	end subroutine get_magnetic_domain_Dt
 	
 	subroutine set_magnetic_domain_Dt(obj_var, new_value)
 	type (Magnetic_Domain_type) :: obj_var
@@ -3092,11 +3091,11 @@ END SUBROUTINE read_mag_mcif_file
 	Magnetic_Domain_type_param%Dt = Dt_param
 	Magnetic_Domain_type_param%trans = trans_param
 	end subroutine Magnetic_Domain_type_ctor
-	function get_magnetic_group_tinv(obj_var)
+	subroutine get_magnetic_group_tinv(obj_var, output_value)
 	type (Magnetic_Group_Type) :: obj_var
-	integer, dimension(192) :: get_magnetic_group_tinv
-	get_magnetic_group_tinv = obj_var%tinv
-	end function get_magnetic_group_tinv
+	integer, dimension(192), intent(out) :: output_value
+	output_value = obj_var%tinv
+	end subroutine get_magnetic_group_tinv
 	
 	subroutine set_magnetic_group_tinv(obj_var, new_value)
 	type (Magnetic_Group_Type) :: obj_var
@@ -3104,11 +3103,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%tinv = new_value
 	end subroutine set_magnetic_group_tinv
 	
-	function get_magnetic_group_Shubnikov(obj_var)
+	subroutine get_magnetic_group_Shubnikov(obj_var, output_value)
 	type (Magnetic_Group_Type) :: obj_var
-	Character(len=30) :: get_magnetic_group_Shubnikov
-	get_magnetic_group_Shubnikov = obj_var%Shubnikov
-	end function get_magnetic_group_Shubnikov
+	Character(len=30), intent(out) :: output_value
+	output_value = obj_var%Shubnikov
+	end subroutine get_magnetic_group_Shubnikov
 	
 	subroutine set_magnetic_group_Shubnikov(obj_var, new_value)
 	type (Magnetic_Group_Type) :: obj_var
@@ -3116,11 +3115,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Shubnikov = new_value
 	end subroutine set_magnetic_group_Shubnikov
 	
-	function get_magnetic_group_SpG(obj_var)
+	subroutine get_magnetic_group_SpG(obj_var, output_value)
 	type (Magnetic_Group_Type) :: obj_var
-	type(Space_Group_Type) :: get_magnetic_group_SpG
-	get_magnetic_group_SpG = obj_var%SpG
-	end function get_magnetic_group_SpG
+	type(Space_Group_Type), intent(out) :: output_value
+	output_value = obj_var%SpG
+	end subroutine get_magnetic_group_SpG
 	
 	subroutine set_magnetic_group_SpG(obj_var, new_value)
 	type (Magnetic_Group_Type) :: obj_var
@@ -3149,11 +3148,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%m_constr = new_value
 	end subroutine set_magnetic_space_group_m_constr
 	
-	function get_magnetic_space_group_Centre_coord(obj_var)
+	subroutine get_magnetic_space_group_Centre_coord(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_magnetic_space_group_Centre_coord
-	get_magnetic_space_group_Centre_coord = obj_var%Centre_coord
-	end function get_magnetic_space_group_Centre_coord
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%Centre_coord
+	end subroutine get_magnetic_space_group_Centre_coord
 	
 	subroutine set_magnetic_space_group_Centre_coord(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3161,11 +3160,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Centre_coord = new_value
 	end subroutine set_magnetic_space_group_Centre_coord
 	
-	function get_magnetic_space_group_aLatt_trans(obj_var)
+	subroutine get_magnetic_space_group_aLatt_trans(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:) :: get_magnetic_space_group_aLatt_trans
-	get_magnetic_space_group_aLatt_trans = obj_var%aLatt_trans
-	end function get_magnetic_space_group_aLatt_trans
+	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	output_value = obj_var%aLatt_trans
+	end subroutine get_magnetic_space_group_aLatt_trans
 	
 	subroutine set_magnetic_space_group_aLatt_trans(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3173,11 +3172,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%aLatt_trans = new_value
 	end subroutine set_magnetic_space_group_aLatt_trans
 	
-	function get_magnetic_space_group_MSymopSymb(obj_var)
+	subroutine get_magnetic_space_group_MSymopSymb(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=40),   dimension(:),allocatable :: get_magnetic_space_group_MSymopSymb
-	get_magnetic_space_group_MSymopSymb = obj_var%MSymopSymb
-	end function get_magnetic_space_group_MSymopSymb
+	character(len=40),   dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%MSymopSymb
+	end subroutine get_magnetic_space_group_MSymopSymb
 	
 	subroutine set_magnetic_space_group_MSymopSymb(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3197,11 +3196,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%n_wyck = new_value
 	end subroutine set_magnetic_space_group_n_wyck
 	
-	function get_magnetic_space_group_BNS_symbol(obj_var)
+	subroutine get_magnetic_space_group_BNS_symbol(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=34) :: get_magnetic_space_group_BNS_symbol
-	get_magnetic_space_group_BNS_symbol = obj_var%BNS_symbol
-	end function get_magnetic_space_group_BNS_symbol
+	Character(len=34), intent(out) :: output_value
+	output_value = obj_var%BNS_symbol
+	end subroutine get_magnetic_space_group_BNS_symbol
 	
 	subroutine set_magnetic_space_group_BNS_symbol(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3209,11 +3208,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%BNS_symbol = new_value
 	end subroutine set_magnetic_space_group_BNS_symbol
 	
-	function get_magnetic_space_group_BNS_number(obj_var)
+	subroutine get_magnetic_space_group_BNS_number(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=15) :: get_magnetic_space_group_BNS_number
-	get_magnetic_space_group_BNS_number = obj_var%BNS_number
-	end function get_magnetic_space_group_BNS_number
+	character(len=15), intent(out) :: output_value
+	output_value = obj_var%BNS_number
+	end subroutine get_magnetic_space_group_BNS_number
 	
 	subroutine set_magnetic_space_group_BNS_number(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3221,11 +3220,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%BNS_number = new_value
 	end subroutine set_magnetic_space_group_BNS_number
 	
-	function get_magnetic_space_group_Latt_trans(obj_var)
+	subroutine get_magnetic_space_group_Latt_trans(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:) :: get_magnetic_space_group_Latt_trans
-	get_magnetic_space_group_Latt_trans = obj_var%Latt_trans
-	end function get_magnetic_space_group_Latt_trans
+	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	output_value = obj_var%Latt_trans
+	end subroutine get_magnetic_space_group_Latt_trans
 	
 	subroutine set_magnetic_space_group_Latt_trans(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3245,11 +3244,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Sh_number = new_value
 	end subroutine set_magnetic_space_group_Sh_number
 	
-	function get_magnetic_space_group_Wyck_Symb(obj_var)
+	subroutine get_magnetic_space_group_Wyck_Symb(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=40),   dimension(:),allocatable :: get_magnetic_space_group_Wyck_Symb
-	get_magnetic_space_group_Wyck_Symb = obj_var%Wyck_Symb
-	end function get_magnetic_space_group_Wyck_Symb
+	character(len=40),   dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%Wyck_Symb
+	end subroutine get_magnetic_space_group_Wyck_Symb
 	
 	subroutine set_magnetic_space_group_Wyck_Symb(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3257,11 +3256,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Wyck_Symb = new_value
 	end subroutine set_magnetic_space_group_Wyck_Symb
 	
-	function get_magnetic_space_group_CrystalSys(obj_var)
+	subroutine get_magnetic_space_group_CrystalSys(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=12) :: get_magnetic_space_group_CrystalSys
-	get_magnetic_space_group_CrystalSys = obj_var%CrystalSys
-	end function get_magnetic_space_group_CrystalSys
+	character(len=12), intent(out) :: output_value
+	output_value = obj_var%CrystalSys
+	end subroutine get_magnetic_space_group_CrystalSys
 	
 	subroutine set_magnetic_space_group_CrystalSys(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3281,11 +3280,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%m_cell = new_value
 	end subroutine set_magnetic_space_group_m_cell
 	
-	function get_magnetic_space_group_irrep_id(obj_var)
+	subroutine get_magnetic_space_group_irrep_id(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=15),   dimension(:),allocatable :: get_magnetic_space_group_irrep_id
-	get_magnetic_space_group_irrep_id = obj_var%irrep_id
-	end function get_magnetic_space_group_irrep_id
+	Character(len=15),   dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%irrep_id
+	end subroutine get_magnetic_space_group_irrep_id
 	
 	subroutine set_magnetic_space_group_irrep_id(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3293,11 +3292,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%irrep_id = new_value
 	end subroutine set_magnetic_space_group_irrep_id
 	
-	function get_magnetic_space_group_MSymOp(obj_var)
+	subroutine get_magnetic_space_group_MSymOp(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	type(MSym_Oper_Type),dimension(:),allocatable :: get_magnetic_space_group_MSymOp
-	get_magnetic_space_group_MSymOp = obj_var%MSymOp
-	end function get_magnetic_space_group_MSymOp
+	type(MSym_Oper_Type),dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%MSymOp
+	end subroutine get_magnetic_space_group_MSymOp
 	
 	subroutine set_magnetic_space_group_MSymOp(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3329,11 +3328,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Num_aLat = new_value
 	end subroutine set_magnetic_space_group_Num_aLat
 	
-	function get_magnetic_space_group_small_irrep_dim(obj_var)
+	subroutine get_magnetic_space_group_small_irrep_dim(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer,             dimension(:),allocatable :: get_magnetic_space_group_small_irrep_dim
-	get_magnetic_space_group_small_irrep_dim = obj_var%small_irrep_dim
-	end function get_magnetic_space_group_small_irrep_dim
+	Integer,             dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%small_irrep_dim
+	end subroutine get_magnetic_space_group_small_irrep_dim
 	
 	subroutine set_magnetic_space_group_small_irrep_dim(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3353,11 +3352,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Centred = new_value
 	end subroutine set_magnetic_space_group_Centred
 	
-	function get_magnetic_space_group_SPG_lat(obj_var)
+	subroutine get_magnetic_space_group_SPG_lat(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len= 1) :: get_magnetic_space_group_SPG_lat
-	get_magnetic_space_group_SPG_lat = obj_var%SPG_lat
-	end function get_magnetic_space_group_SPG_lat
+	character(len= 1), intent(out) :: output_value
+	output_value = obj_var%SPG_lat
+	end subroutine get_magnetic_space_group_SPG_lat
 	
 	subroutine set_magnetic_space_group_SPG_lat(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3365,11 +3364,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SPG_lat = new_value
 	end subroutine set_magnetic_space_group_SPG_lat
 	
-	function get_magnetic_space_group_SymopSymb(obj_var)
+	subroutine get_magnetic_space_group_SymopSymb(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=40),   dimension(:),allocatable :: get_magnetic_space_group_SymopSymb
-	get_magnetic_space_group_SymopSymb = obj_var%SymopSymb
-	end function get_magnetic_space_group_SymopSymb
+	character(len=40),   dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%SymopSymb
+	end subroutine get_magnetic_space_group_SymopSymb
 	
 	subroutine set_magnetic_space_group_SymopSymb(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3389,11 +3388,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Parent_num = new_value
 	end subroutine set_magnetic_space_group_Parent_num
 	
-	function get_magnetic_space_group_kv_label(obj_var)
+	subroutine get_magnetic_space_group_kv_label(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=15),   dimension(:),allocatable :: get_magnetic_space_group_kv_label
-	get_magnetic_space_group_kv_label = obj_var%kv_label
-	end function get_magnetic_space_group_kv_label
+	Character(len=15),   dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%kv_label
+	end subroutine get_magnetic_space_group_kv_label
 	
 	subroutine set_magnetic_space_group_kv_label(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3413,11 +3412,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%MagType = new_value
 	end subroutine set_magnetic_space_group_MagType
 	
-	function get_magnetic_space_group_irrep_action(obj_var)
+	subroutine get_magnetic_space_group_irrep_action(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=20),   dimension(:),allocatable :: get_magnetic_space_group_irrep_action
-	get_magnetic_space_group_irrep_action = obj_var%irrep_action
-	end function get_magnetic_space_group_irrep_action
+	Character(len=20),   dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%irrep_action
+	end subroutine get_magnetic_space_group_irrep_action
 	
 	subroutine set_magnetic_space_group_irrep_action(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3437,11 +3436,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%n_kv = new_value
 	end subroutine set_magnetic_space_group_n_kv
 	
-	function get_magnetic_space_group_OG_number(obj_var)
+	subroutine get_magnetic_space_group_OG_number(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=15) :: get_magnetic_space_group_OG_number
-	get_magnetic_space_group_OG_number = obj_var%OG_number
-	end function get_magnetic_space_group_OG_number
+	character(len=15), intent(out) :: output_value
+	output_value = obj_var%OG_number
+	end subroutine get_magnetic_space_group_OG_number
 	
 	subroutine set_magnetic_space_group_OG_number(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3461,11 +3460,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%n_irreps = new_value
 	end subroutine set_magnetic_space_group_n_irreps
 	
-	function get_magnetic_space_group_SPG_latsy(obj_var)
+	subroutine get_magnetic_space_group_SPG_latsy(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len= 2) :: get_magnetic_space_group_SPG_latsy
-	get_magnetic_space_group_SPG_latsy = obj_var%SPG_latsy
-	end function get_magnetic_space_group_SPG_latsy
+	character(len= 2), intent(out) :: output_value
+	output_value = obj_var%SPG_latsy
+	end subroutine get_magnetic_space_group_SPG_latsy
 	
 	subroutine set_magnetic_space_group_SPG_latsy(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3485,11 +3484,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Num_gen = new_value
 	end subroutine set_magnetic_space_group_Num_gen
 	
-	function get_magnetic_space_group_irrep_direction(obj_var)
+	subroutine get_magnetic_space_group_irrep_direction(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=20),   dimension(:),allocatable :: get_magnetic_space_group_irrep_direction
-	get_magnetic_space_group_irrep_direction = obj_var%irrep_direction
-	end function get_magnetic_space_group_irrep_direction
+	Character(len=20),   dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%irrep_direction
+	end subroutine get_magnetic_space_group_irrep_direction
 	
 	subroutine set_magnetic_space_group_irrep_direction(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3509,11 +3508,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%standard_setting = new_value
 	end subroutine set_magnetic_space_group_standard_setting
 	
-	function get_magnetic_space_group_SymOp(obj_var)
+	subroutine get_magnetic_space_group_SymOp(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	type(Sym_Oper_Type), dimension(:),allocatable :: get_magnetic_space_group_SymOp
-	get_magnetic_space_group_SymOp = obj_var%SymOp
-	end function get_magnetic_space_group_SymOp
+	type(Sym_Oper_Type), dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%SymOp
+	end subroutine get_magnetic_space_group_SymOp
 	
 	subroutine set_magnetic_space_group_SymOp(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3521,11 +3520,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SymOp = new_value
 	end subroutine set_magnetic_space_group_SymOp
 	
-	function get_magnetic_space_group_irrep_dim(obj_var)
+	subroutine get_magnetic_space_group_irrep_dim(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer,             dimension(:),allocatable :: get_magnetic_space_group_irrep_dim
-	get_magnetic_space_group_irrep_dim = obj_var%irrep_dim
-	end function get_magnetic_space_group_irrep_dim
+	Integer,             dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%irrep_dim
+	end subroutine get_magnetic_space_group_irrep_dim
 	
 	subroutine set_magnetic_space_group_irrep_dim(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3533,11 +3532,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%irrep_dim = new_value
 	end subroutine set_magnetic_space_group_irrep_dim
 	
-	function get_magnetic_space_group_Parent_spg(obj_var)
+	subroutine get_magnetic_space_group_Parent_spg(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=20) :: get_magnetic_space_group_Parent_spg
-	get_magnetic_space_group_Parent_spg = obj_var%Parent_spg
-	end function get_magnetic_space_group_Parent_spg
+	Character(len=20), intent(out) :: output_value
+	output_value = obj_var%Parent_spg
+	end subroutine get_magnetic_space_group_Parent_spg
 	
 	subroutine set_magnetic_space_group_Parent_spg(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3545,11 +3544,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Parent_spg = new_value
 	end subroutine set_magnetic_space_group_Parent_spg
 	
-	function get_magnetic_space_group_OG_symbol(obj_var)
+	subroutine get_magnetic_space_group_OG_symbol(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=34) :: get_magnetic_space_group_OG_symbol
-	get_magnetic_space_group_OG_symbol = obj_var%OG_symbol
-	end function get_magnetic_space_group_OG_symbol
+	Character(len=34), intent(out) :: output_value
+	output_value = obj_var%OG_symbol
+	end subroutine get_magnetic_space_group_OG_symbol
 	
 	subroutine set_magnetic_space_group_OG_symbol(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3557,11 +3556,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%OG_symbol = new_value
 	end subroutine set_magnetic_space_group_OG_symbol
 	
-	function get_magnetic_space_group_Centre(obj_var)
+	subroutine get_magnetic_space_group_Centre(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	character(len=80) :: get_magnetic_space_group_Centre
-	get_magnetic_space_group_Centre = obj_var%Centre
-	end function get_magnetic_space_group_Centre
+	character(len=80), intent(out) :: output_value
+	output_value = obj_var%Centre
+	end subroutine get_magnetic_space_group_Centre
 	
 	subroutine set_magnetic_space_group_Centre(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3593,11 +3592,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%NumOps = new_value
 	end subroutine set_magnetic_space_group_NumOps
 	
-	function get_magnetic_space_group_irrep_modes_number(obj_var)
+	subroutine get_magnetic_space_group_irrep_modes_number(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Integer,             dimension(:),allocatable :: get_magnetic_space_group_irrep_modes_number
-	get_magnetic_space_group_irrep_modes_number = obj_var%irrep_modes_number
-	end function get_magnetic_space_group_irrep_modes_number
+	Integer,             dimension(:),allocatable, intent(out) :: output_value
+	output_value = obj_var%irrep_modes_number
+	end subroutine get_magnetic_space_group_irrep_modes_number
 	
 	subroutine set_magnetic_space_group_irrep_modes_number(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3605,11 +3604,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%irrep_modes_number = new_value
 	end subroutine set_magnetic_space_group_irrep_modes_number
 	
-	function get_magnetic_space_group_kv(obj_var)
+	subroutine get_magnetic_space_group_kv(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	real(kind=cp),     dimension(:,:),allocatable :: get_magnetic_space_group_kv
-	get_magnetic_space_group_kv = obj_var%kv
-	end function get_magnetic_space_group_kv
+	real(kind=cp),     dimension(:,:),allocatable, intent(out) :: output_value
+	output_value = obj_var%kv
+	end subroutine get_magnetic_space_group_kv
 	
 	subroutine set_magnetic_space_group_kv(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3617,11 +3616,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%kv = new_value
 	end subroutine set_magnetic_space_group_kv
 	
-	function get_magnetic_space_group_trn_to_standard(obj_var)
+	subroutine get_magnetic_space_group_trn_to_standard(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=40) :: get_magnetic_space_group_trn_to_standard
-	get_magnetic_space_group_trn_to_standard = obj_var%trn_to_standard
-	end function get_magnetic_space_group_trn_to_standard
+	Character(len=40), intent(out) :: output_value
+	output_value = obj_var%trn_to_standard
+	end subroutine get_magnetic_space_group_trn_to_standard
 	
 	subroutine set_magnetic_space_group_trn_to_standard(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3629,11 +3628,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%trn_to_standard = new_value
 	end subroutine set_magnetic_space_group_trn_to_standard
 	
-	function get_magnetic_space_group_trn_from_parent(obj_var)
+	subroutine get_magnetic_space_group_trn_from_parent(obj_var, output_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
-	Character(len=40) :: get_magnetic_space_group_trn_from_parent
-	get_magnetic_space_group_trn_from_parent = obj_var%trn_from_parent
-	end function get_magnetic_space_group_trn_from_parent
+	Character(len=40), intent(out) :: output_value
+	output_value = obj_var%trn_from_parent
+	end subroutine get_magnetic_space_group_trn_from_parent
 	
 	subroutine set_magnetic_space_group_trn_from_parent(obj_var, new_value)
 	type (Magnetic_Space_Group_Type) :: obj_var
@@ -3754,11 +3753,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Nref = new_value
 	end subroutine set_maghd_list_Nref
 	
-	function get_maghd_list_Mh(obj_var)
+	subroutine get_maghd_list_Mh(obj_var, output_value)
 	type (MagHD_List_Type) :: obj_var
-	Type(MagHD_Type),allocatable, dimension(:) :: get_maghd_list_Mh
-	get_maghd_list_Mh = obj_var%Mh
-	end function get_maghd_list_Mh
+	Type(MagHD_Type),allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%Mh
+	end subroutine get_maghd_list_Mh
 	
 	subroutine set_maghd_list_Mh(obj_var, new_value)
 	type (MagHD_List_Type) :: obj_var
@@ -3797,11 +3796,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%num_k = new_value
 	end subroutine set_maghd_num_k
 	
-	function get_maghd_H(obj_var)
+	subroutine get_maghd_H(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	real(kind=cp),   dimension(3) :: get_maghd_H
-	get_maghd_H = obj_var%H
-	end function get_maghd_H
+	real(kind=cp),   dimension(3), intent(out) :: output_value
+	output_value = obj_var%H
+	end subroutine get_maghd_H
 	
 	subroutine set_maghd_H(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -3833,11 +3832,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%s = new_value
 	end subroutine set_maghd_s
 	
-	function get_maghd_MiVC(obj_var)
+	subroutine get_maghd_MiVC(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: get_maghd_MiVC
-	get_maghd_MiVC = obj_var%MiVC
-	end function get_maghd_MiVC
+	complex(kind=cp),dimension(3,2,24), intent(out) :: output_value
+	output_value = obj_var%MiVC
+	end subroutine get_maghd_MiVC
 	
 	subroutine set_maghd_MiVC(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -3857,11 +3856,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%signp = new_value
 	end subroutine set_maghd_signp
 	
-	function get_maghd_MsF(obj_var)
+	subroutine get_maghd_MsF(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: get_maghd_MsF
-	get_maghd_MsF = obj_var%MsF
-	end function get_maghd_MsF
+	complex(kind=cp),dimension(3,2,24), intent(out) :: output_value
+	output_value = obj_var%MsF
+	end subroutine get_maghd_MsF
 	
 	subroutine set_maghd_MsF(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -3869,11 +3868,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%MsF = new_value
 	end subroutine set_maghd_MsF
 	
-	function get_maghd_AMiV(obj_var)
+	subroutine get_maghd_AMiV(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3) :: get_maghd_AMiV
-	get_maghd_AMiV = obj_var%AMiV
-	end function get_maghd_AMiV
+	complex(kind=cp),dimension(3), intent(out) :: output_value
+	output_value = obj_var%AMiV
+	end subroutine get_maghd_AMiV
 	
 	subroutine set_maghd_AMiV(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -3893,11 +3892,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%keqv_minus = new_value
 	end subroutine set_maghd_keqv_minus
 	
-	function get_maghd_MiV(obj_var)
+	subroutine get_maghd_MiV(obj_var, output_value)
 	type (MagHD_Type) :: obj_var
-	complex(kind=cp),dimension(3,2,24) :: get_maghd_MiV
-	get_maghd_MiV = obj_var%MiV
-	end function get_maghd_MiV
+	complex(kind=cp),dimension(3,2,24), intent(out) :: output_value
+	output_value = obj_var%MiV
+	end subroutine get_maghd_MiV
 	
 	subroutine set_maghd_MiV(obj_var, new_value)
 	type (MagHD_Type) :: obj_var
@@ -3942,11 +3941,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Nref = new_value
 	end subroutine set_magh_list_Nref
 	
-	function get_magh_list_Mh(obj_var)
+	subroutine get_magh_list_Mh(obj_var, output_value)
 	type (MagH_List_Type) :: obj_var
-	Type(MagH_Type),allocatable, dimension(:) :: get_magh_list_Mh
-	get_magh_list_Mh = obj_var%Mh
-	end function get_magh_list_Mh
+	Type(MagH_Type),allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%Mh
+	end subroutine get_magh_list_Mh
 	
 	subroutine set_magh_list_Mh(obj_var, new_value)
 	type (MagH_List_Type) :: obj_var
@@ -3973,11 +3972,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%num_k = new_value
 	end subroutine set_magh_num_k
 	
-	function get_magh_H(obj_var)
+	subroutine get_magh_H(obj_var, output_value)
 	type (MagH_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_magh_H
-	get_magh_H = obj_var%H
-	end function get_magh_H
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%H
+	end subroutine get_magh_H
 	
 	subroutine set_magh_H(obj_var, new_value)
 	type (MagH_Type) :: obj_var
@@ -4009,11 +4008,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%s = new_value
 	end subroutine set_magh_s
 	
-	function get_magh_MiVC(obj_var)
+	subroutine get_magh_MiVC(obj_var, output_value)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: get_magh_MiVC
-	get_magh_MiVC = obj_var%MiVC
-	end function get_magh_MiVC
+	complex(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%MiVC
+	end subroutine get_magh_MiVC
 	
 	subroutine set_magh_MiVC(obj_var, new_value)
 	type (MagH_Type) :: obj_var
@@ -4045,11 +4044,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%keqv_minus = new_value
 	end subroutine set_magh_keqv_minus
 	
-	function get_magh_MsF(obj_var)
+	subroutine get_magh_MsF(obj_var, output_value)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: get_magh_MsF
-	get_magh_MsF = obj_var%MsF
-	end function get_magh_MsF
+	complex(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%MsF
+	end subroutine get_magh_MsF
 	
 	subroutine set_magh_MsF(obj_var, new_value)
 	type (MagH_Type) :: obj_var
@@ -4069,11 +4068,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%mult = new_value
 	end subroutine set_magh_mult
 	
-	function get_magh_MiV(obj_var)
+	subroutine get_magh_MiV(obj_var, output_value)
 	type (MagH_Type) :: obj_var
-	complex(kind=cp), dimension(3) :: get_magh_MiV
-	get_magh_MiV = obj_var%MiV
-	end function get_magh_MiV
+	complex(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%MiV
+	end subroutine get_magh_MiV
 	
 	subroutine set_magh_MiV(obj_var, new_value)
 	type (MagH_Type) :: obj_var
@@ -4104,11 +4103,11 @@ END SUBROUTINE read_mag_mcif_file
 	MagH_Type_param%mult = mult_param
 	MagH_Type_param%MiV = MiV_param
 	end subroutine MagH_Type_ctor
-	function get_reflect_H(obj_var)
+	subroutine get_reflect_H(obj_var, output_value)
 	type (Reflect_Type) :: obj_var
-	integer,dimension(3) :: get_reflect_H
-	get_reflect_H = obj_var%H
-	end function get_reflect_H
+	integer,dimension(3), intent(out) :: output_value
+	output_value = obj_var%H
+	end subroutine get_reflect_H
 	
 	subroutine set_reflect_H(obj_var, new_value)
 	type (Reflect_Type) :: obj_var
@@ -4149,11 +4148,11 @@ END SUBROUTINE read_mag_mcif_file
 	Reflect_Type_param%S = S_param
 	Reflect_Type_param%Mult = Mult_param
 	end subroutine Reflect_Type_ctor
-	function get_reflection_list_Ref(obj_var)
+	subroutine get_reflection_list_Ref(obj_var, output_value)
 	type (Reflection_List_Type) :: obj_var
-	type(reflection_type),allocatable, dimension(:) :: get_reflection_list_Ref
-	get_reflection_list_Ref = obj_var%Ref
-	end function get_reflection_list_Ref
+	type(reflection_type),allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%Ref
+	end subroutine get_reflection_list_Ref
 	
 	subroutine set_reflection_list_Ref(obj_var, new_value)
 	type (Reflection_List_Type) :: obj_var
@@ -4228,11 +4227,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%BB = new_value
 	end subroutine set_reflection_BB
 	
-	function get_reflection_H(obj_var)
+	subroutine get_reflection_H(obj_var, output_value)
 	type (Reflection_Type) :: obj_var
-	integer,dimension(3) :: get_reflection_H
-	get_reflection_H = obj_var%H
-	end function get_reflection_H
+	integer,dimension(3), intent(out) :: output_value
+	output_value = obj_var%H
+	end subroutine get_reflection_H
 	
 	subroutine set_reflection_H(obj_var, new_value)
 	type (Reflection_Type) :: obj_var
@@ -4363,11 +4362,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Centred = new_value
 	end subroutine set_ns_space_group_Centred
 	
-	function get_ns_space_group_SymopSymb(obj_var)
+	subroutine get_ns_space_group_SymopSymb(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=50),      allocatable,dimension(:) :: get_ns_space_group_SymopSymb
-	get_ns_space_group_SymopSymb = obj_var%SymopSymb
-	end function get_ns_space_group_SymopSymb
+	character(len=50),      allocatable,dimension(:), intent(out) :: output_value
+	output_value = obj_var%SymopSymb
+	end subroutine get_ns_space_group_SymopSymb
 	
 	subroutine set_ns_space_group_SymopSymb(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4387,11 +4386,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%NumSpg = new_value
 	end subroutine set_ns_space_group_NumSpg
 	
-	function get_ns_space_group_Latt_trans(obj_var)
+	subroutine get_ns_space_group_Latt_trans(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:) :: get_ns_space_group_Latt_trans
-	get_ns_space_group_Latt_trans = obj_var%Latt_trans
-	end function get_ns_space_group_Latt_trans
+	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	output_value = obj_var%Latt_trans
+	end subroutine get_ns_space_group_Latt_trans
 	
 	subroutine set_ns_space_group_Latt_trans(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4399,11 +4398,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Latt_trans = new_value
 	end subroutine set_ns_space_group_Latt_trans
 	
-	function get_ns_space_group_CrystalSys(obj_var)
+	subroutine get_ns_space_group_CrystalSys(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=12) :: get_ns_space_group_CrystalSys
-	get_ns_space_group_CrystalSys = obj_var%CrystalSys
-	end function get_ns_space_group_CrystalSys
+	character(len=12), intent(out) :: output_value
+	output_value = obj_var%CrystalSys
+	end subroutine get_ns_space_group_CrystalSys
 	
 	subroutine set_ns_space_group_CrystalSys(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4423,11 +4422,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%NumLat = new_value
 	end subroutine set_ns_space_group_NumLat
 	
-	function get_ns_space_group_PG(obj_var)
+	subroutine get_ns_space_group_PG(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len= 5) :: get_ns_space_group_PG
-	get_ns_space_group_PG = obj_var%PG
-	end function get_ns_space_group_PG
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%PG
+	end subroutine get_ns_space_group_PG
 	
 	subroutine set_ns_space_group_PG(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4435,11 +4434,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%PG = new_value
 	end subroutine set_ns_space_group_PG
 	
-	function get_ns_space_group_Hall(obj_var)
+	subroutine get_ns_space_group_Hall(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=16) :: get_ns_space_group_Hall
-	get_ns_space_group_Hall = obj_var%Hall
-	end function get_ns_space_group_Hall
+	character(len=16), intent(out) :: output_value
+	output_value = obj_var%Hall
+	end subroutine get_ns_space_group_Hall
 	
 	subroutine set_ns_space_group_Hall(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4447,11 +4446,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Hall = new_value
 	end subroutine set_ns_space_group_Hall
 	
-	function get_ns_space_group_Info(obj_var)
+	subroutine get_ns_space_group_Info(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len= 5) :: get_ns_space_group_Info
-	get_ns_space_group_Info = obj_var%Info
-	end function get_ns_space_group_Info
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%Info
+	end subroutine get_ns_space_group_Info
 	
 	subroutine set_ns_space_group_Info(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4459,11 +4458,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Info = new_value
 	end subroutine set_ns_space_group_Info
 	
-	function get_ns_space_group_SPG_lat(obj_var)
+	subroutine get_ns_space_group_SPG_lat(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len= 1) :: get_ns_space_group_SPG_lat
-	get_ns_space_group_SPG_lat = obj_var%SPG_lat
-	end function get_ns_space_group_SPG_lat
+	character(len= 1), intent(out) :: output_value
+	output_value = obj_var%SPG_lat
+	end subroutine get_ns_space_group_SPG_lat
 	
 	subroutine set_ns_space_group_SPG_lat(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4471,11 +4470,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SPG_lat = new_value
 	end subroutine set_ns_space_group_SPG_lat
 	
-	function get_ns_space_group_Laue(obj_var)
+	subroutine get_ns_space_group_Laue(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len= 5) :: get_ns_space_group_Laue
-	get_ns_space_group_Laue = obj_var%Laue
-	end function get_ns_space_group_Laue
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%Laue
+	end subroutine get_ns_space_group_Laue
 	
 	subroutine set_ns_space_group_Laue(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4483,11 +4482,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Laue = new_value
 	end subroutine set_ns_space_group_Laue
 	
-	function get_ns_space_group_SPG_latsy(obj_var)
+	subroutine get_ns_space_group_SPG_latsy(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len= 2) :: get_ns_space_group_SPG_latsy
-	get_ns_space_group_SPG_latsy = obj_var%SPG_latsy
-	end function get_ns_space_group_SPG_latsy
+	character(len= 2), intent(out) :: output_value
+	output_value = obj_var%SPG_latsy
+	end subroutine get_ns_space_group_SPG_latsy
 	
 	subroutine set_ns_space_group_SPG_latsy(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4507,11 +4506,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Num_gen = new_value
 	end subroutine set_ns_space_group_Num_gen
 	
-	function get_ns_space_group_Bravais(obj_var)
+	subroutine get_ns_space_group_Bravais(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=51) :: get_ns_space_group_Bravais
-	get_ns_space_group_Bravais = obj_var%Bravais
-	end function get_ns_space_group_Bravais
+	character(len=51), intent(out) :: output_value
+	output_value = obj_var%Bravais
+	end subroutine get_ns_space_group_Bravais
 	
 	subroutine set_ns_space_group_Bravais(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4519,11 +4518,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Bravais = new_value
 	end subroutine set_ns_space_group_Bravais
 	
-	function get_ns_space_group_SG_setting(obj_var)
+	subroutine get_ns_space_group_SG_setting(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=90) :: get_ns_space_group_SG_setting
-	get_ns_space_group_SG_setting = obj_var%SG_setting
-	end function get_ns_space_group_SG_setting
+	character(len=90), intent(out) :: output_value
+	output_value = obj_var%SG_setting
+	end subroutine get_ns_space_group_SG_setting
 	
 	subroutine set_ns_space_group_SG_setting(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4531,11 +4530,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SG_setting = new_value
 	end subroutine set_ns_space_group_SG_setting
 	
-	function get_ns_space_group_gHall(obj_var)
+	subroutine get_ns_space_group_gHall(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=90) :: get_ns_space_group_gHall
-	get_ns_space_group_gHall = obj_var%gHall
-	end function get_ns_space_group_gHall
+	character(len=90), intent(out) :: output_value
+	output_value = obj_var%gHall
+	end subroutine get_ns_space_group_gHall
 	
 	subroutine set_ns_space_group_gHall(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4543,11 +4542,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%gHall = new_value
 	end subroutine set_ns_space_group_gHall
 	
-	function get_ns_space_group_SPG_Symb(obj_var)
+	subroutine get_ns_space_group_SPG_Symb(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=20) :: get_ns_space_group_SPG_Symb
-	get_ns_space_group_SPG_Symb = obj_var%SPG_Symb
-	end function get_ns_space_group_SPG_Symb
+	character(len=20), intent(out) :: output_value
+	output_value = obj_var%SPG_Symb
+	end subroutine get_ns_space_group_SPG_Symb
 	
 	subroutine set_ns_space_group_SPG_Symb(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4555,11 +4554,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SPG_Symb = new_value
 	end subroutine set_ns_space_group_SPG_Symb
 	
-	function get_ns_space_group_Centre_coord(obj_var)
+	subroutine get_ns_space_group_Centre_coord(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_ns_space_group_Centre_coord
-	get_ns_space_group_Centre_coord = obj_var%Centre_coord
-	end function get_ns_space_group_Centre_coord
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%Centre_coord
+	end subroutine get_ns_space_group_Centre_coord
 	
 	subroutine set_ns_space_group_Centre_coord(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4567,11 +4566,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Centre_coord = new_value
 	end subroutine set_ns_space_group_Centre_coord
 	
-	function get_ns_space_group_SymOp(obj_var)
+	subroutine get_ns_space_group_SymOp(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	type(NS_Sym_Oper_Type), allocatable,dimension(:) :: get_ns_space_group_SymOp
-	get_ns_space_group_SymOp = obj_var%SymOp
-	end function get_ns_space_group_SymOp
+	type(NS_Sym_Oper_Type), allocatable,dimension(:), intent(out) :: output_value
+	output_value = obj_var%SymOp
+	end subroutine get_ns_space_group_SymOp
 	
 	subroutine set_ns_space_group_SymOp(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4579,11 +4578,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SymOp = new_value
 	end subroutine set_ns_space_group_SymOp
 	
-	function get_ns_space_group_Centre(obj_var)
+	subroutine get_ns_space_group_Centre(obj_var, output_value)
 	type (NS_Space_Group_Type) :: obj_var
-	character(len=80) :: get_ns_space_group_Centre
-	get_ns_space_group_Centre = obj_var%Centre
-	end function get_ns_space_group_Centre
+	character(len=80), intent(out) :: output_value
+	output_value = obj_var%Centre
+	end subroutine get_ns_space_group_Centre
 	
 	subroutine set_ns_space_group_Centre(obj_var, new_value)
 	type (NS_Space_Group_Type) :: obj_var
@@ -4662,11 +4661,11 @@ END SUBROUTINE read_mag_mcif_file
 	NS_Space_Group_Type_param%NumOps = NumOps_param
 	NS_Space_Group_Type_param%Multip = Multip_param
 	end subroutine NS_Space_Group_Type_ctor
-	function get_ns_sym_oper_Tr(obj_var)
+	subroutine get_ns_sym_oper_Tr(obj_var, output_value)
 	type (NS_Sym_Oper_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_ns_sym_oper_Tr
-	get_ns_sym_oper_Tr = obj_var%Tr
-	end function get_ns_sym_oper_Tr
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%Tr
+	end subroutine get_ns_sym_oper_Tr
 	
 	subroutine set_ns_sym_oper_Tr(obj_var, new_value)
 	type (NS_Sym_Oper_Type) :: obj_var
@@ -4674,11 +4673,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Tr = new_value
 	end subroutine set_ns_sym_oper_Tr
 	
-	function get_ns_sym_oper_Rot(obj_var)
+	subroutine get_ns_sym_oper_Rot(obj_var, output_value)
 	type (NS_Sym_Oper_Type) :: obj_var
-	real(kind=cp), dimension(3,3) :: get_ns_sym_oper_Rot
-	get_ns_sym_oper_Rot = obj_var%Rot
-	end function get_ns_sym_oper_Rot
+	real(kind=cp), dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%Rot
+	end subroutine get_ns_sym_oper_Rot
 	
 	subroutine set_ns_sym_oper_Rot(obj_var, new_value)
 	type (NS_Sym_Oper_Type) :: obj_var
@@ -4705,11 +4704,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Centred = new_value
 	end subroutine set_space_group_Centred
 	
-	function get_space_group_Centre_coord(obj_var)
+	subroutine get_space_group_Centre_coord(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_space_group_Centre_coord
-	get_space_group_Centre_coord = obj_var%Centre_coord
-	end function get_space_group_Centre_coord
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%Centre_coord
+	end subroutine get_space_group_Centre_coord
 	
 	subroutine set_space_group_Centre_coord(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4717,11 +4716,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Centre_coord = new_value
 	end subroutine set_space_group_Centre_coord
 	
-	function get_space_group_Latt_trans(obj_var)
+	subroutine get_space_group_Latt_trans(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp), allocatable,dimension(:,:) :: get_space_group_Latt_trans
-	get_space_group_Latt_trans = obj_var%Latt_trans
-	end function get_space_group_Latt_trans
+	real(kind=cp), allocatable,dimension(:,:), intent(out) :: output_value
+	output_value = obj_var%Latt_trans
+	end subroutine get_space_group_Latt_trans
 	
 	subroutine set_space_group_Latt_trans(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4753,11 +4752,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%NumSpg = new_value
 	end subroutine set_space_group_NumSpg
 	
-	function get_space_group_SymopSymb(obj_var)
+	subroutine get_space_group_SymopSymb(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=50),   allocatable,dimension(:) :: get_space_group_SymopSymb
-	get_space_group_SymopSymb = obj_var%SymopSymb
-	end function get_space_group_SymopSymb
+	character(len=50),   allocatable,dimension(:), intent(out) :: output_value
+	output_value = obj_var%SymopSymb
+	end subroutine get_space_group_SymopSymb
 	
 	subroutine set_space_group_SymopSymb(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4765,11 +4764,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SymopSymb = new_value
 	end subroutine set_space_group_SymopSymb
 	
-	function get_space_group_CrystalSys(obj_var)
+	subroutine get_space_group_CrystalSys(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=12) :: get_space_group_CrystalSys
-	get_space_group_CrystalSys = obj_var%CrystalSys
-	end function get_space_group_CrystalSys
+	character(len=12), intent(out) :: output_value
+	output_value = obj_var%CrystalSys
+	end subroutine get_space_group_CrystalSys
 	
 	subroutine set_space_group_CrystalSys(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4789,11 +4788,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%NumLat = new_value
 	end subroutine set_space_group_NumLat
 	
-	function get_space_group_PG(obj_var)
+	subroutine get_space_group_PG(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 5) :: get_space_group_PG
-	get_space_group_PG = obj_var%PG
-	end function get_space_group_PG
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%PG
+	end subroutine get_space_group_PG
 	
 	subroutine set_space_group_PG(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4801,11 +4800,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%PG = new_value
 	end subroutine set_space_group_PG
 	
-	function get_space_group_Wyckoff(obj_var)
+	subroutine get_space_group_Wyckoff(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	type(Wyckoff_Type) :: get_space_group_Wyckoff
-	get_space_group_Wyckoff = obj_var%Wyckoff
-	end function get_space_group_Wyckoff
+	type(Wyckoff_Type), intent(out) :: output_value
+	output_value = obj_var%Wyckoff
+	end subroutine get_space_group_Wyckoff
 	
 	subroutine set_space_group_Wyckoff(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4813,11 +4812,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Wyckoff = new_value
 	end subroutine set_space_group_Wyckoff
 	
-	function get_space_group_Hall(obj_var)
+	subroutine get_space_group_Hall(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=16) :: get_space_group_Hall
-	get_space_group_Hall = obj_var%Hall
-	end function get_space_group_Hall
+	character(len=16), intent(out) :: output_value
+	output_value = obj_var%Hall
+	end subroutine get_space_group_Hall
 	
 	subroutine set_space_group_Hall(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4825,11 +4824,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Hall = new_value
 	end subroutine set_space_group_Hall
 	
-	function get_space_group_Info(obj_var)
+	subroutine get_space_group_Info(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 5) :: get_space_group_Info
-	get_space_group_Info = obj_var%Info
-	end function get_space_group_Info
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%Info
+	end subroutine get_space_group_Info
 	
 	subroutine set_space_group_Info(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4837,11 +4836,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Info = new_value
 	end subroutine set_space_group_Info
 	
-	function get_space_group_SPG_lat(obj_var)
+	subroutine get_space_group_SPG_lat(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 1) :: get_space_group_SPG_lat
-	get_space_group_SPG_lat = obj_var%SPG_lat
-	end function get_space_group_SPG_lat
+	character(len= 1), intent(out) :: output_value
+	output_value = obj_var%SPG_lat
+	end subroutine get_space_group_SPG_lat
 	
 	subroutine set_space_group_SPG_lat(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4849,11 +4848,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SPG_lat = new_value
 	end subroutine set_space_group_SPG_lat
 	
-	function get_space_group_Laue(obj_var)
+	subroutine get_space_group_Laue(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 5) :: get_space_group_Laue
-	get_space_group_Laue = obj_var%Laue
-	end function get_space_group_Laue
+	character(len= 5), intent(out) :: output_value
+	output_value = obj_var%Laue
+	end subroutine get_space_group_Laue
 	
 	subroutine set_space_group_Laue(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4861,11 +4860,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Laue = new_value
 	end subroutine set_space_group_Laue
 	
-	function get_space_group_SPG_latsy(obj_var)
+	subroutine get_space_group_SPG_latsy(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len= 2) :: get_space_group_SPG_latsy
-	get_space_group_SPG_latsy = obj_var%SPG_latsy
-	end function get_space_group_SPG_latsy
+	character(len= 2), intent(out) :: output_value
+	output_value = obj_var%SPG_latsy
+	end subroutine get_space_group_SPG_latsy
 	
 	subroutine set_space_group_SPG_latsy(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4885,11 +4884,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Num_gen = new_value
 	end subroutine set_space_group_Num_gen
 	
-	function get_space_group_Bravais(obj_var)
+	subroutine get_space_group_Bravais(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=51) :: get_space_group_Bravais
-	get_space_group_Bravais = obj_var%Bravais
-	end function get_space_group_Bravais
+	character(len=51), intent(out) :: output_value
+	output_value = obj_var%Bravais
+	end subroutine get_space_group_Bravais
 	
 	subroutine set_space_group_Bravais(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4897,11 +4896,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Bravais = new_value
 	end subroutine set_space_group_Bravais
 	
-	function get_space_group_SG_setting(obj_var)
+	subroutine get_space_group_SG_setting(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=90) :: get_space_group_SG_setting
-	get_space_group_SG_setting = obj_var%SG_setting
-	end function get_space_group_SG_setting
+	character(len=90), intent(out) :: output_value
+	output_value = obj_var%SG_setting
+	end subroutine get_space_group_SG_setting
 	
 	subroutine set_space_group_SG_setting(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4909,11 +4908,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SG_setting = new_value
 	end subroutine set_space_group_SG_setting
 	
-	function get_space_group_gHall(obj_var)
+	subroutine get_space_group_gHall(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=90) :: get_space_group_gHall
-	get_space_group_gHall = obj_var%gHall
-	end function get_space_group_gHall
+	character(len=90), intent(out) :: output_value
+	output_value = obj_var%gHall
+	end subroutine get_space_group_gHall
 	
 	subroutine set_space_group_gHall(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4921,11 +4920,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%gHall = new_value
 	end subroutine set_space_group_gHall
 	
-	function get_space_group_SPG_Symb(obj_var)
+	subroutine get_space_group_SPG_Symb(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=20) :: get_space_group_SPG_Symb
-	get_space_group_SPG_Symb = obj_var%SPG_Symb
-	end function get_space_group_SPG_Symb
+	character(len=20), intent(out) :: output_value
+	output_value = obj_var%SPG_Symb
+	end subroutine get_space_group_SPG_Symb
 	
 	subroutine set_space_group_SPG_Symb(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4933,11 +4932,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%SPG_Symb = new_value
 	end subroutine set_space_group_SPG_Symb
 	
-	function get_space_group_Centre(obj_var)
+	subroutine get_space_group_Centre(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	character(len=80) :: get_space_group_Centre
-	get_space_group_Centre = obj_var%Centre
-	end function get_space_group_Centre
+	character(len=80), intent(out) :: output_value
+	output_value = obj_var%Centre
+	end subroutine get_space_group_Centre
 	
 	subroutine set_space_group_Centre(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4945,11 +4944,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Centre = new_value
 	end subroutine set_space_group_Centre
 	
-	function get_space_group_SymOp(obj_var)
+	subroutine get_space_group_SymOp(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	type(Sym_Oper_Type), allocatable,dimension(:) :: get_space_group_SymOp
-	get_space_group_SymOp = obj_var%SymOp
-	end function get_space_group_SymOp
+	type(Sym_Oper_Type), allocatable,dimension(:), intent(out) :: output_value
+	output_value = obj_var%SymOp
+	end subroutine get_space_group_SymOp
 	
 	subroutine set_space_group_SymOp(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -4969,11 +4968,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%NumOps = new_value
 	end subroutine set_space_group_NumOps
 	
-	function get_space_group_R_Asym_Unit(obj_var)
+	subroutine get_space_group_R_Asym_Unit(obj_var, output_value)
 	type (Space_Group_Type) :: obj_var
-	real(kind=cp),dimension(3,2) :: get_space_group_R_Asym_Unit
-	get_space_group_R_Asym_Unit = obj_var%R_Asym_Unit
-	end function get_space_group_R_Asym_Unit
+	real(kind=cp),dimension(3,2), intent(out) :: output_value
+	output_value = obj_var%R_Asym_Unit
+	end subroutine get_space_group_R_Asym_Unit
 	
 	subroutine set_space_group_R_Asym_Unit(obj_var, new_value)
 	type (Space_Group_Type) :: obj_var
@@ -5046,11 +5045,11 @@ END SUBROUTINE read_mag_mcif_file
 	Space_Group_Type_param%R_Asym_Unit = R_Asym_Unit_param
 	Space_Group_Type_param%Multip = Multip_param
 	end subroutine Space_Group_Type_ctor
-	function get_sym_oper_Tr(obj_var)
+	subroutine get_sym_oper_Tr(obj_var, output_value)
 	type (Sym_Oper_Type) :: obj_var
-	real(kind=cp), dimension(3) :: get_sym_oper_Tr
-	get_sym_oper_Tr = obj_var%Tr
-	end function get_sym_oper_Tr
+	real(kind=cp), dimension(3), intent(out) :: output_value
+	output_value = obj_var%Tr
+	end subroutine get_sym_oper_Tr
 	
 	subroutine set_sym_oper_Tr(obj_var, new_value)
 	type (Sym_Oper_Type) :: obj_var
@@ -5058,11 +5057,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%Tr = new_value
 	end subroutine set_sym_oper_Tr
 	
-	function get_sym_oper_Rot(obj_var)
+	subroutine get_sym_oper_Rot(obj_var, output_value)
 	type (Sym_Oper_Type) :: obj_var
-	integer,       dimension(3,3) :: get_sym_oper_Rot
-	get_sym_oper_Rot = obj_var%Rot
-	end function get_sym_oper_Rot
+	integer,       dimension(3,3), intent(out) :: output_value
+	output_value = obj_var%Rot
+	end subroutine get_sym_oper_Rot
 	
 	subroutine set_sym_oper_Rot(obj_var, new_value)
 	type (Sym_Oper_Type) :: obj_var
@@ -5089,11 +5088,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%norb = new_value
 	end subroutine set_wyck_pos_norb
 	
-	function get_wyck_pos_str_orig(obj_var)
+	subroutine get_wyck_pos_str_orig(obj_var, output_value)
 	type (Wyck_Pos_Type) :: obj_var
-	character(len=40) :: get_wyck_pos_str_orig
-	get_wyck_pos_str_orig = obj_var%str_orig
-	end function get_wyck_pos_str_orig
+	character(len=40), intent(out) :: output_value
+	output_value = obj_var%str_orig
+	end subroutine get_wyck_pos_str_orig
 	
 	subroutine set_wyck_pos_str_orig(obj_var, new_value)
 	type (Wyck_Pos_Type) :: obj_var
@@ -5113,11 +5112,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%multp = new_value
 	end subroutine set_wyck_pos_multp
 	
-	function get_wyck_pos_site(obj_var)
+	subroutine get_wyck_pos_site(obj_var, output_value)
 	type (Wyck_Pos_Type) :: obj_var
-	character(len= 6) :: get_wyck_pos_site
-	get_wyck_pos_site = obj_var%site
-	end function get_wyck_pos_site
+	character(len= 6), intent(out) :: output_value
+	output_value = obj_var%site
+	end subroutine get_wyck_pos_site
 	
 	subroutine set_wyck_pos_site(obj_var, new_value)
 	type (Wyck_Pos_Type) :: obj_var
@@ -5125,11 +5124,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%site = new_value
 	end subroutine set_wyck_pos_site
 	
-	function get_wyck_pos_str_orbit(obj_var)
+	subroutine get_wyck_pos_str_orbit(obj_var, output_value)
 	type (Wyck_Pos_Type) :: obj_var
-	character(len=40),dimension(48) :: get_wyck_pos_str_orbit
-	get_wyck_pos_str_orbit = obj_var%str_orbit
-	end function get_wyck_pos_str_orbit
+	character(len=40),dimension(48), intent(out) :: output_value
+	output_value = obj_var%str_orbit
+	end subroutine get_wyck_pos_str_orbit
 	
 	subroutine set_wyck_pos_str_orbit(obj_var, new_value)
 	type (Wyck_Pos_Type) :: obj_var
@@ -5162,11 +5161,11 @@ END SUBROUTINE read_mag_mcif_file
 	obj_var%num_orbit = new_value
 	end subroutine set_wyckoff_num_orbit
 	
-	function get_wyckoff_orbit(obj_var)
+	subroutine get_wyckoff_orbit(obj_var, output_value)
 	type (Wyckoff_Type) :: obj_var
-	type(wyck_pos_type), dimension(26) :: get_wyckoff_orbit
-	get_wyckoff_orbit = obj_var%orbit
-	end function get_wyckoff_orbit
+	type(wyck_pos_type), dimension(26), intent(out) :: output_value
+	output_value = obj_var%orbit
+	end subroutine get_wyckoff_orbit
 	
 	subroutine set_wyckoff_orbit(obj_var, new_value)
 	type (Wyckoff_Type) :: obj_var

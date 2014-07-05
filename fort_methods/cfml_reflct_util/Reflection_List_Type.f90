@@ -1,8 +1,8 @@
-function get_reflection_list_Ref(obj_var)
+subroutine get_reflection_list_Ref(obj_var, output_value)
 	type (Reflection_List_Type) :: obj_var
-	type(reflection_type),allocatable, dimension(:) :: get_reflection_list_Ref
-	get_reflection_list_Ref = obj_var%Ref
-end function get_reflection_list_Ref
+	type(reflection_type),allocatable, dimension(:), intent(out) :: output_value
+	output_value = obj_var%Ref
+end subroutine get_reflection_list_Ref
 
 subroutine set_reflection_list_Ref(obj_var, new_value)
 	type (Reflection_List_Type) :: obj_var
