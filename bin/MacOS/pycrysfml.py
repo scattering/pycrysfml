@@ -69,6 +69,78 @@ except AttributeError:
     _newclass = 0
 
 
+class intp(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, intp, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, intp, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_intp()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_intp
+    __del__ = lambda self : None;
+    def assign(self, *args): return _pycrysfml.intp_assign(self, *args)
+    def value(self): return _pycrysfml.intp_value(self)
+    def cast(self): return _pycrysfml.intp_cast(self)
+    __swig_getmethods__["frompointer"] = lambda x: _pycrysfml.intp_frompointer
+    if _newclass:frompointer = staticmethod(_pycrysfml.intp_frompointer)
+intp_swigregister = _pycrysfml.intp_swigregister
+intp_swigregister(intp)
+
+def intp_frompointer(*args):
+  return _pycrysfml.intp_frompointer(*args)
+intp_frompointer = _pycrysfml.intp_frompointer
+
+class doublep(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, doublep, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, doublep, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_doublep()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_doublep
+    __del__ = lambda self : None;
+    def assign(self, *args): return _pycrysfml.doublep_assign(self, *args)
+    def value(self): return _pycrysfml.doublep_value(self)
+    def cast(self): return _pycrysfml.doublep_cast(self)
+    __swig_getmethods__["frompointer"] = lambda x: _pycrysfml.doublep_frompointer
+    if _newclass:frompointer = staticmethod(_pycrysfml.doublep_frompointer)
+doublep_swigregister = _pycrysfml.doublep_swigregister
+doublep_swigregister(doublep)
+
+def doublep_frompointer(*args):
+  return _pycrysfml.doublep_frompointer(*args)
+doublep_frompointer = _pycrysfml.doublep_frompointer
+
+class floatp(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, floatp, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, floatp, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_floatp()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_floatp
+    __del__ = lambda self : None;
+    def assign(self, *args): return _pycrysfml.floatp_assign(self, *args)
+    def value(self): return _pycrysfml.floatp_value(self)
+    def cast(self): return _pycrysfml.floatp_cast(self)
+    __swig_getmethods__["frompointer"] = lambda x: _pycrysfml.floatp_frompointer
+    if _newclass:frompointer = staticmethod(_pycrysfml.floatp_frompointer)
+floatp_swigregister = _pycrysfml.floatp_swigregister
+floatp_swigregister(floatp)
+
+def floatp_frompointer(*args):
+  return _pycrysfml.floatp_frompointer(*args)
+floatp_frompointer = _pycrysfml.floatp_frompointer
+
 class SwigPyIterator(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, SwigPyIterator, name, value)
@@ -2512,6 +2584,7 @@ class atom_equiv_list_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_atom_equiv_list_type
     __del__ = lambda self : None;
+    def get_atom_equiv_list_element(self, *args): return _pycrysfml.atom_equiv_list_type_get_atom_equiv_list_element(self, *args)
     def get_atom_equiv_list_nauas(self): return _pycrysfml.atom_equiv_list_type_get_atom_equiv_list_nauas(self)
     def set_atom_equiv_list_nauas(self, *args): return _pycrysfml.atom_equiv_list_type_set_atom_equiv_list_nauas(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.atom_equiv_list_type_data_ptr_set
@@ -2554,6 +2627,7 @@ class atom_list_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_atom_list_type
     __del__ = lambda self : None;
+    def get_atom_list_element(self, *args): return _pycrysfml.atom_list_type_get_atom_list_element(self, *args)
     def get_atom_list_natoms(self): return _pycrysfml.atom_list_type_get_atom_list_natoms(self)
     def set_atom_list_natoms(self, *args): return _pycrysfml.atom_list_type_set_atom_list_natoms(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.atom_list_type_data_ptr_set
@@ -3164,6 +3238,7 @@ class magh_list_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_magh_list_type
     __del__ = lambda self : None;
+    def get_magh_list_element(self, *args): return _pycrysfml.magh_list_type_get_magh_list_element(self, *args)
     def get_magh_list_nref(self): return _pycrysfml.magh_list_type_get_magh_list_nref(self)
     def set_magh_list_nref(self, *args): return _pycrysfml.magh_list_type_set_magh_list_nref(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.magh_list_type_data_ptr_set
@@ -3216,6 +3291,7 @@ class maghd_list_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_maghd_list_type
     __del__ = lambda self : None;
+    def get_maghd_list_element(self, *args): return _pycrysfml.maghd_list_type_get_maghd_list_element(self, *args)
     def get_maghd_list_nref(self): return _pycrysfml.maghd_list_type_get_maghd_list_nref(self)
     def set_maghd_list_nref(self, *args): return _pycrysfml.maghd_list_type_set_maghd_list_nref(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.maghd_list_type_data_ptr_set
@@ -3490,6 +3566,7 @@ class matom_list_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_matom_list_type
     __del__ = lambda self : None;
+    def get_matom_list_element(self, *args): return _pycrysfml.matom_list_type_get_matom_list_element(self, *args)
     def get_matom_list_natoms(self): return _pycrysfml.matom_list_type_get_matom_list_natoms(self)
     def set_matom_list_natoms(self, *args): return _pycrysfml.matom_list_type_set_matom_list_natoms(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.matom_list_type_data_ptr_set
@@ -4120,6 +4197,7 @@ class reflection_list_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_reflection_list_type
     __del__ = lambda self : None;
+    def get_reflection_list_element(self, *args): return _pycrysfml.reflection_list_type_get_reflection_list_element(self, *args)
     def get_reflection_list_nref(self): return _pycrysfml.reflection_list_type_get_reflection_list_nref(self)
     def set_reflection_list_nref(self, *args): return _pycrysfml.reflection_list_type_set_reflection_list_nref(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.reflection_list_type_data_ptr_set

@@ -39,12 +39,15 @@ CLASSES
         diffraction_pattern_type
         diffractometer_type
         distance_restraint_type
+        doublep
         err_text_type
         file_list_type
+        floatp
         generic_numor_type
         group_k_type
         ill_data_record_type
         interval_type
+        intp
         job_info_type
         lsq_conditions_type
         lsq_data_type
@@ -1148,6 +1151,8 @@ CLASSES
      |  
      |  __setattr__ lambda self, name, value
      |  
+     |  get_atom_equiv_list_element(self, *args)
+     |  
      |  get_atom_equiv_list_nauas(self)
      |  
      |  set_atom_equiv_list_nauas(self, *args)
@@ -1227,6 +1232,8 @@ CLASSES
      |  __repr__ = _swig_repr(self)
      |  
      |  __setattr__ lambda self, name, value
+     |  
+     |  get_atom_list_element(self, *args)
      |  
      |  get_atom_list_natoms(self)
      |  
@@ -2013,6 +2020,49 @@ CLASSES
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function distance_restrai...
     
+    class doublep(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  assign(self, *args)
+     |  
+     |  cast(self)
+     |  
+     |  value(self)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods defined here:
+     |  
+     |  frompointer = doublep_frompointer(...)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_doublep>
+     |  
+     |  
+     |  __swig_getmethods__ = {'frompointer': <function <lambda>>}
+     |  
+     |  __swig_setmethods__ = {}
+    
     class err_text_type(__builtin__.object)
      |  Methods defined here:
      |  
@@ -2084,6 +2134,49 @@ CLASSES
      |  __swig_getmethods__ = {'data_ptr': <built-in function file_list_type_d...
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function file_list_type_d...
+    
+    class floatp(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  assign(self, *args)
+     |  
+     |  cast(self)
+     |  
+     |  value(self)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods defined here:
+     |  
+     |  frompointer = floatp_frompointer(...)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_floatp>
+     |  
+     |  
+     |  __swig_getmethods__ = {'frompointer': <function <lambda>>}
+     |  
+     |  __swig_setmethods__ = {}
     
     class generic_numor_type(__builtin__.object)
      |  Methods defined here:
@@ -2228,6 +2321,49 @@ CLASSES
      |  __swig_getmethods__ = {'data_ptr': <built-in function interval_type_da...
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function interval_type_da...
+    
+    class intp(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  assign(self, *args)
+     |  
+     |  cast(self)
+     |  
+     |  value(self)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods defined here:
+     |  
+     |  frompointer = intp_frompointer(...)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_intp>
+     |  
+     |  
+     |  __swig_getmethods__ = {'frompointer': <function <lambda>>}
+     |  
+     |  __swig_setmethods__ = {}
     
     class job_info_type(__builtin__.object)
      |  Methods defined here:
@@ -2394,6 +2530,8 @@ CLASSES
      |  
      |  __setattr__ lambda self, name, value
      |  
+     |  get_magh_list_element(self, *args)
+     |  
      |  get_magh_list_nref(self)
      |  
      |  set_magh_list_nref(self, *args)
@@ -2493,6 +2631,8 @@ CLASSES
      |  __repr__ = _swig_repr(self)
      |  
      |  __setattr__ lambda self, name, value
+     |  
+     |  get_maghd_list_element(self, *args)
      |  
      |  get_maghd_list_nref(self)
      |  
@@ -3027,6 +3167,8 @@ CLASSES
      |  __repr__ = _swig_repr(self)
      |  
      |  __setattr__ lambda self, name, value
+     |  
+     |  get_matom_list_element(self, *args)
      |  
      |  get_matom_list_natoms(self)
      |  
@@ -4235,6 +4377,8 @@ CLASSES
      |  __repr__ = _swig_repr(self)
      |  
      |  __setattr__ lambda self, name, value
+     |  
+     |  get_reflection_list_element(self, *args)
      |  
      |  get_reflection_list_nref(self)
      |  
@@ -5812,9 +5956,17 @@ FUNCTIONS
     
     distance_restraint_type_swigregister(...)
     
+    doublep_frompointer(...)
+    
+    doublep_swigregister(...)
+    
     err_text_type_swigregister(...)
     
     file_list_type_swigregister(...)
+    
+    floatp_frompointer(...)
+    
+    floatp_swigregister(...)
     
     generic_numor_type_swigregister(...)
     
@@ -5823,6 +5975,10 @@ FUNCTIONS
     ill_data_record_type_swigregister(...)
     
     interval_type_swigregister(...)
+    
+    intp_frompointer(...)
+    
+    intp_swigregister(...)
     
     job_info_type_swigregister(...)
     

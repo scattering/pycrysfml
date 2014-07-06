@@ -761,3 +761,8 @@ if __name__ == '__main__':
     infoFile = os.path.join(DATAPATH,"Al2O3.cif")
     (sG, cC, atoms) = readInfo(infoFile)
     print sG.get_space_group_numspg()
+    n = intp()
+    n.assign(0)
+    atom = Atom()
+    atoms.get_atom_list_element(atom, n)
+    print atom.get_atom_occ()
