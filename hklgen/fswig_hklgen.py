@@ -812,3 +812,5 @@ if __name__ == '__main__':
         print atoms[i].get_atom_occ()
     for atom in atoms:
         print atom.get_atom_occ()
+    print sG.get_space_group_multip()
+    print getSpaceGroup_spg_symb(sG)

@@ -17,6 +17,7 @@ CLASSES
     __builtin__.object
         FloatVector
         FortFuncs
+        IntVector
         SwigPyIterator
         angle_restraint_type
         anomalous_sc_type
@@ -1001,6 +1002,102 @@ CLASSES
      |  
      |  
      |  __swig_getmethods__ = {'allocate_atom_list': <function <lambda>>, 'all...
+     |  
+     |  __swig_setmethods__ = {}
+    
+    class IntVector(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __bool__(self)
+     |  
+     |  __del__ lambda self
+     |  
+     |  __delitem__(self, *args)
+     |  
+     |  __delslice__(self, *args)
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __getitem__(self, *args)
+     |  
+     |  __getslice__(self, *args)
+     |  
+     |  __init__(self, *args)
+     |  
+     |  __iter__(self)
+     |  
+     |  __len__(self)
+     |  
+     |  __nonzero__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  __setitem__(self, *args)
+     |  
+     |  __setslice__(self, *args)
+     |  
+     |  append(self, *args)
+     |  
+     |  assign(self, *args)
+     |  
+     |  back(self)
+     |  
+     |  begin(self)
+     |  
+     |  capacity(self)
+     |  
+     |  clear(self)
+     |  
+     |  empty(self)
+     |  
+     |  end(self)
+     |  
+     |  erase(self, *args)
+     |  
+     |  front(self)
+     |  
+     |  get_allocator(self)
+     |  
+     |  insert(self, *args)
+     |  
+     |  iterator(self)
+     |  
+     |  pop(self)
+     |  
+     |  pop_back(self)
+     |  
+     |  push_back(self, *args)
+     |  
+     |  rbegin(self)
+     |  
+     |  rend(self)
+     |  
+     |  reserve(self, *args)
+     |  
+     |  resize(self, *args)
+     |  
+     |  size(self)
+     |  
+     |  swap(self, *args)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_IntVector>
+     |  
+     |  
+     |  __swig_getmethods__ = {}
      |  
      |  __swig_setmethods__ = {}
     
@@ -5924,6 +6021,8 @@ FUNCTIONS
     
     FortFuncs_zone_axis_type_ctor(...)
     
+    IntVector_swigregister(...)
+    
     SwigPyIterator_swigregister(...)
     
     angle_restraint_type_swigregister(...)
@@ -5981,6 +6080,132 @@ FUNCTIONS
     floatp_swigregister(...)
     
     generic_numor_type_swigregister(...)
+    
+    getAtomEquiv_chemsymb(...)
+    
+    getAtom_atminfo(...)
+    
+    getAtom_chemsymb(...)
+    
+    getAtom_lab(...)
+    
+    getAtom_sfacsymb(...)
+    
+    getAtom_thtype(...)
+    
+    getAtom_utype(...)
+    
+    getAtom_wyck(...)
+    
+    getCrystalCell_carttype(...)
+    
+    getJobInfo_title(...)
+    
+    getMagneticGroup_shubnikov(...)
+    
+    getMagneticSpaceGroup_bns_number(...)
+    
+    getMagneticSpaceGroup_bns_symbol(...)
+    
+    getMagneticSpaceGroup_centre(...)
+    
+    getMagneticSpaceGroup_crystalsys(...)
+    
+    getMagneticSpaceGroup_og_number(...)
+    
+    getMagneticSpaceGroup_og_symbol(...)
+    
+    getMagneticSpaceGroup_parent_spg(...)
+    
+    getMagneticSpaceGroup_spg_lat(...)
+    
+    getMagneticSpaceGroup_spg_latsy(...)
+    
+    getMagneticSpaceGroup_trn_from_parent(...)
+    
+    getMagneticSpaceGroup_trn_to_standard(...)
+    
+    getMagsymmK_bns_number(...)
+    
+    getMagsymmK_bns_symbol(...)
+    
+    getMagsymmK_latt(...)
+    
+    getMagsymmK_magmodel(...)
+    
+    getMagsymmK_og_number(...)
+    
+    getMagsymmK_og_symbol(...)
+    
+    getMagsymmK_parent_spg(...)
+    
+    getMagsymmK_sk_type(...)
+    
+    getMatom_atminfo(...)
+    
+    getMatom_chemsymb(...)
+    
+    getMatom_lab(...)
+    
+    getMatom_sfacsymb(...)
+    
+    getMatom_thtype(...)
+    
+    getMatom_utype(...)
+    
+    getMatom_wyck(...)
+    
+    getNsSpaceGroup_bravais(...)
+    
+    getNsSpaceGroup_centre(...)
+    
+    getNsSpaceGroup_crystalsys(...)
+    
+    getNsSpaceGroup_ghall(...)
+    
+    getNsSpaceGroup_hall(...)
+    
+    getNsSpaceGroup_info(...)
+    
+    getNsSpaceGroup_laue(...)
+    
+    getNsSpaceGroup_pg(...)
+    
+    getNsSpaceGroup_sg_setting(...)
+    
+    getNsSpaceGroup_spg_lat(...)
+    
+    getNsSpaceGroup_spg_latsy(...)
+    
+    getNsSpaceGroup_spg_symb(...)
+    
+    getSpaceGroup_bravais(...)
+    
+    getSpaceGroup_centre(...)
+    
+    getSpaceGroup_crystalsys(...)
+    
+    getSpaceGroup_ghall(...)
+    
+    getSpaceGroup_hall(...)
+    
+    getSpaceGroup_info(...)
+    
+    getSpaceGroup_laue(...)
+    
+    getSpaceGroup_pg(...)
+    
+    getSpaceGroup_sg_setting(...)
+    
+    getSpaceGroup_spg_lat(...)
+    
+    getSpaceGroup_spg_latsy(...)
+    
+    getSpaceGroup_spg_symb(...)
+    
+    getWyckPos_site(...)
+    
+    getWyckPos_str_orig(...)
     
     group_k_type_swigregister(...)
     

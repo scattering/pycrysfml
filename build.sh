@@ -42,6 +42,8 @@ make
 make install
 cd $wd/Src
 $wd/add_cmplx.py
+# copy C++ wrapper files
+cp $wd/cpp_modules/* $wd/Src/wrap/
 # auto-generate swig interface file
 cd wrap
 a="%module pycrysfml\n%{\n"
@@ -50,7 +52,7 @@ for f in *.h
 do
 a=$a$b$f"\"\n"
 done
-a=$a"%}\n%include \"cpointer.i\"\n%pointer_class(int, intp);\n%pointer_class(double, doublep);\n%pointer_class(float, floatp);\n%include \"std_vector.i\"\nnamespace std {\n\t%template(FloatVector) vector<float>;\n}\n"
+a=$a"%}\n%include \"cpointer.i\"\n%pointer_class(int, intp);\n%pointer_class(double, doublep);\n%pointer_class(float, floatp);\n%include \"std_string.i\"\n%include \"cstring.i\"\n%include \"std_vector.i\"\nnamespace std {\n\t%template(FloatVector) vector<float>;\n\t%template(IntVector) vector<int>;\n}\n"
 b="%include \""
 for f in *.h
 do
