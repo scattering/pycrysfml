@@ -141,6 +141,7 @@ END SUBROUTINE read_mag_mcif_file
 !!-- END Procedures called from ctypes hklGen.py --!!
 
 !!-- Manually written array wrappers --!!
+! accessors:
 SUBROUTINE get_atom_list_element(lst, elem, ind)
 	TYPE(Atom_List_Type) :: lst
 	INTEGER :: ind
@@ -183,6 +184,49 @@ SUBROUTINE get_reflection_list_element(lst, elem, ind)
 	! Use c-style indexing
 	elem = lst%Ref(ind+1)
 END SUBROUTINE get_reflection_list_element
+! setters:
+SUBROUTINE set_atom_list_element(lst, elem, ind)
+	TYPE(Atom_List_Type) :: lst
+	INTEGER :: ind
+	TYPE(Atom_Type) :: elem
+	! Use c-style indexing
+	lst%atom(ind+1) = elem
+END SUBROUTINE set_atom_list_element
+SUBROUTINE set_atom_equiv_list_element(lst, elem, ind)
+	TYPE(Atom_Equiv_List_Type) :: lst
+	INTEGER :: ind
+	TYPE(Atom_Equiv_Type) :: elem
+	! Use c-style indexing
+	lst%atm(ind+1) = elem
+END SUBROUTINE set_atom_equiv_list_element
+SUBROUTINE set_matom_list_element(lst, elem, ind)
+	TYPE(mAtom_List_Type) :: lst
+	INTEGER :: ind
+	TYPE(mAtom_Type) :: elem
+	! Use c-style indexing
+	lst%Atom(ind+1) = elem
+END SUBROUTINE set_matom_list_element
+SUBROUTINE set_magh_list_element(lst, elem, ind)
+	TYPE(MagH_List_Type) :: lst
+	INTEGER :: ind
+	TYPE(MagH_Type) :: elem
+	! Use c-style indexing
+	lst%Mh(ind+1) = elem
+END SUBROUTINE set_magh_list_element
+SUBROUTINE set_maghd_list_element(lst, elem, ind)
+	TYPE(MagHD_List_Type) :: lst
+	INTEGER :: ind
+	TYPE(MagHD_Type) :: elem
+	! Use c-style indexing
+	lst%Mh(ind+1) = elem
+END SUBROUTINE set_maghd_list_element
+SUBROUTINE set_reflection_list_element(lst, elem, ind)
+	TYPE(reflection_List_Type) :: lst
+	INTEGER :: ind
+	TYPE(reflection_Type) :: elem
+	! Use c-style indexing
+	lst%Ref(ind+1) = elem
+END SUBROUTINE set_reflection_list_element
 !!-- END Array wrappers --!!
 
 !!-- Getters and Setters --!!

@@ -266,6 +266,7 @@ class atom_equiv_list_type(_object):
     __swig_destroy__ = _pycrysfml.delete_atom_equiv_list_type
     __del__ = lambda self : None;
     def get_atom_equiv_list_element(self, *args): return _pycrysfml.atom_equiv_list_type_get_atom_equiv_list_element(self, *args)
+    def set_atom_equiv_list_element(self, *args): return _pycrysfml.atom_equiv_list_type_set_atom_equiv_list_element(self, *args)
     def get_atom_equiv_list_nauas(self): return _pycrysfml.atom_equiv_list_type_get_atom_equiv_list_nauas(self)
     def set_atom_equiv_list_nauas(self, *args): return _pycrysfml.atom_equiv_list_type_set_atom_equiv_list_nauas(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.atom_equiv_list_type_data_ptr_set
@@ -309,6 +310,7 @@ class atom_list_type(_object):
     __swig_destroy__ = _pycrysfml.delete_atom_list_type
     __del__ = lambda self : None;
     def get_atom_list_element(self, *args): return _pycrysfml.atom_list_type_get_atom_list_element(self, *args)
+    def set_atom_list_element(self, *args): return _pycrysfml.atom_list_type_set_atom_list_element(self, *args)
     def get_atom_list_natoms(self): return _pycrysfml.atom_list_type_get_atom_list_natoms(self)
     def set_atom_list_natoms(self, *args): return _pycrysfml.atom_list_type_set_atom_list_natoms(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.atom_list_type_data_ptr_set
@@ -3239,6 +3241,7 @@ class maghd_list_type(_object):
     __swig_destroy__ = _pycrysfml.delete_maghd_list_type
     __del__ = lambda self : None;
     def get_maghd_list_element(self, *args): return _pycrysfml.maghd_list_type_get_maghd_list_element(self, *args)
+    def set_maghd_list_element(self, *args): return _pycrysfml.maghd_list_type_set_maghd_list_element(self, *args)
     def get_maghd_list_nref(self): return _pycrysfml.maghd_list_type_get_maghd_list_nref(self)
     def set_maghd_list_nref(self, *args): return _pycrysfml.maghd_list_type_set_maghd_list_nref(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.maghd_list_type_data_ptr_set
@@ -3292,6 +3295,7 @@ class magh_list_type(_object):
     __swig_destroy__ = _pycrysfml.delete_magh_list_type
     __del__ = lambda self : None;
     def get_magh_list_element(self, *args): return _pycrysfml.magh_list_type_get_magh_list_element(self, *args)
+    def set_magh_list_element(self, *args): return _pycrysfml.magh_list_type_set_magh_list_element(self, *args)
     def get_magh_list_nref(self): return _pycrysfml.magh_list_type_get_magh_list_nref(self)
     def set_magh_list_nref(self, *args): return _pycrysfml.magh_list_type_set_magh_list_nref(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.magh_list_type_data_ptr_set
@@ -3567,6 +3571,7 @@ class matom_list_type(_object):
     __swig_destroy__ = _pycrysfml.delete_matom_list_type
     __del__ = lambda self : None;
     def get_matom_list_element(self, *args): return _pycrysfml.matom_list_type_get_matom_list_element(self, *args)
+    def set_matom_list_element(self, *args): return _pycrysfml.matom_list_type_set_matom_list_element(self, *args)
     def get_matom_list_natoms(self): return _pycrysfml.matom_list_type_get_matom_list_natoms(self)
     def set_matom_list_natoms(self, *args): return _pycrysfml.matom_list_type_set_matom_list_natoms(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.matom_list_type_data_ptr_set
@@ -4174,6 +4179,7 @@ class reflection_list_type(_object):
     __swig_destroy__ = _pycrysfml.delete_reflection_list_type
     __del__ = lambda self : None;
     def get_reflection_list_element(self, *args): return _pycrysfml.reflection_list_type_get_reflection_list_element(self, *args)
+    def set_reflection_list_element(self, *args): return _pycrysfml.reflection_list_type_set_reflection_list_element(self, *args)
     def get_reflection_list_nref(self): return _pycrysfml.reflection_list_type_get_reflection_list_nref(self)
     def set_reflection_list_nref(self, *args): return _pycrysfml.reflection_list_type_set_reflection_list_nref(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.reflection_list_type_data_ptr_set
