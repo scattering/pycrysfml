@@ -176,7 +176,7 @@ class Atom(atom_type):
             self.element = ljust(args[1], 2) # see above
             self.set_atom_sfacsymb(ljust(self.element, 4))
             self.set_atom_x(args[2])
-            self.coords = args[2] # preserved for lack of get method TODO: add fortwrap support for array return types
+            self.coords = args[2] # preserved for lack of get method TODO: add fortwrap support for array return types or use fortran work-around
             self.set_atom_mult(args[3])
             self.set_atom_occ(float(args[4]))
             self.set_atom_biso(float(args[5]))
@@ -237,13 +237,29 @@ class AtomList(atom_list_type, matom_list_type):
             #    for field in atom._fields_:
             #        setattr(atom, field[0], getattr(atoms[i], field[0]))
     def __len__(self):
-        return int(self.numAtoms)
+        if self.magnetic:
+            return self.get_matom_list_natoms()
+        else:
+            return self.get_atom_list_natoms()
     #TODO: fix iterator code
     #def __getitem__(self, index):
     #    if (index < 0): index += len(self)
     #    if (self.magnetic): dtype = MagAtom
     #    else: dtype = Atom
     #    return self.atoms.data(dtype)[index]
+    def __getitem__(self, index):
+        if (index < 0): index += len(self)
+        ind = intp()
+        ind.assign(index)
+        if self.magnetic:
+            result = MagAtom()
+            self.get_matom_list_element(result, ind)
+            return result
+        else:
+            result = Atom()
+            self.get_atom_list_element(result, ind)
+            return result
+    
 
 # Reflection attributes:
 #   hkl         - list containing hkl indices for the reflection
@@ -309,12 +325,19 @@ class ReflectionList(reflection_list_type, magh_list_type):
             return self.get_magh_list_nref()
         else:
             return self.get_reflection_list_nref()
-    #TODO: fix iterator code
-    #def __getitem__(self, index):
-    #    if (index < 0): index += len(self)
-    #    if (self.magnetic): dtype = MagReflection
-    #    else: dtype = Reflection
-    #    return self.reflections.data(dtype)[index]
+    #TODO: add iterator code for loops of style for reflection in reflectionList:
+    def __getitem__(self, index):
+        if (index < 0): index += len(self)
+        ind = intp()
+        ind.assign(index)
+        if self.magnetic:
+            result = MagReflection()
+            self.get_magh_list_element(result, ind)
+            return result
+        else:
+            result = Reflection()
+            self.get_reflection_list_element(result, ind)
+            return result
 
 # FileList: represents a Fortran file object
 class FileList(file_list_type):    
@@ -760,9 +783,9 @@ if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
     infoFile = os.path.join(DATAPATH,"Al2O3.cif")
     (sG, cC, atoms) = readInfo(infoFile)
+    s = " " * 20
     print sG.get_space_group_numspg()
-    n = intp()
-    n.assign(0)
-    atom = Atom()
-    atoms.get_atom_list_element(atom, n)
-    print atom.get_atom_occ()
+    sG.get_space_group_spg_symb(s)
+    print s
+    for i in range(len(atoms)):
+        print atoms[i].get_atom_occ()
