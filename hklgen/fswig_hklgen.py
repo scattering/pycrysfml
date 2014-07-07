@@ -690,7 +690,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         refLists = (refLists,)
     
     divider = "-" * 40
-    print "Cell information (%s cell)" % rstrip(spaceGroup.xtalSystem)
+    print "Cell information (%s cell)" % rstrip(getSpaceGroup_crystalsys(spaceGroup))
     print divider
     print " a = %.3f   alpha = %.3f" % (cell.length[0], cell.angle[0])
     print " b = %.3f   beta  = %.3f" % (cell.length[1], cell.angle[1])
@@ -699,24 +699,25 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
     print
     print "Space group information"
     print divider
-    print "               Number: ", spaceGroup.number
-    print "           H-M Symbol: ", spaceGroup.symbol
-    print "          Hall Symbol: ", spaceGroup.hallSymbol
-    print "       Crystal System: ", spaceGroup.xtalSystem
-    print "           Laue Class: ", spaceGroup.laue
-    print "          Point Group: ", spaceGroup.pointGroup
-    print " General Multiplicity: ", spaceGroup.multip
+    print "               Number: ", spaceGroup.get_space_group_numspg()
+    print "           H-M Symbol: ", getSpaceGroup_spg_symb(spaceGroup)
+    print "          Hall Symbol: ", getSpaceGroup_hall(spaceGroup)
+    print "       Crystal System: ", getSpaceGroup_crystalsys(spaceGroup)
+    print "           Laue Class: ", getSpaceGroup_laue(spaceGroup)
+    print "          Point Group: ", getSpaceGroup_pg(spaceGroup)
+    print " General Multiplicity: ", spaceGroup.get_space_group_multip()
     print divider
     print
     print "Atom information (%d atoms)" % len(atomLists[0])
     print divider
     atomList = atomLists[0]
     magnetic = atomList.magnetic
-    label = [rstrip(atom.label) for atom in atomList]
-    x, y, z = tuple(["%.3f" % atom.coords[i] for atom in atomList]
+    label = [rstrip(getAtom_lab(atom)) for atom in atomList]
+    x, y, z = tuple(["%.3f" % atom.get_atom_x()[i] for atom in atomList]
                     for i in xrange(3))
-    multip = [str(atom.multip) for atom in atomList]
-    occupancy = ["%.3f" % (atom.occupancy*spaceGroup.multip/atom.multip)
+    #atom_type().get_atom_x()
+    multip = [str(atom.get_atom_mult()) for atom in atomList]
+    occupancy = ["%.3f" % (atom.get_atom_occ()*spaceGroup.get_space_group_multip()/atom.get_atom_mult())
                  for atom in atomList]
     # Figure out what the width of each column should be
     width = OrderedDict([('label', max(len(max(label, key=len)), 5)),
@@ -744,6 +745,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         magnetic = refList.magnetic
         if magnetic: symmObject = symmetry
         else: symmObject = spaceGroup
+        # TODO: Fix from here on
         h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in xrange(3))
         multip = [str(ref.multip) for ref in refList]
         tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
