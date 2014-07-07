@@ -186,7 +186,6 @@ class Atom(atom_type):
         return self.get_atom_occ()
     def BIso(self):
         return self.get_atom_biso()
-    
     def sameSite(self, other):
         # TODO: make this work for equivalent sites, not just identical ones
         # returns true if two atoms occupy the same position
@@ -221,6 +220,7 @@ class MagAtom(matom_type):
 class AtomList(atom_list_type, matom_list_type):
     def __init__(self, atoms=None, magnetic=False):
         self.magnetic = magnetic
+        self.index = -1
         if magnetic:
             matom_list_type.__init__(self)
         else:
@@ -241,12 +241,14 @@ class AtomList(atom_list_type, matom_list_type):
             return self.get_matom_list_natoms()
         else:
             return self.get_atom_list_natoms()
-    #TODO: fix iterator code
-    #def __getitem__(self, index):
-    #    if (index < 0): index += len(self)
-    #    if (self.magnetic): dtype = MagAtom
-    #    else: dtype = Atom
-    #    return self.atoms.data(dtype)[index]
+    def __iter__(self):
+        return self
+    def next(self):
+        self.index += 1
+        if self.index == len(self):
+            self.index = -1
+            raise StopIteration
+        return self[self.index]
     def __getitem__(self, index):
         if (index < 0): index += len(self)
         ind = intp()
@@ -259,7 +261,13 @@ class AtomList(atom_list_type, matom_list_type):
             result = Atom()
             self.get_atom_list_element(result, ind)
             return result
-    
+    def __setitem__(self, index, value):
+        ind = intp()
+        ind.assign(index)
+        if self.magnetic:
+            self.set_matom_list_element(value, ind)
+        else:
+            self.set_atom_list_element(value, ind)
 
 # Reflection attributes:
 #   hkl         - list containing hkl indices for the reflection
@@ -314,6 +322,7 @@ class ReflectionList(reflection_list_type, magh_list_type):
     # TODO: fix this... add get/set methods and rewrite python list operator methods
     #     : also add get/ set to crystal_cell_type
     def __init__(self, magnetic=False):
+        self.index = -1
         if not magnetic:
             reflection_list_type.__init__(self)
         else:
@@ -325,7 +334,14 @@ class ReflectionList(reflection_list_type, magh_list_type):
             return self.get_magh_list_nref()
         else:
             return self.get_reflection_list_nref()
-    #TODO: add iterator code for loops of style for reflection in reflectionList:
+    def __iter__(self):
+        return self
+    def next(self):
+        self.index += 1
+        if self.index == len(self):
+            self.index = -1
+            raise StopIteration
+        return self[self.index]    
     def __getitem__(self, index):
         if (index < 0): index += len(self)
         ind = intp()
@@ -338,6 +354,13 @@ class ReflectionList(reflection_list_type, magh_list_type):
             result = Reflection()
             self.get_reflection_list_element(result, ind)
             return result
+    def __setitem__(self, index, value):
+        ind = intp()
+        ind.assign(index)
+        if self.magnetic:
+            self.set_magh_list_element(value, ind)
+        else:
+            self.set_reflection_list_element(value, ind)    
 
 # FileList: represents a Fortran file object
 class FileList(file_list_type):    
@@ -783,9 +806,9 @@ if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
     infoFile = os.path.join(DATAPATH,"Al2O3.cif")
     (sG, cC, atoms) = readInfo(infoFile)
-    s = " " * 20
     print sG.get_space_group_numspg()
-    sG.get_space_group_spg_symb(s)
-    print s
+    #sG.get_space_group_spg_symb(s)
     for i in range(len(atoms)):
         print atoms[i].get_atom_occ()
+    for atom in atoms:
+        print atom.get_atom_occ()
