@@ -1,7 +1,7 @@
 import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 import fswig_hklgen as H
-
+from pycrysfml import FloatVector
 np.seterr(divide="ignore", invalid="ignore")    
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
@@ -10,7 +10,7 @@ observedFile = os.path.join(DATAPATH,"Al2O3.dat")
 infoFile = os.path.join(DATAPATH,"Al2O3.cif")
 
 (spaceGroup, crystalCell, atoms) = H.readInfo(infoFile)
-spaceGroup.xtalSystem = spaceGroup.xtalSystem.rstrip()
+#spaceGroup.xtalSystem = spaceGroup.xtalSystem.rstrip()
 wavelength = 1.5403
 
 backg = H.LinSpline(backgFile)
@@ -45,7 +45,7 @@ def fit():
     return M
 
 def main():
-    cell = H.CrystalCell([4.761,4.761,13.000],[90,90,120])
+    cell = H.CrystalCell(FloatVector([4.761,4.761,13.000]),FloatVector([90,90,120]))
     uvw = [0.195228328354001,-0.164769183403005,0.0920158274607541]
     H.diffPattern(infoFile=infoFile, backgroundFile=backgFile, wavelength=wavelength,
                   cell=cell, uvw=uvw, scale=0.88765,
