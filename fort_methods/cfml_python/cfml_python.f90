@@ -196,6 +196,13 @@ SUBROUTINE get_basis_element(mgsymm, irrRepNum, symOpNum, vectorNum, v)
 		v(2*i) = AIMAG(temp(i))
 	END DO
 END SUBROUTINE get_basis_element
+FUNCTION get_matom_basis_element(atm, i, j)
+	TYPE(matom_type) :: atm
+	INTEGER :: i, j
+	REAL :: get_matom_basis_element
+	! use c-style indexing
+	get_matom_basis_element = atm%cbas(i+1, j+1)
+END FUNCTION get_matom_basis_element
 ! setters:
 SUBROUTINE set_atom_list_element(lst, elem, ind)
 	TYPE(Atom_List_Type) :: lst
@@ -248,7 +255,30 @@ SUBROUTINE set_basis_element(mgsymm, irrRepNum, symOpNum, vectorNum, v)
 		mgsymm%basf(i, vectorNum+1, symOpNum+1, irrRepNum+1) = CMPLX(v(1*i), v(2*i))
 	END DO
 END SUBROUTINE set_basis_element
+SUBROUTINE set_matom_basis_element(atm, i, j, value)
+	TYPE(matom_type) :: atm
+	INTEGER :: i, j
+	REAL :: value
+	! use c-style indexing
+	atm%cbas(i+1, j+1) = value
+END SUBROUTINE set_matom_basis_element
 !!-- END Array wrappers --!!
+!!-- Magnetic Interaction Vectors --!!
+SUBROUTINE get_miv(mh, output)
+	TYPE(magh_type) :: mh
+	REAL, DIMENSION(6) :: output
+	DO i = 1, 3
+		output(1*i) = REAL(mh%miv(i))
+		output(2*i) = AIMAG(mh%miv(i))
+	END DO
+END SUBROUTINE get_miv
+SUBROUTINE set_miv(mh, value)
+	TYPE(magh_type) :: mh
+	REAL, DIMENSION(6) :: value
+	DO i = 1, 3
+		mh%miv(i) = CMPLX(value(1*i), value(2*i))
+	END DO
+END SUBROUTINE set_miv
 
 !!-- Getters and Setters --!!
 

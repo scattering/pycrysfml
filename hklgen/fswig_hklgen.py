@@ -138,6 +138,24 @@ class CrystalCell(crystal_cell_type):
 class MagSymmetry(magsymm_k_type):
     def __init__(self):
         magsymm_k_type.__init__(self)
+    def centerType(self):
+        return self.get_magsymm_k_centred()
+    def setCenterType(self, value):
+        self.set_magsymm_k_centred(value)
+    def numIrreps(self):
+        return self.get_magsymm_k_nirreps()
+    def setNumIrreps(self, value):
+        self.set_magsymm_k_nirreps(value)
+    def numBasisFunc(self):
+        result = IntVector([0,0,0,0])
+        self.get_magsymm_k_nbas(result)
+        return list(result)
+    def setNumBasisFunc(self, value):
+        self.set_magsymm_k_nbas(IntVector(value))
+    def setNumBasisFunc_ind(self, ind, value):
+        result = self.numBasisFunc()
+        result[ind] = value
+        self.setNumBasisFunc(result)
     def getBasis(self, irrRepNum, symOpNum, vectorNum):
         result = FloatVector([0,0,0,0,0,0])
         self.get_basis_element(irrRepNum, symOpNum, vectorNum, result)
@@ -153,7 +171,7 @@ class MagSymmetry(magsymm_k_type):
         for num in v:
             ri_comps.append(num.real)
             ri_comps.append(num.imag)
-        self.set_basis_element(irrRepNum, symOpNum, vectorNum, FloatVector(ri_comps))
+        self.set_basis_element(int_to_p(irrRepNum), int_to_p(symOpNum), int_to_p(vectorNum), FloatVector(ri_comps))
                                                                 
 # Atom attributes:
 #   lab --> label       - label for the atom
@@ -210,6 +228,8 @@ class Atom(atom_type):
         self.set_atom_biso(value)
     def label(self):
         return getAtom_lab(self)
+    def setLabel(self, label):
+        self.set_atom_lab(label)
     def sameSite(self, other):
         # TODO: make this work for equivalent sites, not just identical ones
         # returns true if two atoms occupy the same position
@@ -251,9 +271,36 @@ class MagAtom(matom_type):
     def BIso(self):
         return self.get_matom_biso()
     def setBIso(self, value):
-        self.set_matom_biso(value)    
+        self.set_matom_biso(value)
+    def irrepNum(self):
+        result = IntVector([0 for i in range(12)])
+        self.get_matom_imat(result)
+        return list(result)
+    def basis(self):
+        result = [[self.get_matom_basis_element(int_to_p(i), int_to_p(j)) for j in range(12)] for i in range(12)]
+        return list(result)
+    def setBasis(self, value):
+        for i in range(12):
+            for j in range(12):
+                self.set_matom_basis_element(int_to_p(i), int_to_p(j), float_to_p(value[i][j]))
+    def setBasis_ind(self, i, j, k):
+        b = self.basis()
+        b[i][j] = k
+        self.setBasis(b)
+    def setIrrepNum(self, value):
+        self.set_matom_imat(IntVector(value))
+    def setIrrepNum_ind(self, i, k):
+        value = self.irrepNum()
+        value[i] = k
+        self.setIrrepNum(IntVector(value))        
+    def numkVectors(self):
+        return self.get_matom_nvk()
+    def setNumkVectors(self, value):
+        self.set_matom_nvk(value)
     def label(self):
         return getMatom_lab(self)
+    def setLabel(self, label):
+        self.set_matom_lab(label)
 # AtomList attributes:
 #   numAtoms    - the number of atoms
 #   atoms       - a list of Atom objects
@@ -339,6 +386,10 @@ class Reflection(reflection_type):
         hklVec = IntVector([0,0,0])
         self.get_reflection_h(hklVec)
         return hklVec
+    def s(self):
+        return self.get_reflection_s()
+    def multip(self):
+        return self.get_reflection_mult()
     
 
 # MagReflection attributes:
@@ -364,9 +415,24 @@ class MagReflection(magh_type):
             self.set_magh_s(reflection.get_reflection_s())
     def multip(self):
         return self.get_magh_mult()
-    
+    def magIntVec(self):
+        rVec = FloatVector([0 for i in range(6)])
+        self.get_miv(rVec)
+        result = []
+        for i in range(0, len(rVec), 2):
+            result.append(complex(rVec[i],rVec[i+1]))
+        return result
+    def setMagIntVec(self, value):
+        rVec = []
+        for num in value:
+            rVec.append(num.real, num.imag)
+        self.setMagIntVec(FloatVector(rVec))
     def s(self):
         return self.get_magh_s()
+    def hkl(self):
+        hklVec = FloatVector([0,0,0])
+        self.get_magh_h(hklVec)
+        return hklVec    
     
 # ReflectionList attributes
 #   numReflections  - the number of reflections
@@ -431,7 +497,15 @@ class FileList(file_list_type):
         funcs.file_to_filelist(filename, self)
 
 # function defs:
-
+# disposable pointer conversions for parameters
+def int_to_p(i):
+    point = intp()
+    point.assign(i)
+    return point
+def float_to_p(f):
+    point = floatp()
+    point.assign(f)
+    return point
 # readInfo: acquires cell, space group, and atomic information from a .cif,
 #   .cfl, .pcr, or .shx file
 def readInfo(filename):
@@ -501,6 +575,21 @@ class LinSpline(object):
 
     def __repr__(self):
         return "LinSpline(" + str(self.x) + ", " + str(self.y) + ")"
+    # readMagInfo: acquires cell, space group, atomic, and magnetic information
+    #   from a .cfl file
+def readMagInfo(filename):
+    info = readInfo(filename)
+    spaceGroup = info[0]
+    cell = info[1]
+    symmetry = MagSymmetry()
+    atomList = AtomList(magnetic=True)
+    fileList = FileList(filename)
+    zerop = intp()
+    zp = intp()
+    zerop.assign(0)
+    zp.assign(0)
+    funcs.read_mag_cfl_file(fileList, zerop, zp, symmetry, atomList, None, None, cell)
+    return (spaceGroup, cell, atomList, symmetry)
 
 # readData: reads in a data file for the observed intensities and 2*theta
 #   values
@@ -629,6 +718,12 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
     if (not isinstance(reflections, ReflectionList)):
         reflections = reflections[:reflectionCount]    
     return reflections
+# satelliteGen: generates a list of magnetic satellite reflections below a
+#   maximum sin(theta)/lambda value
+def satelliteGen(cell, symmetry, sMax):
+    refList = ReflectionList(True)
+    funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1))
+    return refList
 
 # calcStructFact: calculates the structure factor squared for a list of planes
 #   using provided atomic positions
@@ -655,7 +750,7 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
     # calculate the "magnetic interaction vector" (the square of which is
     #   proportional to the intensity)    
     funcs.calc_mag_interaction_vector(refList, cell)
-    mivs = np.array([ref.magIntVec for ref in refList])
+    mivs = np.array([ref.magIntVec() for ref in refList])
     return mivs
 
 
@@ -670,9 +765,12 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 = np.array([np.sum(np.array(sf)**2) for sf in sfs])
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
-    multips = np.array([ref.get_reflection_mult() for ref in refList])
-    
-    tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
+    if magnetic:
+        multips = np.array([ref.get_magh_mult() for ref in refList])
+        tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
+    else:    
+        multips = np.array([ref.get_reflection_mult() for ref in refList])
+        tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
     return sfs2 * multips * lorentz
@@ -681,7 +779,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
 #   diffraction pattern
 def makeGaussians(reflections, coeffs, I, scale, wavelength):
     Gaussian.scaleFactor = scale
-    gaussians = [Gaussian(twoTheta(rk.get_reflection_s(), wavelength),
+    gaussians = [Gaussian(twoTheta(rk.s(), wavelength),
                           coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl())
                  for rk,Ik in zip(reflections,I)]
     return gaussians
@@ -736,25 +834,24 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
     if magnetic:
-        #if (infoFile != None):
-        #    info = readMagInfo(infoFile)
-        #    if (spaceGroup == None): spaceGroup = info[0]
-        #    if (cell == None): cell = info[1]
-        #    if (magAtomList == None): magAtomList = info[2]
-        #    if (symmetry == None): symmetry = info[3]
-        #if (basisSymmetry == None): basisSymmetry = symmetry
+        if (infoFile != None):
+            info = readMagInfo(infoFile)
+            if (spaceGroup == None): spaceGroup = info[0]
+            if (cell == None): cell = info[1]
+            if (magAtomList == None): magAtomList = info[2]
+            if (symmetry == None): symmetry = info[3]
+        if (basisSymmetry == None): basisSymmetry = symmetry
         ## magnetic peaks
-        #magRefList = satelliteGen(cell, symmetry, sMax)
-        #print "length of reflection list " + str(len(magRefList))
-        #magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
-        #                               wavelength, cell, True)
-        ## add in structural peaks
-        #if (atomList == None): atomList = readInfo(infoFile)[2]
-        #refList = hklGen(spaceGroup, cell, sMin, sMax, True)
-        #intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
-        #reflections = magRefList[:] + refList[:]
-        #intensities = np.append(magIntensities, intensities)
-        pass
+        magRefList = satelliteGen(cell, symmetry, sMax)
+        print "length of reflection list " + str(len(magRefList))
+        magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
+                                       wavelength, cell, True)
+        # add in structural peaks
+        if (atomList == None): atomList = readInfo(infoFile)[2]
+        refList = hklGen(spaceGroup, cell, sMin, sMax, True)
+        intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
+        reflections = magRefList[:] + refList[:]
+        intensities = np.append(magIntensities, intensities)
     else:
         if (infoFile != None):
             info = readInfo(infoFile)
@@ -846,8 +943,8 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         if magnetic: symmObject = symmetry
         else: symmObject = spaceGroup
         h, k, l = tuple([str(ref.hkl()[i]) for ref in refList] for i in xrange(3))
-        multip = [str(ref.get_reflection_mult()) for ref in refList]
-        tt = ["%.3f" % twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]
+        multip = [str(ref.multip()) for ref in refList]
+        tt = ["%.3f" % twoTheta(ref.s(), wavelength) for ref in refList]
         intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject,
                                                        wavelength, cell, magnetic)]
         # Figure out what the width of each column should be

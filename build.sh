@@ -14,7 +14,8 @@ LIBFLAGS='-lgfortran'
 SOFLAGS='-shared -fPIC -rdynamic'
 BIN_DIR='Linux'
 fi
-svn co http://forge.epn-campus.eu/svn/crysfml/Src
+#svn co http://forge.epn-campus.eu/svn/crysfml/Src
+cp -r ~/930_Src/Src $wd/Src
 # inject python wrapper module
 cp $wd/fort_methods/cfml_python/cfml_python.f90 $wd/Src/cfml_python.f90
 # end injection
@@ -27,8 +28,9 @@ $wd/fix_deps.py
 $wd/fix_type_decl.py
 # wrap library
 $wd/fortwrap.py --file-list=$wd/list -d wrap >& $wd/FortWrap_log
-svn co http://forge.epn-campus.eu/svn/crysfml/Src
-cp Src/*.f90 .
+#svn co http://forge.epn-campus.eu/svn/crysfml/Src
+#cp Src/*.f90 .
+cp ~/930_Src/Src/*.f90 .
 # inject python wrapper module again and fix line length
 cp $wd/fort_methods/cfml_python/cfml_python.f90 $wd/Src/cfml_python.f90
 $wd/fort_methods/fix_line_width.py $wd/Src/cfml_python.f90
@@ -52,7 +54,7 @@ for f in *.h
 do
 a=$a$b$f"\"\n"
 done
-a=$a"%}\n%include \"cpointer.i\"\n%pointer_class(int, intp);\n%pointer_class(double, doublep);\n%pointer_class(float, floatp);\n%include \"std_string.i\"\n%include \"cstring.i\"\n%include \"std_vector.i\"\nnamespace std {\n\t%template(FloatVector) vector<float>;\n\t%template(IntVector) vector<int>;\n}\n"
+a=$a"%}\n%include \"cpointer.i\"\n%pointer_class(int, intp);\n%pointer_class(double, doublep);\n%pointer_class(float, floatp);\n%include \"std_string.i\"\n%include \"cstring.i\"\n%include \"std_vector.i\"\nnamespace std {\n\t%template(FloatVector) vector<float>;\n\t%template(FloatMatrix) vector< vector<float> >;\n\t%template(IntVector) vector<int>;\n}\n"
 b="%include \""
 for f in *.h
 do

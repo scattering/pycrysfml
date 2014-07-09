@@ -15,6 +15,7 @@ DESCRIPTION
 
 CLASSES
     __builtin__.object
+        FloatMatrix
         FloatVector
         FortFuncs
         IntVector
@@ -105,6 +106,102 @@ CLASSES
         xray_form_type
         xray_wavelength_type
         zone_axis_type
+    
+    class FloatMatrix(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __bool__(self)
+     |  
+     |  __del__ lambda self
+     |  
+     |  __delitem__(self, *args)
+     |  
+     |  __delslice__(self, *args)
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __getitem__(self, *args)
+     |  
+     |  __getslice__(self, *args)
+     |  
+     |  __init__(self, *args)
+     |  
+     |  __iter__(self)
+     |  
+     |  __len__(self)
+     |  
+     |  __nonzero__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  __setitem__(self, *args)
+     |  
+     |  __setslice__(self, *args)
+     |  
+     |  append(self, *args)
+     |  
+     |  assign(self, *args)
+     |  
+     |  back(self)
+     |  
+     |  begin(self)
+     |  
+     |  capacity(self)
+     |  
+     |  clear(self)
+     |  
+     |  empty(self)
+     |  
+     |  end(self)
+     |  
+     |  erase(self, *args)
+     |  
+     |  front(self)
+     |  
+     |  get_allocator(self)
+     |  
+     |  insert(self, *args)
+     |  
+     |  iterator(self)
+     |  
+     |  pop(self)
+     |  
+     |  pop_back(self)
+     |  
+     |  push_back(self, *args)
+     |  
+     |  rbegin(self)
+     |  
+     |  rend(self)
+     |  
+     |  reserve(self, *args)
+     |  
+     |  resize(self, *args)
+     |  
+     |  size(self)
+     |  
+     |  swap(self, *args)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_FloatMatrix>
+     |  
+     |  
+     |  __swig_getmethods__ = {}
+     |  
+     |  __swig_setmethods__ = {}
     
     class FloatVector(__builtin__.object)
      |  Methods defined here:
@@ -2687,6 +2784,8 @@ CLASSES
      |  
      |  get_magh_sqmiv(self)
      |  
+     |  get_miv(self, *args)
+     |  
      |  set_magh_h(self, *args)
      |  
      |  set_magh_keqv_minus(self, *args)
@@ -2700,6 +2799,8 @@ CLASSES
      |  set_magh_signp(self, *args)
      |  
      |  set_magh_sqmiv(self, *args)
+     |  
+     |  set_miv(self, *args)
      |  
      |  ----------------------------------------------------------------------
      |  Data descriptors defined here:
@@ -3323,6 +3424,8 @@ CLASSES
      |  
      |  get_matom_atminfo(self, *args)
      |  
+     |  get_matom_basis_element(self, *args)
+     |  
      |  get_matom_biso(self)
      |  
      |  get_matom_biso_std(self)
@@ -3430,6 +3533,8 @@ CLASSES
      |  set_matom_active(self, *args)
      |  
      |  set_matom_atminfo(self, *args)
+     |  
+     |  set_matom_basis_element(self, *args)
      |  
      |  set_matom_biso(self, *args)
      |  
@@ -5253,6 +5358,8 @@ CLASSES
      |  __swig_setmethods__ = {'data_ptr': <built-in function zone_axis_type_d...
 
 FUNCTIONS
+    FloatMatrix_swigregister(...)
+    
     FloatVector_swigregister(...)
     
     FortFuncs_allocate_atom_list(...)

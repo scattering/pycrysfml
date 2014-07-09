@@ -1,5 +1,6 @@
 from pycrysfml import *
 from fswig_hklgen import *
+from string import rstrip, ljust, rjust, center
 try:
     from bumps.names import Parameter, FitProblem
 except(ImportError):
@@ -226,7 +227,7 @@ class Model(object):
         return getIntensity(self.gaussians, self.background, self.tt)
 
     def residuals(self):
-        return (self.theory() - self.observed)/np.sqrt(self.observed)
+        return (self.theory() - self.observed)/(np.sqrt(self.observed)+1)
 
     def nllf(self):
         return np.sum(self.residuals()**2)
@@ -388,13 +389,13 @@ class AtomModel(object):
     def addMagAtom(self, magAtom, symmetry):
         # add a secondary magnetic atom object to the model
         self.magAtom = magAtom
-        self.magAtom.label = rstrip(self.magAtom.label())
+        self.magAtom.setLabel(rstrip(self.magAtom.label()))
         self.symmetry = symmetry
         self.magnetic = True
-        self.numVectors = self.symmetry.numBasisFunc[self.magAtom.irrepNum[0]-1]
+        self.numVectors = self.symmetry.numBasisFunc()[self.magAtom.irrepNum()[0]-1]
         self.coeffs = [None] * self.numVectors
         for i in xrange(self.numVectors):
-            self.coeffs[i] = Parameter(self.magAtom.basis[0][i],
+            self.coeffs[i] = Parameter(self.magAtom.basis()[0][i],
                                        name=self.atom.label() + " C" + str(i))
 #        self.phase = Parameter(0, name=self.atom.label + " phase")
     
@@ -415,9 +416,10 @@ class AtomModel(object):
         if self.magnetic:
             self.magAtom.setBIso(self.B.value)            
             self.magAtom.setOccupancy(occ)        
-            self.magAtom.setCoords([self.x, self.y, self.z])
+            self.magAtom.setCoords([float(self.x), float(self.y), float(self.z)])
             for i in xrange(self.numVectors):
-                self.magAtom.basis[0][i] = self.coeffs[i].value
+                #self.magAtom.basis[0][i] = self.coeffs[i].value
+                self.magAtom.setBasis_ind(0,i, self.coeffs[i].value)
 #                print >>sys.stderr, self.magAtom.label, self.magAtom.basis[0][i]
 #            self.magAtom.phase[0] = self.phase.value
 
