@@ -17,7 +17,6 @@ from collections import OrderedDict
 funcs = FortFuncs()
 
 # class definitions:
-
 # SymmetryOp Attributes:
 #   rot     - rotational part of symmetry operator (3 by 3 matrix)
 #   trans   - translational part of symmetry operator (vector)
@@ -108,7 +107,7 @@ class CrystalCell(crystal_cell_type):
         self.get_crystal_cell_ang(AVec)
         return AVec
     def setCell(self, length, angle):
-        funcs.set_crystal_cell(length, angle, self, None, None)     
+        funcs.set_crystal_cell(FloatVector(length), FloatVector(angle), self, None, None)     
 
 # MagSymmetry attributes:
 # [corresponds to CFML MagSymm_k_type]
@@ -138,7 +137,11 @@ class CrystalCell(crystal_cell_type):
 #   basis           - coeffs of basis functions of irreducible representations
 class MagSymmetry(magsymm_k_type):
     def __init__(self):
-        magsymm_k_type.__init__(self)    
+        magsymm_k_type.__init__(self)
+    def getBasis(self, irrRepNum, symOpNum, vectorNum):
+        result = FloatVector([0,0,0,0,0,0])
+        self.get_basis_element(irrRepNum, symOpNum, vectorNum, result)
+        return result
     def setBasis(self, irrRepNum, symOpNum, vectorNum, v):
         # TODO: fix this method, sets basf array
         #c_array2 = c_float*2
@@ -146,7 +149,11 @@ class MagSymmetry(magsymm_k_type):
         #    (c_array2*3)(c_array2(v[0].real, v[0].imag),
         #                 c_array2(v[1].real, v[1].imag),
         #                 c_array2(v[2].real, v[2].imag))
-        pass
+        ri_comps = []
+        for num in v:
+            ri_comps.append(num.real)
+            ri_comps.append(num.imag)
+        self.set_basis_element(irrRepNum, symOpNum, vectorNum, FloatVector(ri_comps))
                                                                 
 # Atom attributes:
 #   lab --> label       - label for the atom
@@ -179,12 +186,9 @@ class Atom(atom_type):
         if (len(args) == 6):
             funcs.init_atom_type(self)
             self.set_atom_lab(ljust(args[0],20)) # set atom label
-            self.label = ljust(args[0],20) # old field preserved for lack of fortstring get methods TODO: fix this
             self.set_atom_chemsymb(ljust(args[1], 2)) # set element
-            self.element = ljust(args[1], 2) # see above
             self.set_atom_sfacsymb(ljust(self.element, 4))
-            self.set_atom_x(args[2])
-            self.coords = args[2] # preserved for lack of get method TODO: add fortwrap support for array return types or use fortran work-around
+            self.set_atom_x(FloatVector(args[2]))
             self.set_atom_mult(args[3])
             self.set_atom_occ(float(args[4]))
             self.set_atom_biso(float(args[5]))
@@ -192,12 +196,20 @@ class Atom(atom_type):
         CVec = FloatVector([0,0,0])
         self.get_atom_x(CVec)
         return CVec
+    def setCoords(self, value):
+        self.set_atom_x(FloatVector(value))
     def multip(self):
         return self.get_atom_mult()
     def occupancy(self):
         return self.get_atom_occ()
+    def setOccupancy(self, value):
+        self.set_atom_occ(value)
     def BIso(self):
         return self.get_atom_biso()
+    def setBIso(self, value):
+        self.set_atom_biso(value)
+    def label(self):
+        return getAtom_lab(self)
     def sameSite(self, other):
         # TODO: make this work for equivalent sites, not just identical ones
         # returns true if two atoms occupy the same position
@@ -218,13 +230,30 @@ class Atom(atom_type):
 class MagAtom(matom_type):
     def __init__(self):
         matom_type.__init__(self)
+    def coords(self):
+            CVec = FloatVector([0,0,0])
+            self.get_matom_x(CVec)
+            return CVec    
     def sameSite(self, other):
         # returns true if two atoms occupy the same position
         # Warning: they must be specified with identical starting coordinates
         eps = 0.001
-        return all([approxEq(self.get_matom_x()[i], other.get_matom_x()[i], eps)
+        return all([approxEq(self.coords()[i], other.coords()[i], eps)
                     for i in xrange(3)])
-
+    def setCoords(self, value):
+        self.set_matom_x(FloatVector(value))    
+    def multip(self):
+        return self.get_matom_mult()
+    def occupancy(self):
+        return self.get_matom_occ()
+    def setOccupancy(self, value):
+        self.set_matom_occ(value)    
+    def BIso(self):
+        return self.get_matom_biso()
+    def setBIso(self, value):
+        self.set_matom_biso(value)    
+    def label(self):
+        return getMatom_lab(self)
 # AtomList attributes:
 #   numAtoms    - the number of atoms
 #   atoms       - a list of Atom objects
@@ -262,17 +291,26 @@ class AtomList(atom_list_type, matom_list_type):
             raise StopIteration
         return self[self.index]
     def __getitem__(self, index):
-        if (index < 0): index += len(self)
-        ind = intp()
-        ind.assign(index)
-        if self.magnetic:
-            result = MagAtom()
-            self.get_matom_list_element(result, ind)
-            return result
+        if isinstance(index, int):
+            if (index < 0): index += len(self)
+            ind = intp()
+            ind.assign(index)
+            if self.magnetic:
+                result = MagAtom()
+                self.get_matom_list_element(result, ind)
+                return result
+            else:
+                result = Atom()
+                self.get_atom_list_element(result, ind)
+                return result
+        elif isinstance(index, slice):
+            start, stop, step = index.indices(len(self))    # index is a slice
+            L = []
+            for i in range(start, stop, step):
+                L.append(self.__getitem__(i))
+            return L
         else:
-            result = Atom()
-            self.get_atom_list_element(result, ind)
-            return result
+            raise TypeError("index must be int or slice")        
     def __setitem__(self, index, value):
         ind = intp()
         ind.assign(index)
@@ -335,8 +373,6 @@ class MagReflection(magh_type):
 #   reflections     - list of Reflection objects
 #   magnetic        - True if this is a list of MagReflections
 class ReflectionList(reflection_list_type, magh_list_type):
-    # TODO: fix this... add get/set methods and rewrite python list operator methods
-    #     : also add get/ set to crystal_cell_type
     def __init__(self, magnetic=False):
         self.index = -1
         if not magnetic:
@@ -511,6 +547,37 @@ def hklString(hkl):
         return "%d %d %d" % tuple(hkl)
     except(AssertionError):
         return "%.1f %.1f %.1f" % tuple(hkl)
+# calcS: calculates the sin(theta)/lambda value for a given list of planes
+def calcS(cell, hkl):
+    if isSequence(hkl[0]):
+        # list of hkl positions
+        return [calcS(cell, h) for h in hkl]
+    else:
+        # single hkl
+        return funcs.hkls_r(FloatVector(list(hkl)), cell)
+
+# applySymOp: applies a symmetry operator to a given vector and normalizes the
+#   resulting vector to stay within one unit cell
+def applySymOp(v, symOp):
+    rotMat = np.mat(symOp.get_sym_oper_rot())
+    vMat = np.mat(v).T
+    newV = np.array((rotMat * vMat).T) + np.array(symOp.get_sym_oper_tr())
+    return np.array(newV)%1
+
+# dotProduct: returns the dot product of two complex vectors (stored as 3x2
+#   Numpy arrays) or a list of two complex vectors
+def dotProduct(v1, v2):
+    if (not isSequence(v1[0][0]) or len(v1[0][0]) == 1):
+        u1 = np.matrix([complex(v1[0][0], -v1[0][1]),
+                        complex(v1[1][0], -v1[1][1]),
+                        complex(v1[2][0], -v1[2][1])])
+        u2 = np.matrix([[complex(v2[0][0], v2[0][1])],
+                        [complex(v2[1][0], v2[1][1])],
+                        [complex(v2[2][0], v2[2][1])]])
+        dot = np.dot(u1, u2)
+        return np.array(dot)[0][0]
+    else:
+        return np.array([dotProduct(u1,u2) for u1, u2 in zip(v1, v2)])
 
 # getMaxNumRef: returns the maximum number of reflections for a given cell
 def getMaxNumRef(sMax, volume, sMin=0.0, multip=2):
@@ -716,7 +783,6 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
     return (tt, intensity)
 
-# TODO: fix print info
 # printInfo: prints out information about the provided space group and atoms,
 #   as well as the generated reflections
 def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
@@ -835,8 +901,6 @@ def plotPattern(gaussians, background, ttObs, observed, ttMin, ttMax, ttStep,
         resid = observed - intensityCalc
         pylab.plot(ttObs, resid, label="Residuals")
     return
-
-
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
     infoFile = os.path.join(DATAPATH,"Al2O3.cif")

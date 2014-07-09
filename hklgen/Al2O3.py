@@ -1,7 +1,8 @@
 import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 import fswig_hklgen as H
-from pycrysfml import FloatVector
+import hkl_model as Mod
+from pycrysfml import FloatVector, getSpaceGroup_crystalsys
 np.seterr(divide="ignore", invalid="ignore")    
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
@@ -22,10 +23,11 @@ tt, observed = H.readData(observedFile, kind="y", skiplines=1, start=ttMin,
                           stop=ttMax, step=ttStep)
 
 def fit():
-    cell = H.makeCell(crystalCell, spaceGroup.xtalSystem)
+    # PYTHONPATH=. bumps Al2O3.py --fit=dream --store=M1 --burn=100 --steps=500
+    cell = Mod.makeCell(crystalCell, getSpaceGroup_crystalsys(spaceGroup))
     cell.a.pm(0.5)
     cell.c.pm(0.5)
-    m = H.Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
+    m = Mod.Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
                 atoms, exclusions)
     m.u.range(0,2)
     m.v.range(-2,0)

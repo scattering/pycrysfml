@@ -184,6 +184,18 @@ SUBROUTINE get_reflection_list_element(lst, elem, ind)
 	! Use c-style indexing
 	elem = lst%Ref(ind+1)
 END SUBROUTINE get_reflection_list_element
+SUBROUTINE get_basis_element(mgsymm, irrRepNum, symOpNum, vectorNum, v)
+	TYPE(magsymm_k_type) :: mgsymm
+	INTEGER :: irrRepNum, symOpNum, vectorNum
+	REAL, DIMENSION(6), INTENT(OUT) :: v
+	COMPLEX, DIMENSION(3) :: temp
+	! use c-style indexing
+	temp = mgsymm%basf(:, vectorNum+1, symOpNum+1, irrRepNum+1)
+	DO i = 1, 3
+		v(1*i) = REAL(temp(i))
+		v(2*i) = AIMAG(temp(i))
+	END DO
+END SUBROUTINE get_basis_element
 ! setters:
 SUBROUTINE set_atom_list_element(lst, elem, ind)
 	TYPE(Atom_List_Type) :: lst
@@ -227,6 +239,15 @@ SUBROUTINE set_reflection_list_element(lst, elem, ind)
 	! Use c-style indexing
 	lst%Ref(ind+1) = elem
 END SUBROUTINE set_reflection_list_element
+SUBROUTINE set_basis_element(mgsymm, irrRepNum, symOpNum, vectorNum, v)
+	TYPE(magsymm_k_type) :: mgsymm
+	INTEGER :: irrRepNum, symOpNum, vectorNum
+	REAL, DIMENSION(6), INTENT(IN) :: v
+	! use c-style indexing
+	DO i = 1, 3
+		mgsymm%basf(i, vectorNum+1, symOpNum+1, irrRepNum+1) = CMPLX(v(1*i), v(2*i))
+	END DO
+END SUBROUTINE set_basis_element
 !!-- END Array wrappers --!!
 
 !!-- Getters and Setters --!!

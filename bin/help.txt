@@ -3139,6 +3139,8 @@ CLASSES
      |  
      |  __setattr__ lambda self, name, value
      |  
+     |  get_basis_element(self, *args)
+     |  
      |  get_magsymm_k_bns_number(self, *args)
      |  
      |  get_magsymm_k_bns_symbol(self, *args)
@@ -3188,6 +3190,8 @@ CLASSES
      |  get_magsymm_k_sk_type(self, *args)
      |  
      |  get_magsymm_k_small_irrep_dim(self, *args)
+     |  
+     |  set_basis_element(self, *args)
      |  
      |  set_magsymm_k_bns_number(self, *args)
      |  
