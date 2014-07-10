@@ -217,6 +217,53 @@ class FloatVector(_object):
 FloatVector_swigregister = _pycrysfml.FloatVector_swigregister
 FloatVector_swigregister(FloatVector)
 
+class FloatMatrix(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FloatMatrix, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, FloatMatrix, name)
+    __repr__ = _swig_repr
+    def iterator(self): return _pycrysfml.FloatMatrix_iterator(self)
+    def __iter__(self): return self.iterator()
+    def __nonzero__(self): return _pycrysfml.FloatMatrix___nonzero__(self)
+    def __bool__(self): return _pycrysfml.FloatMatrix___bool__(self)
+    def __len__(self): return _pycrysfml.FloatMatrix___len__(self)
+    def pop(self): return _pycrysfml.FloatMatrix_pop(self)
+    def __getslice__(self, *args): return _pycrysfml.FloatMatrix___getslice__(self, *args)
+    def __setslice__(self, *args): return _pycrysfml.FloatMatrix___setslice__(self, *args)
+    def __delslice__(self, *args): return _pycrysfml.FloatMatrix___delslice__(self, *args)
+    def __delitem__(self, *args): return _pycrysfml.FloatMatrix___delitem__(self, *args)
+    def __getitem__(self, *args): return _pycrysfml.FloatMatrix___getitem__(self, *args)
+    def __setitem__(self, *args): return _pycrysfml.FloatMatrix___setitem__(self, *args)
+    def append(self, *args): return _pycrysfml.FloatMatrix_append(self, *args)
+    def empty(self): return _pycrysfml.FloatMatrix_empty(self)
+    def size(self): return _pycrysfml.FloatMatrix_size(self)
+    def clear(self): return _pycrysfml.FloatMatrix_clear(self)
+    def swap(self, *args): return _pycrysfml.FloatMatrix_swap(self, *args)
+    def get_allocator(self): return _pycrysfml.FloatMatrix_get_allocator(self)
+    def begin(self): return _pycrysfml.FloatMatrix_begin(self)
+    def end(self): return _pycrysfml.FloatMatrix_end(self)
+    def rbegin(self): return _pycrysfml.FloatMatrix_rbegin(self)
+    def rend(self): return _pycrysfml.FloatMatrix_rend(self)
+    def pop_back(self): return _pycrysfml.FloatMatrix_pop_back(self)
+    def erase(self, *args): return _pycrysfml.FloatMatrix_erase(self, *args)
+    def __init__(self, *args): 
+        this = _pycrysfml.new_FloatMatrix(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def push_back(self, *args): return _pycrysfml.FloatMatrix_push_back(self, *args)
+    def front(self): return _pycrysfml.FloatMatrix_front(self)
+    def back(self): return _pycrysfml.FloatMatrix_back(self)
+    def assign(self, *args): return _pycrysfml.FloatMatrix_assign(self, *args)
+    def resize(self, *args): return _pycrysfml.FloatMatrix_resize(self, *args)
+    def insert(self, *args): return _pycrysfml.FloatMatrix_insert(self, *args)
+    def reserve(self, *args): return _pycrysfml.FloatMatrix_reserve(self, *args)
+    def capacity(self): return _pycrysfml.FloatMatrix_capacity(self)
+    __swig_destroy__ = _pycrysfml.delete_FloatMatrix
+    __del__ = lambda self : None;
+FloatMatrix_swigregister = _pycrysfml.FloatMatrix_swigregister
+FloatMatrix_swigregister(FloatMatrix)
+
 class IntVector(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, IntVector, name, value)
@@ -3309,6 +3356,8 @@ class magh_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_magh_type
     __del__ = lambda self : None;
+    def get_miv(self, *args): return _pycrysfml.magh_type_get_miv(self, *args)
+    def set_miv(self, *args): return _pycrysfml.magh_type_set_miv(self, *args)
     def get_magh_num_k(self): return _pycrysfml.magh_type_get_magh_num_k(self)
     def set_magh_num_k(self, *args): return _pycrysfml.magh_type_set_magh_num_k(self, *args)
     def get_magh_h(self, *args): return _pycrysfml.magh_type_get_magh_h(self, *args)
@@ -3549,6 +3598,8 @@ class magsymm_k_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_magsymm_k_type
     __del__ = lambda self : None;
+    def get_basis_element(self, *args): return _pycrysfml.magsymm_k_type_get_basis_element(self, *args)
+    def set_basis_element(self, *args): return _pycrysfml.magsymm_k_type_set_basis_element(self, *args)
     def get_magsymm_k_latt(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_latt(self, *args)
     def set_magsymm_k_latt(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_latt(self, *args)
     def get_magsymm_k_numops(self): return _pycrysfml.magsymm_k_type_get_magsymm_k_numops(self)
@@ -3639,6 +3690,8 @@ class matom_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_matom_type
     __del__ = lambda self : None;
+    def get_matom_basis_element(self, *args): return _pycrysfml.matom_type_get_matom_basis_element(self, *args)
+    def set_matom_basis_element(self, *args): return _pycrysfml.matom_type_set_matom_basis_element(self, *args)
     def get_matom_mmphas(self, *args): return _pycrysfml.matom_type_get_matom_mmphas(self, *args)
     def set_matom_mmphas(self, *args): return _pycrysfml.matom_type_set_matom_mmphas(self, *args)
     def get_matom_locc(self): return _pycrysfml.matom_type_get_matom_locc(self)

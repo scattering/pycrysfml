@@ -14,28 +14,34 @@ LIBFLAGS='-lgfortran'
 SOFLAGS='-shared -fPIC -rdynamic'
 BIN_DIR='Linux'
 fi
-#svn co http://forge.epn-campus.eu/svn/crysfml/Src
-cp -r ~/930_Src/Src $wd/Src
+if [ $# -lt 1 ]; then
+svn co http://forge.epn-campus.eu/svn/crysfml/Src
+else
+cp -r $1 $wd/Src
+fi
 # inject python wrapper module
 cp $wd/fort_methods/cfml_python/cfml_python.f90 $wd/Src/cfml_python.f90
 # end injection
 cd $wd
 $wd/gen_list.py > $wd/list
 cd $wd/Src/
-mkdir wrap
+mkdir $wd/Src/wrap
 $SEDCOM -i 's/.*/\L&/' *.f90
 $wd/fix_deps.py
 $wd/fix_type_decl.py
 # wrap library
-$wd/fortwrap.py --file-list=$wd/list -d wrap >& $wd/FortWrap_log
-#svn co http://forge.epn-campus.eu/svn/crysfml/Src
-#cp Src/*.f90 .
-cp ~/930_Src/Src/*.f90 .
+$wd/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log
+if [ $# -lt 1 ]; then
+svn co http://forge.epn-campus.eu/svn/crysfml/Src
+cp Src/*.f90 .
+rm -r Src
+else
+cp $1/*.f90 .
+fi
 # inject python wrapper module again and fix line length
 cp $wd/fort_methods/cfml_python/cfml_python.f90 $wd/Src/cfml_python.f90
 $wd/fort_methods/fix_line_width.py $wd/Src/cfml_python.f90
 # end injection
-rm -r Src
 # Build library with Makefile
 cd $wd
 make deps
