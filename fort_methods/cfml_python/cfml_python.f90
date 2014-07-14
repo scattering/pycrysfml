@@ -144,7 +144,7 @@ END SUBROUTINE read_mag_mcif_file
 ! accessors:
 SUBROUTINE get_atom_list_element(lst, elem, ind)
 	TYPE(Atom_List_Type) :: lst
-	INTEGER :: ind
+	INTEGER, INTENT(IN) :: ind
 	TYPE(Atom_Type), INTENT(OUT) :: elem
 	! Use c-style indexing
 	elem = lst%atom(ind+1)
@@ -158,14 +158,14 @@ SUBROUTINE get_atom_equiv_list_element(lst, elem, ind)
 END SUBROUTINE get_atom_equiv_list_element
 SUBROUTINE get_matom_list_element(lst, elem, ind)
 	TYPE(mAtom_List_Type) :: lst
-	INTEGER :: ind
+	INTEGER, INTENT(IN) :: ind
 	TYPE(mAtom_Type), INTENT(OUT) :: elem
 	! Use c-style indexing
 	elem = lst%Atom(ind+1)
 END SUBROUTINE get_matom_list_element
 SUBROUTINE get_magh_list_element(lst, elem, ind)
 	TYPE(MagH_List_Type) :: lst
-	INTEGER :: ind
+	INTEGER, INTENT(IN) :: ind
 	TYPE(MagH_Type), INTENT(OUT) :: elem
 	! Use c-style indexing
 	elem = lst%Mh(ind+1)
@@ -179,7 +179,7 @@ SUBROUTINE get_maghd_list_element(lst, elem, ind)
 END SUBROUTINE get_maghd_list_element
 SUBROUTINE get_reflection_list_element(lst, elem, ind)
 	TYPE(reflection_List_Type) :: lst
-	INTEGER :: ind
+	INTEGER, INTENT(IN) :: ind
 	TYPE(reflection_Type), INTENT(OUT) :: elem
 	! Use c-style indexing
 	elem = lst%Ref(ind+1)
@@ -198,16 +198,16 @@ SUBROUTINE get_basis_element(mgsymm, irrRepNum, symOpNum, vectorNum, v)
 END SUBROUTINE get_basis_element
 FUNCTION get_matom_basis_element(atm, i, j)
 	TYPE(matom_type) :: atm
-	INTEGER :: i, j
+	INTEGER, INTENT(IN) :: i, j
 	REAL :: get_matom_basis_element
 	! use c-style indexing
-	get_matom_basis_element = atm%cbas(i+1, j+1)
+	get_matom_basis_element = atm%cbas(j+1, i+1)
 END FUNCTION get_matom_basis_element
 ! setters:
 SUBROUTINE set_atom_list_element(lst, elem, ind)
 	TYPE(Atom_List_Type) :: lst
-	INTEGER :: ind
-	TYPE(Atom_Type) :: elem
+	INTEGER, INTENT(IN) :: ind
+	TYPE(Atom_Type), INTENT(IN) :: elem
 	! Use c-style indexing
 	lst%atom(ind+1) = elem
 END SUBROUTINE set_atom_list_element
@@ -220,8 +220,8 @@ SUBROUTINE set_atom_equiv_list_element(lst, elem, ind)
 END SUBROUTINE set_atom_equiv_list_element
 SUBROUTINE set_matom_list_element(lst, elem, ind)
 	TYPE(mAtom_List_Type) :: lst
-	INTEGER :: ind
-	TYPE(mAtom_Type) :: elem
+	INTEGER, INTENT(IN) :: ind
+	TYPE(mAtom_Type), INTENT(IN) :: elem
 	! Use c-style indexing
 	lst%Atom(ind+1) = elem
 END SUBROUTINE set_matom_list_element
@@ -257,16 +257,33 @@ SUBROUTINE set_basis_element(mgsymm, irrRepNum, symOpNum, vectorNum, v)
 END SUBROUTINE set_basis_element
 SUBROUTINE set_matom_basis_element(atm, i, j, value)
 	TYPE(matom_type) :: atm
-	INTEGER :: i, j
-	REAL :: value
+	INTEGER, INTENT(IN) :: i, j
+	REAL, INTENT(IN) :: value
 	! use c-style indexing
 	atm%cbas(i+1, j+1) = value
 END SUBROUTINE set_matom_basis_element
 !!-- END Array wrappers --!!
+!!-- Magnetic Structure Factors --!!
+SUBROUTINE get_msf(mh, output)
+	TYPE(magh_type) :: mh
+	REAL, DIMENSION(6), INTENT(OUT) :: output
+	DO i = 1, 3
+		output(1*i) = REAL(mh%msf(i))
+		output(2*i) = AIMAG(mh%msf(i))
+	END DO
+END SUBROUTINE get_msf
+SUBROUTINE set_msf(mh, value)
+	TYPE(magh_type) :: mh
+	REAL, DIMENSION(6), INTENT(IN) :: value
+	DO i = 1, 3
+		mh%msf(i) = CMPLX(value(1*i), value(2*i))
+	END DO
+END SUBROUTINE set_msf
+
 !!-- Magnetic Interaction Vectors --!!
 SUBROUTINE get_miv(mh, output)
 	TYPE(magh_type) :: mh
-	REAL, DIMENSION(6) :: output
+	REAL, DIMENSION(6), INTENT(OUT) :: output
 	DO i = 1, 3
 		output(1*i) = REAL(mh%miv(i))
 		output(2*i) = AIMAG(mh%miv(i))
@@ -274,11 +291,18 @@ SUBROUTINE get_miv(mh, output)
 END SUBROUTINE get_miv
 SUBROUTINE set_miv(mh, value)
 	TYPE(magh_type) :: mh
-	REAL, DIMENSION(6) :: value
+	REAL, DIMENSION(6), INTENT(IN) :: value
 	DO i = 1, 3
 		mh%miv(i) = CMPLX(value(1*i), value(2*i))
 	END DO
 END SUBROUTINE set_miv
+
+!!-- debug functions --!!
+SUBROUTINE printBasis(matm)
+TYPE(matom_type) :: matm
+PRINT *, "Mag Atom Basis: "
+PRINT *, matm%cbas
+END SUBROUTINE printBasis
 
 !!-- Getters and Setters --!!
 

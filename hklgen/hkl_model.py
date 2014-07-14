@@ -1,6 +1,7 @@
 from pycrysfml import *
 from fswig_hklgen import *
 from string import rstrip, ljust, rjust, center
+import sys
 try:
     from bumps.names import Parameter, FitProblem
 except(ImportError):
@@ -265,10 +266,15 @@ class Model(object):
             ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
             for i in xrange(len(self.magReflections)):
                 self.magReflections[i].set_magh_s(getS(ttPos[i], self.wavelength))
+            #ind = 0
+            #for ref in self.magReflections:
+                #self.magRefList[ind] = ref
+                #ind += 1
             self.magIntensities = calcIntensity(self.magRefList,
                                                 self.atomListModel.magAtomList, 
                                                 self.newSymmetry, self.wavelength,
                                                 self.cell.cell, True)
+            #print self.magIntensities
             self.gaussians.extend(makeGaussians(self.magReflections,
                                            [self.u.value, self.v.value, self.w.value],
                                            self.magIntensities, self.scale.value,
@@ -309,7 +315,6 @@ class AtomListModel(object):
                 self.magAtomList = AtomList(atoms[1], magnetic=True)
                 self.atoms = atoms[0]
                 self.magAtoms = atoms[1]
-
         self.atomModels = [AtomModel(atom, self.sgmultip) for atom in self.atoms]
         if self.magnetic:
             # correct atom models to include magnetic atoms
@@ -318,6 +323,11 @@ class AtomListModel(object):
                     if (magAtom.label().rstrip() == model.atom.label().rstrip() and \
                         magAtom.sameSite(model.atom)):
                         model.addMagAtom(magAtom, self.symmetry)
+            index = 0
+            for magAtom in self.magAtoms:
+                self.magAtomList[index] = magAtom
+                self.magAtoms[index] = magAtom
+                index += 1
         self.modelsDict = dict([(am.atom.label(), am) for am in self.atomModels])
 #        print >>sys.stderr, "atom models: ", [(am.atom.label, am.magnetic)
 #                                              for am in self.atomModels]
@@ -344,8 +354,14 @@ class AtomListModel(object):
 #        print >>sys.stderr, "label: |" + self.atoms[0].label + "|"        
 #         if len(self.parameters()) == 1:
 #            print >>sys.stderr, self.parameters()
+        index = 0
         for atomModel in self.atomModels:
             atomModel.update()
+            if hasattr(atomModel, 'magAtom'):
+                self.magAtomList[index] = atomModel.magAtom
+                self.magAtoms[index] = atomModel.magAtom
+                #print atomModel.magAtom.basis()
+                index += 1
         # update basis vectors instead of coefficients (only needed in special
         #   circumstances)
         #if self.magnetic:
@@ -420,6 +436,6 @@ class AtomModel(object):
             for i in xrange(self.numVectors):
                 #self.magAtom.basis[0][i] = self.coeffs[i].value
                 self.magAtom.setBasis_ind(0,i, self.coeffs[i].value)
-#                print >>sys.stderr, self.magAtom.label, self.magAtom.basis[0][i]
+#            print >>sys.stderr, self.magAtom.label(), self.magAtom.basis()
 #            self.magAtom.phase[0] = self.phase.value
 

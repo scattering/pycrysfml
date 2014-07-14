@@ -1553,6 +1553,8 @@ class FortFuncs(_object):
     if _newclass:read_mag_cfl_file = staticmethod(_pycrysfml.FortFuncs_read_mag_cfl_file)
     __swig_getmethods__["read_mag_mcif_file"] = lambda x: _pycrysfml.FortFuncs_read_mag_mcif_file
     if _newclass:read_mag_mcif_file = staticmethod(_pycrysfml.FortFuncs_read_mag_mcif_file)
+    __swig_getmethods__["printbasis"] = lambda x: _pycrysfml.FortFuncs_printbasis
+    if _newclass:printbasis = staticmethod(_pycrysfml.FortFuncs_printbasis)
     __swig_getmethods__["atom_type_ctor"] = lambda x: _pycrysfml.FortFuncs_atom_type_ctor
     if _newclass:atom_type_ctor = staticmethod(_pycrysfml.FortFuncs_atom_type_ctor)
     __swig_getmethods__["matom_type_ctor"] = lambda x: _pycrysfml.FortFuncs_matom_type_ctor
@@ -3030,6 +3032,10 @@ def FortFuncs_read_mag_mcif_file(*args):
   return _pycrysfml.FortFuncs_read_mag_mcif_file(*args)
 FortFuncs_read_mag_mcif_file = _pycrysfml.FortFuncs_read_mag_mcif_file
 
+def FortFuncs_printbasis(*args):
+  return _pycrysfml.FortFuncs_printbasis(*args)
+FortFuncs_printbasis = _pycrysfml.FortFuncs_printbasis
+
 def FortFuncs_atom_type_ctor(*args):
   return _pycrysfml.FortFuncs_atom_type_ctor(*args)
 FortFuncs_atom_type_ctor = _pycrysfml.FortFuncs_atom_type_ctor
@@ -3410,6 +3416,8 @@ class magh_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_magh_type
     __del__ = lambda self : None;
+    def get_msf(self, *args): return _pycrysfml.magh_type_get_msf(self, *args)
+    def set_msf(self, *args): return _pycrysfml.magh_type_set_msf(self, *args)
     def get_miv(self, *args): return _pycrysfml.magh_type_get_miv(self, *args)
     def set_miv(self, *args): return _pycrysfml.magh_type_set_miv(self, *args)
     def get_magh_num_k(self): return _pycrysfml.magh_type_get_magh_num_k(self)

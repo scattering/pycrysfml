@@ -735,6 +735,8 @@ CLASSES
      |  
      |  print_message = FortFuncs_print_message(...)
      |  
+     |  printbasis = FortFuncs_printbasis(...)
+     |  
      |  prof_val = FortFuncs_prof_val(...)
      |  
      |  psd_convert = FortFuncs_psd_convert(...)
@@ -2786,6 +2788,8 @@ CLASSES
      |  
      |  get_miv(self, *args)
      |  
+     |  get_msf(self, *args)
+     |  
      |  set_magh_h(self, *args)
      |  
      |  set_magh_keqv_minus(self, *args)
@@ -2801,6 +2805,8 @@ CLASSES
      |  set_magh_sqmiv(self, *args)
      |  
      |  set_miv(self, *args)
+     |  
+     |  set_msf(self, *args)
      |  
      |  ----------------------------------------------------------------------
      |  Data descriptors defined here:
@@ -5781,6 +5787,8 @@ FUNCTIONS
     FortFuncs_print_distances(...)
     
     FortFuncs_print_message(...)
+    
+    FortFuncs_printbasis(...)
     
     FortFuncs_prof_val(...)
     

@@ -81,6 +81,8 @@ class SpaceGroup(space_group_type):
         if (groupName != None):
             groupName = str(groupName)
             funcs.set_spacegroup(groupName, self, None, None, None, None)
+    def xtalSystem(self):
+        return getSpaceGroup_crystalsys(self)
 
 # CrystalCell attributes:
 #   length, angle           - arrays of unit cell parameters
@@ -172,7 +174,7 @@ class MagSymmetry(magsymm_k_type):
             ri_comps.append(num.real)
             ri_comps.append(num.imag)
         self.set_basis_element(int_to_p(irrRepNum), int_to_p(symOpNum), int_to_p(vectorNum), FloatVector(ri_comps))
-                                                                
+        #self.set_basis_element(int_to_p(vectorNum), int_to_p(symOpNum), int_to_p(irrRepNum), FloatVector(ri_comps))                                                     
 # Atom attributes:
 #   lab --> label       - label for the atom
 #   element     - chemical symbol of the element 
@@ -213,7 +215,7 @@ class Atom(atom_type):
     def coords(self):
         CVec = FloatVector([0,0,0])
         self.get_atom_x(CVec)
-        return CVec
+        return list(CVec)
     def setCoords(self, value):
         self.set_atom_x(FloatVector(value))
     def multip(self):
@@ -253,7 +255,7 @@ class MagAtom(matom_type):
     def coords(self):
             CVec = FloatVector([0,0,0])
             self.get_matom_x(CVec)
-            return CVec    
+            return list(CVec)    
     def sameSite(self, other):
         # returns true if two atoms occupy the same position
         # Warning: they must be specified with identical starting coordinates
@@ -277,12 +279,12 @@ class MagAtom(matom_type):
         self.get_matom_imat(result)
         return list(result)
     def basis(self):
-        result = [[self.get_matom_basis_element(int_to_p(i), int_to_p(j)) for j in range(12)] for i in range(12)]
+        result = [[self.get_matom_basis_element(i, j) for j in range(12)] for i in range(12)]
         return list(result)
     def setBasis(self, value):
         for i in range(12):
             for j in range(12):
-                self.set_matom_basis_element(int_to_p(i), int_to_p(j), float_to_p(value[i][j]))
+                self.set_matom_basis_element(i, j, value[i][j])
     def setBasis_ind(self, i, j, k):
         b = self.basis()
         b[i][j] = k
@@ -301,6 +303,8 @@ class MagAtom(matom_type):
         return getMatom_lab(self)
     def setLabel(self, label):
         self.set_matom_lab(label)
+    def debug(self):
+        funcs.printbasis(self)
 # AtomList attributes:
 #   numAtoms    - the number of atoms
 #   atoms       - a list of Atom objects
@@ -340,15 +344,13 @@ class AtomList(atom_list_type, matom_list_type):
     def __getitem__(self, index):
         if isinstance(index, int):
             if (index < 0): index += len(self)
-            ind = intp()
-            ind.assign(index)
             if self.magnetic:
                 result = MagAtom()
-                self.get_matom_list_element(result, ind)
+                self.get_matom_list_element(result, index)
                 return result
             else:
                 result = Atom()
-                self.get_atom_list_element(result, ind)
+                self.get_atom_list_element(result, index)
                 return result
         elif isinstance(index, slice):
             start, stop, step = index.indices(len(self))    # index is a slice
@@ -359,12 +361,11 @@ class AtomList(atom_list_type, matom_list_type):
         else:
             raise TypeError("index must be int or slice")        
     def __setitem__(self, index, value):
-        ind = intp()
-        ind.assign(index)
         if self.magnetic:
-            self.set_matom_list_element(value, ind)
+            self.set_matom_list_element(value, index)
+            #print 'setting index', index, 'to', value
         else:
-            self.set_atom_list_element(value, ind)
+            self.set_atom_list_element(value, index)
 
 # Reflection attributes:
 #   hkl         - list containing hkl indices for the reflection
@@ -415,6 +416,13 @@ class MagReflection(magh_type):
             self.set_magh_s(reflection.get_reflection_s())
     def multip(self):
         return self.get_magh_mult()
+    def magStrFact(self):
+        rVec = FloatVector([0 for i in range(6)])
+        self.get_msf(rVec)
+        result = []
+        for i in range(0, len(rVec), 2):
+            result.append(complex(rVec[i],rVec[i+1]))
+        return result
     def magIntVec(self):
         rVec = FloatVector([0 for i in range(6)])
         self.get_miv(rVec)
@@ -432,7 +440,7 @@ class MagReflection(magh_type):
     def hkl(self):
         hklVec = FloatVector([0,0,0])
         self.get_magh_h(hklVec)
-        return hklVec    
+        return hklVec
     
 # ReflectionList attributes
 #   numReflections  - the number of reflections
@@ -463,15 +471,13 @@ class ReflectionList(reflection_list_type, magh_list_type):
     def __getitem__(self, index):
         if isinstance(index, int):
             if (index < 0): index += len(self)
-            ind = intp()
-            ind.assign(index)
             if self.magnetic:
                 result = MagReflection()
-                self.get_magh_list_element(result, ind)
+                self.get_magh_list_element(result, index)
                 return result
             else:
                 result = Reflection()
-                self.get_reflection_list_element(result, ind)
+                self.get_reflection_list_element(result, index)
                 return result
         elif isinstance(index, slice):
             start, stop, step = index.indices(len(self))    # index is a slice
@@ -745,11 +751,14 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength):
 #   of lattice reflections
 # TODO: convert to pycrysfml
 def calcMagStructFact(refList, atomList, symmetry, cell):
-    funcs.init_mag_structure_factors(refList, atomList, symmetry, None)
+    funcs.init_mag_structure_factors(refList, atomList, symmetry)
     funcs.mag_structure_factors(atomList, symmetry, refList)
     # calculate the "magnetic interaction vector" (the square of which is
     #   proportional to the intensity)    
     funcs.calc_mag_interaction_vector(refList, cell)
+    #for atom in atomList:
+        #print atom.basis()
+    
     mivs = np.array([ref.magIntVec() for ref in refList])
     return mivs
 
@@ -762,12 +771,12 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
         sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
-        sfs2 = np.array([np.sum(np.array(sf)**2) for sf in sfs])
+        sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
     if magnetic:
         multips = np.array([ref.get_magh_mult() for ref in refList])
-        tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
+        tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))          
     else:    
         multips = np.array([ref.get_reflection_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
@@ -1000,13 +1009,16 @@ def plotPattern(gaussians, background, ttObs, observed, ttMin, ttMax, ttStep,
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
-    infoFile = os.path.join(DATAPATH,"Al2O3.cif")
-    (sG, cC, atoms) = readInfo(infoFile)
-    print sG.get_space_group_numspg()
-    #sG.get_space_group_spg_symb(s)
-    for i in range(len(atoms)):
-        print atoms[i].get_atom_occ()
-    for atom in atoms:
-        print atom.get_atom_occ()
-    print sG.get_space_group_multip()
-    print getSpaceGroup_spg_symb(sG)
+    #infoFile = os.path.join(DATAPATH,"Al2O3.cif")
+    #(sG, cC, atoms) = readInfo(infoFile)
+    #print sG.get_space_group_numspg()
+    ##sG.get_space_group_spg_symb(s)
+    #for i in range(len(atoms)):
+        #print atoms[i].get_atom_occ()
+    #for atom in atoms:
+        #print atom.get_atom_occ()
+    #print sG.get_space_group_multip()
+    #print getSpaceGroup_spg_symb(sG)
+    infoFile = os.path.join(DATAPATH,r"LFO_20k/LuFeMnO3_BT1fit.cfl")
+    (spaceGroup, crystalCell, magAtomList, symmetry) = readMagInfo(infoFile)
+    print calcMagStructFact(refList, atomList, symmetry, cell)
