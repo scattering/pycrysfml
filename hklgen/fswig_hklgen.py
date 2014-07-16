@@ -161,7 +161,8 @@ class MagSymmetry(magsymm_k_type):
     def getBasis(self, irrRepNum, symOpNum, vectorNum):
         result = FloatVector([0,0,0,0,0,0])
         self.get_basis_element(irrRepNum, symOpNum, vectorNum, result)
-        return result
+        #self.get_basis_element(vectorNum, symOpNum, irrRepNum, result)
+        return list(result)
     def setBasis(self, irrRepNum, symOpNum, vectorNum, v):
         # TODO: fix this method, sets basf array
         #c_array2 = c_float*2
@@ -173,8 +174,8 @@ class MagSymmetry(magsymm_k_type):
         for num in v:
             ri_comps.append(num.real)
             ri_comps.append(num.imag)
-        self.set_basis_element(int_to_p(irrRepNum), int_to_p(symOpNum), int_to_p(vectorNum), FloatVector(ri_comps))
-        #self.set_basis_element(int_to_p(vectorNum), int_to_p(symOpNum), int_to_p(irrRepNum), FloatVector(ri_comps))                                                     
+        self.set_basis_element(irrRepNum, symOpNum, vectorNum, FloatVector(ri_comps))
+        #self.set_basis_element(vectorNum, symOpNum, irrRepNum, FloatVector(ri_comps))                                                     
 # Atom attributes:
 #   lab --> label       - label for the atom
 #   element     - chemical symbol of the element 

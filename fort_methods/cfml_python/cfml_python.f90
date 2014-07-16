@@ -186,13 +186,13 @@ SUBROUTINE get_reflection_list_element(lst, elem, ind)
 END SUBROUTINE get_reflection_list_element
 SUBROUTINE get_basis_element(mgsymm, irrRepNum, symOpNum, vectorNum, v)
 	TYPE(magsymm_k_type) :: mgsymm
-	INTEGER :: irrRepNum, symOpNum, vectorNum
+	INTEGER, INTENT(IN) :: irrRepNum, symOpNum, vectorNum
 	REAL, DIMENSION(6), INTENT(OUT) :: v
 	COMPLEX, DIMENSION(3) :: temp
 	! use c-style indexing
 	temp = mgsymm%basf(:, vectorNum+1, symOpNum+1, irrRepNum+1)
 	DO i = 1, 3
-		v(1*i) = REAL(temp(i))
+		v((2*i)-1) = REAL(temp(i))
 		v(2*i) = AIMAG(temp(i))
 	END DO
 END SUBROUTINE get_basis_element
@@ -248,11 +248,11 @@ SUBROUTINE set_reflection_list_element(lst, elem, ind)
 END SUBROUTINE set_reflection_list_element
 SUBROUTINE set_basis_element(mgsymm, irrRepNum, symOpNum, vectorNum, v)
 	TYPE(magsymm_k_type) :: mgsymm
-	INTEGER :: irrRepNum, symOpNum, vectorNum
+	INTEGER, INTENT(IN) :: irrRepNum, symOpNum, vectorNum
 	REAL, DIMENSION(6), INTENT(IN) :: v
 	! use c-style indexing
 	DO i = 1, 3
-		mgsymm%basf(i, vectorNum+1, symOpNum+1, irrRepNum+1) = CMPLX(v(1*i), v(2*i))
+		mgsymm%basf(i, vectorNum+1, symOpNum+1, irrRepNum+1) = CMPLX(v((2*i)-1), v(2*i))
 	END DO
 END SUBROUTINE set_basis_element
 SUBROUTINE set_matom_basis_element(atm, i, j, value)
@@ -268,7 +268,7 @@ SUBROUTINE get_msf(mh, output)
 	TYPE(magh_type) :: mh
 	REAL, DIMENSION(6), INTENT(OUT) :: output
 	DO i = 1, 3
-		output(1*i) = REAL(mh%msf(i))
+		output((2*i)-1) = REAL(mh%msf(i))
 		output(2*i) = AIMAG(mh%msf(i))
 	END DO
 END SUBROUTINE get_msf
@@ -276,7 +276,7 @@ SUBROUTINE set_msf(mh, value)
 	TYPE(magh_type) :: mh
 	REAL, DIMENSION(6), INTENT(IN) :: value
 	DO i = 1, 3
-		mh%msf(i) = CMPLX(value(1*i), value(2*i))
+		mh%msf(i) = CMPLX(value((2*i)-1), value(2*i))
 	END DO
 END SUBROUTINE set_msf
 
@@ -285,7 +285,7 @@ SUBROUTINE get_miv(mh, output)
 	TYPE(magh_type) :: mh
 	REAL, DIMENSION(6), INTENT(OUT) :: output
 	DO i = 1, 3
-		output(1*i) = REAL(mh%miv(i))
+		output((2*i)-1) = REAL(mh%miv(i))
 		output(2*i) = AIMAG(mh%miv(i))
 	END DO
 END SUBROUTINE get_miv
@@ -293,7 +293,7 @@ SUBROUTINE set_miv(mh, value)
 	TYPE(magh_type) :: mh
 	REAL, DIMENSION(6), INTENT(IN) :: value
 	DO i = 1, 3
-		mh%miv(i) = CMPLX(value(1*i), value(2*i))
+		mh%miv(i) = CMPLX(value((2*i)-1), value(2*i))
 	END DO
 END SUBROUTINE set_miv
 
