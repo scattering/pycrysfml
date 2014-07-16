@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 from os import getcwd
 lines = [line.strip() for line in open("./bfiles.txt")]
 for line in lines:
@@ -9,6 +9,6 @@ for line in lines:
 		#print("$COMP", s[2], "$OPT1", s1[0]+".o", sep=" ")
 		#fortwrap list
 		#print("/home/jel/TestEnv/crysfml/Src/"+s[2])
-		print(getcwd()+"/Src/"+s[2])
+		print getcwd()+"/Src/"+s[2]
 		#print("../"+s1[0]+".o", end=" ")
 		#print(s[2])

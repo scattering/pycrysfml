@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # hack out EoS and SAn modules from Makefile
 lines = [line.strip() for line in open("./Makefile.deps")]
 out = open("./Makefile.deps", "w")
@@ -11,13 +11,13 @@ for line in lines:
 			elif 'CFML_EoS_Mod' in item:
 				pass
 			else:
-				print(item, end=" ", file=out)
-		print(end="\n", file=out)
+				out.write(item + " ")
+		out.write("\n")
 	else:
 		if 'CFML_Optimization_SAn' in line:
 			pass
 		elif 'CFML_EoS_Mod' in line:
 			pass
 		else:
-			print(line, end="\n", file=out)
+			out.write(line+"\n")
 out.close()
