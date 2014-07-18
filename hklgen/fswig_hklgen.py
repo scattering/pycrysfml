@@ -848,10 +848,10 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
-def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian"):
+def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian", eta=None):
     Peak.scaleFactor = scale
     peaks = [Peak(twoTheta(rk.s(), wavelength),
-                          coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl(), shape)
+                          coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl(), shape, eta)
                  for rk,Ik in zip(reflections,I)]
     return peaks
 
