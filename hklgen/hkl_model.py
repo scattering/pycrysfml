@@ -257,7 +257,7 @@ class Model(object):
         self.peaks = makePeaks(self.reflections,
                                        [self.u.value, self.v.value, self.w.value],
                                        self.intensities, self.scale.value,
-                                       self.wavelength, shape="lorentzian", eta=self.eta)
+                                       self.wavelength, shape="pseudovoigt", eta=self.eta)
         if self.magnetic:
             # update magnetic reflections and add their peaks to the list of
             #   Peaks
@@ -280,7 +280,7 @@ class Model(object):
             self.peaks.extend(makePeaks(self.magReflections,
                                            [self.u.value, self.v.value, self.w.value],
                                            self.magIntensities, self.scale.value,
-                                           self.wavelength, shape="lorentzian", eta=self.eta))
+                                           self.wavelength, shape="pseudovoigt", eta=self.eta))
 
 class AtomListModel(object):
     # TODO: make occupancy constraints automatic
