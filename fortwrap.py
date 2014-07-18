@@ -58,7 +58,7 @@ SWIG = True  # Whether or not to include preprocessor defs that will
 # REGULAR EXPRESSIONS ===============================
 
 fort_type_def = re.compile(r'\s*TYPE\s+[a-zA-Z]', re.IGNORECASE)
-fort_proc_def = re.compile(r'\s*(RECURSIVE)?\s*(SUBROUTINE|FUNCTION)\s+\S+\(', re.IGNORECASE)
+fort_proc_def = re.compile(r'\s*(RECURSIVE)?\s*(SUBROUTINE|FUNCTION|PURE\s*FUNCTION)\s+\S+\(', re.IGNORECASE)
 fort_end_proc = re.compile(r'\s*END\s*(SUBROUTINE|FUNCTION)', re.IGNORECASE)
 fort_end_interface = re.compile(r'\s*END\s*INTERFACE', re.IGNORECASE)
 fort_comment = re.compile('\s*!')

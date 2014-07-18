@@ -7,6 +7,7 @@ Use CFML_Crystal_Metrics
 Use CFML_Crystallographic_Symmetry
 Use CFML_Atom_TypeDef
 Use CFML_Magnetic_Structure_Factors
+Use CFML_PowderProfiles_CW
 !! reflection_type array wrapper !!
 TYPE reflct_array_list
 INTEGER :: current_index
@@ -296,7 +297,44 @@ SUBROUTINE set_miv(mh, value)
 		mh%miv(i) = CMPLX(value((2*i)-1), value(2*i))
 	END DO
 END SUBROUTINE set_miv
-
+!!-- Peak shape wrappers --!!
+FUNCTION calcGaussian(X, H)
+	REAL, INTENT(IN) :: X, H
+	REAL :: calcGaussian
+	REAL, DIMENSION(1) :: par
+	par(1) = H
+	calcGaussian = Gaussian(X, par)
+END FUNCTION calcGaussian
+FUNCTION calcHat(X, H)
+	REAL, INTENT(IN) :: X, H
+	REAL :: calcHAT
+	REAL, DIMENSION(1) :: par
+	par(1) = H
+	calcHat = Hat(X, par)
+END FUNCTION calcHat
+FUNCTION calcLorentzian(X, H)
+	REAL, INTENT(IN) :: X, H
+	REAL :: calcLorentzian
+	REAL, DIMENSION(1) :: par
+	par(1) = H
+	calcLorentzian = Lorentzian(X, par)
+END FUNCTION calcLorentzian
+FUNCTION calcPseudovoigt(X, H, eta)
+	REAL, INTENT(IN) :: X, H, eta
+	REAL :: calcPseudovoigt
+	REAL, DIMENSION(2) :: par
+	par(1) = H
+	par(2) = eta
+	calcPseudovoigt = Pseudovoigt(X, par)
+END FUNCTION calcPseudovoigt
+SUBROUTINE GaussPeak(X, H, output)
+	REAL, DIMENSION(1000), INTENT(OUT) :: output
+	REAL, INTENT(IN) :: H
+	REAL, DIMENSION(1000), INTENT(IN) :: X
+	REAL :: calcGaussian
+	REAL, DIMENSION(1) :: par
+	par(1) = H
+END SUBROUTINE GaussPeak
 !!-- debug functions --!!
 SUBROUTINE printBasis(matm)
 TYPE(matom_type) :: matm

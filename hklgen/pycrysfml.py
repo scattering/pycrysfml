@@ -869,6 +869,18 @@ class FortFuncs(_object):
     if _newclass:set_epsg = staticmethod(_pycrysfml.FortFuncs_set_epsg)
     __swig_getmethods__["set_epsg_default"] = lambda x: _pycrysfml.FortFuncs_set_epsg_default
     if _newclass:set_epsg_default = staticmethod(_pycrysfml.FortFuncs_set_epsg_default)
+    __swig_getmethods__["cubic_harm_ang"] = lambda x: _pycrysfml.FortFuncs_cubic_harm_ang
+    if _newclass:cubic_harm_ang = staticmethod(_pycrysfml.FortFuncs_cubic_harm_ang)
+    __swig_getmethods__["cubic_harm_ucvec"] = lambda x: _pycrysfml.FortFuncs_cubic_harm_ucvec
+    if _newclass:cubic_harm_ucvec = staticmethod(_pycrysfml.FortFuncs_cubic_harm_ucvec)
+    __swig_getmethods__["int_slater_bessel"] = lambda x: _pycrysfml.FortFuncs_int_slater_bessel
+    if _newclass:int_slater_bessel = staticmethod(_pycrysfml.FortFuncs_int_slater_bessel)
+    __swig_getmethods__["real_spher_harm_ang"] = lambda x: _pycrysfml.FortFuncs_real_spher_harm_ang
+    if _newclass:real_spher_harm_ang = staticmethod(_pycrysfml.FortFuncs_real_spher_harm_ang)
+    __swig_getmethods__["real_spher_harm_ucvec"] = lambda x: _pycrysfml.FortFuncs_real_spher_harm_ucvec
+    if _newclass:real_spher_harm_ucvec = staticmethod(_pycrysfml.FortFuncs_real_spher_harm_ucvec)
+    __swig_getmethods__["real_spher_harmcharge_ucvec"] = lambda x: _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec
+    if _newclass:real_spher_harmcharge_ucvec = staticmethod(_pycrysfml.FortFuncs_real_spher_harmcharge_ucvec)
     __swig_getmethods__["init_err_spher"] = lambda x: _pycrysfml.FortFuncs_init_err_spher
     if _newclass:init_err_spher = staticmethod(_pycrysfml.FortFuncs_init_err_spher)
     __swig_getmethods__["pikout_lj_cubic"] = lambda x: _pycrysfml.FortFuncs_pikout_lj_cubic
@@ -1553,6 +1565,14 @@ class FortFuncs(_object):
     if _newclass:read_mag_cfl_file = staticmethod(_pycrysfml.FortFuncs_read_mag_cfl_file)
     __swig_getmethods__["read_mag_mcif_file"] = lambda x: _pycrysfml.FortFuncs_read_mag_mcif_file
     if _newclass:read_mag_mcif_file = staticmethod(_pycrysfml.FortFuncs_read_mag_mcif_file)
+    __swig_getmethods__["calcgaussian"] = lambda x: _pycrysfml.FortFuncs_calcgaussian
+    if _newclass:calcgaussian = staticmethod(_pycrysfml.FortFuncs_calcgaussian)
+    __swig_getmethods__["calchat"] = lambda x: _pycrysfml.FortFuncs_calchat
+    if _newclass:calchat = staticmethod(_pycrysfml.FortFuncs_calchat)
+    __swig_getmethods__["calclorentzian"] = lambda x: _pycrysfml.FortFuncs_calclorentzian
+    if _newclass:calclorentzian = staticmethod(_pycrysfml.FortFuncs_calclorentzian)
+    __swig_getmethods__["calcpseudovoigt"] = lambda x: _pycrysfml.FortFuncs_calcpseudovoigt
+    if _newclass:calcpseudovoigt = staticmethod(_pycrysfml.FortFuncs_calcpseudovoigt)
     __swig_getmethods__["printbasis"] = lambda x: _pycrysfml.FortFuncs_printbasis
     if _newclass:printbasis = staticmethod(_pycrysfml.FortFuncs_printbasis)
     __swig_getmethods__["atom_type_ctor"] = lambda x: _pycrysfml.FortFuncs_atom_type_ctor
@@ -1663,6 +1683,30 @@ FortFuncs_set_epsg = _pycrysfml.FortFuncs_set_epsg
 def FortFuncs_set_epsg_default():
   return _pycrysfml.FortFuncs_set_epsg_default()
 FortFuncs_set_epsg_default = _pycrysfml.FortFuncs_set_epsg_default
+
+def FortFuncs_cubic_harm_ang(*args):
+  return _pycrysfml.FortFuncs_cubic_harm_ang(*args)
+FortFuncs_cubic_harm_ang = _pycrysfml.FortFuncs_cubic_harm_ang
+
+def FortFuncs_cubic_harm_ucvec(*args):
+  return _pycrysfml.FortFuncs_cubic_harm_ucvec(*args)
+FortFuncs_cubic_harm_ucvec = _pycrysfml.FortFuncs_cubic_harm_ucvec
+
+def FortFuncs_int_slater_bessel(*args):
+  return _pycrysfml.FortFuncs_int_slater_bessel(*args)
+FortFuncs_int_slater_bessel = _pycrysfml.FortFuncs_int_slater_bessel
+
+def FortFuncs_real_spher_harm_ang(*args):
+  return _pycrysfml.FortFuncs_real_spher_harm_ang(*args)
+FortFuncs_real_spher_harm_ang = _pycrysfml.FortFuncs_real_spher_harm_ang
+
+def FortFuncs_real_spher_harm_ucvec(*args):
+  return _pycrysfml.FortFuncs_real_spher_harm_ucvec(*args)
+FortFuncs_real_spher_harm_ucvec = _pycrysfml.FortFuncs_real_spher_harm_ucvec
+
+def FortFuncs_real_spher_harmcharge_ucvec(*args):
+  return _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec(*args)
+FortFuncs_real_spher_harmcharge_ucvec = _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec
 
 def FortFuncs_init_err_spher():
   return _pycrysfml.FortFuncs_init_err_spher()
@@ -3031,6 +3075,22 @@ FortFuncs_read_mag_cfl_file = _pycrysfml.FortFuncs_read_mag_cfl_file
 def FortFuncs_read_mag_mcif_file(*args):
   return _pycrysfml.FortFuncs_read_mag_mcif_file(*args)
 FortFuncs_read_mag_mcif_file = _pycrysfml.FortFuncs_read_mag_mcif_file
+
+def FortFuncs_calcgaussian(*args):
+  return _pycrysfml.FortFuncs_calcgaussian(*args)
+FortFuncs_calcgaussian = _pycrysfml.FortFuncs_calcgaussian
+
+def FortFuncs_calchat(*args):
+  return _pycrysfml.FortFuncs_calchat(*args)
+FortFuncs_calchat = _pycrysfml.FortFuncs_calchat
+
+def FortFuncs_calclorentzian(*args):
+  return _pycrysfml.FortFuncs_calclorentzian(*args)
+FortFuncs_calclorentzian = _pycrysfml.FortFuncs_calclorentzian
+
+def FortFuncs_calcpseudovoigt(*args):
+  return _pycrysfml.FortFuncs_calcpseudovoigt(*args)
+FortFuncs_calcpseudovoigt = _pycrysfml.FortFuncs_calcpseudovoigt
 
 def FortFuncs_printbasis(*args):
   return _pycrysfml.FortFuncs_printbasis(*args)

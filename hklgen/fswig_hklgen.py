@@ -101,11 +101,11 @@ class CrystalCell(crystal_cell_type):
         if (length != None):
             self.setCell(length, angle)
     def length(self):
-        LVec = FloatVector([0,0,0])
+        LVec = FloatVector([0 for i in range(3)])
         self.get_crystal_cell_cell(LVec)
         return LVec
     def angle(self):
-        AVec = FloatVector([0,0,0])
+        AVec = FloatVector([0 for i in range(3)])
         self.get_crystal_cell_ang(AVec)
         return AVec
     def setCell(self, length, angle):
@@ -149,7 +149,7 @@ class MagSymmetry(magsymm_k_type):
     def setNumIrreps(self, value):
         self.set_magsymm_k_nirreps(value)
     def numBasisFunc(self):
-        result = IntVector([0,0,0,0])
+        result = IntVector([0 for i in range(4)])
         self.get_magsymm_k_nbas(result)
         return list(result)
     def setNumBasisFunc(self, value):
@@ -159,7 +159,7 @@ class MagSymmetry(magsymm_k_type):
         result[ind] = value
         self.setNumBasisFunc(result)
     def getBasis(self, irrRepNum, symOpNum, vectorNum):
-        result = FloatVector([0,0,0,0,0,0])
+        result = FloatVector([0 for i in range(6)])
         self.get_basis_element(irrRepNum, symOpNum, vectorNum, result)
         #self.get_basis_element(vectorNum, symOpNum, irrRepNum, result)
         return list(result)
@@ -214,7 +214,7 @@ class Atom(atom_type):
             self.set_atom_occ(float(args[4]))
             self.set_atom_biso(float(args[5]))
     def coords(self):
-        CVec = FloatVector([0,0,0])
+        CVec = FloatVector([0 for i in range(3)])
         self.get_atom_x(CVec)
         return list(CVec)
     def setCoords(self, value):
@@ -254,7 +254,7 @@ class MagAtom(matom_type):
     def __init__(self):
         matom_type.__init__(self)
     def coords(self):
-            CVec = FloatVector([0,0,0])
+            CVec = FloatVector([0 for i in range(3)])
             self.get_matom_x(CVec)
             return list(CVec)    
     def sameSite(self, other):
@@ -385,7 +385,7 @@ class Reflection(reflection_type):
     def __init__(self):
         reflection_type.__init__(self)
     def hkl(self):
-        hklVec = IntVector([0,0,0])
+        hklVec = IntVector([0 for i in range(3)])
         self.get_reflection_h(hklVec)
         return hklVec
     def s(self):
@@ -439,7 +439,7 @@ class MagReflection(magh_type):
     def s(self):
         return self.get_magh_s()
     def hkl(self):
-        hklVec = FloatVector([0,0,0])
+        hklVec = FloatVector([0 for i in range(3)])
         self.get_magh_h(hklVec)
         return hklVec
     
@@ -526,12 +526,40 @@ def readInfo(filename):
 
 # Gaussian: represents a Gaussian function that can be evaluated at any
 #   2*theta value. u, v, and w are fitting parameters.
+#class Gaussian(object):
+    ## TODO: add option for psuedo-Voigt and other peak shapes
+    #scaleFactor = 1    
+
+    #def __init__(self, center, u, v, w, I, hkl=[None, None, None]):
+        #self.C0 = 4*log(2)
+        #self.center = center    # 2*theta position
+        #self.u = u
+        #self.v = v
+        #self.w = w
+        #self.I = I
+        #try:
+            #self.H = sqrt(u*(tan(radians(center/2))**2)
+                          #+ v*tan(radians(center/2)) + w)
+            #self.scale = self.I * sqrt(self.C0/np.pi)/self.H * Gaussian.scaleFactor
+        #except ValueError:
+            #self.H = 0
+            #self.scale = 0
+        #self.hkl = hkl
+
+    ## __call__: returns the value of the Gaussian at some 2*theta positions
+    #def __call__(self, x):
+        #print len(x)
+        #return self.scale * np.exp(-self.C0*(x-self.center)**2/self.H**2)
+
+    #def add(self, v, x):
+        ## only add to nearby 2*theta positions
+        #idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
+        #v[idx] += self.__call__(x[idx])
+        
 class Gaussian(object):
     # TODO: add option for psuedo-Voigt and other peak shapes
     scaleFactor = 1    
-    
-    def __init__(self, center, u, v, w, I, hkl=[0,0,0]):
-        self.C0 = 4*log(2)
+    def __init__(self, center, u, v, w, I, hkl=[None, None, None]):
         self.center = center    # 2*theta position
         self.u = u
         self.v = v
@@ -540,7 +568,7 @@ class Gaussian(object):
         try:
             self.H = sqrt(u*(tan(radians(center/2))**2)
                           + v*tan(radians(center/2)) + w)
-            self.scale = self.I * sqrt(self.C0/np.pi)/self.H * Gaussian.scaleFactor
+            self.scale = self.I * Gaussian.scaleFactor
         except ValueError:
             self.H = 0
             self.scale = 0
@@ -548,14 +576,45 @@ class Gaussian(object):
 
     # __call__: returns the value of the Gaussian at some 2*theta positions
     def __call__(self, x):
-        return self.scale * np.exp(-self.C0*(x-self.center)**2/self.H**2)
+        return [self.scale * funcs.calcgaussian(value-self.center, self.H) for value in x]
 
     def add(self, v, x):
         # only add to nearby 2*theta positions
         idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
-        v[idx] += self.__call__(x[idx])
-        
-        
+        v[idx] += self.__call__(x[idx])        
+class Peak(object):
+    # TODO: add option for psuedo-Voigt and other peak shapes
+    scaleFactor = 1    
+    def __init__(self, center, u, v, w, I, hkl=[None, None, None], shape="Gaussian", eta=None):
+        self.center = center    # 2*theta position
+        self.u = u
+        self.v = v
+        self.w = w
+        self.I = I
+        try:
+            self.H = sqrt(u*(tan(radians(center/2))**2)
+                          + v*tan(radians(center/2)) + w)
+            self.scale = self.I * Peak.scaleFactor
+        except ValueError:
+            self.H = 0
+            self.scale = 0
+        self.hkl = hkl
+
+    # __call__: returns the value of the Gaussian at some 2*theta positions
+    def __call__(self, x):
+        if shape.lower() == 'gaussian':
+            return [self.scale * funcs.calcgaussian(value-self.center, self.H) for value in x]
+        elif shape.lower() == 'pseudovoigt':
+            return [self.scale * funcs.calcpseudovoigt(value-self.center, self.H, eta) for value in x]
+        elif shape.lower() == 'lorentzian':
+            return [self.scale * funcs.calclorentzian(value-self.center, self.H) for value in x]
+        else:
+            print "Unsupported Peak-shape: "+shape+"\n"
+            quit()
+    def add(self, v, x):
+        # only add to nearby 2*theta positions
+        idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
+        v[idx] += self.__call__(x[idx])    
 # LinSpline: represents a linear spline function to be used for the background
 class LinSpline(object):
     def __init__(self, arg1=None, arg2=None):
