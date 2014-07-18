@@ -173,6 +173,7 @@ class Model(object):
         self.v = Parameter(v, name='v')
         self.w = Parameter(w, name='w')
         self.scale = Parameter(1, name='scale')
+        self.eta = Parameter(0, name='eta')
         self.wavelength = wavelength
         self.cell = cell
         self.exclusions = exclusions
@@ -217,6 +218,7 @@ class Model(object):
                 'v': self.v,
                 'w': self.w,
                 'scale': self.scale,
+                'eta': self.eta,
                 'cell': self.cell.parameters(),
                 'atoms': self.atomListModel.parameters()
                 }
@@ -225,7 +227,7 @@ class Model(object):
         return len(self.observed)
 
     def theory(self):
-        return getIntensity(self.gaussians, self.background, self.tt)
+        return getIntensity(self.peaks, self.background, self.tt)
 
     def residuals(self):
         return (self.theory() - self.observed)/(np.sqrt(self.observed)+1)
@@ -234,7 +236,7 @@ class Model(object):
         return np.sum(self.residuals()**2)
 
     def plot(self, view="linear"):
-        plotPattern(self.gaussians, self.background, self.tt, self.observed,
+        plotPattern(self.peaks, self.background, self.tt, self.observed,
                     self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None)
 
 #    def _cache_cell_pars(self):
@@ -252,13 +254,13 @@ class Model(object):
             self.reflections[i].set_reflection_s(getS(ttPos[i], self.wavelength))
         self.intensities = calcIntensity(self.refList, self.atomListModel.atomList, 
                                          self.spaceGroup, self.wavelength)
-        self.gaussians = makeGaussians(self.reflections,
+        self.peaks = makePeaks(self.reflections,
                                        [self.u.value, self.v.value, self.w.value],
                                        self.intensities, self.scale.value,
-                                       self.wavelength)
+                                       self.wavelength, shape="lorentzian", eta=self.eta)
         if self.magnetic:
             # update magnetic reflections and add their peaks to the list of
-            #   Gaussians
+            #   Peaks
             hkls = [reflection.hkl() for reflection in self.magReflections]
             sList = calcS(self.cell.cell, hkls)
             ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
@@ -275,10 +277,10 @@ class Model(object):
                                                 self.newSymmetry, self.wavelength,
                                                 self.cell.cell, True)
             #print self.magIntensities
-            self.gaussians.extend(makeGaussians(self.magReflections,
+            self.peaks.extend(makePeaks(self.magReflections,
                                            [self.u.value, self.v.value, self.w.value],
                                            self.magIntensities, self.scale.value,
-                                           self.wavelength))
+                                           self.wavelength, shape="lorentzian", eta=self.eta))
 
 class AtomListModel(object):
     # TODO: make occupancy constraints automatic

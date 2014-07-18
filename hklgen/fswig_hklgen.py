@@ -556,32 +556,32 @@ def readInfo(filename):
         #idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
         #v[idx] += self.__call__(x[idx])
         
-class Gaussian(object):
-    # TODO: add option for psuedo-Voigt and other peak shapes
-    scaleFactor = 1    
-    def __init__(self, center, u, v, w, I, hkl=[None, None, None]):
-        self.center = center    # 2*theta position
-        self.u = u
-        self.v = v
-        self.w = w
-        self.I = I
-        try:
-            self.H = sqrt(u*(tan(radians(center/2))**2)
-                          + v*tan(radians(center/2)) + w)
-            self.scale = self.I * Gaussian.scaleFactor
-        except ValueError:
-            self.H = 0
-            self.scale = 0
-        self.hkl = hkl
+#class Gaussian(object):
+    ## TODO: add option for psuedo-Voigt and other peak shapes
+    #scaleFactor = 1    
+    #def __init__(self, center, u, v, w, I, hkl=[None, None, None]):
+        #self.center = center    # 2*theta position
+        #self.u = u
+        #self.v = v
+        #self.w = w
+        #self.I = I
+        #try:
+            #self.H = sqrt(u*(tan(radians(center/2))**2)
+                          #+ v*tan(radians(center/2)) + w)
+            #self.scale = self.I * Gaussian.scaleFactor
+        #except ValueError:
+            #self.H = 0
+            #self.scale = 0
+        #self.hkl = hkl
 
-    # __call__: returns the value of the Gaussian at some 2*theta positions
-    def __call__(self, x):
-        return [self.scale * funcs.calcgaussian(value-self.center, self.H) for value in x]
+    ## __call__: returns the value of the Gaussian at some 2*theta positions
+    #def __call__(self, x):
+        #return [self.scale * funcs.calcgaussian(value-self.center, self.H) for value in x]
 
-    def add(self, v, x):
-        # only add to nearby 2*theta positions
-        idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
-        v[idx] += self.__call__(x[idx])        
+    #def add(self, v, x):
+        ## only add to nearby 2*theta positions
+        #idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
+        #v[idx] += self.__call__(x[idx])        
 class Peak(object):
     # TODO: add option for psuedo-Voigt and other peak shapes
     scaleFactor = 1    
@@ -591,6 +591,8 @@ class Peak(object):
         self.v = v
         self.w = w
         self.I = I
+        self.shape = shape
+        self.eta = eta
         try:
             self.H = sqrt(u*(tan(radians(center/2))**2)
                           + v*tan(radians(center/2)) + w)
@@ -602,11 +604,11 @@ class Peak(object):
 
     # __call__: returns the value of the Gaussian at some 2*theta positions
     def __call__(self, x):
-        if shape.lower() == 'gaussian':
+        if self.shape.lower() == 'gaussian':
             return [self.scale * funcs.calcgaussian(value-self.center, self.H) for value in x]
-        elif shape.lower() == 'pseudovoigt':
+        elif self.shape.lower() == 'pseudovoigt':
             return [self.scale * funcs.calcpseudovoigt(value-self.center, self.H, eta) for value in x]
-        elif shape.lower() == 'lorentzian':
+        elif self.shape.lower() == 'lorentzian':
             return [self.scale * funcs.calclorentzian(value-self.center, self.H) for value in x]
         else:
             print "Unsupported Peak-shape: "+shape+"\n"
@@ -844,21 +846,21 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
     return sfs2 * multips * lorentz
 
-# makeGaussians() creates a series of Gaussians to represent the powder
+# makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
-def makeGaussians(reflections, coeffs, I, scale, wavelength):
-    Gaussian.scaleFactor = scale
-    gaussians = [Gaussian(twoTheta(rk.s(), wavelength),
-                          coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl())
+def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian"):
+    Peak.scaleFactor = scale
+    peaks = [Peak(twoTheta(rk.s(), wavelength),
+                          coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl(), shape)
                  for rk,Ik in zip(reflections,I)]
-    return gaussians
+    return peaks
 
 # getIntensity: calculates the intensity at a given 2*theta position, or for an
 #   array of 2*theta positions
-def getIntensity(gaussians, background, tt):
-    #return background(tt) + sum(g(tt) for g in gaussians)
+def getIntensity(peaks, background, tt):
+    #return background(tt) + sum(g(tt) for g in peaks)
     v = background(tt)
-    for g in gaussians:
+    for g in peaks:
         g.add(v,tt)
     return v
 
@@ -930,10 +932,10 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         refList = hklGen(spaceGroup, cell, sMin, sMax, True)
         reflections = refList[:]
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
-    gaussians = makeGaussians(reflections, uvw, intensities, scale, wavelength)
+    peaks = makePeaks(reflections, uvw, intensities, scale, wavelength)
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     tt = np.linspace(ttMin, ttMax, numPoints)
-    intensity = getIntensity(gaussians, background, tt)
+    intensity = getIntensity(peaks, background, tt)
 
     if info:
         if magnetic:
@@ -942,7 +944,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         else:
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
-        plotPattern(gaussians, background, observedData[0], observedData[1],
+        plotPattern(peaks, background, observedData[0], observedData[1],
                     ttMin, ttMax, ttStep, exclusions, labels=labels)
         pylab.show()
     if saveFile:
@@ -1037,16 +1039,16 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
     print divider
     print
 
-# plotPattern: given a series of Gaussians and a background, plots the predicted
+# plotPattern: given a series of Peaks and a background, plots the predicted
 #   intensity at every 2*theta position in a specified range, as well as the
 #   observed intensity everywhere on a given list of points
-def plotPattern(gaussians, background, ttObs, observed, ttMin, ttMax, ttStep,
+def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
                 exclusions=None, labels=None, residuals=False):
     # TODO: finish residual plot
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     ttCalc = np.linspace(ttMin, ttMax, numPoints)
     if(exclusions != None): ttCalc = removeRange(ttCalc, exclusions)
-    intensity = np.array(getIntensity(gaussians, background, ttCalc))
+    intensity = np.array(getIntensity(peaks, background, ttCalc))
     if (observed != None):
         if exclusions:
             ttObs, observed = removeRange(ttObs, exclusions, observed)
@@ -1057,13 +1059,13 @@ def plotPattern(gaussians, background, ttObs, observed, ttMin, ttMax, ttStep,
     pylab.ylabel("Intensity")
     pylab.legend()
     if labels:
-        for g in gaussians:
+        for g in peaks:
             if (g.center <= ttMax):
                 pylab.text(g.center, np.interp(g.center, ttCalc, intensity),
                            hklString(g.hkl),
                            ha="center", va="bottom", rotation="vertical")
     if (residuals and observed):
-        intensityCalc = np.array(getIntensity(gaussians, background, ttObs))
+        intensityCalc = np.array(getIntensity(peaks, background, ttObs))
         resid = observed - intensityCalc
         pylab.plot(ttObs, resid, label="Residuals")
     return

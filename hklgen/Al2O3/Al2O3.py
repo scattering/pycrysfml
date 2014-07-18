@@ -32,6 +32,7 @@ def fit():
     m.u.range(0,2)
     m.v.range(-2,0)
     m.w.range(0,2)
+    m.eta.range(0,1)
     m.scale.range(0,10)
     for atomModel in m.atomListModel.atomModels:
         atomModel.B.range(0, 10)
