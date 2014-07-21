@@ -1,4 +1,24 @@
 #include "string_wrap.h"
+std::string getPowderNumor_title(powder_numor_type* obj){
+	std::string result = "";
+	obj->get_powder_numor_title(&result);
+	return result;
+}
+std::string getPowderNumor_instrm(powder_numor_type* obj){
+	std::string result = "";
+	obj->get_powder_numor_instrm(&result);
+	return result;
+}
+std::string getPowderNumor_header(powder_numor_type* obj){
+	std::string result = "";
+	obj->get_powder_numor_header(&result);
+	return result;
+}
+std::string getPowderNumor_scantype(powder_numor_type* obj){
+	std::string result = "";
+	obj->get_powder_numor_scantype(&result);
+	return result;
+}
 std::string getCrystalCell_carttype(crystal_cell_type* obj){
 	std::string result = "";
 	obj->get_crystal_cell_carttype(&result);

@@ -359,11 +359,12 @@ class AtomListModel(object):
         index = 0
         for atomModel in self.atomModels:
             atomModel.update()
+            self.atomList[index] = atomModel.atom
             if hasattr(atomModel, 'magAtom'):
                 self.magAtomList[index] = atomModel.magAtom
                 self.magAtoms[index] = atomModel.magAtom
                 #print atomModel.magAtom.basis()
-                index += 1
+            index += 1
         # update basis vectors instead of coefficients (only needed in special
         #   circumstances)
         #if self.magnetic:

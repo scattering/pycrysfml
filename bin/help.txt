@@ -471,6 +471,8 @@ CLASSES
      |  
      |  fractional_to_zmatrix = FortFuncs_fractional_to_zmatrix(...)
      |  
+     |  gausspeak = FortFuncs_gausspeak(...)
+     |  
      |  gen_satellites = FortFuncs_gen_satellites(...)
      |  
      |  genb = FortFuncs_genb(...)
@@ -812,6 +814,8 @@ CLASSES
      |  read_mag_mcif_file = FortFuncs_read_mag_mcif_file(...)
      |  
      |  read_msymm = FortFuncs_read_msymm(...)
+     |  
+     |  read_powder_data = FortFuncs_read_powder_data(...)
      |  
      |  read_refgcodes_file = FortFuncs_read_refgcodes_file(...)
      |  
@@ -4472,6 +4476,74 @@ CLASSES
      |  
      |  __setattr__ lambda self, name, value
      |  
+     |  get_powder_numor_angles(self, *args)
+     |  
+     |  get_powder_numor_conditions(self, *args)
+     |  
+     |  get_powder_numor_header(self, *args)
+     |  
+     |  get_powder_numor_icalc(self)
+     |  
+     |  get_powder_numor_icdesc(self, *args)
+     |  
+     |  get_powder_numor_instrm(self, *args)
+     |  
+     |  get_powder_numor_manip(self)
+     |  
+     |  get_powder_numor_monitor(self)
+     |  
+     |  get_powder_numor_nbang(self)
+     |  
+     |  get_powder_numor_nbdata(self)
+     |  
+     |  get_powder_numor_nframes(self)
+     |  
+     |  get_powder_numor_numor(self)
+     |  
+     |  get_powder_numor_scans(self, *args)
+     |  
+     |  get_powder_numor_scantype(self, *args)
+     |  
+     |  get_powder_numor_time(self)
+     |  
+     |  get_powder_numor_title(self, *args)
+     |  
+     |  get_powder_numor_wave(self)
+     |  
+     |  set_powder_numor_angles(self, *args)
+     |  
+     |  set_powder_numor_conditions(self, *args)
+     |  
+     |  set_powder_numor_header(self, *args)
+     |  
+     |  set_powder_numor_icalc(self, *args)
+     |  
+     |  set_powder_numor_icdesc(self, *args)
+     |  
+     |  set_powder_numor_instrm(self, *args)
+     |  
+     |  set_powder_numor_manip(self, *args)
+     |  
+     |  set_powder_numor_monitor(self, *args)
+     |  
+     |  set_powder_numor_nbang(self, *args)
+     |  
+     |  set_powder_numor_nbdata(self, *args)
+     |  
+     |  set_powder_numor_nframes(self, *args)
+     |  
+     |  set_powder_numor_numor(self, *args)
+     |  
+     |  set_powder_numor_scans(self, *args)
+     |  
+     |  set_powder_numor_scantype(self, *args)
+     |  
+     |  set_powder_numor_time(self, *args)
+     |  
+     |  set_powder_numor_title(self, *args)
+     |  
+     |  set_powder_numor_wave(self, *args)
+     |  
      |  ----------------------------------------------------------------------
      |  Data descriptors defined here:
      |  
@@ -5544,6 +5616,8 @@ FUNCTIONS
     
     FortFuncs_fractional_to_zmatrix(...)
     
+    FortFuncs_gausspeak(...)
+    
     FortFuncs_gen_satellites(...)
     
     FortFuncs_genb(...)
@@ -5885,6 +5959,8 @@ FUNCTIONS
     FortFuncs_read_mag_mcif_file(...)
     
     FortFuncs_read_msymm(...)
+    
+    FortFuncs_read_powder_data(...)
     
     FortFuncs_read_refgcodes_file(...)
     
@@ -6337,6 +6413,14 @@ FUNCTIONS
     getNsSpaceGroup_spg_latsy(...)
     
     getNsSpaceGroup_spg_symb(...)
+    
+    getPowderNumor_header(...)
+    
+    getPowderNumor_instrm(...)
+    
+    getPowderNumor_scantype(...)
+    
+    getPowderNumor_title(...)
     
     getSpaceGroup_bravais(...)
     

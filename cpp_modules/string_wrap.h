@@ -2,6 +2,7 @@
 #define STRING_WRAP
 #include <iostream>
 #include <string>
+#include "powder_numor_type.h"
 #include "crystal_cell_type.h"
 #include "atom_equiv_type.h"
 #include "magnetic_space_group_type.h"
@@ -13,6 +14,10 @@
 #include "magnetic_group_type.h"
 #include "ns_space_group_type.h"
 #include "space_group_type.h"
+std::string getPowderNumor_title(powder_numor_type* obj);
+std::string getPowderNumor_instrm(powder_numor_type* obj);
+std::string getPowderNumor_header(powder_numor_type* obj);
+std::string getPowderNumor_scantype(powder_numor_type* obj);
 std::string getCrystalCell_carttype(crystal_cell_type* obj);
 std::string getAtomEquiv_chemsymb(atom_equiv_type* obj);
 std::string getMagneticSpaceGroup_bns_symbol(magnetic_space_group_type* obj);

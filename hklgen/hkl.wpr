@@ -4,7 +4,9 @@
 # Wing IDE project file                                          #
 ##################################################################
 [project attributes]
-proj.file-list = [loc('fswig_hklgen.py'),
+proj.file-list = [loc('Al2O3/Al2O3.py'),
+                  loc('fswig_hklgen.py'),
                   loc('hkl_model.py'),
+                  loc('HOBK/HOBK.py'),
                   loc('LFO_20K/LuFeO3_20K.py')]
 proj.file-type = 'shared'

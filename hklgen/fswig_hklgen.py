@@ -219,6 +219,8 @@ class Atom(atom_type):
         return list(CVec)
     def setCoords(self, value):
         self.set_atom_x(FloatVector(value))
+        print value
+        print self.coords()
     def multip(self):
         return self.get_atom_mult()
     def occupancy(self):
@@ -310,6 +312,12 @@ class MagAtom(matom_type):
 #   numAtoms    - the number of atoms
 #   atoms       - a list of Atom objects
 #   magnetic    - True if this is a list of MagAtoms
+# Requires manual resetting of elements when dealing with arrays for some reason. e.g.
+#atm = atoms[0]
+#atm.setCoords([0,0,0.15])
+#atoms[0] = atm
+# instead of:
+#atoms[0].setCoords([0,0,0.15])
 class AtomList(atom_list_type, matom_list_type):
     def __init__(self, atoms=None, magnetic=False):
         self.magnetic = magnetic
@@ -524,68 +532,12 @@ def readInfo(filename):
     funcs.readxtal_structure_file(filename, cell, spaceGroup, atomList, ext, None, None, None)
     return (spaceGroup, cell, atomList)
 
-# Gaussian: represents a Gaussian function that can be evaluated at any
+# Peak: represents a Peak shape function that can be evaluated at any
 #   2*theta value. u, v, and w are fitting parameters.
-#class Gaussian(object):
-    ## TODO: add option for psuedo-Voigt and other peak shapes
-    #scaleFactor = 1    
-
-    #def __init__(self, center, u, v, w, I, hkl=[None, None, None]):
-        #self.C0 = 4*log(2)
-        #self.center = center    # 2*theta position
-        #self.u = u
-        #self.v = v
-        #self.w = w
-        #self.I = I
-        #try:
-            #self.H = sqrt(u*(tan(radians(center/2))**2)
-                          #+ v*tan(radians(center/2)) + w)
-            #self.scale = self.I * sqrt(self.C0/np.pi)/self.H * Gaussian.scaleFactor
-        #except ValueError:
-            #self.H = 0
-            #self.scale = 0
-        #self.hkl = hkl
-
-    ## __call__: returns the value of the Gaussian at some 2*theta positions
-    #def __call__(self, x):
-        #print len(x)
-        #return self.scale * np.exp(-self.C0*(x-self.center)**2/self.H**2)
-
-    #def add(self, v, x):
-        ## only add to nearby 2*theta positions
-        #idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
-        #v[idx] += self.__call__(x[idx])
-        
-#class Gaussian(object):
-    ## TODO: add option for psuedo-Voigt and other peak shapes
-    #scaleFactor = 1    
-    #def __init__(self, center, u, v, w, I, hkl=[None, None, None]):
-        #self.center = center    # 2*theta position
-        #self.u = u
-        #self.v = v
-        #self.w = w
-        #self.I = I
-        #try:
-            #self.H = sqrt(u*(tan(radians(center/2))**2)
-                          #+ v*tan(radians(center/2)) + w)
-            #self.scale = self.I * Gaussian.scaleFactor
-        #except ValueError:
-            #self.H = 0
-            #self.scale = 0
-        #self.hkl = hkl
-
-    ## __call__: returns the value of the Gaussian at some 2*theta positions
-    #def __call__(self, x):
-        #return [self.scale * funcs.calcgaussian(value-self.center, self.H) for value in x]
-
-    #def add(self, v, x):
-        ## only add to nearby 2*theta positions
-        #idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
-        #v[idx] += self.__call__(x[idx])        
 class Peak(object):
     # TODO: add option for psuedo-Voigt and other peak shapes
     scaleFactor = 1    
-    def __init__(self, center, u, v, w, I, hkl=[None, None, None], shape="Gaussian", eta=None):
+    def __init__(self, center, u, v, w, I, hkl=[None, None, None], shape="Gaussian", eta=0):
         self.center = center    # 2*theta position
         self.u = u
         self.v = v
@@ -602,12 +554,12 @@ class Peak(object):
             self.scale = 0
         self.hkl = hkl
 
-    # __call__: returns the value of the Gaussian at some 2*theta positions
+    # __call__: returns the value of the Peak at some 2*theta positions
     def __call__(self, x):
         if self.shape.lower() == 'gaussian':
             return [self.scale * funcs.calcgaussian(value-self.center, self.H) for value in x]
         elif self.shape.lower() == 'pseudovoigt':
-            return [self.scale * funcs.calcpseudovoigt(value-self.center, self.H, eta) for value in x]
+            return [self.scale * funcs.calcpseudovoigt(value-self.center, self.H, float(self.eta)) for value in x]
         elif self.shape.lower() == 'lorentzian':
             return [self.scale * funcs.calclorentzian(value-self.center, self.H) for value in x]
         else:
@@ -675,7 +627,15 @@ def readData(filename, kind="xy", skiplines=0, skipcols=0, colstep=1,
         observed = observed[skipcols:skipcols+colstep*len(tt):colstep]
     tt, observed = removeRange(tt, exclusions, observed)
     return (tt, observed)
-
+def readIllData(filename, instrument):
+    data = powder_numor_type()
+    funcs.read_powder_data(filename, instrument, data)
+    scans = FloatVector([0 for i in range(3)])
+    data.get_powder_numor_scans(scans)
+    print getPowderNumor_instrm(data)
+    print getPowderNumor_header(data)
+    print data.get_powder_numor_wave()
+    return list(scans)
 # approxEq: returns True if two floats are equal to within some tolerance
 def approxEq(num1, num2, eps):
     return abs(num1-num2) <= eps
@@ -928,7 +888,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             info = readInfo(infoFile)
             if (spaceGroup == None): spaceGroup = info[0]
             if (cell == None): cell = info[1]
-            if (atomList == None): atomList = info[2]
+            if (atomList == None): atomList = info[2]         
         refList = hklGen(spaceGroup, cell, sMin, sMax, True)
         reflections = refList[:]
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
@@ -1071,16 +1031,5 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
-    #infoFile = os.path.join(DATAPATH,"Al2O3.cif")
-    #(sG, cC, atoms) = readInfo(infoFile)
-    #print sG.get_space_group_numspg()
-    ##sG.get_space_group_spg_symb(s)
-    #for i in range(len(atoms)):
-        #print atoms[i].get_atom_occ()
-    #for atom in atoms:
-        #print atom.get_atom_occ()
-    #print sG.get_space_group_multip()
-    #print getSpaceGroup_spg_symb(sG)
-    infoFile = os.path.join(DATAPATH,r"LFO_20k/LuFeMnO3_BT1fit.cfl")
-    (spaceGroup, crystalCell, magAtomList, symmetry) = readMagInfo(infoFile)
-    print calcMagStructFact(refList, atomList, symmetry, cell)
+    dataFile = os.path.join(DATAPATH,r"HOBK/hobk.dat")
+    print readIllData(dataFile, "D20")

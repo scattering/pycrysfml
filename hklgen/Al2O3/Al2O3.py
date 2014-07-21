@@ -13,7 +13,6 @@ infoFile = os.path.join(DATAPATH,"Al2O3.cif")
 (spaceGroup, crystalCell, atoms) = H.readInfo(infoFile)
 #spaceGroup.xtalSystem = spaceGroup.xtalSystem.rstrip()
 wavelength = 1.5403
-
 backg = H.LinSpline(backgFile)
 ttMin = 3
 ttMax = 167.75
@@ -41,8 +40,8 @@ def fit():
             atomModel.x.pm(0.1)
             atomModel.y.pm(0.1)
             atomModel.z.pm(0.1)
-    m.atomListModel["Al1"].z.pm(0.1)
-    m.atomListModel["O1"].x.pm(0.1)
+    m.atomListModel["Al1"].z.range(0,1)#.pm(0.5)
+    m.atomListModel["O1"].x.range(0,1)#.pm(0.5)
     M = bumps.FitProblem(m)
     M.model_update()
     return M

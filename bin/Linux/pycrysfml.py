@@ -1573,6 +1573,10 @@ class FortFuncs(_object):
     if _newclass:calclorentzian = staticmethod(_pycrysfml.FortFuncs_calclorentzian)
     __swig_getmethods__["calcpseudovoigt"] = lambda x: _pycrysfml.FortFuncs_calcpseudovoigt
     if _newclass:calcpseudovoigt = staticmethod(_pycrysfml.FortFuncs_calcpseudovoigt)
+    __swig_getmethods__["gausspeak"] = lambda x: _pycrysfml.FortFuncs_gausspeak
+    if _newclass:gausspeak = staticmethod(_pycrysfml.FortFuncs_gausspeak)
+    __swig_getmethods__["read_powder_data"] = lambda x: _pycrysfml.FortFuncs_read_powder_data
+    if _newclass:read_powder_data = staticmethod(_pycrysfml.FortFuncs_read_powder_data)
     __swig_getmethods__["printbasis"] = lambda x: _pycrysfml.FortFuncs_printbasis
     if _newclass:printbasis = staticmethod(_pycrysfml.FortFuncs_printbasis)
     __swig_getmethods__["atom_type_ctor"] = lambda x: _pycrysfml.FortFuncs_atom_type_ctor
@@ -3092,6 +3096,14 @@ def FortFuncs_calcpseudovoigt(*args):
   return _pycrysfml.FortFuncs_calcpseudovoigt(*args)
 FortFuncs_calcpseudovoigt = _pycrysfml.FortFuncs_calcpseudovoigt
 
+def FortFuncs_gausspeak(*args):
+  return _pycrysfml.FortFuncs_gausspeak(*args)
+FortFuncs_gausspeak = _pycrysfml.FortFuncs_gausspeak
+
+def FortFuncs_read_powder_data(*args):
+  return _pycrysfml.FortFuncs_read_powder_data(*args)
+FortFuncs_read_powder_data = _pycrysfml.FortFuncs_read_powder_data
+
 def FortFuncs_printbasis(*args):
   return _pycrysfml.FortFuncs_printbasis(*args)
 FortFuncs_printbasis = _pycrysfml.FortFuncs_printbasis
@@ -4292,6 +4304,40 @@ class powder_numor_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_powder_numor_type
     __del__ = lambda self : None;
+    def get_powder_numor_nbang(self): return _pycrysfml.powder_numor_type_get_powder_numor_nbang(self)
+    def set_powder_numor_nbang(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_nbang(self, *args)
+    def get_powder_numor_manip(self): return _pycrysfml.powder_numor_type_get_powder_numor_manip(self)
+    def set_powder_numor_manip(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_manip(self, *args)
+    def get_powder_numor_icalc(self): return _pycrysfml.powder_numor_type_get_powder_numor_icalc(self)
+    def set_powder_numor_icalc(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_icalc(self, *args)
+    def get_powder_numor_monitor(self): return _pycrysfml.powder_numor_type_get_powder_numor_monitor(self)
+    def set_powder_numor_monitor(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_monitor(self, *args)
+    def get_powder_numor_nbdata(self): return _pycrysfml.powder_numor_type_get_powder_numor_nbdata(self)
+    def set_powder_numor_nbdata(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_nbdata(self, *args)
+    def get_powder_numor_title(self, *args): return _pycrysfml.powder_numor_type_get_powder_numor_title(self, *args)
+    def set_powder_numor_title(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_title(self, *args)
+    def get_powder_numor_numor(self): return _pycrysfml.powder_numor_type_get_powder_numor_numor(self)
+    def set_powder_numor_numor(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_numor(self, *args)
+    def get_powder_numor_instrm(self, *args): return _pycrysfml.powder_numor_type_get_powder_numor_instrm(self, *args)
+    def set_powder_numor_instrm(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_instrm(self, *args)
+    def get_powder_numor_wave(self): return _pycrysfml.powder_numor_type_get_powder_numor_wave(self)
+    def set_powder_numor_wave(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_wave(self, *args)
+    def get_powder_numor_header(self, *args): return _pycrysfml.powder_numor_type_get_powder_numor_header(self, *args)
+    def set_powder_numor_header(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_header(self, *args)
+    def get_powder_numor_scantype(self, *args): return _pycrysfml.powder_numor_type_get_powder_numor_scantype(self, *args)
+    def set_powder_numor_scantype(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_scantype(self, *args)
+    def get_powder_numor_icdesc(self, *args): return _pycrysfml.powder_numor_type_get_powder_numor_icdesc(self, *args)
+    def set_powder_numor_icdesc(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_icdesc(self, *args)
+    def get_powder_numor_angles(self, *args): return _pycrysfml.powder_numor_type_get_powder_numor_angles(self, *args)
+    def set_powder_numor_angles(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_angles(self, *args)
+    def get_powder_numor_time(self): return _pycrysfml.powder_numor_type_get_powder_numor_time(self)
+    def set_powder_numor_time(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_time(self, *args)
+    def get_powder_numor_nframes(self): return _pycrysfml.powder_numor_type_get_powder_numor_nframes(self)
+    def set_powder_numor_nframes(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_nframes(self, *args)
+    def get_powder_numor_conditions(self, *args): return _pycrysfml.powder_numor_type_get_powder_numor_conditions(self, *args)
+    def set_powder_numor_conditions(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_conditions(self, *args)
+    def get_powder_numor_scans(self, *args): return _pycrysfml.powder_numor_type_get_powder_numor_scans(self, *args)
+    def set_powder_numor_scans(self, *args): return _pycrysfml.powder_numor_type_set_powder_numor_scans(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.powder_numor_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.powder_numor_type_data_ptr_get
     if _newclass:data_ptr = _swig_property(_pycrysfml.powder_numor_type_data_ptr_get, _pycrysfml.powder_numor_type_data_ptr_set)
@@ -4507,6 +4553,22 @@ class spgr_info_type(_object):
 spgr_info_type_swigregister = _pycrysfml.spgr_info_type_swigregister
 spgr_info_type_swigregister(spgr_info_type)
 
+
+def getPowderNumor_title(*args):
+  return _pycrysfml.getPowderNumor_title(*args)
+getPowderNumor_title = _pycrysfml.getPowderNumor_title
+
+def getPowderNumor_instrm(*args):
+  return _pycrysfml.getPowderNumor_instrm(*args)
+getPowderNumor_instrm = _pycrysfml.getPowderNumor_instrm
+
+def getPowderNumor_header(*args):
+  return _pycrysfml.getPowderNumor_header(*args)
+getPowderNumor_header = _pycrysfml.getPowderNumor_header
+
+def getPowderNumor_scantype(*args):
+  return _pycrysfml.getPowderNumor_scantype(*args)
+getPowderNumor_scantype = _pycrysfml.getPowderNumor_scantype
 
 def getCrystalCell_carttype(*args):
   return _pycrysfml.getCrystalCell_carttype(*args)

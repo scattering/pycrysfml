@@ -375,3 +375,23 @@ type(Sym_Oper_Type), allocatable,dimension(:) :: SymOp            ! Symmetry ope
 character(len=50),   allocatable,dimension(:) :: SymopSymb        ! Strings form of symmetry operators
 type(Wyckoff_Type)                            :: Wyckoff          ! Wyckoff Information
 real(kind=cp),dimension(3,2)                  :: R_Asym_Unit      ! Asymmetric unit in real space
+# POWDER_Numor_Type!cfml_ill_instrm_data
+integer                                    :: numor       ! Numor
+integer                                    :: manip       ! principle scan angle
+integer                                    :: icalc       ! angle calculation type
+character(len=32)                          :: header      ! User, local contact, date
+character(len=12)                          :: Instrm      ! Instrument name
+character(len=32)                          :: title       !
+character(len=8)                           :: Scantype    ! omega, phi, etc...
+real(kind=cp), dimension(5)                :: angles      ! Angles: phi, chi, omega, 2theta(gamma), psi
+real(kind=cp), dimension(3)                :: scans       ! scan start, scan step, scan width
+real(kind=cp)                              :: monitor     ! Average monitor Sum(Monitors)/nframes
+real(kind=cp)                              :: time        ! Total time: sum times of each frame
+real(kind=cp)                              :: wave        ! wavelength
+real(kind=cp), dimension(5)                :: conditions  ! Temp-s.pt,Temp-Regul,Temp-sample,Voltmeter,Mag.field
+integer                                    :: nbdata      ! Total number of pixels nx*ny = np_vert*np_horiz
+integer                                    :: nframes     ! Total number of frames
+integer                                    :: nbang       ! Total number of angles moved during scan
+integer, dimension(11)                     :: icdesc      ! Integer values
+real(kind=cp),allocatable,dimension(:,:)   :: tmc_ang     ! time,monitor,total counts, angles*1000 To be allocated as tmc_ang(nbang,nframes)
+real(kind=cp),allocatable,dimension(:,:)   :: counts      ! Counts array to be reshaped (np_vert,np_horiz,nframes) in case of 2D detectors To be allocated as counts(nbdata,nframes)
