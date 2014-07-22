@@ -219,8 +219,6 @@ class Atom(atom_type):
         return list(CVec)
     def setCoords(self, value):
         self.set_atom_x(FloatVector(value))
-        print value
-        print self.coords()
     def multip(self):
         return self.get_atom_mult()
     def occupancy(self):

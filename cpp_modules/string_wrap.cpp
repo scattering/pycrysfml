@@ -214,6 +214,46 @@ std::string getMagneticGroup_shubnikov(magnetic_group_type* obj){
 	obj->get_magnetic_group_shubnikov(&result);
 	return result;
 }
+std::string getDiffractionPattern_instr(diffraction_pattern_type* obj){
+	std::string result = "";
+	obj->get_diffraction_pattern_instr(&result);
+	return result;
+}
+std::string getDiffractionPattern_yax_text(diffraction_pattern_type* obj){
+	std::string result = "";
+	obj->get_diffraction_pattern_yax_text(&result);
+	return result;
+}
+std::string getDiffractionPattern_diff_kind(diffraction_pattern_type* obj){
+	std::string result = "";
+	obj->get_diffraction_pattern_diff_kind(&result);
+	return result;
+}
+std::string getDiffractionPattern_filepath(diffraction_pattern_type* obj){
+	std::string result = "";
+	obj->get_diffraction_pattern_filepath(&result);
+	return result;
+}
+std::string getDiffractionPattern_title(diffraction_pattern_type* obj){
+	std::string result = "";
+	obj->get_diffraction_pattern_title(&result);
+	return result;
+}
+std::string getDiffractionPattern_filename(diffraction_pattern_type* obj){
+	std::string result = "";
+	obj->get_diffraction_pattern_filename(&result);
+	return result;
+}
+std::string getDiffractionPattern_scat_var(diffraction_pattern_type* obj){
+	std::string result = "";
+	obj->get_diffraction_pattern_scat_var(&result);
+	return result;
+}
+std::string getDiffractionPattern_xax_text(diffraction_pattern_type* obj){
+	std::string result = "";
+	obj->get_diffraction_pattern_xax_text(&result);
+	return result;
+}
 std::string getNsSpaceGroup_crystalsys(ns_space_group_type* obj){
 	std::string result = "";
 	obj->get_ns_space_group_crystalsys(&result);

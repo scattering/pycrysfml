@@ -395,3 +395,33 @@ integer                                    :: nbang       ! Total number of angl
 integer, dimension(11)                     :: icdesc      ! Integer values
 real(kind=cp),allocatable,dimension(:,:)   :: tmc_ang     ! time,monitor,total counts, angles*1000 To be allocated as tmc_ang(nbang,nframes)
 real(kind=cp),allocatable,dimension(:,:)   :: counts      ! Counts array to be reshaped (np_vert,np_horiz,nframes) in case of 2D detectors To be allocated as counts(nbdata,nframes)
+# Diffraction_Pattern_Type!cfml_diffraction_patterns
+character(len=180)                          :: Title=" "        !Identification of the pattern
+character(len=20)                           :: diff_kind=" "    !type of radiation
+character(len=20)                           :: scat_var=" "     !x-space: 2theta, TOF, Q, s, d-spacing, SinT/L, etc
+character(len=30)                           :: xax_text=" "     !x-axis legend, eg. "Lambda (Angstroms)"
+character(len=30)                           :: yax_text=" "     !y-axis legend, eg. "Intensity (arb. units)"
+character(len=20)                           :: instr=" "        !file type
+character(len=512)                          :: filename=" "     !file name
+character(len=512)                          :: filepath=" "     !file path
+real(kind=cp)                               :: xmin=0.0
+real(kind=cp)                               :: xmax=0.0
+real(kind=cp)                               :: ymin=0.0
+real(kind=cp)                               :: ymax=0.0
+real(kind=cp)                               :: scal=0.0
+real(kind=cp)                               :: monitor=0.0
+real(kind=cp)                               :: norm_mon=0.0
+real(kind=cp)                               :: col_time=0.0
+real(kind=cp)                               :: step=0.0
+real(kind=cp)                               :: Tsamp=0.0        !Sample Temperature
+real(kind=cp)                               :: Tset=0.0         !Setting Temperature (wished temperature)
+integer                                     :: npts=0           !Number of points
+logical                                     :: ct_step=.false.  !Constant step
+real(kind=cp), dimension (5)                :: conv=0.0      ! Wavelengths or Dtt1, Dtt2 for converting to Q,d, etc
+real(kind=cp), dimension (:), allocatable   :: x             ! Scattering variable (2theta...)
+real(kind=cp), dimension (:), allocatable   :: y             ! Experimental intensity
+real(kind=cp), dimension (:), allocatable   :: sigma         ! observations VARIANCE (it is the square of sigma!)
+integer,       dimension (:), allocatable   :: istat         ! Information about the point "i"
+real(kind=cp), dimension (:), allocatable   :: ycalc         ! Calculated intensity
+real(kind=cp), dimension (:), allocatable   :: bgr           ! Background
+integer,       dimension (:), allocatable   :: nd            ! Number of detectors contributing to the point "i"

@@ -12,6 +12,7 @@
 #include "wyck_pos_type.h"
 #include "atom_type.h"
 #include "magnetic_group_type.h"
+#include "diffraction_pattern_type.h"
 #include "ns_space_group_type.h"
 #include "space_group_type.h"
 std::string getPowderNumor_title(powder_numor_type* obj);
@@ -57,6 +58,14 @@ std::string getAtom_chemsymb(atom_type* obj);
 std::string getAtom_thtype(atom_type* obj);
 std::string getAtom_atminfo(atom_type* obj);
 std::string getMagneticGroup_shubnikov(magnetic_group_type* obj);
+std::string getDiffractionPattern_instr(diffraction_pattern_type* obj);
+std::string getDiffractionPattern_yax_text(diffraction_pattern_type* obj);
+std::string getDiffractionPattern_diff_kind(diffraction_pattern_type* obj);
+std::string getDiffractionPattern_filepath(diffraction_pattern_type* obj);
+std::string getDiffractionPattern_title(diffraction_pattern_type* obj);
+std::string getDiffractionPattern_filename(diffraction_pattern_type* obj);
+std::string getDiffractionPattern_scat_var(diffraction_pattern_type* obj);
+std::string getDiffractionPattern_xax_text(diffraction_pattern_type* obj);
 std::string getNsSpaceGroup_crystalsys(ns_space_group_type* obj);
 std::string getNsSpaceGroup_pg(ns_space_group_type* obj);
 std::string getNsSpaceGroup_hall(ns_space_group_type* obj);
