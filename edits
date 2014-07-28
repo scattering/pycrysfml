@@ -27,3 +27,7 @@ Error: Untyped return value in fft5d: ft
 Error: Untyped return value in fft6d: ft
 Error: Untyped return value in fft7d: ft
 TODO: Automate, undo before compiling
+
+
+#################################################
+Manually edited sizes for x, y, and bgr arrays in diffraction_pattern_type getters/setters in cfml_python to obj_var%npts

@@ -767,6 +767,56 @@ class diffraction_pattern_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_diffraction_pattern_type
     __del__ = lambda self : None;
+    def get_diffraction_pattern_scal(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_scal(self)
+    def set_diffraction_pattern_scal(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_scal(self, *args)
+    def get_diffraction_pattern_conv(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_conv(self, *args)
+    def set_diffraction_pattern_conv(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_conv(self, *args)
+    def get_diffraction_pattern_instr(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_instr(self, *args)
+    def set_diffraction_pattern_instr(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_instr(self, *args)
+    def get_diffraction_pattern_yax_text(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_yax_text(self, *args)
+    def set_diffraction_pattern_yax_text(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_yax_text(self, *args)
+    def get_diffraction_pattern_diff_kind(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_diff_kind(self, *args)
+    def set_diffraction_pattern_diff_kind(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_diff_kind(self, *args)
+    def get_diffraction_pattern_xmin(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_xmin(self)
+    def set_diffraction_pattern_xmin(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_xmin(self, *args)
+    def get_diffraction_pattern_norm_mon(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_norm_mon(self)
+    def set_diffraction_pattern_norm_mon(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_norm_mon(self, *args)
+    def get_diffraction_pattern_ymin(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_ymin(self)
+    def set_diffraction_pattern_ymin(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_ymin(self, *args)
+    def get_diffraction_pattern_monitor(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_monitor(self)
+    def set_diffraction_pattern_monitor(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_monitor(self, *args)
+    def get_diffraction_pattern_filepath(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_filepath(self, *args)
+    def set_diffraction_pattern_filepath(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_filepath(self, *args)
+    def get_diffraction_pattern_title(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_title(self, *args)
+    def set_diffraction_pattern_title(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_title(self, *args)
+    def get_diffraction_pattern_filename(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_filename(self, *args)
+    def set_diffraction_pattern_filename(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_filename(self, *args)
+    def get_diffraction_pattern_scat_var(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_scat_var(self, *args)
+    def set_diffraction_pattern_scat_var(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_scat_var(self, *args)
+    def get_diffraction_pattern_step(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_step(self)
+    def set_diffraction_pattern_step(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_step(self, *args)
+    def get_diffraction_pattern_x(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_x(self, *args)
+    def set_diffraction_pattern_x(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_x(self, *args)
+    def get_diffraction_pattern_ct_step(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_ct_step(self)
+    def set_diffraction_pattern_ct_step(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_ct_step(self, *args)
+    def get_diffraction_pattern_xax_text(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_xax_text(self, *args)
+    def set_diffraction_pattern_xax_text(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_xax_text(self, *args)
+    def get_diffraction_pattern_ymax(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_ymax(self)
+    def set_diffraction_pattern_ymax(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_ymax(self, *args)
+    def get_diffraction_pattern_col_time(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_col_time(self)
+    def set_diffraction_pattern_col_time(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_col_time(self, *args)
+    def get_diffraction_pattern_tset(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_tset(self)
+    def set_diffraction_pattern_tset(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_tset(self, *args)
+    def get_diffraction_pattern_tsamp(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_tsamp(self)
+    def set_diffraction_pattern_tsamp(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_tsamp(self, *args)
+    def get_diffraction_pattern_bgr(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_bgr(self, *args)
+    def set_diffraction_pattern_bgr(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_bgr(self, *args)
+    def get_diffraction_pattern_xmax(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_xmax(self)
+    def set_diffraction_pattern_xmax(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_xmax(self, *args)
+    def get_diffraction_pattern_y(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_y(self, *args)
+    def set_diffraction_pattern_y(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_y(self, *args)
+    def get_diffraction_pattern_npts(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_npts(self)
+    def set_diffraction_pattern_npts(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_npts(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.diffraction_pattern_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.diffraction_pattern_type_data_ptr_get
     if _newclass:data_ptr = _swig_property(_pycrysfml.diffraction_pattern_type_data_ptr_get, _pycrysfml.diffraction_pattern_type_data_ptr_set)
@@ -1249,12 +1299,8 @@ class FortFuncs(_object):
     if _newclass:read_bin_atom_list = staticmethod(_pycrysfml.FortFuncs_read_bin_atom_list)
     __swig_getmethods__["write_atom_list"] = lambda x: _pycrysfml.FortFuncs_write_atom_list
     if _newclass:write_atom_list = staticmethod(_pycrysfml.FortFuncs_write_atom_list)
-    __swig_getmethods__["write_atoms_cfl"] = lambda x: _pycrysfml.FortFuncs_write_atoms_cfl
-    if _newclass:write_atoms_cfl = staticmethod(_pycrysfml.FortFuncs_write_atoms_cfl)
     __swig_getmethods__["write_bin_atom_list"] = lambda x: _pycrysfml.FortFuncs_write_bin_atom_list
     if _newclass:write_bin_atom_list = staticmethod(_pycrysfml.FortFuncs_write_bin_atom_list)
-    __swig_getmethods__["write_cfl"] = lambda x: _pycrysfml.FortFuncs_write_cfl
-    if _newclass:write_cfl = staticmethod(_pycrysfml.FortFuncs_write_cfl)
     __swig_getmethods__["unitcell_to_pdbfile"] = lambda x: _pycrysfml.FortFuncs_unitcell_to_pdbfile
     if _newclass:unitcell_to_pdbfile = staticmethod(_pycrysfml.FortFuncs_unitcell_to_pdbfile)
     __swig_getmethods__["calc_strfactor"] = lambda x: _pycrysfml.FortFuncs_calc_strfactor
@@ -1575,8 +1621,8 @@ class FortFuncs(_object):
     if _newclass:calcpseudovoigt = staticmethod(_pycrysfml.FortFuncs_calcpseudovoigt)
     __swig_getmethods__["gausspeak"] = lambda x: _pycrysfml.FortFuncs_gausspeak
     if _newclass:gausspeak = staticmethod(_pycrysfml.FortFuncs_gausspeak)
-    __swig_getmethods__["read_powder_data"] = lambda x: _pycrysfml.FortFuncs_read_powder_data
-    if _newclass:read_powder_data = staticmethod(_pycrysfml.FortFuncs_read_powder_data)
+    __swig_getmethods__["read_ill_data"] = lambda x: _pycrysfml.FortFuncs_read_ill_data
+    if _newclass:read_ill_data = staticmethod(_pycrysfml.FortFuncs_read_ill_data)
     __swig_getmethods__["printbasis"] = lambda x: _pycrysfml.FortFuncs_printbasis
     if _newclass:printbasis = staticmethod(_pycrysfml.FortFuncs_printbasis)
     __swig_getmethods__["atom_type_ctor"] = lambda x: _pycrysfml.FortFuncs_atom_type_ctor
@@ -2448,17 +2494,9 @@ def FortFuncs_write_atom_list(*args):
   return _pycrysfml.FortFuncs_write_atom_list(*args)
 FortFuncs_write_atom_list = _pycrysfml.FortFuncs_write_atom_list
 
-def FortFuncs_write_atoms_cfl(*args):
-  return _pycrysfml.FortFuncs_write_atoms_cfl(*args)
-FortFuncs_write_atoms_cfl = _pycrysfml.FortFuncs_write_atoms_cfl
-
 def FortFuncs_write_bin_atom_list(*args):
   return _pycrysfml.FortFuncs_write_bin_atom_list(*args)
 FortFuncs_write_bin_atom_list = _pycrysfml.FortFuncs_write_bin_atom_list
-
-def FortFuncs_write_cfl(*args):
-  return _pycrysfml.FortFuncs_write_cfl(*args)
-FortFuncs_write_cfl = _pycrysfml.FortFuncs_write_cfl
 
 def FortFuncs_unitcell_to_pdbfile(*args):
   return _pycrysfml.FortFuncs_unitcell_to_pdbfile(*args)
@@ -3100,9 +3138,9 @@ def FortFuncs_gausspeak(*args):
   return _pycrysfml.FortFuncs_gausspeak(*args)
 FortFuncs_gausspeak = _pycrysfml.FortFuncs_gausspeak
 
-def FortFuncs_read_powder_data(*args):
-  return _pycrysfml.FortFuncs_read_powder_data(*args)
-FortFuncs_read_powder_data = _pycrysfml.FortFuncs_read_powder_data
+def FortFuncs_read_ill_data(*args):
+  return _pycrysfml.FortFuncs_read_ill_data(*args)
+FortFuncs_read_ill_data = _pycrysfml.FortFuncs_read_ill_data
 
 def FortFuncs_printbasis(*args):
   return _pycrysfml.FortFuncs_printbasis(*args)
@@ -4725,6 +4763,38 @@ getAtom_atminfo = _pycrysfml.getAtom_atminfo
 def getMagneticGroup_shubnikov(*args):
   return _pycrysfml.getMagneticGroup_shubnikov(*args)
 getMagneticGroup_shubnikov = _pycrysfml.getMagneticGroup_shubnikov
+
+def getDiffractionPattern_instr(*args):
+  return _pycrysfml.getDiffractionPattern_instr(*args)
+getDiffractionPattern_instr = _pycrysfml.getDiffractionPattern_instr
+
+def getDiffractionPattern_yax_text(*args):
+  return _pycrysfml.getDiffractionPattern_yax_text(*args)
+getDiffractionPattern_yax_text = _pycrysfml.getDiffractionPattern_yax_text
+
+def getDiffractionPattern_diff_kind(*args):
+  return _pycrysfml.getDiffractionPattern_diff_kind(*args)
+getDiffractionPattern_diff_kind = _pycrysfml.getDiffractionPattern_diff_kind
+
+def getDiffractionPattern_filepath(*args):
+  return _pycrysfml.getDiffractionPattern_filepath(*args)
+getDiffractionPattern_filepath = _pycrysfml.getDiffractionPattern_filepath
+
+def getDiffractionPattern_title(*args):
+  return _pycrysfml.getDiffractionPattern_title(*args)
+getDiffractionPattern_title = _pycrysfml.getDiffractionPattern_title
+
+def getDiffractionPattern_filename(*args):
+  return _pycrysfml.getDiffractionPattern_filename(*args)
+getDiffractionPattern_filename = _pycrysfml.getDiffractionPattern_filename
+
+def getDiffractionPattern_scat_var(*args):
+  return _pycrysfml.getDiffractionPattern_scat_var(*args)
+getDiffractionPattern_scat_var = _pycrysfml.getDiffractionPattern_scat_var
+
+def getDiffractionPattern_xax_text(*args):
+  return _pycrysfml.getDiffractionPattern_xax_text(*args)
+getDiffractionPattern_xax_text = _pycrysfml.getDiffractionPattern_xax_text
 
 def getNsSpaceGroup_crystalsys(*args):
   return _pycrysfml.getNsSpaceGroup_crystalsys(*args)

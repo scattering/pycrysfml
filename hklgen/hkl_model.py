@@ -161,19 +161,31 @@ class Model(object):
 
     def __init__(self, tt, observed, background, u, v, w,
                  wavelength, spaceGroupName, cell, atoms, exclusions=None,
-                 magnetic=False, symmetry=None, newSymmetry=None):
+                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None):
         if (isinstance(spaceGroupName, SpaceGroup)):
             self.spaceGroup = spaceGroupName
         else:
             self.spaceGroup = SpaceGroup(spaceGroupName)
-        self.tt = tt
+        self.tt = np.array(tt)
         self.observed = observed
         self.background = background
         self.u = Parameter(u, name='u')
         self.v = Parameter(v, name='v')
         self.w = Parameter(w, name='w')
-        self.scale = Parameter(1, name='scale')
-        self.eta = Parameter(0, name='eta')
+        self.scale = Parameter(scale, name='scale')
+        self.eta = Parameter(eta, name='eta')
+        if base != None:
+            self.base = Parameter(base, name='base')
+            self.has_base = True
+        else:
+            self.base=0
+            self.has_base = False
+        if zero != None:
+            self.zero = Parameter(zero, name='zero')
+            self.has_zero = True
+        else:
+            self.zero = 0
+            self.has_zero = False
         self.wavelength = wavelength
         self.cell = cell
         self.exclusions = exclusions
@@ -214,20 +226,61 @@ class Model(object):
         self._set_reflections()
 
     def parameters(self):
-        return {'u': self.u,
-                'v': self.v,
-                'w': self.w,
-                'scale': self.scale,
-                'eta': self.eta,
-                'cell': self.cell.parameters(),
-                'atoms': self.atomListModel.parameters()
-                }
+        if self.has_base and self.has_zero:
+            return {'u': self.u,
+                    'v': self.v,
+                    'w': self.w,
+                    'scale': self.scale,
+                    'eta': self.eta,
+                    'base': self.base,
+                    'zero' : self.zero,
+                    'cell': self.cell.parameters(),
+                    'atoms': self.atomListModel.parameters()
+                    }
+        elif self.has_base:
+            return {'u': self.u,
+                    'v': self.v,
+                    'w': self.w,
+                    'scale': self.scale,
+                    'eta': self.eta,
+                    'base': self.base,
+                    'cell': self.cell.parameters(),
+                    'atoms': self.atomListModel.parameters()
+                    }
+        elif self.has_zero:
+            return {'u': self.u,
+                    'v': self.v,
+                    'w': self.w,
+                    'scale': self.scale,
+                    'eta': self.eta,
+                    'zero' : self.zero,
+                    'cell': self.cell.parameters(),
+                    'atoms': self.atomListModel.parameters()
+                    }
+        else:
+            return {'u': self.u,
+                    'v': self.v,
+                    'w': self.w,
+                    'scale': self.scale,
+                    'eta': self.eta,
+                    'cell': self.cell.parameters(),
+                    'atoms': self.atomListModel.parameters()
+                    }
+            
 
     def numpoints(self):
         return len(self.observed)
 
     def theory(self):
-        return getIntensity(self.peaks, self.background, self.tt)
+        # add check in case zero not defined
+        if self.has_base and self.has_zero:
+            return getIntensity(self.peaks, self.background, self.tt-self.zero.value, base=self.base.value)
+        elif self.has_base:
+            return getIntensity(self.peaks, self.background, self.tt-self.zero, base=self.base.value)
+        elif self.has_zero:
+            return getIntensity(self.peaks, self.background, self.tt-self.zero.value, base=self.base)
+        else:
+            return getIntensity(self.peaks, self.background, self.tt-self.zero, base=self.base)
 
     def residuals(self):
         return (self.theory() - self.observed)/(np.sqrt(self.observed)+1)
@@ -236,8 +289,18 @@ class Model(object):
         return np.sum(self.residuals()**2)
 
     def plot(self, view="linear"):
-        plotPattern(self.peaks, self.background, self.tt, self.observed,
-                    self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None)
+        if self.has_base and self.has_zero:
+            plotPattern(self.peaks, self.background, self.tt-self.zero.value, self.observed,
+                        self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = self.base.value)
+        elif self.has_base:
+            plotPattern(self.peaks, self.background, self.tt-self.zero, self.observed,
+                        self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = self.base.value)
+        elif self.has_zero:
+            plotPattern(self.peaks, self.background, self.tt-self.zero.value, self.observed,
+                        self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = self.base)   
+        else:
+            plotPattern(self.peaks, self.background, self.tt-self.zero, self.observed,
+                        self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = self.base)         
 
 #    def _cache_cell_pars(self):
 #        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())
@@ -357,14 +420,16 @@ class AtomListModel(object):
 #         if len(self.parameters()) == 1:
 #            print >>sys.stderr, self.parameters()
         index = 0
+        I2 = 0
         for atomModel in self.atomModels:
             atomModel.update()
-            self.atomList[index] = atomModel.atom
+            self.atomList[I2] = atomModel.atom
+            I2 += 1
             if hasattr(atomModel, 'magAtom'):
                 self.magAtomList[index] = atomModel.magAtom
                 self.magAtoms[index] = atomModel.magAtom
                 #print atomModel.magAtom.basis()
-            index += 1
+                index += 1
         # update basis vectors instead of coefficients (only needed in special
         #   circumstances)
         #if self.magnetic:

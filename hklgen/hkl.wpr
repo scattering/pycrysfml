@@ -4,9 +4,35 @@
 # Wing IDE project file                                          #
 ##################################################################
 [project attributes]
+debug.launch-configs = (1,
+                        {'launch-5OO9WEKuNaZwSpb3': ({},
+        {'buildcmd': ('project',
+                      None),
+         'env': ('project',
+                 [u'']),
+         'name': 'bumps',
+         'pyexec': ('project',
+                    u'/usr/local/bin/bumps'),
+         'pypath': ('custom',
+                    u'/home/jel/build_pycrysfml/hklgen:'),
+         'pyrunargs': ('project',
+                       ''),
+         'runargs': u'--fit=dream --store=M1 --burn=100 --steps=500 HOBK.py',
+         'rundir': ('project',
+                    u'')})})
 proj.file-list = [loc('Al2O3/Al2O3.py'),
                   loc('fswig_hklgen.py'),
                   loc('hkl_model.py'),
                   loc('HOBK/HOBK.py'),
-                  loc('LFO_20K/LuFeO3_20K.py')]
+                  loc('HOBK/run.py'),
+                  loc('LFO_20K/LuFeO3_20K.py'),
+                  loc('LFO_20K/run.py'),
+                  loc('PbSO4/PbSO4.py'),
+                  loc('run.py')]
 proj.file-type = 'shared'
+proj.launch-config = {loc('HOBK/HOBK.py'): ('custom',
+        (u'',
+         'launch-5OO9WEKuNaZwSpb3')),
+                      loc('HOBK/run.py'): ('custom',
+        (u'',
+         'launch-5OO9WEKuNaZwSpb3'))}

@@ -108,6 +108,12 @@ class CrystalCell(crystal_cell_type):
         AVec = FloatVector([0 for i in range(3)])
         self.get_crystal_cell_ang(AVec)
         return AVec
+    @property
+    def volume(self):
+        return self.get_crystal_cell_cellvol()
+    @volume.setter
+    def volume(self, value):
+        self.set_crystal_cell_cellvol(value)
     def setCell(self, length, angle):
         funcs.set_crystal_cell(FloatVector(length), FloatVector(angle), self, None, None)     
 
@@ -288,7 +294,7 @@ class MagAtom(matom_type):
                 self.set_matom_basis_element(i, j, value[i][j])
     def setBasis_ind(self, i, j, k):
         b = self.basis()
-        b[i][j] = k
+        b[j][i] = k
         self.setBasis(b)
     def setIrrepNum(self, value):
         self.set_matom_imat(IntVector(value))
@@ -566,10 +572,14 @@ class Peak(object):
     def add(self, v, x):
         # only add to nearby 2*theta positions
         idx = (x>self.center-self.H*3) & (x<self.center+self.H*3)
-        v[idx] += self.__call__(x[idx])    
+        try:
+            v[idx] += self.__call__(np.array(x)[idx])
+        except:
+            pass
 # LinSpline: represents a linear spline function to be used for the background
 class LinSpline(object):
-    def __init__(self, arg1=None, arg2=None):
+    def __init__(self, arg1=None, arg2=None, fn="LinSpline"):
+        self.fn = fn
         if (arg1 == None):
             # create default uniform 0 background
             self.x = [0,1]
@@ -588,13 +598,18 @@ class LinSpline(object):
 
     # __call__: returns the interpolated y value at some x position
     def __call__(self, x):
-        # locate the two points to interpolate between
-        return np.interp(x, self.x, self.y)
-
+        if self.fn.lower() == 'linspline':
+            # locate the two points to interpolate between
+            return np.interp(x, self.x, self.y)
+        elif self.fn.lower() == 'polynomial':
+            pass
+    #def __add__(self, other):
+        #for i in range(len(self.y)):
+            #self.y[i] += other
     def __repr__(self):
         return "LinSpline(" + str(self.x) + ", " + str(self.y) + ")"
-    # readMagInfo: acquires cell, space group, atomic, and magnetic information
-    #   from a .cfl file
+# readMagInfo: acquires cell, space group, atomic, and magnetic information
+#   from a .cfl file
 def readMagInfo(filename):
     info = readInfo(filename)
     spaceGroup = info[0]
@@ -625,15 +640,22 @@ def readData(filename, kind="xy", skiplines=0, skipcols=0, colstep=1,
         observed = observed[skipcols:skipcols+colstep*len(tt):colstep]
     tt, observed = removeRange(tt, exclusions, observed)
     return (tt, observed)
-def readIllData(filename, instrument):
-    data = powder_numor_type()
-    funcs.read_powder_data(filename, instrument, data)
-    scans = FloatVector([0 for i in range(3)])
-    data.get_powder_numor_scans(scans)
-    print getPowderNumor_instrm(data)
-    print getPowderNumor_header(data)
-    print data.get_powder_numor_wave()
-    return list(scans)
+def readIllData(filename, instrument, bacfile):
+    data = diffraction_pattern_type()
+    funcs.read_ill_data(filename, data, instrument)
+    tt = FloatVector([0]*data.get_diffraction_pattern_npts())
+    observed = FloatVector([0]*data.get_diffraction_pattern_npts())
+    #bkg = FloatVector([0]*data.get_diffraction_pattern_npts())
+    #print "points",data.get_diffraction_pattern_npts()
+    #return None,None
+    data.get_diffraction_pattern_x(tt)
+    data.get_diffraction_pattern_y(observed)
+    #print data.get_diffraction_pattern_step()
+    funcs.read_background_file(bacfile, "POL", data)
+    #data.get_diffraction_pattern_bgr(bkg)
+    #print list(bkg)
+    #print min(observed)
+    return list(tt), list(observed)
 # approxEq: returns True if two floats are equal to within some tolerance
 def approxEq(num1, num2, eps):
     return abs(num1-num2) <= eps
@@ -746,9 +768,12 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
     return reflections
 # satelliteGen: generates a list of magnetic satellite reflections below a
 #   maximum sin(theta)/lambda value
-def satelliteGen(cell, symmetry, sMax):
+def satelliteGen(cell, symmetry, sMax, hkls=None):
     refList = ReflectionList(True)
-    funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1))
+    if hkls != None:
+        funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1), hkls)
+    else:
+        funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1))
     return refList
 
 # calcStructFact: calculates the structure factor squared for a list of planes
@@ -806,7 +831,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
-def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian", eta=None):
+def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian", eta=None, base=0):
     Peak.scaleFactor = scale
     peaks = [Peak(twoTheta(rk.s(), wavelength),
                           coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl(), shape, eta)
@@ -815,19 +840,19 @@ def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian", eta=N
 
 # getIntensity: calculates the intensity at a given 2*theta position, or for an
 #   array of 2*theta positions
-def getIntensity(peaks, background, tt):
+def getIntensity(peaks, background, tt, base=0):
     #return background(tt) + sum(g(tt) for g in peaks)
     v = background(tt)
     for g in peaks:
         g.add(v,tt)
-    return v
+    return np.array(v)+base
 
 
 # removeRange: takes in an array of 2*theta intervals and removes them from
 #   consideration for data analysis, with an optional argument for removing the
 #   corresponding intensities as well
 def removeRange(tt, remove, intensity=None):
-    if (remove == None):
+    if (remove == None or len(remove) < 1):
         if (intensity != None): return (tt, intensity)
         else: return tt
     if (not isSequence(remove[0]) or len(remove[0]) == 1):
@@ -859,7 +884,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 symmetry=None, basisSymmetry=None, magAtomList=None,
                 uvw=[0,0,1], scale=1,
                 magnetic=False, info=False, plot=False, saveFile=None,
-                observedData=(None,None), labels=None):
+                observedData=(None,None), labels=None, base=0):
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
     if magnetic:
@@ -890,10 +915,10 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         refList = hklGen(spaceGroup, cell, sMin, sMax, True)
         reflections = refList[:]
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
-    peaks = makePeaks(reflections, uvw, intensities, scale, wavelength)
+    peaks = makePeaks(reflections, uvw, intensities, scale, wavelength, base=base)
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     tt = np.linspace(ttMin, ttMax, numPoints)
-    intensity = getIntensity(peaks, background, tt)
+    intensity = getIntensity(peaks, background, tt, base=base)
 
     if info:
         if magnetic:
@@ -903,7 +928,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
         plotPattern(peaks, background, observedData[0], observedData[1],
-                    ttMin, ttMax, ttStep, exclusions, labels=labels)
+                    ttMin, ttMax, ttStep, exclusions, labels=labels, base=base)
         pylab.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
@@ -1001,17 +1026,17 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
 #   intensity at every 2*theta position in a specified range, as well as the
 #   observed intensity everywhere on a given list of points
 def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
-                exclusions=None, labels=None, residuals=False):
+                exclusions=None, labels=None, residuals=False, base=0):
     # TODO: finish residual plot
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     ttCalc = np.linspace(ttMin, ttMax, numPoints)
     if(exclusions != None): ttCalc = removeRange(ttCalc, exclusions)
-    intensity = np.array(getIntensity(peaks, background, ttCalc))
+    intensity = np.array(getIntensity(peaks, background, ttCalc, base=base))
     if (observed != None):
         if exclusions:
             ttObs, observed = removeRange(ttObs, exclusions, observed)
         pylab.plot(ttObs, observed, '-g', label="Observed",lw=1)
-    pylab.plot(ttCalc, intensity, '-b', label="Calculated", lw=1)
+    pylab.plot(ttCalc, np.array(intensity), '-b', label="Calculated", lw=1)
 #    pylab.fill_between(ttObs, observed, intensity, color="lightblue")
     pylab.xlabel(r"$2 \theta$")
     pylab.ylabel("Intensity")
@@ -1023,11 +1048,16 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
                            hklString(g.hkl),
                            ha="center", va="bottom", rotation="vertical")
     if (residuals and observed):
-        intensityCalc = np.array(getIntensity(peaks, background, ttObs))
+        intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
         resid = observed - intensityCalc
         pylab.plot(ttObs, resid, label="Residuals")
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
     dataFile = os.path.join(DATAPATH,r"HOBK/hobk.dat")
-    print readIllData(dataFile, "D20")
+    bkgFile = os.path.join(DATAPATH,r"HOBK/hobk_bas.bac")
+    tt, observed = readIllData(dataFile, "D1B", bkgFile)
+    print tt
+    print observed
+    #pylab.plot(tt,observed,marker='s',linestyle='None')
+    #pylab.show()

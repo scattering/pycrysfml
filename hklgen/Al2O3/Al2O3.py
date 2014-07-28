@@ -18,7 +18,6 @@ ttStep = 0.05
 exclusions = None
 tt, observed = H.readData(observedFile, kind="y", skiplines=1, start=ttMin,
                           stop=ttMax, step=ttStep)
-
 def fit():
     # PYTHONPATH=. bumps Al2O3.py --fit=dream --store=M1 --burn=100 --steps=500
     cell = Mod.makeCell(crystalCell, spaceGroup.xtalSystem())

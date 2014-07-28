@@ -1,60 +1,123 @@
 import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import os
+from copy import copy
 import numpy as np
 import fswig_hklgen as H
 import hkl_model as Mod
 
-np.seterr(divide="ignore", invalid="ignore")    
+import bumps.parameter
+#def dont(self, *args, **kw): raise Exception("don't")
+#bumps.parameter.OperatorAdd.__init__ = dont
+
+np.seterr(divide="ignore", invalid="ignore")
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
-backgFile = os.path.join(DATAPATH,"Al2O3 Background.BGR")
-observedFile = os.path.join(DATAPATH,"hobk.dat")
-infoFile = os.path.join(DATAPATH,"hobk_bas.pcr")
+backgFile = os.path.join(DATAPATH,r"hobk_bas.bac")
+observedFile = os.path.join(DATAPATH,r"hobk.dat")
+infoFile = os.path.join(DATAPATH,r"hobk.cfl")
 
-(spaceGroup, crystalCell, atoms) = H.readInfo(infoFile)
-#spaceGroup.xtalSystem = spaceGroup.xtalSystem.rstrip()
-wavelength = 1.5403
+(spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
+atomList = H.readInfo(infoFile)[2]
 
-backg = H.LinSpline(backgFile)
-ttMin = 3
-ttMax = 167.75
-ttStep = 0.05
-exclusions = None
-tt, observed = H.readData(observedFile, kind="y", skiplines=1, start=ttMin,
-                          stop=ttMax, step=ttStep)
+wavelength = 2.524000
+ttMin = 10.010000228881836
+ttMax = 89.81000518798828
+ttStep = 0.20000000298
+exclusions = []
 
+#print H.getMaxNumRef(H.getS(ttMax, wavelength), crystalCell.volume)
+
+tt, observed = H.readIllData(observedFile, "D1B", backgFile)
+#print H.getMaxNumRef(H.getS(ttMax, wavelength), crystalCell.volume)
+#sMin, sMax = H.getS(ttMin, wavelength), H.getS(ttMax, wavelength)
+#refList = H.hklGen(spaceGroup, crystalCell, sMin, sMax, True)
+#print len(refList)
+#print len(H.satelliteGen(crystalCell, symmetry, sMax, refList))
+backg = H.LinSpline(None)
+#print backg
+basisSymmetry = copy(symmetry)
+if (basisSymmetry.centerType() == 2):
+    # change to acentric
+    basisSymmetry.setCenterType(1)
+basisSymmetry.setNumIrreps(1)
+
+## Number of the basis from BasIreps (1-6)
+basisIndex = 2
+index = 0
+for magAtom in magAtomList:
+    magAtom.setNumkVectors(1)
+    magAtom.setIrrepNum_ind(0, 1)
+    magAtomList[index] = magAtom
+    index += 1
+
+
+def makeBasis(symmetry, basisIndex):
+    if (basisIndex == 2):
+        symmetry.setNumBasisFunc_ind(0, 2)
+        symmetry.setBasis(0, 0, 0, [1,0,0])
+        symmetry.setBasis(0, 0, 1, [0,0,1])
+        symmetry.setBasis(0, 1, 0, [1,0,0])
+        symmetry.setBasis(0, 1, 1, [0,0,1])
 def fit():
-    # PYTHONPATH=. bumps Al2O3.py --fit=dream --store=M1 --burn=100 --steps=500
-    cell = Mod.makeCell(crystalCell, getSpaceGroup_crystalsys(spaceGroup))
+    makeBasis(basisSymmetry, basisIndex)
+    cell = Mod.makeCell(crystalCell, spaceGroup.xtalSystem())
     cell.a.pm(0.5)
+    cell.b.pm(0.5)
     cell.c.pm(0.5)
+    #print len(H.satelliteGen(cell.cell, symmetry, float(H.getS(ttMax, wavelength))))
     m = Mod.Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
-                atoms, exclusions)
-    m.u.range(0,2)
-    m.v.range(-2,0)
-    m.w.range(0,2)
-    m.eta.range(0,1)
-    m.scale.range(0,10)
+                (atomList, magAtomList), exclusions, magnetic=True,
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=59.143)
+    m.u.range(0,10)
+    m.v.range(-10,0)
+    m.w.range(0,10)
+    m.scale.range(59,60)
+    m.base.range(6510,6514)
     for atomModel in m.atomListModel.atomModels:
-        atomModel.B.range(0, 10)
-        if (atomModel.atom.multip == atomModel.sgmultip):
-            # atom lies on a general position
-            atomModel.x.pm(0.1)
-            atomModel.y.pm(0.1)
-            atomModel.z.pm(0.1)
-    m.atomListModel["Al1"].z.pm(0.1)
-    m.atomListModel["O1"].x.pm(0.1)
+#        atomModel.B.range(0, 10)
+#        if (atomModel.atom.multip == atomModel.sgmultip):
+#            # atom lies on a general position
+#            atomModel.x.pm(0.1)
+#            atomModel.y.pm(0.1)
+#            atomModel.z.pm(0.1)
+        if atomModel.magnetic:
+            for coeff in atomModel.coeffs:
+                coeff.range(-10, 10)
+#            atomModel.phase.range(0,1)
+    # vary Fe/Mn atom positions but keep them on the special site x,0,z
+#    m.atomListModel["Fe1"].x.pm(0.1)
+#    m.atomListModel["Fe1"].z.pm(0.1)
+#    m.atomListModel["Mn1"].x = m.atomListModel["Fe1"].x
+#    m.atomListModel["Mn1"].z = m.atomListModel["Fe1"].z
+    #for i in xrange(len(m.atomListModel["Fe1"].coeffs)):
+        #m.atomListModel["Mn1"].coeffs[i] = m.atomListModel["Fe1"].coeffs[i]
+#    m.atomListModel["Mn1"].phase = m.atomListModel["Fe1"].phase
+    # Occupancy:
+#    m.atomListModel["Fe1"].occ.range(0, 1)
+#    m.atomListModel["Mn1"].occ.range(0, 1)
+#    m.atomListModel["Mn1"].occ = 1 - m.atomListModel["Fe1"].occ
+    
     M = bumps.FitProblem(m)
     M.model_update()
     return M
 
 def main():
-    cell = H.CrystalCell(FloatVector([4.761,4.761,13.000]),FloatVector([90,90,120]))
-    uvw = [0.195228328354001,-0.164769183403005,0.0920158274607541]
-    H.diffPattern(infoFile=infoFile, backgroundFile=backgFile, wavelength=wavelength,
-                  cell=cell, uvw=uvw, scale=0.88765,
-                  ttMin=ttMin, ttMax=ttMax, info=True, plot=True,
-                  observedData=(tt,observed))
-
+    Ho = magAtomList[0]
+    Ni = magAtomList[1]
+    Ho.setBasis_ind(0,0,0.127)
+    Ho.setBasis_ind(0,1,8.993)
+    Ni.setBasis_ind(0,0,0.584)
+    Ni.setBasis_ind(0,1,-1.285)
+    magAtomList[0] = Ho
+    magAtomList[1] = Ni
+    makeBasis(basisSymmetry, basisIndex)
+    uvw = [1.548048,-0.988016,0.338780]
+    cell = crystalCell
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=59.143,
+                  ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
+                  basisSymmetry=basisSymmetry, magAtomList=magAtomList,
+                  magnetic=True, info=True, plot=True,
+                  observedData=(tt,observed), base=6512)
 if __name__ == "__main__":
     # program run normally
     main()

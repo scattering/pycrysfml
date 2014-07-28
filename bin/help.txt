@@ -809,13 +809,13 @@ CLASSES
      |  
      |  read_current_instrm = FortFuncs_read_current_instrm(...)
      |  
+     |  read_ill_data = FortFuncs_read_ill_data(...)
+     |  
      |  read_mag_cfl_file = FortFuncs_read_mag_cfl_file(...)
      |  
      |  read_mag_mcif_file = FortFuncs_read_mag_mcif_file(...)
      |  
      |  read_msymm = FortFuncs_read_msymm(...)
-     |  
-     |  read_powder_data = FortFuncs_read_powder_data(...)
      |  
      |  read_refgcodes_file = FortFuncs_read_refgcodes_file(...)
      |  
@@ -1011,15 +1011,11 @@ CLASSES
      |  
      |  write_atom_list = FortFuncs_write_atom_list(...)
      |  
-     |  write_atoms_cfl = FortFuncs_write_atoms_cfl(...)
-     |  
      |  write_bin_atom_list = FortFuncs_write_bin_atom_list(...)
      |  
      |  write_bin_crystal_cell = FortFuncs_write_bin_crystal_cell(...)
      |  
      |  write_bin_spacegroup = FortFuncs_write_bin_spacegroup(...)
-     |  
-     |  write_cfl = FortFuncs_write_cfl(...)
      |  
      |  write_cif_powder_profile = FortFuncs_write_cif_powder_profile(...)
      |  
@@ -2154,6 +2150,106 @@ CLASSES
      |  __repr__ = _swig_repr(self)
      |  
      |  __setattr__ lambda self, name, value
+     |  
+     |  get_diffraction_pattern_bgr(self, *args)
+     |  
+     |  get_diffraction_pattern_col_time(self)
+     |  
+     |  get_diffraction_pattern_conv(self, *args)
+     |  
+     |  get_diffraction_pattern_ct_step(self)
+     |  
+     |  get_diffraction_pattern_diff_kind(self, *args)
+     |  
+     |  get_diffraction_pattern_filename(self, *args)
+     |  
+     |  get_diffraction_pattern_filepath(self, *args)
+     |  
+     |  get_diffraction_pattern_instr(self, *args)
+     |  
+     |  get_diffraction_pattern_monitor(self)
+     |  
+     |  get_diffraction_pattern_norm_mon(self)
+     |  
+     |  get_diffraction_pattern_npts(self)
+     |  
+     |  get_diffraction_pattern_scal(self)
+     |  
+     |  get_diffraction_pattern_scat_var(self, *args)
+     |  
+     |  get_diffraction_pattern_step(self)
+     |  
+     |  get_diffraction_pattern_title(self, *args)
+     |  
+     |  get_diffraction_pattern_tsamp(self)
+     |  
+     |  get_diffraction_pattern_tset(self)
+     |  
+     |  get_diffraction_pattern_x(self, *args)
+     |  
+     |  get_diffraction_pattern_xax_text(self, *args)
+     |  
+     |  get_diffraction_pattern_xmax(self)
+     |  
+     |  get_diffraction_pattern_xmin(self)
+     |  
+     |  get_diffraction_pattern_y(self, *args)
+     |  
+     |  get_diffraction_pattern_yax_text(self, *args)
+     |  
+     |  get_diffraction_pattern_ymax(self)
+     |  
+     |  get_diffraction_pattern_ymin(self)
+     |  
+     |  set_diffraction_pattern_bgr(self, *args)
+     |  
+     |  set_diffraction_pattern_col_time(self, *args)
+     |  
+     |  set_diffraction_pattern_conv(self, *args)
+     |  
+     |  set_diffraction_pattern_ct_step(self, *args)
+     |  
+     |  set_diffraction_pattern_diff_kind(self, *args)
+     |  
+     |  set_diffraction_pattern_filename(self, *args)
+     |  
+     |  set_diffraction_pattern_filepath(self, *args)
+     |  
+     |  set_diffraction_pattern_instr(self, *args)
+     |  
+     |  set_diffraction_pattern_monitor(self, *args)
+     |  
+     |  set_diffraction_pattern_norm_mon(self, *args)
+     |  
+     |  set_diffraction_pattern_npts(self, *args)
+     |  
+     |  set_diffraction_pattern_scal(self, *args)
+     |  
+     |  set_diffraction_pattern_scat_var(self, *args)
+     |  
+     |  set_diffraction_pattern_step(self, *args)
+     |  
+     |  set_diffraction_pattern_title(self, *args)
+     |  
+     |  set_diffraction_pattern_tsamp(self, *args)
+     |  
+     |  set_diffraction_pattern_tset(self, *args)
+     |  
+     |  set_diffraction_pattern_x(self, *args)
+     |  
+     |  set_diffraction_pattern_xax_text(self, *args)
+     |  
+     |  set_diffraction_pattern_xmax(self, *args)
+     |  
+     |  set_diffraction_pattern_xmin(self, *args)
+     |  
+     |  set_diffraction_pattern_y(self, *args)
+     |  
+     |  set_diffraction_pattern_yax_text(self, *args)
+     |  
+     |  set_diffraction_pattern_ymax(self, *args)
+     |  
+     |  set_diffraction_pattern_ymin(self, *args)
      |  
      |  ----------------------------------------------------------------------
      |  Data descriptors defined here:
@@ -5954,13 +6050,13 @@ FUNCTIONS
     
     FortFuncs_read_current_instrm(...)
     
+    FortFuncs_read_ill_data(...)
+    
     FortFuncs_read_mag_cfl_file(...)
     
     FortFuncs_read_mag_mcif_file(...)
     
     FortFuncs_read_msymm(...)
-    
-    FortFuncs_read_powder_data(...)
     
     FortFuncs_read_refgcodes_file(...)
     
@@ -6158,15 +6254,11 @@ FUNCTIONS
     
     FortFuncs_write_atom_list(...)
     
-    FortFuncs_write_atoms_cfl(...)
-    
     FortFuncs_write_bin_atom_list(...)
     
     FortFuncs_write_bin_crystal_cell(...)
     
     FortFuncs_write_bin_spacegroup(...)
-    
-    FortFuncs_write_cfl(...)
     
     FortFuncs_write_cif_powder_profile(...)
     
@@ -6333,6 +6425,22 @@ FUNCTIONS
     getAtom_wyck(...)
     
     getCrystalCell_carttype(...)
+    
+    getDiffractionPattern_diff_kind(...)
+    
+    getDiffractionPattern_filename(...)
+    
+    getDiffractionPattern_filepath(...)
+    
+    getDiffractionPattern_instr(...)
+    
+    getDiffractionPattern_scat_var(...)
+    
+    getDiffractionPattern_title(...)
+    
+    getDiffractionPattern_xax_text(...)
+    
+    getDiffractionPattern_yax_text(...)
     
     getJobInfo_title(...)
     

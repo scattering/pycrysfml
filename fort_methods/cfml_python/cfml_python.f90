@@ -338,11 +338,12 @@ SUBROUTINE GaussPeak(X, H, output)
 	par(1) = H
 END SUBROUTINE GaussPeak
 !!-- Data file reading --!!
-Subroutine Read_ILL_Data(datafile,Instrument,Num)
+Subroutine Read_ILL_Data(filename, dif_pat, mode)
 	!---- Arguments ----!
 	character(len=*), intent(in) :: filename
 	type (diffraction_pattern_type) :: dif_pat
 	character(len=*), optional, intent(in) :: mode
+	call Read_Pattern(filename, dif_pat, mode)
 END Subroutine Read_ILL_Data
 !!-- debug functions --!!
 SUBROUTINE printBasis(matm)
@@ -5867,13 +5868,13 @@ function get_diffraction_pattern_scal(obj_var)
 
 	subroutine get_diffraction_pattern_x(obj_var, output_value)
 		type (Diffraction_Pattern_Type) :: obj_var
-		real(kind=cp), dimension (:), allocatable, intent(out) :: output_value
+		real(kind=cp), dimension (obj_var%npts), intent(out) :: output_value
 		output_value = obj_var%x
 	end subroutine get_diffraction_pattern_x
 
 	subroutine set_diffraction_pattern_x(obj_var, new_value)
 		type (Diffraction_Pattern_Type) :: obj_var
-		real(kind=cp), dimension (:), allocatable, intent(in) :: new_value
+		real(kind=cp), dimension (obj_var%npts), intent(in) :: new_value
 		obj_var%x = new_value
 	end subroutine set_diffraction_pattern_x
 
@@ -5963,13 +5964,13 @@ function get_diffraction_pattern_scal(obj_var)
 
 	subroutine get_diffraction_pattern_bgr(obj_var, output_value)
 		type (Diffraction_Pattern_Type) :: obj_var
-		real(kind=cp), dimension (:), allocatable, intent(out) :: output_value
+		real(kind=cp), dimension (obj_var%npts), intent(out) :: output_value
 		output_value = obj_var%bgr
 	end subroutine get_diffraction_pattern_bgr
 
 	subroutine set_diffraction_pattern_bgr(obj_var, new_value)
 		type (Diffraction_Pattern_Type) :: obj_var
-		real(kind=cp), dimension (:), allocatable, intent(in) :: new_value
+		real(kind=cp), dimension (obj_var%npts), intent(in) :: new_value
 		obj_var%bgr = new_value
 	end subroutine set_diffraction_pattern_bgr
 
@@ -5987,13 +5988,13 @@ function get_diffraction_pattern_scal(obj_var)
 
 	subroutine get_diffraction_pattern_y(obj_var, output_value)
 		type (Diffraction_Pattern_Type) :: obj_var
-		real(kind=cp), dimension (:), allocatable, intent(out) :: output_value
+		real(kind=cp), dimension (obj_var%npts), intent(out) :: output_value
 		output_value = obj_var%y
 	end subroutine get_diffraction_pattern_y
 
 	subroutine set_diffraction_pattern_y(obj_var, new_value)
 		type (Diffraction_Pattern_Type) :: obj_var
-		real(kind=cp), dimension (:), allocatable, intent(in) :: new_value
+		real(kind=cp), dimension (obj_var%npts), intent(in) :: new_value
 		obj_var%y = new_value
 	end subroutine set_diffraction_pattern_y
 
