@@ -26,15 +26,15 @@ def fit():
     m = Mod.Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
                 atoms, exclusions, base=min(observed), zero=-0.09459)
     m.u.range(0,2)
-    m.zero.pm(0.1)
+    m.zero.pm(0.2)
     m.v.range(-2,0)
     m.w.range(0,2)
     m.eta.range(0,1)
     m.scale.range(0,10)
     m.base.pm(250)
     for atomModel in m.atomListModel.atomModels:
-        atomModel.x.pm(0.1)
-        atomModel.z.pm(0.1)
+        atomModel.x.pm(1.0)
+        atomModel.z.pm(1.0)
         if (atomModel.atom.multip == atomModel.sgmultip):
             # atom lies on a general position
             atomModel.x.pm(0.1)
@@ -42,7 +42,7 @@ def fit():
             atomModel.z.pm(0.1)
     #m.atomListModel["Al1"].z.pm(0.1)
     #m.atomListModel["O1"].x.pm(0.1)
-    m.atomListModel["O3"].y.pm(0.1)
+    m.atomListModel["O3"].y.pm(1.0)
     m.atomListModel["Pb"].B.range(0,10)
     M = bumps.FitProblem(m)
     M.model_update()

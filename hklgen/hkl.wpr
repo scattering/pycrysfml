@@ -24,9 +24,7 @@ proj.file-list = [loc('Al2O3/Al2O3.py'),
                   loc('fswig_hklgen.py'),
                   loc('hkl_model.py'),
                   loc('HOBK/HOBK.py'),
-                  loc('HOBK/run.py'),
                   loc('LFO_20K/LuFeO3_20K.py'),
-                  loc('LFO_20K/run.py'),
                   loc('PbSO4/PbSO4.py'),
                   loc('run.py')]
 proj.file-type = 'shared'

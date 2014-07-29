@@ -31,7 +31,7 @@ def fit():
     m.w.range(0,2)
     m.eta.range(0,1)
     m.scale.range(0,10)
-    m.base.pm(250)
+    m.base.pm(10)
     for atomModel in m.atomListModel.atomModels:
         atomModel.x.pm(0.1)
         atomModel.z.pm(0.1)
