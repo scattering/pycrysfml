@@ -161,11 +161,12 @@ class Model(object):
 
     def __init__(self, tt, observed, background, u, v, w,
                  wavelength, spaceGroupName, cell, atoms, exclusions=None,
-                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None):
+                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None, sxtal=False):
         if (isinstance(spaceGroupName, SpaceGroup)):
             self.spaceGroup = spaceGroupName
         else:
             self.spaceGroup = SpaceGroup(spaceGroupName)
+        self.xtal = sxtal
         self.tt = np.array(tt)
         self.observed = observed
         self.background = background
@@ -209,7 +210,7 @@ class Model(object):
         maxLattice = self.cell.getMaxLattice()
         maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
         self.refList = hklGen(self.spaceGroup, maxCell,
-                              self.sMin, self.sMax, True)
+                              self.sMin, self.sMax, True, xtal=self.xtal)
         self.reflections = self.refList[:]
         if self.magnetic:
             self.magRefList = satelliteGen(self.cell.cell, self.symmetry,

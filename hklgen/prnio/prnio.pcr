@@ -1,0 +1,54 @@
+COMM Pr2NiO4:Sr Test of Xtal option of FullProf
+! Current global Chi2 (Bragg contrib.) =      9.956    
+! Files => DAT-file: prnio.int,  PCR-file: prnio
+!Job Npr Nph Nba Nex Nsc Nor Dum Iwg Ilo Ias Res Ste Nre Cry Uni Cor Opt Aut
+   1   0   1   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   1
+!
+!Ipr Ppl Ioc Mat Pcr Ls1 Ls2 Ls3 NLI Prf Ins Rpa Sym Hkl Fou Sho Ana
+   0   2   1   0   1   0   4   0   0   1   0   0   0   0   0   0   0
+!
+!NCY  Eps  R_at  R_an  R_pr  R_gl     Thmin       Step       Thmax    PSD    Sent0
+  5  0.20  1.00  1.00  1.00  1.00      0.0801   0.100000    89.9000   0.000   0.000
+!
+!
+      20    !Number of refined parameters
+!-------------------------------------------------------------------------------
+!  Data for PHASE number:   1  ==> Current R_Bragg for Pattern#  1:     2.90
+!-------------------------------------------------------------------------------
+ Pr2NiO4:Sr
+!
+!Nat Dis Ang Pr1 Pr2 Pr3 Jbt Irf Isy Str Furth       ATZ    Nvk Npr More
+   6   0   0 0.0 0.0 1.0   0   4   0   0   0       1627.490   0   0   0
+!
+F m m m                  <--Space group symbol
+!Atom   Typ       X        Y        Z     Biso       Occ     In Fin N_t Spc /Codes
+!    beta11   beta22   beta33   beta12   beta13   beta23  /Codes
+Pr     PR      0.50000  0.50000  0.35973  0.00000   2.00000   0   0   2    0  #COLOR magenta
+                  0.00     0.00    51.00     0.00      0.00
+Ni     NI      0.00000  0.00000  0.00000  0.00000   1.00000   0   0   2    0  #COLOR green
+                  0.00     0.00     0.00     0.00      0.00
+O1     O       0.25000  0.25000  0.00000  0.00000   2.00000   0   0   2    0  #conn NI O 0 1.96
+                  0.00     0.00     0.00     0.00      0.00
+O2     O       0.00000  0.00000  0.17385  0.00000   1.40277   0   0   2    0  
+                  0.00     0.00    61.00     0.00    -84.00
+Oi     O       0.25000  0.25000  0.25000  0.00000   0.14931   0   0   2    0  
+                  0.00     0.00     0.00     0.00     81.00
+Od     O       0.07347  0.07347  0.17349  2.31435   0.59723   0   0   0    0  
+                 91.00    91.00    71.00   131.00     84.00
+!-------> Scale, Extinction and  Cell Parameters for Pattern #  1
+!  Scale Factors 
+!   Sc1        Sc2         Sc3         Sc4         Sc5         Sc6
+  0.6298E-01   0.000       0.000       0.000       0.000       0.000    
+       11.00        0.00        0.00        0.00        0.00        0.00
+!  Extinction Parameters 
+! Ext1       Ext2       Ext3       Ext4       Ext5       Ext6       Ext7   Ext-Model
+ 0.1054E-03  0.000      0.000      0.000      0.000      0.000      0.000       1
+     171.00       0.00       0.00       0.00       0.00       0.00       0.00
+!     a          b         c        alpha      beta       gamma      #Cell Info
+   5.417799   5.414600  12.483399  90.000000  90.000000  90.000000   #box -0.26 1.26 -0.26 1.26 -0.26 1.26
+    0.00000    0.00000    0.00000    0.00000    0.00000    0.00000
+! x-Lambda/2  +          Not yet used parameters
+     0.00000     0.00000     0.00000     0.00000     0.00000
+        0.00        0.00        0.00        0.00        0.00
+!  2Th1/TOF1    2Th2/TOF2  Pattern to plot
+      10.000      89.900       1

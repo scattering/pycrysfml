@@ -66,10 +66,12 @@ debug.launch-configs = (1,
          'rundir': ('project',
                     u'')})})
 proj.file-list = [loc('Al2O3/Al2O3.py'),
+                  loc('CeO2/CeO2.py'),
                   loc('fswig_hklgen.py'),
                   loc('hkl_model.py'),
                   loc('HOBK/HOBK.py'),
                   loc('LFO_20K/LuFeO3_20K.py'),
+                  loc('ncaf_3t2/ncaf_3t2.py'),
                   loc('PbSO4/PbSO4.py'),
                   loc('run.py'),
                   loc('ybacud1a/ybacud1a.py')]

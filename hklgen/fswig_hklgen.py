@@ -759,7 +759,7 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
     else:
         if xtal:
             reflections = ReflectionList()
-            funcs.hklgen_sxtal_list(cell, spaceGroup, sMin, sMax, reflectionCount, reflections)
+            funcs.hklgen_sxtal_list(cell, spaceGroup, np.asscalar(sMin), np.asscalar(sMax), int_to_p(reflectionCount), reflections)
         else:
             reflections = ReflectionList()
             funcs.hkluni_refllist(cell, spaceGroup, 1, np.asscalar(sMin), np.asscalar(sMax), 's', reflectionCount, reflections)
@@ -860,7 +860,7 @@ def removeRange(tt, remove, intensity=None):
         keepEntries = (tt < remove[0]) | (tt > remove[1])
         tt = tt[keepEntries]
         if (intensity != None):
-            intensity = intensity[keepEntries]
+            intensity = np.array(intensity)[keepEntries]
             return (tt, intensity)
         else: return tt
     else:
@@ -884,7 +884,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 symmetry=None, basisSymmetry=None, magAtomList=None,
                 uvw=[0,0,1], scale=1,
                 magnetic=False, info=False, plot=False, saveFile=None,
-                observedData=(None,None), labels=None, base=0):
+                observedData=(None,None), labels=None, base=0, xtal=False):
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
     if magnetic:
@@ -902,7 +902,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                                        wavelength, cell, True)
         # add in structural peaks
         if (atomList == None): atomList = readInfo(infoFile)[2]
-        refList = hklGen(spaceGroup, cell, sMin, sMax, True)
+        refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
         reflections = magRefList[:] + refList[:]
         intensities = np.append(magIntensities, intensities)
@@ -912,7 +912,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (spaceGroup == None): spaceGroup = info[0]
             if (cell == None): cell = info[1]
             if (atomList == None): atomList = info[2]         
-        refList = hklGen(spaceGroup, cell, sMin, sMax, True)
+        refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
         reflections = refList[:]
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
     peaks = makePeaks(reflections, uvw, intensities, scale, wavelength, base=base)

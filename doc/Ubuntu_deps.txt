@@ -1,0 +1,6 @@
+sudo apt-get install build-essential gfortran python python-dev python-numpy python-scipy python-matplotlib python-pip subversion git swig
+git clone https://github.com/bumps/bumps.git
+sudo pip install ./bumps
+git clone https://github.com/jlesniewski/pycrysfml.git
+cd pycrysfml
+./build.sh # can give path to patched crysfml/Src as argument otherwise pulls from svn

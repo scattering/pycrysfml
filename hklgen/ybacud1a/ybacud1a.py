@@ -15,7 +15,7 @@ backg = H.LinSpline(None)
 ttMin = 0.0
 ttMax = 155.449996948
 ttStep = 0.0499839218483
-exclusions = [[0,6],[155.45,180]]
+exclusions = None#[[0,6],[155.45,180]]
 tt, observed = H.readIllData(observedFile, "D1A", backgFile)
 def fit():
     # PYTHONPATH=. bumps Al2O3.py --fit=dream --store=M1 --burn=100 --steps=500

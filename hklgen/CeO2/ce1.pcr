@@ -1,0 +1,62 @@
+COMM  CeO2 CSIRO Test 25-143
+! Current global Chi2 (Bragg contrib.) =      11.67    
+! Files => DAT-file: ceo2.dat,  PCR-file: ce1
+!Job Npr Nph Nba Nex Nsc Nor Dum Iwg Ilo Ias Res Ste Nre Cry Uni Cor Opt Aut
+   0   5   1   0   0   0   0   0   0   0   0   0   0   2   0   0   0   1   1
+!
+!Ipr Ppl Ioc Mat Pcr Ls1 Ls2 Ls3 NLI Prf Ins Rpa Sym Hkl Fou Sho Ana
+   0   2   1   0   1   0   4   0   0   1   0   1   1   1   2   0   0
+!
+! Lambda1  Lambda2    Ratio    Bkpos    Wdt    Cthm     muR   AsyLim   Rpolarz  2nd-muR -> Patt# 1
+ 1.540560 1.544330 -0.50000   25.000 15.0000  0.9100  0.0000   30.00    0.0000  0.0000
+!
+!NCY  Eps  R_at  R_an  R_pr  R_gl     Thmin       Step       Thmax    PSD    Sent0
+  6  0.10  1.00  1.00  1.00  1.00     25.0000   0.025000   143.0000   0.000   0.000
+!
+!
+      20    !Number of refined parameters
+!
+!  Zero    Code    SyCos    Code   SySin    Code  Lambda     Code MORE ->Patt# 1
+  0.02573   11.0  0.00000    0.0  0.00000    0.0 0.000000    0.00   1
+!
+! Microabsorption coefficients for Pattern#  1
+!   P0    Cod_P0    Cp   Cod_Cp     Tau  Cod_Tau
+  0.0000    0.00  1.2326  141.00  0.1340  151.00
+!   Background coefficients/codes  for Pattern#  1  (Polynomial of 6th degree)
+      24.538     -17.709       6.313      -0.604       0.000       0.000
+       21.00       31.00       41.00       51.00        0.00        0.00
+!-------------------------------------------------------------------------------
+!  Data for PHASE number:   1  ==> Current R_Bragg for Pattern#  1:     0.00
+!-------------------------------------------------------------------------------
+  CeO2
+!
+!Nat Dis Ang Pr1 Pr2 Pr3 Jbt Irf Isy Str Furth       ATZ    Nvk Npr More
+   2   0   0 1.0 1.0 1.0   0   0   0   0   0        688.480   0   5   0
+!
+F m 3 m                  <--Space group symbol
+!Atom   Typ       X        Y        Z     Biso       Occ     In Fin N_t Spc /Codes
+Ce     CE      0.00000  0.00000  0.00000  0.46072   0.02000   0   0   0    0  # color green conn O O 0.0 3.2
+                  0.00     0.00     0.00   161.00      0.00
+O      O       0.25000  0.25000  0.25000  0.92238   0.04000   0   0   0    0  # color blue
+                  0.00     0.00     0.00   171.00      0.00
+!-------> Profile Parameters for Pattern #  1
+!  Scale        Shape1      Bov      Str1      Str2      Str3   Strain-Model
+ 0.10221E-02   0.36718   0.00000   0.00000   0.00000   0.00000       0
+    61.00000    81.000     0.000     0.000     0.000     0.000
+!       U         V          W           X          Y        GauSiz   LorSiz Size-Model
+   0.007620  -0.008890   0.010213   0.003352   0.000000   0.000000   0.000000    0
+    101.000     91.000    111.000    121.000      0.000      0.000      0.000
+!     a          b         c        alpha      beta       gamma      #Cell Info
+   5.412223   5.412223   5.412223  90.000000  90.000000  90.000000   #multiple box -1 1 -1 1 0 1
+   71.00000   71.00000   71.00000    0.00000    0.00000    0.00000
+!  Pref1    Pref2      Asy1     Asy2     Asy3     Asy4  
+  0.00000  0.00000  0.06232  0.00000  0.00000  0.00000
+     0.00     0.00   131.00     0.00     0.00     0.00
+!Additional U,V,W parameters for Lambda2
+   0.007462  -0.005257   0.008199   <--  U2,V2,W2 for lambda(2) 
+ 191.000000 201.000000 181.000000
+! Limits for selected parameters :
+  14      0.0010      2.0000      0.0000   0  Cp_mabs_pat1        
+  15      0.0010      2.0000      0.0000   0  Tau_mabs_pat1       
+!  2Th1/TOF1    2Th2/TOF2  Pattern to plot
+      25.000     143.000       1
