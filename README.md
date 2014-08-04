@@ -14,12 +14,18 @@ Build
 =========
 
 Building is done by running:
-    ./build.sh
+
+	./build.sh
+
 This will install the binary pycrysfml module to both bin/<Platform> and hklgen/
 Optionally local copies of library source code can be used by running:
-    ./build.sh /path/to/Src
+
+	./build.sh /path/to/Src
+
 Otherwise the latest version of the library will be pulled from the ILL subversion repository.
-    ./clean.sh
+
+	./clean.sh
+
 can be used to clean the working directory.
 
 Programming API
