@@ -59,8 +59,10 @@ ff
 
 list of derived type interfaces used by gen_cpp_methods and gen_fort_methods
 syntax is:
-# derived_type_name!module_name
-<Fortran declarations of type attributes>
+
+	# derived_type_name!module_name
+	<Fortran declarations of type attributes>
+
 TODO: Automatically generate this file
 
 f90_deps.py
