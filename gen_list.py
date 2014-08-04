@@ -1,4 +1,7 @@
 #!/usr/bin/python
+# Joseph Lesniewski - NIST Center for Neutron Research
+# Summer 2014
+# Generate file list for use with modified FortWrap based on bfiles.txt
 from os import getcwd
 lines = [line.strip() for line in open("./bfiles.txt")]
 for line in lines:

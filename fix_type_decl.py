@@ -1,4 +1,7 @@
 #!/usr/bin/python
+# Joseph Lesniewski - NIST Center for Neutron Research
+# Summer 2014
+# Fix derived type declarations for use with modified FortWrap
 import os
 import glob
 path = '.'

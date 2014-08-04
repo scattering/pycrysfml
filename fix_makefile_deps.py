@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# Joseph Lesniewski - NIST Center for Neutron Research
+# Summer 2014
 # hack out EoS and SAn modules from Makefile
 lines = [line.strip() for line in open("./Makefile.deps")]
 out = open("./Makefile.deps", "w")

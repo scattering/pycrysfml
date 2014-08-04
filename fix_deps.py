@@ -1,5 +1,7 @@
 #!/usr/bin/python
-# global deps modifications
+# Joseph Lesniewski - NIST Center for Neutron Research
+# Summer 2014
+# global deps modifications for use with modified FortWrap
 lines = [line.strip() for line in open("./CFML_GlobalDeps_Linux.f90")]
 out = open("./CFML_GlobalDeps_Linux.f90", "w")
 for line in lines:
