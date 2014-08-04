@@ -1,0 +1,45 @@
+NOTE: Make sure fswig_hklgen and pycrysfml are in the python path
+
+Al2O3 - working
+-----------------
+Example Alumina data from BT1 with manually generated Linear-Spline background file
+
+LFO - unknown
+-----------------
+Example LuFeMnO3 data from BT1 with manually generated Linear-Spline background file
+
+LFO_20K - working
+-----------------
+Example LuFeMnO3 data from BT1 with manually generated Linear-Spline background file
+
+CeO2 - needs work
+-----------------
+FullProf Example
+X-Ray data, need to add support for multiple wavelengths
+
+HOBK - needs work
+-----------------
+FullProf Example
+Magnetics behaving oddly. Mag-intensities are calculated but don't seem to show up in model.
+
+lamn_3t2 - needs work
+-----------------
+FullProf Example
+
+ncaf_3t2 - needs work
+-----------------
+FullProf Example
+
+PbSO4 - working
+-----------------
+FullProf Example
+
+prnio - needs work
+-----------------
+FullProf Example
+Single crystal data. Partially implemented, but needs more work to plot and calculate sin(theta)/lambda vs F
+
+ybacud1a - needs work
+-----------------
+FullProf Example
+works when run normally, fit dies if a, b, and c are allowed to vary
