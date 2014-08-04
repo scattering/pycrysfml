@@ -1,4 +1,9 @@
 #!/usr/bin/python
+# Joseph Lesniewski
+# NIST Center for Neutron Research
+# Summer 2014
+# add_cmplx.py
+# injects complex struct into C++ wrapper to add imaginary number support
 lines = [line.strip() for line in open("./wrap/FortFuncs.h")]
 out = open("./wrap/FortFuncs.h", "w")
 for line in lines:

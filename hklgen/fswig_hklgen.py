@@ -1047,7 +1047,7 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
                 pylab.text(g.center, np.interp(g.center, ttCalc, intensity),
                            hklString(g.hkl),
                            ha="center", va="bottom", rotation="vertical")
-    if (residuals and observed):
+    if (residuals):
         intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
         resid = observed - intensityCalc
         pylab.plot(ttObs, resid, label="Residuals")

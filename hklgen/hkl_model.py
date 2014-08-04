@@ -290,18 +290,17 @@ class Model(object):
         return np.sum(self.residuals()**2)
 
     def plot(self, view="linear"):
+        import pylab
         if self.has_base and self.has_zero:
-            plotPattern(self.peaks, self.background, self.tt-self.zero.value, self.observed,
-                        self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = self.base.value)
+            base, zero = self.base.value, self.zero.value
         elif self.has_base:
-            plotPattern(self.peaks, self.background, self.tt-self.zero, self.observed,
-                        self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = self.base.value)
+            base, zero = self.base.value, self.zero
         elif self.has_zero:
-            plotPattern(self.peaks, self.background, self.tt-self.zero.value, self.observed,
-                        self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = self.base)   
+            base, zero = self.base, self.zero.value  
         else:
-            plotPattern(self.peaks, self.background, self.tt-self.zero, self.observed,
-                        self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = self.base)         
+            base, zero = self.base, self.zero
+        plotPattern(self.peaks, self.background, self.tt-zero, self.observed,
+                            self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = base, residuals=True)          
 
 #    def _cache_cell_pars(self):
 #        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())

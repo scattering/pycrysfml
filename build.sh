@@ -1,4 +1,11 @@
 #!/bin/bash
+# PyCrysFML build script
+# Joseph Lesniewski - NIST Center for Neutron Research
+# Summer 2014
+# Wraps CrysFML Library into C++ using modified FortWrap and
+# auto-generates swig interface for wrapping into Python
+# Compiles everything and installs pycrysfml binaries in
+# bin/<Platform> and hklgen/
 wd=$(pwd)
 # Mac OS Support
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -34,7 +41,7 @@ $wd/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log
 if [ $# -lt 1 ]; then
 svn co http://forge.epn-campus.eu/svn/crysfml/Src
 cp Src/*.f90 .
-rm -r Src
+rm -rf Src
 else
 cp $1/*.f90 .
 fi
