@@ -11,6 +11,7 @@ Example LuFeMnO3 data from BT1 with manually generated Linear-Spline background 
 LFO_20K - working
 -----------------
 Example LuFeMnO3 data from BT1 with manually generated Linear-Spline background file
+Finds C1, but not C0
 
 CeO2 - needs work
 -----------------
@@ -25,10 +26,14 @@ Magnetics behaving oddly. Mag-intensities are calculated but don't seem to show 
 lamn_3t2 - needs work
 -----------------
 FullProf Example
+Fits atomic parameters, plus eta, base, scale, and zero correctly
+Struggles when u,v,w and a, b, c added in
 
 ncaf_3t2 - needs work
 -----------------
 FullProf Example
+Fits atomic parameters, plus eta, base, scale, and zero correctly
+Struggles when u,v,w and a, b, c added in
 
 PbSO4 - working
 -----------------
