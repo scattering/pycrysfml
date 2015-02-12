@@ -23,6 +23,11 @@ BIN_DIR='Linux'
 fi
 if [ $# -lt 1 ]; then
 svn co http://forge.epn-campus.eu/svn/crysfml/Src
+#rm Src/CFML_Conf_Calc.f90
+#rm Src/CFML_BVSpar.f90
+cp tmp/CFML_BVSpar.f90 Src
+echo "hi1"
+pwd
 else
 cp -r $1 $wd/Src
 fi
@@ -40,6 +45,11 @@ $wd/fix_type_decl.py
 $wd/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log
 if [ $# -lt 1 ]; then
 svn co http://forge.epn-campus.eu/svn/crysfml/Src
+#rm Src/CFML_Conf_Calc.f90
+#rm Src/CFML_BVSpar.f90
+echo "hi2"
+pwd
+cp ../tmp/CFML_BVSpar.f90 Src
 cp Src/*.f90 .
 rm -rf Src
 else
@@ -76,11 +86,16 @@ done
 echo -e $a > pycrysfml.i
 swig -python -c++ pycrysfml.i
 # compile Fortran wrapper
+echo "compiling wrapper"
 gfortran -fPIC -o CppWrappers.o -c CppWrappers.f90 ../crysfml.so -lstdc++ -Xlinker -rpath . -I..
 #compile C++
 $CPPCOMP -O2 -fPIC -c *.cpp *.cxx ../crysfml.so -I/usr/include/python2.7 $LIBFLAGS -Xlinker -rpath .
 #build shared-object library
-$CPPCOMP $SOFLAGS -o _pycrysfml.so -g -Wall ./*.o ../CFML_GlobalDeps_Linux.o ../CFML_Math_Gen.o ../CFML_LSQ_TypeDef.o ../CFML_Spher_Harm.o ../CFML_Random.o ../CFML_FFTs.o ../CFML_String_Util.o ../CFML_IO_Mess.o ../CFML_Profile_TOF.o ../CFML_Profile_Finger.o ../CFML_Profile_Functs.o ../CFML_Math_3D.o ../CFML_Optimization.o ../CFML_Optimization_LSQ.o ../CFML_Sym_Table.o ../CFML_Chem_Scatt.o ../CFML_Diffpatt.o ../CFML_Bonds_Table.o ../CFML_Cryst_Types.o ../CFML_Symmetry.o ../CFML_ILL_Instrm_Data.o ../CFML_Reflct_Util.o ../CFML_Atom_Mod.o ../CFML_Export_Vtk.o ../CFML_Sfac.o ../CFML_Geom_Calc.o ../CFML_Propagk.o ../CFML_Maps.o ../CFML_Molecules.o ../CFML_SXTAL_Geom.o ../CFML_Conf_Calc.o ../CFML_Form_CIF.o ../CFML_MagSymm.o ../CFML_Msfac.o ../CFML_Polar.o ../CFML_Refcodes.o ../cfml_python.o $LIBFLAGS
+echo "making shared-object library"
+##$CPPCOMP $SOFLAGS -o _pycrysfml.so -g -Wall ./*.o ../CFML_GlobalDeps_Linux.o ../CFML_Math_Gen.o ../CFML_LSQ_TypeDef.o ../CFML_Spher_Harm.o ../CFML_Random.o ../CFML_FFTs.o ../CFML_String_Util.o ../CFML_IO_Mess.o ../CFML_Profile_TOF.o ../CFML_Profile_Finger.o ../CFML_Profile_Functs.o ../CFML_Math_3D.o ../CFML_Optimization.o ../CFML_Optimization_LSQ.o ../CFML_Sym_Table.o ../CFML_Chem_Scatt.o ../CFML_Diffpatt.o ../CFML_Bonds_Table.o ../CFML_Cryst_Types.o ../CFML_Symmetry.o ../CFML_ILL_Instrm_Data.o ../CFML_Reflct_Util.o ../CFML_Atom_Mod.o ../CFML_Export_Vtk.o ../CFML_Sfac.o ../CFML_Geom_Calc.o ../CFML_Propagk.o ../CFML_Maps.o ../CFML_Molecules.o ../CFML_SXTAL_Geom.o ../CFML_Conf_Calc.o ../CFML_Form_CIF.o ../CFML_MagSymm.o ../CFML_Msfac.o ../CFML_Polar.o ../CFML_Refcodes.o ../cfml_python.o $LIBFLAGS
+
+$CPPCOMP $SOFLAGS -o _pycrysfml.so -g -Wall ./*.o ../CFML_GlobalDeps_Linux.o ../CFML_Math_Gen.o ../CFML_LSQ_TypeDef.o ../CFML_Spher_Harm.o ../CFML_Random.o ../CFML_FFTs.o ../CFML_String_Util.o ../CFML_IO_Mess.o ../CFML_Profile_TOF.o ../CFML_Profile_Finger.o ../CFML_Profile_Functs.o ../CFML_Math_3D.o ../CFML_Optimization.o ../CFML_Optimization_LSQ.o ../CFML_Sym_Table.o ../CFML_Chem_Scatt.o ../CFML_Diffpatt.o ../CFML_Bonds_Table.o ../CFML_Cryst_Types.o ../CFML_Symmetry.o ../CFML_ILL_Instrm_Data.o ../CFML_Reflct_Util.o ../CFML_Atom_Mod.o ../CFML_Export_Vtk_LF95.o ../CFML_Sfac.o ../CFML_Geom_Calc.o ../CFML_Propagk.o ../CFML_Maps.o ../CFML_Molecules.o ../CFML_SXTAL_Geom.o ../CFML_Conf_Calc.o ../CFML_Form_CIF.o ../CFML_MagSymm.o ../CFML_Msfac.o ../CFML_Polar.o ../CFML_Refcodes.o ../CFML_BVSpar.o ../cfml_python.o $LIBFLAGS
+
 #$CPPCOMP -shared -fPIC -o _pycrysfml.so -g -Wall ./*.o ../crysfml.so $LIBFLAGS -L.. -I.. -Xlinker -rpath .
 cd $wd
 make clean

@@ -1,7 +1,7 @@
 
 # Fortran 90 compilation.  This will vary depending on compiler.
 # The -J Src option puts the mod files in the Src directory
-Src/%.o: Src/%.f90; gfortran -c -g -Wall -fPIC $< -o $@ -J Src
+Src/%.o: Src/%.f90; gfortran -c -g -Wall -fPIC -ffree-line-length-0 $< -o $@ -J Src
 
 # Editting is currently happening on a different machine from compiling and running,
 # hence the "copy" target
