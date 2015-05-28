@@ -10,6 +10,18 @@ subroutine set_atom_LOcc(obj_var, new_value)
 	obj_var%LOcc = new_value
 end subroutine set_atom_LOcc
 
+subroutine get_atom_LVarF(obj_var, output_value)
+	type (Atom_Type) :: obj_var
+	integer,      dimension(25), intent(out) :: output_value
+	output_value = obj_var%LVarF
+end subroutine get_atom_LVarF
+
+subroutine set_atom_LVarF(obj_var, new_value)
+	type (Atom_Type) :: obj_var
+	integer,      dimension(25), intent(in) :: new_value
+	obj_var%LVarF = new_value
+end subroutine set_atom_LVarF
+
 subroutine get_atom_Utype(obj_var, output_value)
 	type (Atom_Type) :: obj_var
 	character(len=4), intent(out) :: output_value
@@ -81,6 +93,18 @@ subroutine set_atom_Lab(obj_var, new_value)
 	character(len=20), intent(in) :: new_value
 	obj_var%Lab = new_value
 end subroutine set_atom_Lab
+
+subroutine get_atom_MVarF(obj_var, output_value)
+	type (Atom_Type) :: obj_var
+	real(kind=cp),dimension(25), intent(out) :: output_value
+	output_value = obj_var%MVarF
+end subroutine get_atom_MVarF
+
+subroutine set_atom_MVarF(obj_var, new_value)
+	type (Atom_Type) :: obj_var
+	real(kind=cp),dimension(25), intent(in) :: new_value
+	obj_var%MVarF = new_value
+end subroutine set_atom_MVarF
 
 function get_atom_Moment(obj_var)
 	type (Atom_Type) :: obj_var
@@ -228,13 +252,13 @@ end subroutine set_atom_Biso
 
 subroutine get_atom_VarF(obj_var, output_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(10), intent(out) :: output_value
+	real(kind=cp),dimension(25), intent(out) :: output_value
 	output_value = obj_var%VarF
 end subroutine get_atom_VarF
 
 subroutine set_atom_VarF(obj_var, new_value)
 	type (Atom_Type) :: obj_var
-	real(kind=cp),dimension(10), intent(in) :: new_value
+	real(kind=cp),dimension(25), intent(in) :: new_value
 	obj_var%VarF = new_value
 end subroutine set_atom_VarF
 
@@ -382,15 +406,17 @@ subroutine set_atom_MX(obj_var, new_value)
 	obj_var%MX = new_value
 end subroutine set_atom_MX
 
-subroutine Atom_Type_ctor(Atom_Type_param, LOcc_param, Utype_param, MBiso_param, Occ_param, Charge_param, SfacSymb_param, Lab_param, Moment_param, LU_param, MOcc_param, Active_param, Mult_param, X_Std_param, U_std_param, NVar_param, wyck_param, Biso_std_param, LBiso_param, Biso_param, VarF_param, U_param, Occ_Std_param, X_param, Z_param, MU_param, LX_param, ChemSymb_param, Ind_param, ThType_param, AtmInfo_param, Ueq_param, MX_param)
+subroutine Atom_Type_ctor(Atom_Type_param, LOcc_param, LVarF_param, Utype_param, MBiso_param, Occ_param, Charge_param, SfacSymb_param, Lab_param, MVarF_param, Moment_param, LU_param, MOcc_param, Active_param, Mult_param, X_Std_param, U_std_param, NVar_param, wyck_param, Biso_std_param, LBiso_param, Biso_param, VarF_param, U_param, Occ_Std_param, X_param, Z_param, MU_param, LX_param, ChemSymb_param, Ind_param, ThType_param, AtmInfo_param, Ueq_param, MX_param)
 	type (Atom_Type) :: Atom_Type_param
 	integer, intent(in) :: LOcc_param
+	integer,      dimension(25), intent(in) :: LVarF_param
 	character(len=4), intent(in) :: Utype_param
 	real(kind=cp), intent(in) :: MBiso_param
 	real(kind=cp), intent(in) :: Occ_param
 	real(kind=cp), intent(in) :: Charge_param
 	character(len=4), intent(in) :: SfacSymb_param
 	character(len=20), intent(in) :: Lab_param
+	real(kind=cp),dimension(25), intent(in) :: MVarF_param
 	real(kind=cp), intent(in) :: Moment_param
 	integer,      dimension(6), intent(in) :: LU_param
 	real(kind=cp), intent(in) :: MOcc_param
@@ -403,7 +429,7 @@ subroutine Atom_Type_ctor(Atom_Type_param, LOcc_param, Utype_param, MBiso_param,
 	real(kind=cp), intent(in) :: Biso_std_param
 	integer, intent(in) :: LBiso_param
 	real(kind=cp), intent(in) :: Biso_param
-	real(kind=cp),dimension(10), intent(in) :: VarF_param
+	real(kind=cp),dimension(25), intent(in) :: VarF_param
 	real(kind=cp),dimension(6), intent(in) :: U_param
 	real(kind=cp), intent(in) :: Occ_Std_param
 	real(kind=cp),dimension(3), intent(in) :: X_param
@@ -417,12 +443,14 @@ subroutine Atom_Type_ctor(Atom_Type_param, LOcc_param, Utype_param, MBiso_param,
 	real(kind=cp), intent(in) :: Ueq_param
 	real(kind=cp),dimension(3), intent(in) :: MX_param
 	Atom_Type_param%LOcc = LOcc_param
+	Atom_Type_param%LVarF = LVarF_param
 	Atom_Type_param%Utype = Utype_param
 	Atom_Type_param%MBiso = MBiso_param
 	Atom_Type_param%Occ = Occ_param
 	Atom_Type_param%Charge = Charge_param
 	Atom_Type_param%SfacSymb = SfacSymb_param
 	Atom_Type_param%Lab = Lab_param
+	Atom_Type_param%MVarF = MVarF_param
 	Atom_Type_param%Moment = Moment_param
 	Atom_Type_param%LU = LU_param
 	Atom_Type_param%MOcc = MOcc_param

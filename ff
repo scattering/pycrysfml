@@ -37,7 +37,9 @@ real(kind=cp)                            :: Charge
 real(kind=cp)                            :: Moment
 integer, dimension(5)                    :: Ind
 integer                                  :: NVar
-real(kind=cp),dimension(10)              :: VarF
+real(kind=cp),dimension(25)              :: VarF
+real(kind=cp),dimension(25)              :: MVarF
+integer,      dimension(25)              :: LVarF
 character(len=40)                        :: AtmInfo
 # Atoms_Cell_Type!cfml_atom_mod
 integer                                            :: nat
@@ -87,7 +89,9 @@ real(kind=cp)                            :: Charge
 real(kind=cp)                            :: Moment
 integer, dimension(5)                    :: Ind
 integer                                  :: NVar
-real(kind=cp),dimension(10)              :: VarF
+real(kind=cp),dimension(25)              :: VarF
+real(kind=cp),dimension(25)              :: mVarF
+integer,      dimension(25)              :: LVarF
 character(len=40)                        :: AtmInfo
 integer                                 :: nvk
 integer,      dimension(12)             :: imat
