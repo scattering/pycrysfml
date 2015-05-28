@@ -1,0 +1,5 @@
+---
+- hosts: pycrysfml
+  tasks:
+   - name: Build pycrysfml
+     raw: cd ~/pycrysfml; ./build.sh >& ~/build.log

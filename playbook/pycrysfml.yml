@@ -1,0 +1,44 @@
+---
+- hosts: pycrysfml
+  tasks:
+   - name: Install Build-Essentials
+     apt: pkg=build-essential state=installed update_cache=true
+
+   - name: Install gfortran
+     apt: pkg=gfortran state=installed update_cache=true
+
+   - name: Install python-dev
+     apt: pkg=python-dev state=installed update_cache=true
+
+   - name: Install Numpy
+     apt: pkg=python-numpy state=installed update_cache=true
+
+   - name: Install Scipy
+     apt: pkg=python-scipy state=installed update_cache=true
+
+   - name: Install Matplotlib
+     apt: pkg=python-matplotlib state=installed update_cache=true
+
+   - name: Install Pip
+     apt: pkg=python-pip state=installed update_cache=true
+
+   - name: Install Subversion
+     apt: pkg=subversion state=installed update_cache=true
+
+   - name: Install Git
+     apt: pkg=git state=installed update_cache=true
+
+   - name: Install Swig
+     apt: pkg=swig state=installed update_cache=true
+
+   - name: Create pycrysfml directory
+     shell: mkdir ~/pycrysfml
+
+   - name: Install Bumps using pip
+     pip: name='git+https://github.com/bumps/bumps.git#egg=bumps'
+
+   - name: Clone pycrysfml repo
+     git: repo=https://github.com/scattering/pycrysfml.git dest=~/pycrysfml
+
+   - name: Build pycrysfml
+     raw: cd ~/pycrysfml; ./build.sh >& ~/build.log
