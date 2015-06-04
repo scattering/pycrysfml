@@ -1,0 +1,72 @@
+.atoms
+  .Ba
+    .Ba B = Parameter(0, name='Ba B')
+    .Ba occ = Parameter(1, name='Ba occ')
+    .Ba x = Parameter(0.5, name='Ba x')
+    .Ba y = Parameter(0.5, name='Ba y')
+    .Ba z = Parameter(0, name='Ba z')
+  .Ho
+    .Ho B = Parameter(0, name='Ho B')
+    .Ho C0 = Parameter(-10, name='Ho C0', bounds=(-10,10))
+    .Ho C1 = Parameter(10, name='Ho C1', bounds=(-10,10))
+    .Ho occ = Parameter(1, name='Ho occ')
+    .Ho x = Parameter(0.5, name='Ho x')
+    .Ho y = Parameter(0, name='Ho y')
+    .Ho z = Parameter(0.20264, name='Ho z')
+  .Ni
+    .Ni B = Parameter(0, name='Ni B')
+    .Ni C0 = Parameter(9.99998, name='Ni C0', bounds=(-10,10))
+    .Ni C1 = Parameter(-9.99999, name='Ni C1', bounds=(-10,10))
+    .Ni occ = Parameter(1, name='Ni occ')
+    .Ni x = Parameter(0, name='Ni x')
+    .Ni y = Parameter(0, name='Ni y')
+    .Ni z = Parameter(0, name='Ni z')
+  .O1
+    .O1 B = Parameter(0, name='O1 B')
+    .O1 occ = Parameter(1, name='O1 occ')
+    .O1 x = Parameter(0, name='O1 x')
+    .O1 y = Parameter(0.24367, name='O1 y')
+    .O1 z = Parameter(0.14959, name='O1 z')
+  .O2
+    .O2 B = Parameter(0, name='O2 B')
+    .O2 occ = Parameter(1, name='O2 occ')
+    .O2 x = Parameter(0.5, name='O2 x')
+    .O2 y = Parameter(0, name='O2 y')
+    .O2 z = Parameter(0, name='O2 z')
+.base = Parameter(6514, name='base', bounds=(6510,6514))
+.cell
+  .a = Parameter(3.74692, name='a', bounds=(3.2,4.3))
+  .b = Parameter(5.722, name='b', bounds=(5.2,6.3))
+  .c = Parameter(11.263, name='c', bounds=(10.7,11.8))
+.eta = Parameter(0, name='eta')
+.scale = Parameter(59.9999, name='scale', bounds=(59,60))
+.u = Parameter(1.83881, name='u', bounds=(0,10))
+.v = Parameter(-1.07406, name='v', bounds=(-10,0))
+.w = Parameter(0.335717, name='w', bounds=(0,10))
+
+[chisq=2625.046(35), nllf=1.01852e+06]
+                                   Ho C0 |.........        -10 in (-10,10)
+                                   Ho C1 .........|         10 in (-10,10)
+                                   Ni C0 .........|    9.99998 in (-10,10)
+                                   Ni C1 |.........   -9.99999 in (-10,10)
+                                    base .........|       6514 in (6510,6514)
+                                       a ....|.....    3.74692 in (3.2,4.3)
+                                       b ....|.....      5.722 in (5.2,6.3)
+                                       c .....|....     11.263 in (10.7,11.8)
+                                   scale .........|    59.9999 in (59,60)
+                                       u .|........    1.83881 in (0,10)
+                                       v ........|.   -1.07406 in (-10,0)
+                                       w |.........   0.335717 in (0,10)
+              Parameter       mean  median    best [   68% interval] [   95% interval]
+ 1                Ho C0 -9.9986(87) -10.0000 -10.0000 [-10.000 -10.000] [-10.000  -9.985]
+ 2                Ho C1 9.9991(51) 9.99997 10.00000 [ 9.9999 10.0000] [ 9.9906 10.0000]
+ 3                Ni C0  9.997(19)  9.9999 10.0000 [ 10.000  10.000] [  9.958  10.000]
+ 4                Ni C1 -9.998(14) -9.9999 -10.0000 [-10.000 -10.000] [-10.000  -9.979]
+ 5                 base 6513.87(49) 6513.992 6513.997 [6513.96 6514.00] [6512.14 6514.00]
+ 6                    a 3.74693(18) 3.746933 3.746915 [3.74689 3.74698] [3.74662 3.74722]
+ 7                    b 5.72203(31) 5.722028 5.722004 [5.72195 5.72211] [5.72157 5.72252]
+ 8                    c 11.26299(79) 11.26298 11.26304 [11.2628 11.2632] [11.2616 11.2642]
+ 9                scale 59.992(42) 59.9998 59.9999 [ 59.999  60.000] [ 59.915  60.000]
+10                    u  1.837(65)   1.842   1.839 [   1.83    1.86] [   1.71    1.91]
+11                    v -1.074(64)  -1.079  -1.074 [  -1.09   -1.06] [  -1.15   -0.95]
+12                    w  0.336(13)  0.3367  0.3357 [  0.334   0.340] [  0.311   0.352]

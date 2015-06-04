@@ -539,7 +539,6 @@ def readInfo(filename):
 # Peak: represents a Peak shape function that can be evaluated at any
 #   2*theta value. u, v, and w are fitting parameters.
 class Peak(object):
-    # TODO: add option for psuedo-Voigt and other peak shapes
     scaleFactor = 1    
     def __init__(self, center, u, v, w, I, hkl=[None, None, None], shape="Gaussian", eta=0):
         self.center = center    # 2*theta position
@@ -771,9 +770,11 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
 def satelliteGen(cell, symmetry, sMax, hkls=None):
     refList = ReflectionList(True)
     if hkls != None:
-        funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1), hkls)
+        #funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1), hkls)
+        funcs.gen_satellites(cell, symmetry, sMax, refList, None, None, hkls)
     else:
-        funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1))
+        #funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1))
+        funcs.gen_satellites(cell, symmetry, sMax, refList)
     return refList
 
 # calcStructFact: calculates the structure factor squared for a list of planes
@@ -794,16 +795,14 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength):
 
 # calcMagStructFact: calculates the magnetic structure factors around a list
 #   of lattice reflections
-# TODO: convert to pycrysfml
-def calcMagStructFact(refList, atomList, symmetry, cell):
+def calcMagStructFact(refList, atomList, symmetry, cell): 
     funcs.init_mag_structure_factors(refList, atomList, symmetry)
-    funcs.mag_structure_factors(atomList, symmetry, refList)
+    funcs.mag_structure_factors(cell, atomList, symmetry, refList)
     # calculate the "magnetic interaction vector" (the square of which is
     #   proportional to the intensity)    
     funcs.calc_mag_interaction_vector(refList, cell)
     #for atom in atomList:
         #print atom.basis()
-    
     mivs = np.array([ref.magIntVec() for ref in refList])
     return mivs
 
@@ -896,13 +895,14 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (symmetry == None): symmetry = info[3]
         if (basisSymmetry == None): basisSymmetry = symmetry
         ## magnetic peaks
-        magRefList = satelliteGen(cell, symmetry, sMax)
+        refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
+        magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList)
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True)
         # add in structural peaks
         if (atomList == None): atomList = readInfo(infoFile)[2]
-        refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
+        #refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
         reflections = magRefList[:] + refList[:]
         intensities = np.append(magIntensities, intensities)
@@ -937,6 +937,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
 # printInfo: prints out information about the provided space group and atoms,
 #   as well as the generated reflections
 def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
+    print "Wavelength:", wavelength
     if (isinstance(refLists, ReflectionList)):
         atomLists = (atomLists,)
         refLists = (refLists,)

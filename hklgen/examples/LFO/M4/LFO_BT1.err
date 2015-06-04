@@ -1,0 +1,80 @@
+.atoms
+  .Fe1
+    .Fe1 B = Parameter(0, name='Fe1 B')
+    .Fe1 C0 = Parameter(9.4063, name='Fe1 C0', bounds=(0,10))
+    .Fe1 C1 = Parameter(2.61607, name='Fe1 C1', bounds=(0,10))
+    .Fe1 occ = Parameter(0.72, name='Fe1 occ')
+    .Fe1 x = Parameter(0.3258, name='Fe1 x')
+    .Fe1 y = Parameter(0, name='Fe1 y')
+    .Fe1 z = Parameter(0, name='Fe1 z')
+  .Lu1
+    .Lu1 B = Parameter(0, name='Lu1 B')
+    .Lu1 occ = Parameter(1.00002, name='Lu1 occ')
+    .Lu1 x = Parameter(0, name='Lu1 x')
+    .Lu1 y = Parameter(0, name='Lu1 y')
+    .Lu1 z = Parameter(0.27015, name='Lu1 z')
+  .Lu2
+    .Lu2 B = Parameter(0, name='Lu2 B')
+    .Lu2 occ = Parameter(0.99999, name='Lu2 occ')
+    .Lu2 x = Parameter(0.33333, name='Lu2 x')
+    .Lu2 y = Parameter(0.66667, name='Lu2 y')
+    .Lu2 z = Parameter(0.22894, name='Lu2 z')
+  .Mn1
+    .Fe1 C0 = Parameter(9.4063, name='Fe1 C0', bounds=(0,10))
+    .Fe1 C1 = Parameter(2.61607, name='Fe1 C1', bounds=(0,10))
+    .Mn1 B = Parameter(0, name='Mn1 B')
+    .Mn1 occ = Parameter(0.28, name='Mn1 occ')
+    .Mn1 x = Parameter(0.3258, name='Mn1 x')
+    .Mn1 y = Parameter(0, name='Mn1 y')
+    .Mn1 z = Parameter(0, name='Mn1 z')
+  .O1
+    .O1 B = Parameter(0, name='O1 B')
+    .O1 occ = Parameter(1, name='O1 occ')
+    .O1 x = Parameter(0.30542, name='O1 x')
+    .O1 y = Parameter(0, name='O1 y')
+    .O1 z = Parameter(0.17013, name='O1 z')
+  .O2
+    .O2 B = Parameter(0, name='O2 B')
+    .O2 occ = Parameter(1, name='O2 occ')
+    .O2 x = Parameter(0.63506, name='O2 x')
+    .O2 y = Parameter(0, name='O2 y')
+    .O2 z = Parameter(0.33957, name='O2 z')
+  .O3
+    .O3 B = Parameter(0, name='O3 B')
+    .O3 occ = Parameter(1.00002, name='O3 occ')
+    .O3 x = Parameter(0, name='O3 x')
+    .O3 y = Parameter(0, name='O3 y')
+    .O3 z = Parameter(0.48597, name='O3 z')
+  .O4
+    .O4 B = Parameter(0, name='O4 B')
+    .O4 occ = Parameter(0.99999, name='O4 occ')
+    .O4 x = Parameter(0.33333, name='O4 x')
+    .O4 y = Parameter(0.66667, name='O4 y')
+    .O4 z = Parameter(0.01277, name='O4 z')
+.cell
+  .a = Parameter(5.98111, name='a', bounds=(5.78,6.19))
+  .c = Parameter(11.6282, name='c', bounds=(11.43,11.84))
+.eta = Parameter(0, name='eta')
+.scale = Parameter(0.899309, name='scale', bounds=(0,10))
+.u = Parameter(0.133207, name='u', bounds=(0.09,0.5))
+.v = Parameter(-9.53612e-07, name='v', bounds=(-1,0))
+.w = Parameter(0.0785758, name='w', bounds=(0,1))
+
+[chisq=227.5009(30), nllf=697063]
+                                  Fe1 C0 .........|     9.4063 in (0,10)
+                                  Fe1 C1 ..|.......    2.61607 in (0,10)
+                                       a ....|.....    5.98111 in (5.78,6.19)
+                                       c ....|.....    11.6282 in (11.43,11.84)
+                                   scale |.........   0.899309 in (0,10)
+                                       u .|........   0.133207 in (0.09,0.5)
+                                       v .........| -9.53612e-07 in (-1,0)
+                                       w |.........  0.0785758 in (0,1)
+              Parameter       mean  median    best [   68% interval] [   95% interval]
+ 1               Fe1 C0   9.31(61)   9.400   9.406 [   9.36    9.43] [   8.60    9.54]
+ 2               Fe1 C1   2.50(60)   2.675   2.616 [   2.46    2.78] [   0.38    3.07]
+ 3                    a 5.98111(23) 5.981112 5.981110 [5.98107 5.98115] [5.98066 5.98155]
+ 4                    c 11.62818(87) 11.62823 11.62823 [11.6281 11.6284] [11.6262 11.6292]
+ 5                scale  0.901(13)  0.8994  0.8993 [  0.898   0.902] [  0.888   0.937]
+ 6                    u 0.1341(59)  0.1332  0.1332 [  0.132   0.134] [  0.127   0.151]
+ 7                    v -1.2(45)e-3 -0.0000 -0.0000 [ -0.001  -0.000] [ -0.015  -0.000]
+ 8                    w 0.0788(40)  0.0785  0.0786 [  0.078   0.079] [  0.073   0.088]

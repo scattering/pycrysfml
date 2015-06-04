@@ -1,0 +1,15 @@
+Debugging Magnetic Structure Factor calculations requires looking at the following functions and modules:
+	Mag_Structure_Factors from CFML_Msfac.f90 - calculates magnetic structure factors and populates reflection list
+	Gen_Satelites from CFML_Msfac.f90 - calls above function, completes 
+	Readn_Set_Magnetic_Structure from CFML_MagSymm.f90 - reads symmetry, atomic parameters, and basis vectors from cfl file
+
+Magnetic functions are sensitive to the formatting of the CFL File
+magcent proceeds magnetic basis info, sets Magsymm_k_type MCentred field to 2 for centric magnetic symmetry (1 indicates anti/a - centric symmetry)
+
+!      n  nba
+IRREPS 1   2
+
+IRREPS gives the number of irreducible representations followed by the number of basis vectors for each represtation (positive numbers mean that the representations are all real whereas negative numbers indicate the presence of an imaginary component)
+
+
+Use single crystal HklGen to feed reflections to satellite gen in order to generate the missing peaks
