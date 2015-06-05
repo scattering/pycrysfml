@@ -19,11 +19,11 @@ infoFile = os.path.join(DATAPATH,r"dy.pcr")
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
 wavelength = 1.703700
-tt, observed = H.readIllData(observedFile, "D20", backgFile)
+tt, observed = H.readIllData(observedFile, "DMC", backgFile)
 print tt, observed
 ttMin = min(tt)
 ttMax = max(tt)
-ttStep = (ttMin-ttMax)/len(tt)
+ttStep = (ttMax-ttMin)/len(tt)
 exclusions = []
 backg = H.LinSpline(None)
 #print backg
