@@ -18,7 +18,6 @@ infoFile = os.path.join(DATAPATH,r"hobk1.cfl")
 
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
-
 wavelength = 2.524000
 ttMin = 10.010000228881836
 ttMax = 89.81000518798828
@@ -63,7 +62,7 @@ def fit():
     m.u.range(0,10)
     m.v.range(-10,0)
     m.w.range(0,10)
-    m.scale.range(59,60)
+    m.scale.range(11,60)
     m.base.range(6510,6514)
     for atomModel in m.atomListModel.atomModels:
         if atomModel.magnetic:

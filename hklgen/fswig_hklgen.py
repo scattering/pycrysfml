@@ -796,6 +796,7 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength):
 # calcMagStructFact: calculates the magnetic structure factors around a list
 #   of lattice reflections
 def calcMagStructFact(refList, atomList, symmetry, cell): 
+    #funcs.print_strfac_stuff(cell, atomList, symmetry, refList)
     funcs.init_mag_structure_factors(refList, atomList, symmetry)
     funcs.mag_structure_factors(cell, atomList, symmetry, refList)
     # calculate the "magnetic interaction vector" (the square of which is

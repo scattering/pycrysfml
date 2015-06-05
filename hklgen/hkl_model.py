@@ -203,9 +203,8 @@ class Model(object):
                                                True, self.newSymmetry)            
         else:
             self.atomListModel = AtomListModel(atoms, self.spaceGroup.get_space_group_multip(), False)
-        self._set_reflections()
+        self._set_reflections()           
         self.update()
-
     def _set_reflections(self):
         maxLattice = self.cell.getMaxLattice()
         maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
@@ -213,7 +212,7 @@ class Model(object):
         self.reflections = self.refList[:]
         if self.magnetic:
             self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=self.refList)
-            self.magReflections = self.magRefList[:]
+            self.magReflections = self.magRefList[:]       
 
     def __getstate__(self):
         state = self.__dict__.copy()
@@ -302,8 +301,8 @@ class Model(object):
 
 #    def _cache_cell_pars(self):
 #        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())
-    def update(self):
-        self.cell.update()
+    def update(self):  
+        self.cell.update()     
         self.atomListModel.update()
         hkls = [reflection.hkl() for reflection in self.reflections]
         sList = calcS(self.cell.cell, hkls)
@@ -319,15 +318,15 @@ class Model(object):
                                        self.wavelength, shape="pseudovoigt", eta=self.eta)
         if self.magnetic:
             # update magnetic reflections and add their peaks to the list of
-            #   Peaks
+            #   Peaks         
             hkls = [reflection.hkl() for reflection in self.magReflections]
             sList = calcS(self.cell.cell, hkls)
             ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
             # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
             ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
             for i in xrange(len(self.magReflections)):
-                self.magReflections[i].set_magh_s(getS(ttPos[i], self.wavelength))
-            printInfo(self.cell.cell, self.spaceGroup, [self.atomListModel.atomList, self.atomListModel.magAtomList], [self.refList,self.magRefList], self.wavelength, symmetry=self.newSymmetry)
+                self.magReflections[i].set_magh_s(getS(ttPos[i], self.wavelength))            
+            #printInfo(self.cell.cell, self.spaceGroup, [self.atomListModel.atomList, self.atomListModel.magAtomList], [self.refList,self.magRefList], self.wavelength, symmetry=self.newSymmetry)
             self.magIntensities = calcIntensity(self.magRefList,
                                                 self.atomListModel.magAtomList, 
                                                 self.newSymmetry, self.wavelength,
@@ -367,7 +366,7 @@ class AtomListModel(object):
                 self.atomList = atoms[0]
                 self.magAtomList = atoms[1]
                 self.atoms = self.atomList[:]
-                self.magAtoms = self.magAtomList[:]
+                self.magAtoms = self.magAtomList[:]           
             else:
                 self.atomList = AtomList(atoms[0])
                 self.magAtomList = AtomList(atoms[1], magnetic=True)
@@ -380,12 +379,12 @@ class AtomListModel(object):
                 for model in self.atomModels:
                     if (magAtom.label().rstrip() == model.atom.label().rstrip() and \
                         magAtom.sameSite(model.atom)):
-                        model.addMagAtom(magAtom, self.symmetry)
+                        model.addMagAtom(magAtom, self.symmetry)            
             index = 0
             for magAtom in self.magAtoms:
                 self.magAtomList[index] = magAtom
                 self.magAtoms[index] = magAtom
-                index += 1
+                index += 1              
         self.modelsDict = dict([(am.atom.label(), am) for am in self.atomModels])
 #        print >>sys.stderr, "atom models: ", [(am.atom.label, am.magnetic)
 #                                              for am in self.atomModels]
@@ -491,8 +490,10 @@ class AtomModel(object):
         self.atom.setCoords([float(self.x), float(self.y), float(self.z)])
         
         if self.magnetic:
-            self.magAtom.setBIso(self.B.value)            
-            self.magAtom.setOccupancy(occ)        
+            self.magAtom.setBIso(self.B.value)
+            # following line breaks magnetism if magnetic occupancies are different from nuclear occupancies
+            # It may however, be needed in order to fit the occupancy
+           # self.magAtom.setOccupancy(occ) 
             self.magAtom.setCoords([float(self.x), float(self.y), float(self.z)])
             for i in xrange(self.numVectors):
                 #self.magAtom.basis[0][i] = self.coeffs[i].value
