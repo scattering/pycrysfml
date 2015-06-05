@@ -1,0 +1,123 @@
+COMM CuF2 (1K)     D1a-P21/n
+! Current global Chi2 (Bragg contrib.) =      4.133    
+! Files => DAT-file: cuf1k.dat,  PCR-file: cuf1k
+!Job Npr Nph Nba Nex Nsc Nor Dum Iwg Ilo Ias Res Ste Nre Cry Uni Cor Opt Aut
+   1   7   2  -5   2   0   0   0   0   0   0   1   0   0   0   0   0   0   1
+!
+!  Resolution file for Pattern#   1
+d1a_llb.irf
+!Ipr Ppl Ioc Mat Pcr Ls1 Ls2 Ls3 NLI Prf Ins Rpa Sym Hkl Fou Sho Ana
+   0   0   1   1   1   0   4   0   0   1   6   0   0   0   0   1   0
+!
+! Lambda1  Lambda2    Ratio    Bkpos    Wdt    Cthm     muR   AsyLim   Rpolarz  2nd-muR -> Patt# 1
+ 1.984500 1.984500  1.00000   30.000  9.0000  0.0000  0.4000  180.00    0.0000  0.0000
+!
+!NCY  Eps  R_at  R_an  R_pr  R_gl     Thmin       Step       Thmax    PSD    Sent0
+ 19  0.20  1.00  1.00  1.00  1.00      0.1000   0.050000   137.5500   0.000   0.000
+!
+! Excluded regions (LowT  HighT) for Pattern#  1
+        0.00       15.00
+      150.00      180.50
+! 
+!
+      34    !Number of refined parameters
+!
+!  Zero    Code    SyCos    Code   SySin    Code  Lambda     Code MORE ->Patt# 1
+ -0.12671   81.0 -0.00334  331.0  0.13128  341.0 0.000000    0.00   0
+!
+!   Background coefficients/codes  for Pattern#  1  (Chebychev polynomials, up to 24 coefficients)
+      69.155      -0.982       8.920      -2.504       0.589      -0.161
+       21.00       31.00       41.00       51.00       61.00       71.00
+      -0.283      -0.768       0.095       0.000       0.000       0.000
+      311.00      321.00      131.00        0.00        0.00        0.00
+       0.000       0.000       0.000       0.000       0.000       0.000
+        0.00        0.00        0.00        0.00        0.00        0.00
+       0.000       0.000       0.000       0.000       0.000       0.000
+        0.00        0.00        0.00        0.00        0.00        0.00
+!-------------------------------------------------------------------------------
+!  Data for PHASE number:   1  ==> Current R_Bragg for Pattern#  1:     1.75
+!-------------------------------------------------------------------------------
+CuF2  P21/n       magph2
+!
+!Nat Dis Ang Pr1 Pr2 Pr3 Jbt Irf Isy Str Furth       ATZ    Nvk Npr More
+   2   0   0 0.0 0.0 1.0   0   0   0   1   0        203.090   0   7   1
+!
+!Jvi Jdi Hel Sol Mom Ter  Brind   RMua    RMub    RMuc   Jtyp  Nsp_Ref Ph_Shift N_Domains
+   0   0   0   0   0   0  1.0000  0.0000  0.0000  0.0000    1      0      0      0
+!
+P 21/n                   <--Space group symbol
+!Atom   Typ       X        Y        Z     Biso       Occ     In Fin N_t Spc /Codes
+Cu     CU      0.00000  0.00000  0.00000  0.11845   0.50000   0   0   0    0  #color red
+                  0.00     0.00     0.00   191.00      0.00
+F      F       0.29440  0.29840  0.03883  0.36053   1.00000   0   0   0    0  #color yellow conn CU F 0.0 2.4
+                201.00   211.00   221.00   181.00      0.00
+!-------> Profile Parameters for Pattern #  1
+!  Scale        Shape1      Bov      Str1      Str2      Str3   Strain-Model
+  27.765       0.00000   0.00000   0.00000   0.00000   0.00000       2
+    11.00000     0.000     0.000     0.000     0.000     0.000
+!       U         V          W           X          Y        GauSiz   LorSiz Size-Model
+   0.000000   0.000000   0.000000   0.000000   0.045374   0.000000   0.000000    0
+      0.000      0.000      0.000      0.000    161.000      0.000      0.000
+!     a          b         c        alpha      beta       gamma      #Cell Info
+   4.596812   4.547755   3.294647  90.000000  96.418663  90.000000   #multiple box -1 1 0 1 -1 1
+   91.00000  101.00000  111.00000    0.00000  121.00000    0.00000
+!  Pref1    Pref2      Asy1     Asy2     Asy3     Asy4      S_L      D_L
+  0.00000  0.00000  0.00000  0.00000  0.00000  0.00000  0.00000  0.00000
+     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00
+!   S_400         S_040         S_004         S_220         S_202
+      0.975063      1.350344      2.888379     -1.746413      2.890890
+    271.000000    281.000000    291.000000    261.000000    151.000000
+!       S_022         S_121         S_301         S_103
+     -0.679726      2.171897     -1.679180     -2.456608
+        251.00        241.00        231.00        171.00
+!  Lorentzian strain coeff.+ code 
+       0.07298     301.00000
+!-------------------------------------------------------------------------------
+!  Data for PHASE number:   2  ==> Current R_Bragg for Pattern#  1:    15.94
+!-------------------------------------------------------------------------------
+CuF2  Magnetique
+!
+!Nat Dis Mom Pr1 Pr2 Pr3 Jbt Irf Isy Str Furth       ATZ    Nvk Npr More
+   1   0   0 0.0 0.0 1.0   1  -1  -1   1   0          0.000   1   7   0
+!
+P -1                     <--Space group symbol for hkl generation
+!Nsym Cen Laue MagMat
+   2   1   2   1
+!
+SYMM x,y,z
+MSYM u,v,w,0.0
+SYMM x+1/2,y+1/2,z+1/2
+MSYM -u,-v,-w,0.0
+!
+!Atom   Typ  Mag Vek    X      Y      Z       Biso    Occ      Rx      Ry      Rz
+!     Ix     Iy     Iz    beta11  beta22  beta33    MagPh
+Cu1    MCU2  1  0  0.00000 0.00000 0.00000 0.11845  1.00000   0.000   0.757   0.000  #scale 2
+                      0.00    0.00    0.00  191.00     0.00    0.00  141.00    0.00
+     0.000   0.000   0.000   0.000   0.000   0.000  0.00000
+      0.00    0.00    0.00    0.00    0.00    0.00     0.00
+!-------> Profile Parameters for Pattern #  1
+!  Scale        Shape1      Bov      Str1      Str2      Str3   Strain-Model
+  27.765       0.00000   0.00000   0.00000   0.00000   0.00000       2
+    11.00000     0.000     0.000     0.000     0.000     0.000
+!       U         V          W           X          Y        GauSiz   LorSiz Size-Model
+   0.000000   0.000000   0.000000   0.000000   0.045374   0.000000   0.000000    0
+      0.000      0.000      0.000      0.000    161.000      0.000      0.000
+!     a          b         c        alpha      beta       gamma      #Cell Info
+   4.596812   4.547755   3.294647  90.000000  96.418663  90.000000   #box -1 1 0 1 -1 1
+   91.00000  101.00000  111.00000    0.00000  121.00000    0.00000
+!  Pref1    Pref2      Asy1     Asy2     Asy3     Asy4      S_L      D_L
+  0.00000  0.00000  0.00000  0.00000  0.00000  0.00000  0.00000  0.00000
+     0.00     0.00     0.00     0.00     0.00     0.00     0.00     0.00
+!   S_400         S_040         S_004         S_220         S_202
+      0.975063      1.350344      2.888379     -1.746413      2.890890
+    271.000000    281.000000    291.000000    261.000000    151.000000
+!       S_022         S_121         S_301         S_103
+     -0.679726      2.171897     -1.679180     -2.456608
+        251.00        241.00        231.00        171.00
+!  Lorentzian strain coeff.+ code 
+       0.07298     301.00000
+! Propagation vectors: 
+   0.5000000   0.0000000   0.5000000          Propagation Vector  1
+    0.000000    0.000000    0.000000
+!  2Th1/TOF1    2Th2/TOF2  Pattern # 1
+      15.000     137.550       1

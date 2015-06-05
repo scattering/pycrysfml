@@ -30,19 +30,19 @@ backg = H.LinSpline(backgFile)
 
 basisSymmetry = copy(symmetry)
 #basisSymmetry = symmetry
-if (basisSymmetry.centerType() == 2):
-    # change to acentric
-    basisSymmetry.setCenterType(1)
-basisSymmetry.setNumIrreps(1)
+#if (basisSymmetry.centerType() == 2):
+    ## change to acentric
+    #basisSymmetry.setCenterType(1)
+#basisSymmetry.setNumIrreps(1)
 
 # Number of the basis from BasIreps (1-6)
-basisIndex = 2
-index = 0
-for magAtom in magAtomList:
-    magAtom.setNumkVectors(1)
-    magAtom.setIrrepNum_ind(0, 1)
-    magAtomList[index] = magAtom
-    index += 1
+#basisIndex = 2
+#index = 0
+#for magAtom in magAtomList:
+    #magAtom.setNumkVectors(1)
+    #magAtom.setIrrepNum_ind(0, 1)
+    #magAtomList[index] = magAtom
+    #index += 1
 def makeBasis(symmetry, basisIndex):
     if (basisIndex == 1):
         symmetry.setNumBasisFunc_ind(0, 1)
@@ -178,7 +178,7 @@ def makeBasis(symmetry, basisIndex):
     print symmetry.getBasis(0, 5, 0)
     print symmetry.getBasis(0, 5, 1)
 def fit():
-    makeBasis(basisSymmetry, basisIndex)
+    #makeBasis(basisSymmetry, basisIndex)
 
     cell = Mod.makeCell(crystalCell, spaceGroup.xtalSystem())
     cell.a.pm(0.5)
@@ -219,31 +219,31 @@ def fit():
     return M
 
 def main():
-    index = 0
-    for magAtom in magAtomList:
-        magAtom.setBasis_ind(0, 0, 3)
-        magAtom.setBasis_ind(0, 1, 0.1)
-        magAtomList[index] = magAtom
-        index += 1
-    makeBasis(basisSymmetry, basisIndex)
+    #index = 0
+    #for magAtom in magAtomList:
+        #magAtom.setBasis_ind(0, 0, 3)
+        #magAtom.setBasis_ind(0, 1, 0.1)
+        #magAtomList[index] = magAtom
+        #index += 1
+    #makeBasis(basisSymmetry, basisIndex)
     H.diffPattern(infoFile=infoFile, backgroundFile=backgFile, wavelength=wavelength,
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, exclusions=exclusions,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,
                   observedData=(tt,observed))
-    print symmetry.numBasisFunc()
-    print symmetry.getBasis(0, 0, 0)
-    print symmetry.getBasis(0, 0, 1)
-    print symmetry.getBasis(0, 1, 0)
-    print symmetry.getBasis(0, 1, 1)
-    print symmetry.getBasis(0, 2, 0)
-    print symmetry.getBasis(0, 2, 1)
-    print symmetry.getBasis(0, 3, 0)
-    print symmetry.getBasis(0, 3, 1)
-    print symmetry.getBasis(0, 4, 0)
-    print symmetry.getBasis(0, 4, 1)
-    print symmetry.getBasis(0, 5, 0)
-    print symmetry.getBasis(0, 5, 1)
+    #print symmetry.numBasisFunc()
+    #print symmetry.getBasis(0, 0, 0)
+    #print symmetry.getBasis(0, 0, 1)
+    #print symmetry.getBasis(0, 1, 0)
+    #print symmetry.getBasis(0, 1, 1)
+    #print symmetry.getBasis(0, 2, 0)
+    #print symmetry.getBasis(0, 2, 1)
+    #print symmetry.getBasis(0, 3, 0)
+    #print symmetry.getBasis(0, 3, 1)
+    #print symmetry.getBasis(0, 4, 0)
+    #print symmetry.getBasis(0, 4, 1)
+    #print symmetry.getBasis(0, 5, 0)
+    #print symmetry.getBasis(0, 5, 1)
 if __name__ == "__main__":
     # program run normally
     main()
