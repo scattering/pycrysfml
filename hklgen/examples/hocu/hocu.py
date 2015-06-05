@@ -18,12 +18,12 @@ infoFile = os.path.join(DATAPATH,r"hobk1.cfl")
 
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
-wavelength = 2.524000
-ttMin = 10.010000228881836
-ttMax = 89.81000518798828
-ttStep = 0.20000000298
 exclusions = []
 tt, observed = H.readIllData(observedFile, "D1B", backgFile)
+wavelength = 2.524000
+ttMin = min(tt)
+ttMax = max(tt)
+ttStep = (ttMax-ttMin)/len(tt)
 backg = H.LinSpline(None)
 #print backg
 basisSymmetry = copy(symmetry)
