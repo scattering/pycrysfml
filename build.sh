@@ -9,7 +9,7 @@
 wd=$(pwd)
 # Mac OS Support
 if [[ "$OSTYPE" == "darwin"* ]]; then
-CPPCOMP=g++-4.9
+CPPCOMP=g++-5
 SEDCOM=gsed
 LIBFLAGS='-lpython -lgfortran'
 SOFLAGS='-shared -fPIC'

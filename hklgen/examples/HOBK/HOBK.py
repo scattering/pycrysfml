@@ -5,7 +5,7 @@ import numpy as np
 import fswig_hklgen as H
 import hkl_model as Mod
 from pycrysfml import getSpaceGroup_crystalsys as xtalsys
-import bumps.parameter
+#import bumps.parameter
 #def dont(self, *args, **kw): raise Exception("don't")
 #bumps.parameter.OperatorAdd.__init__ = dont
 
