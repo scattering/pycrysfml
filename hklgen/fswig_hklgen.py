@@ -92,7 +92,7 @@ class SpaceGroup(space_group_type):
         return getSpaceGroup_crystalsys(self)
     @xtalSystem.setter
     def xtalSystem(self, value):
-        self.get_space_group_crystalsys(value)
+        self.set_space_group_crystalsys(value)
 
 # CrystalCell attributes:
 #   length, angle           - arrays of unit cell parameters
@@ -406,12 +406,20 @@ class AtomList(atom_list_type, matom_list_type):
 class Reflection(reflection_type):
     def __init__(self):
         reflection_type.__init__(self)
+    @property
     def hkl(self):
         hklVec = IntVector([0 for i in range(3)])
         self.get_reflection_h(hklVec)
         return list(hklVec)
+    @hkl.setter
+    def hkl(self, value):
+        self.set_reflection_h(FloatVector(value))
+    @property
     def s(self):
         return self.get_reflection_s()
+    @s.setter
+    def s(self, value):
+        self.set_reflection_s(value)
     @property
     def multip(self):
         return self.get_reflection_mult()
@@ -438,7 +446,7 @@ class MagReflection(magh_type):
     def __init__(self, reflection=None):
         magh_type.__init__(self)
         if (reflection != None):
-            self.set_magh_h(FloatVector(reflection.hkl()))
+            self.hkl = reflection.hkl
             self.multip = reflection.multip
             self.set_magh_s(reflection.get_reflection_s())
     @property
@@ -474,7 +482,7 @@ class MagReflection(magh_type):
         self.set_magh_s(value)
     @property
     def hkl(self):
-        hklVec = FloatVector([0 for i in range(3)])
+        hklVec = FloatVector([0,0,0])
         self.get_magh_h(hklVec)
         return list(hklVec)
     @hkl.setter
@@ -786,38 +794,47 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
     #refList.set_magh_list_nref(len(hkls)*2+2)
     i = 0
     for reflection in hkls:
-        hkl = IntVector([0,0,0])
-        reflection.get_reflection_h(hkl)
-        hkl = list(hkl)
+        hkl = reflection.hkl
+        hkp = list(np.add(hkl, kvec))
+        hkm = list(np.add(hkl,np.negative(kvec)))
+        sp = calcS(cell, hkp)
+        sm = calcS(cell, hkm)
         if sum(hkl) in [2*n for n in range(-3,3)]:
-            refList[2*i] = MagReflection()
-            refList[2*i].set_magh_h(FloatVector(list(np.add(hkl, kvec))))
-            refList[2*i].set_magh_s(calcS(cell, list(np.add(hkl, kvec))))
-            refList[2*i].set_magh_num_k(1)
-            refList[2*i].set_magh_signp(-1.0)
-            refList[2*i].set_magh_keqv_minus(True)
-            refList[(2*i)+1] = MagReflection(reflection)
-            refList[(2*i)+1].set_magh_h(FloatVector(list(np.add(hkl,np.negative(kvec)))))
-            refList[(2*i)+1].set_magh_s(calcS(cell, list(np.add(hkl,np.negative(kvec)))))
-            refList[(2*i)+1].set_magh_num_k(1)
-            refList[(2*i)+1].set_magh_signp(1.0)
-            refList[(2*i)+1].set_magh_keqv_minus(True)
-            i += 1
-    refList[2*i] = MagReflection()
-    refList[2*i].set_magh_h(FloatVector(kvec))
-    refList[2*i].set_magh_s(calcS(cell, kvec))
-    refList[2*i].set_magh_num_k(1)
-    refList[2*i].set_magh_signp(-1.0)  
-    refList[2*i].set_magh_keqv_minus(True)
-    refList[(2*i)+1] = MagReflection()
-    refList[(2*i)+1].set_magh_h(FloatVector(list(np.negative(kvec))))
-    refList[(2*i)+1].set_magh_num_k(1)
-    refList[(2*i)+1].set_magh_signp(1.0)
-    refList[(2*i)+1].set_magh_keqv_minus(True)
-    refList[(2*i)+1].set_magh_s(calcS(cell, list(np.negative(kvec))))
+            if sp <= sMax:
+                refList[i] = MagReflection()
+                refList[i].set_magh_h(FloatVector(hkp))
+                refList[i].set_magh_s(sp)
+                refList[i].set_magh_num_k(1)
+                refList[i].set_magh_signp(-1.0)
+                refList[i].set_magh_keqv_minus(True)
+                i += 1
+            #if sm <= sMax:
+                #refList[i] = MagReflection()
+                #refList[i].set_magh_h(FloatVector(hkm))
+                #refList[i].set_magh_s(sm)
+                #refList[i].set_magh_num_k(1)
+                #refList[i].set_magh_signp(1.0)
+                #refList[i].set_magh_keqv_minus(True)
+                #i += 1
+    refList[i] = MagReflection()
+    refList[i].set_magh_h(FloatVector(kvec))
+    refList[i].set_magh_s(calcS(cell, kvec))
+    refList[i].set_magh_num_k(1)
+    refList[i].set_magh_signp(-1.0)  
+    refList[i].set_magh_keqv_minus(True)
+    i += 1
+    #refList[i] = MagReflection()
+    #refList[i].set_magh_h(FloatVector(list(np.negative(kvec))))
+    #refList[i].set_magh_num_k(1)
+    #refList[i].set_magh_signp(1.0)
+    #refList[i].set_magh_keqv_minus(True)
+    #refList[i].set_magh_s(calcS(cell, list(np.negative(kvec))))
+    #i += 1
+    result = []
     for ref in refList:
         if ref != 0:
             print ref.hkl, ref.s
+            result.append((twoTheta(ref.s,2.524000), ref.hkl))
     return refList
 # calcStructFact: calculates the structure factor squared for a list of planes
 #   using provided atomic positions
