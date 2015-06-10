@@ -81,8 +81,18 @@ class SpaceGroup(space_group_type):
         if (groupName != None):
             groupName = str(groupName)
             funcs.set_spacegroup(groupName, self, None, None, None, None)
+    @property
+    def multip(self):
+        return self.get_space_group_multip()
+    @multip.setter
+    def multip(self, value):
+        self.set_space_group_multip(value)
+    @property
     def xtalSystem(self):
         return getSpaceGroup_crystalsys(self)
+    @xtalSystem.setter
+    def xtalSystem(self, value):
+        self.get_space_group_crystalsys(value)
 
 # CrystalCell attributes:
 #   length, angle           - arrays of unit cell parameters
@@ -399,11 +409,15 @@ class Reflection(reflection_type):
     def hkl(self):
         hklVec = IntVector([0 for i in range(3)])
         self.get_reflection_h(hklVec)
-        return hklVec
+        return list(hklVec)
     def s(self):
         return self.get_reflection_s()
+    @property
     def multip(self):
         return self.get_reflection_mult()
+    @multip.setter
+    def multip(self, value):
+        self.set_reflection_mult(value)
     
 
 # MagReflection attributes:
@@ -424,11 +438,15 @@ class MagReflection(magh_type):
     def __init__(self, reflection=None):
         magh_type.__init__(self)
         if (reflection != None):
-            self.set_magh_h(reflection.hkl())
-            self.set_magh_mult(reflection.get_reflection_multip())
+            self.set_magh_h(FloatVector(reflection.hkl()))
+            self.multip = reflection.multip
             self.set_magh_s(reflection.get_reflection_s())
+    @property
     def multip(self):
         return self.get_magh_mult()
+    @multip.setter
+    def multip(self, value):
+        self.set_magh_mult(value)
     def magStrFact(self):
         rVec = FloatVector([0 for i in range(6)])
         self.get_msf(rVec)
@@ -448,12 +466,20 @@ class MagReflection(magh_type):
         for num in value:
             rVec.append(num.real, num.imag)
         self.setMagIntVec(FloatVector(rVec))
+    @property
     def s(self):
         return self.get_magh_s()
+    @s.setter
+    def s(self, value):
+        self.set_magh_s(value)
+    @property
     def hkl(self):
         hklVec = FloatVector([0 for i in range(3)])
         self.get_magh_h(hklVec)
-        return hklVec
+        return list(hklVec)
+    @hkl.setter
+    def hkl(self, value):
+        self.set_magh_h(FloatVector(value))
     
 # ReflectionList attributes
 #   numReflections  - the number of reflections
@@ -727,33 +753,13 @@ def getMaxNumRef(sMax, volume, sMin=0.0, multip=2):
 #   If getList is true, returns a ReflectionList object
 def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
     # Calculate the reflection positions
-    maxReflections = getMaxNumRef(sMax+0.2, cell.get_crystal_cell_cellvol(), multip=spaceGroup.get_space_group_multip())
+    maxReflections = getMaxNumRef(sMax+0.2, cell.volume, multip=spaceGroup.multip)
     # Create a reference that will be modified by calling Fortran
     reflectionCount = maxReflections
     if (not getList):
-        # TODO: fix this
-        #c_ReflectionArray = Reflection*max(maxReflections,1)
-        #reflections = c_ReflectionArray()        
-        #if xtal:
-        #    # single crystal reflections (also used for magnetic structures)
-        #    # This option is currently non-functioning (use genList=True instead)
-        #    fn = lib.__cfml_reflections_utilities_MOD_hkl_gen_sxtal_reflection
-        #    fn.argtypes = [POINTER(CrystalCell), POINTER(SpaceGroup),
-        #                   POINTER(c_float), POINTER(c_float), POINTER(c_int),
-        #                   POINTER(DV), POINTER(c_int*3), POINTER(c_int*3*2)]
-        #    fn.restype = None
-        #    fn(cell, spaceGroup, c_float(sMin), c_float(sMax), reflectionCount,
-        #       build_struct_dv(reflections), None, None)
-        #else:
-        #    # powder reflections
-        #    fn = lib.__cfml_reflections_utilities_MOD_hkl_uni_reflection
-        #
-        #    fn.argtypes = [POINTER(CrystalCell), POINTER(SpaceGroup), POINTER(c_bool),
-        #                   POINTER(c_float), POINTER(c_float), c_char_p,
-        #                   POINTER(c_int), POINTER(DV), POINTER(c_bool)]
-        #    fn.restype = None
-        #    fn(cell, spaceGroup, c_bool(True), c_float(sMin), c_float(sMax), 's',
-        #       reflectionCount, build_struct_dv(reflections), c_bool(False))
+        # Should just pass back a ReflectionList() type, no reason to have python list of individual reflections
+        # if else preserved for compatibility with ctypes model files which require the getList flag
+        # TODO: Remove this and fix model files
         pass
     else:
         if xtal:
@@ -761,7 +767,7 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
             funcs.hklgen_sxtal_list(cell, spaceGroup, np.asscalar(sMin), np.asscalar(sMax), int_to_p(reflectionCount), reflections)
         else:
             reflections = ReflectionList()
-            funcs.hkluni_refllist(cell, spaceGroup, 1, np.asscalar(sMin), np.asscalar(sMax), 's', reflectionCount, reflections)
+            funcs.hkluni_refllist(cell, spaceGroup, True, np.asscalar(sMin), np.asscalar(sMax), 's', reflectionCount, reflections)
     if (not isinstance(reflections, ReflectionList)):
         reflections = reflections[:reflectionCount]    
     return reflections
@@ -770,13 +776,49 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
 def satelliteGen(cell, symmetry, sMax, hkls=None):
     refList = ReflectionList(True)
     if hkls != None:
-        #funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1), hkls)
-        funcs.gen_satellites(cell, symmetry, sMax, refList, None, None, hkls)
+        funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), None, hkls)
     else:
-        #funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), int_to_p(1))
-        funcs.gen_satellites(cell, symmetry, sMax, refList)
+        funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1))
     return refList
-
+# satelliteGen_python: python implementation used for debugging
+def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
+    refList = [0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
+    #refList.set_magh_list_nref(len(hkls)*2+2)
+    i = 0
+    for reflection in hkls:
+        hkl = IntVector([0,0,0])
+        reflection.get_reflection_h(hkl)
+        hkl = list(hkl)
+        if sum(hkl) in [2*n for n in range(-3,3)]:
+            refList[2*i] = MagReflection()
+            refList[2*i].set_magh_h(FloatVector(list(np.add(hkl, kvec))))
+            refList[2*i].set_magh_s(calcS(cell, list(np.add(hkl, kvec))))
+            refList[2*i].set_magh_num_k(1)
+            refList[2*i].set_magh_signp(-1.0)
+            refList[2*i].set_magh_keqv_minus(True)
+            refList[(2*i)+1] = MagReflection(reflection)
+            refList[(2*i)+1].set_magh_h(FloatVector(list(np.add(hkl,np.negative(kvec)))))
+            refList[(2*i)+1].set_magh_s(calcS(cell, list(np.add(hkl,np.negative(kvec)))))
+            refList[(2*i)+1].set_magh_num_k(1)
+            refList[(2*i)+1].set_magh_signp(1.0)
+            refList[(2*i)+1].set_magh_keqv_minus(True)
+            i += 1
+    refList[2*i] = MagReflection()
+    refList[2*i].set_magh_h(FloatVector(kvec))
+    refList[2*i].set_magh_s(calcS(cell, kvec))
+    refList[2*i].set_magh_num_k(1)
+    refList[2*i].set_magh_signp(-1.0)  
+    refList[2*i].set_magh_keqv_minus(True)
+    refList[(2*i)+1] = MagReflection()
+    refList[(2*i)+1].set_magh_h(FloatVector(list(np.negative(kvec))))
+    refList[(2*i)+1].set_magh_num_k(1)
+    refList[(2*i)+1].set_magh_signp(1.0)
+    refList[(2*i)+1].set_magh_keqv_minus(True)
+    refList[(2*i)+1].set_magh_s(calcS(cell, list(np.negative(kvec))))
+    for ref in refList:
+        if ref != 0:
+            print ref.hkl, ref.s
+    return refList
 # calcStructFact: calculates the structure factor squared for a list of planes
 #   using provided atomic positions
 def calcStructFact(refList, atomList, spaceGroup, wavelength):
@@ -812,22 +854,22 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
 #   based on the structure factor
 def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
                   magnetic=False):
-    # TODO: be smarter about determining whether the structure is magnetic
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
         sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
         sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
+        multips = np.array([ref.get_magh_mult() for ref in refList])
+        tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))         
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
-    if magnetic:
-        multips = np.array([ref.get_magh_mult() for ref in refList])
-        tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))          
-    else:    
         multips = np.array([ref.get_reflection_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
+        sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    return sfs2 * multips * lorentz
+    print "tt = ", np.degrees(tt)
+    print "Lorentz = ", lorentz
+    return sfs2 * lorentz #* multips * lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
@@ -884,7 +926,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 symmetry=None, basisSymmetry=None, magAtomList=None,
                 uvw=[0,0,1], scale=1,
                 magnetic=False, info=False, plot=False, saveFile=None,
-                observedData=(None,None), labels=None, base=0, xtal=False):
+                observedData=(None,None), labels=None, base=0, xtal=False, residuals=False):
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
     if magnetic:
@@ -896,8 +938,20 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (symmetry == None): symmetry = info[3]
         if (basisSymmetry == None): basisSymmetry = symmetry
         ## magnetic peaks
-        refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
-        magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList)
+        #spg = SpaceGroup()
+        #funcs.set_spacegroup("I 1", spg)
+        #funcs.write_spacegroup(spg)
+        refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
+        refList2 = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
+        #h, k, l = tuple([str(ref.hkl()[i]) for ref in refList2] for i in xrange(3))
+        #multip = [str(ref.multip()) for ref in refList2]
+        #tt = ["%.3f" % twoTheta(ref.s(), wavelength) for ref in refList2]
+        #dtype = [('tt', float),('h', 'S10'), ('k', 'S10'), ('l','S10')]
+        #array1 = np.array([(tt[i], h[i],k[i],l[i]) for i in range(len(tt))], dtype=dtype)
+        #array2 = np.sort(array1, order='tt')
+        #print array2
+        #print "SMax: ", sMax
+        magRefList = satelliteGen_python(cell,sMax,refList2)#satelliteGen(cell, symmetry, sMax, hkls=refList2)
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True)
@@ -929,7 +983,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
         plotPattern(peaks, background, observedData[0], observedData[1],
-                    ttMin, ttMax, ttStep, exclusions, labels=labels, base=base)
+                    ttMin, ttMax, ttStep, exclusions, labels=labels, base=base, residuals=residuals)
         pylab.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
@@ -1003,6 +1057,10 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         tt = ["%.3f" % twoTheta(ref.s(), wavelength) for ref in refList]
         intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject,
                                                        wavelength, cell, magnetic)]
+        #dtype = [('tt', float),('h', 'S10'), ('k', 'S10'), ('l','S10'), ('intensity', 'S10')]
+        #array1 = np.array([(tt[i], str(float(h[i])+0.5),k[i],str(float(l[i])+0.5),intensity[i]) for i in range(len(tt))], dtype=dtype)
+        #array2 = np.sort(array1, order='tt')
+        #print array2
         # Figure out what the width of each column should be
         width = OrderedDict([('h', len(max(h, key=len))),
                              ('k', len(max(k, key=len))),
@@ -1034,6 +1092,7 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
     ttCalc = np.linspace(ttMin, ttMax, numPoints)
     if(exclusions != None): ttCalc = removeRange(ttCalc, exclusions)
     intensity = np.array(getIntensity(peaks, background, ttCalc, base=base))
+    pylab.subplot(211)
     if (observed != None):
         if exclusions:
             ttObs, observed = removeRange(ttObs, exclusions, observed)
@@ -1052,6 +1111,7 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
     if (residuals):
         intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
         resid = observed - intensityCalc
+        pylab.subplot(212)
         pylab.plot(ttObs, resid, label="Residuals")
     return
 if __name__ == '__main__':

@@ -208,10 +208,11 @@ class Model(object):
     def _set_reflections(self):
         maxLattice = self.cell.getMaxLattice()
         maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
-        self.refList = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=self.xtal)
+        self.refList = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=False)
         self.reflections = self.refList[:]
         if self.magnetic:
-            self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=self.refList)
+            hkls = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=self.xtal)
+            self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)
             self.magReflections = self.magRefList[:]       
 
     def __getstate__(self):
@@ -297,7 +298,7 @@ class Model(object):
         else:
             base, zero = self.base, self.zero
         plotPattern(self.peaks, self.background, self.tt-zero, self.observed,
-                            self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = base, residuals=False)          
+                            self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = base, residuals=True)          
 
 #    def _cache_cell_pars(self):
 #        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())
