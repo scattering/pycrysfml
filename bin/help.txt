@@ -315,6 +315,8 @@ CLASSES
      |  ----------------------------------------------------------------------
      |  Static methods defined here:
      |  
+     |  alloc_mhlist_array = FortFuncs_alloc_mhlist_array(...)
+     |  
      |  allocate_atom_list = FortFuncs_allocate_atom_list(...)
      |  
      |  allocate_atoms_cell = FortFuncs_allocate_atoms_cell(...)
@@ -1122,7 +1124,7 @@ CLASSES
      |  __swig_destroy__ = <built-in function delete_FortFuncs>
      |  
      |  
-     |  __swig_getmethods__ = {'allocate_atom_list': <function <lambda>>, 'all...
+     |  __swig_getmethods__ = {'alloc_mhlist_array': <function <lambda>>, 'all...
      |  
      |  __swig_setmethods__ = {}
     
@@ -5577,6 +5579,8 @@ FUNCTIONS
     FloatMatrix_swigregister(...)
     
     FloatVector_swigregister(...)
+    
+    FortFuncs_alloc_mhlist_array(...)
     
     FortFuncs_allocate_atom_list(...)
     

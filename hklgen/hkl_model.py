@@ -212,7 +212,7 @@ class Model(object):
         self.reflections = self.refList[:]
         if self.magnetic:
             hkls = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=self.xtal)
-            self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)
+            self.magRefList = satelliteGen_python(self.cell.cell, self.sMax, hkls)#satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)
             self.magReflections = self.magRefList[:]       
 
     def __getstate__(self):
@@ -305,7 +305,7 @@ class Model(object):
     def update(self):  
         self.cell.update()     
         self.atomListModel.update()
-        hkls = [reflection.hkl() for reflection in self.reflections]
+        hkls = [reflection.hkl for reflection in self.reflections]
         sList = calcS(self.cell.cell, hkls)
         ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
         # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
@@ -320,7 +320,7 @@ class Model(object):
         if self.magnetic:
             # update magnetic reflections and add their peaks to the list of
             #   Peaks         
-            hkls = [reflection.hkl() for reflection in self.magReflections]
+            hkls = [reflection.hkl for reflection in self.magReflections]
             sList = calcS(self.cell.cell, hkls)
             ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
             # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20

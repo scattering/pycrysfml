@@ -539,9 +539,21 @@ class ReflectionList(reflection_list_type, magh_list_type):
         ind = intp()
         ind.assign(index)
         if self.magnetic:
-            self.set_magh_list_element(value, ind)
+            self.set_magh_list_element(value, index)
         else:
-            self.set_reflection_list_element(value, ind)    
+            self.set_reflection_list_element(value, ind)
+    @property
+    def nref(self):
+        if self.magnetic:
+            return self.get_magh_list_nref()
+        else:
+            return self.get_reflection_list_nref()
+    @nref.setter
+    def nref(self, value):
+        if self.magnetic:
+            self.set_magh_list_nref(value)
+        else:
+            self.set_reflection_list_nref(value)
 
 # FileList: represents a Fortran file object
 class FileList(file_list_type):    
@@ -790,8 +802,9 @@ def satelliteGen(cell, symmetry, sMax, hkls=None):
     return refList
 # satelliteGen_python: python implementation used for debugging
 def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
-    refList = [0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
-    #refList.set_magh_list_nref(len(hkls)*2+2)
+    refList = ReflectionList(True)#[0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
+    refList.set_magh_list_nref(len(hkls)*2+2)
+    funcs.alloc_mhlist_array(refList)
     i = 0
     for reflection in hkls:
         hkl = reflection.hkl
@@ -801,35 +814,39 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
         sm = calcS(cell, hkm)
         if sum(hkl) in [2*n for n in range(-3,3)]:
             if sp <= sMax:
-                refList[i] = MagReflection()
-                refList[i].set_magh_h(FloatVector(hkp))
-                refList[i].set_magh_s(sp)
-                refList[i].set_magh_num_k(1)
-                refList[i].set_magh_signp(-1.0)
-                refList[i].set_magh_keqv_minus(True)
+                mref = MagReflection()
+                mref.set_magh_h(FloatVector(hkp))
+                mref.set_magh_s(sp)
+                mref.set_magh_num_k(1)
+                mref.set_magh_signp(-1.0)
+                mref.set_magh_keqv_minus(True)
+                refList[i] = mref
                 i += 1
             #if sm <= sMax:
-                #refList[i] = MagReflection()
-                #refList[i].set_magh_h(FloatVector(hkm))
-                #refList[i].set_magh_s(sm)
-                #refList[i].set_magh_num_k(1)
-                #refList[i].set_magh_signp(1.0)
-                #refList[i].set_magh_keqv_minus(True)
+                #mref = MagReflection()
+                #mref.set_magh_h(FloatVector(hkm))
+                #mref.set_magh_s(sm)
+                #mref.set_magh_num_k(1)
+                #mref.set_magh_signp(1.0)
+                #mref.set_magh_keqv_minus(True)
+                #refList[i] = mref
                 #i += 1
-    refList[i] = MagReflection()
-    refList[i].set_magh_h(FloatVector(kvec))
-    refList[i].set_magh_s(calcS(cell, kvec))
-    refList[i].set_magh_num_k(1)
-    refList[i].set_magh_signp(-1.0)  
-    refList[i].set_magh_keqv_minus(True)
+    mref = MagReflection()
+    mref.set_magh_h(FloatVector(kvec))
+    mref.set_magh_s(calcS(cell, kvec))
+    mref.set_magh_num_k(1)
+    mref.set_magh_signp(-1.0)  
+    mref.set_magh_keqv_minus(True)
+    refList[i] = mref
     i += 1
-    #refList[i] = MagReflection()
-    #refList[i].set_magh_h(FloatVector(list(np.negative(kvec))))
-    #refList[i].set_magh_num_k(1)
-    #refList[i].set_magh_signp(1.0)
-    #refList[i].set_magh_keqv_minus(True)
-    #refList[i].set_magh_s(calcS(cell, list(np.negative(kvec))))
+    #mref = MagReflection()
+    #mref.set_magh_h(FloatVector(list(np.negative(kvec))))
+    #mref.set_magh_num_k(1)
+    #mref.set_magh_signp(1.0)
+    #mref.set_magh_keqv_minus(True)
+    #mref.set_magh_s(calcS(cell, list(np.negative(kvec))))
     #i += 1
+    refList.set_magh_list_nref(i)
     result = []
     for ref in refList:
         if ref != 0:
@@ -876,7 +893,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
         sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
         multips = np.array([ref.get_magh_mult() for ref in refList])
-        tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))         
+        tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
         multips = np.array([ref.get_reflection_mult() for ref in refList])
@@ -892,8 +909,8 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
 #   diffraction pattern
 def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian", eta=None, base=0):
     Peak.scaleFactor = scale
-    peaks = [Peak(twoTheta(rk.s(), wavelength),
-                          coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl(), shape, eta)
+    peaks = [Peak(twoTheta(rk.s, wavelength),
+                          coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl, shape, eta)
                  for rk,Ik in zip(reflections,I)]
     return peaks
 
@@ -1069,9 +1086,9 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         magnetic = refList.magnetic
         if magnetic: symmObject = symmetry
         else: symmObject = spaceGroup
-        h, k, l = tuple([str(ref.hkl()[i]) for ref in refList] for i in xrange(3))
-        multip = [str(ref.multip()) for ref in refList]
-        tt = ["%.3f" % twoTheta(ref.s(), wavelength) for ref in refList]
+        h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in xrange(3))
+        multip = [str(ref.multip) for ref in refList]
+        tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
         intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject,
                                                        wavelength, cell, magnetic)]
         #dtype = [('tt', float),('h', 'S10'), ('k', 'S10'), ('l','S10'), ('intensity', 'S10')]

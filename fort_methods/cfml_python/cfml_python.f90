@@ -17,7 +17,10 @@ type (Reflect_Type), dimension(100) :: reflections
 END TYPE reflct_array_list
 CONTAINS
 !!-- Wrappers for procedures called from ctypes hklGen.py --!!
-
+SUBROUTINE alloc_mhlist_array(list)
+type (magh_list_type) :: list
+allocate(list%Mh(list%nref))
+END SUBROUTINE alloc_mhlist_array
 !-- list methods for reflection array wrapper
 SUBROUTINE reflct_array_ctor(array)
 type (reflct_array_list) :: array
@@ -230,8 +233,8 @@ SUBROUTINE set_matom_list_element(lst, elem, ind)
 END SUBROUTINE set_matom_list_element
 SUBROUTINE set_magh_list_element(lst, elem, ind)
 	TYPE(MagH_List_Type) :: lst
-	INTEGER :: ind
-	TYPE(MagH_Type) :: elem
+	INTEGER, INTENT(IN) :: ind
+	TYPE(MagH_Type), INTENT(IN) :: elem
 	! Use c-style indexing
 	lst%Mh(ind+1) = elem
 END SUBROUTINE set_magh_list_element

@@ -1580,6 +1580,8 @@ class FortFuncs(_object):
     if _newclass:write_info_refparams = staticmethod(_pycrysfml.FortFuncs_write_info_refparams)
     __swig_getmethods__["write_restraints_obscalc"] = lambda x: _pycrysfml.FortFuncs_write_restraints_obscalc
     if _newclass:write_restraints_obscalc = staticmethod(_pycrysfml.FortFuncs_write_restraints_obscalc)
+    __swig_getmethods__["alloc_mhlist_array"] = lambda x: _pycrysfml.FortFuncs_alloc_mhlist_array
+    if _newclass:alloc_mhlist_array = staticmethod(_pycrysfml.FortFuncs_alloc_mhlist_array)
     __swig_getmethods__["reflct_array_ctor"] = lambda x: _pycrysfml.FortFuncs_reflct_array_ctor
     if _newclass:reflct_array_ctor = staticmethod(_pycrysfml.FortFuncs_reflct_array_ctor)
     __swig_getmethods__["reflct_append"] = lambda x: _pycrysfml.FortFuncs_reflct_append
@@ -3070,6 +3072,10 @@ FortFuncs_write_info_refparams = _pycrysfml.FortFuncs_write_info_refparams
 def FortFuncs_write_restraints_obscalc(*args):
   return _pycrysfml.FortFuncs_write_restraints_obscalc(*args)
 FortFuncs_write_restraints_obscalc = _pycrysfml.FortFuncs_write_restraints_obscalc
+
+def FortFuncs_alloc_mhlist_array(*args):
+  return _pycrysfml.FortFuncs_alloc_mhlist_array(*args)
+FortFuncs_alloc_mhlist_array = _pycrysfml.FortFuncs_alloc_mhlist_array
 
 def FortFuncs_reflct_array_ctor(*args):
   return _pycrysfml.FortFuncs_reflct_array_ctor(*args)
