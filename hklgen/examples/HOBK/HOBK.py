@@ -33,12 +33,14 @@ def fit():
     cell.c.pm(0.5)
     m = Mod.Model(tt, observed, backg, 1.548048,-0.988016,0.338780, wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=59.143, sxtal=True)
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=59.08, sxtal=True, eta=0.0382, zero=0.08416)
     m.u.range(0,10)
     m.v.range(-10,0)
     m.w.range(0,10)
     m.scale.range(11,60)
-    m.base.range(6510,6514)
+    m.zero.pm(0.1)
+    m.eta.pm(0.1)
+    m.base.pm(200)
     for atomModel in m.atomListModel.atomModels:
         if atomModel.magnetic:
             for coeff in atomModel.coeffs:
@@ -51,7 +53,7 @@ def fit():
 def main():
     uvw = [1.548048,-0.988016,0.338780]
     cell = crystalCell
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=59.143,
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=59.08,
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,

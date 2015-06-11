@@ -211,8 +211,8 @@ class Model(object):
         self.refList = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=False)
         self.reflections = self.refList[:]
         if self.magnetic:
-            hkls = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=self.xtal)
-            self.magRefList = satelliteGen_python(self.cell.cell, self.sMax, hkls)#satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)
+            hkls = hklGen(self.spaceGroup, self.cell.cell, self.sMin, np.sin(179.5/2)/self.wavelength, True, xtal=self.xtal)
+            self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)#satelliteGen_python(self.cell.cell, self.sMax, hkls)
             self.magReflections = self.magRefList[:]       
 
     def __getstate__(self):

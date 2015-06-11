@@ -803,6 +803,14 @@ def satelliteGen(cell, symmetry, sMax, hkls=None):
 # satelliteGen_python: python implementation used for debugging
 def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
     refList = ReflectionList(True)#[0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
+    hkls = []
+    for x in range(-7,7):
+        for y in range(-7,7):
+            for z in range(-7,7):
+                if x+y+z in [2*n for n in range(-7,7)]:
+                    refl = Reflection()
+                    refl.set_reflection_h(IntVector([x,y,z]))
+                    hkls.append(refl)
     refList.set_magh_list_nref(len(hkls)*2+2)
     funcs.alloc_mhlist_array(refList)
     i = 0
@@ -814,44 +822,52 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
         sm = calcS(cell, hkm)
         if sum(hkl) in [2*n for n in range(-3,3)]:
             if sp <= sMax:
-                mref = MagReflection()
+                mref = MagReflection(reflection)
                 mref.set_magh_h(FloatVector(hkp))
                 mref.set_magh_s(sp)
                 mref.set_magh_num_k(1)
                 mref.set_magh_signp(-1.0)
                 mref.set_magh_keqv_minus(True)
+                mref.set_magh_mult(2)
                 refList[i] = mref
                 i += 1
+                #if hkl[2] == 0 and hkl[0] <= 1:
+                    ## this part causes double counting
+                    #ks = np.add([-hkl[0],-hkl[1],0.0],kvec)
+                    #mref = MagReflection()
+                    #mref.set_magh_h(FloatVector(ks))
+                    #mref.set_magh_s(calcS(cell, ks))
+                    #mref.set_magh_num_k(1)
+                    #mref.set_magh_signp(-1.0)
+                    #mref.set_magh_keqv_minus(True)
+                    #mref.set_magh_mult(2)
+                    #refList[i] = mref
+                    #i += 1                    
             #if sm <= sMax:
+                ## minus k reflections
                 #mref = MagReflection()
                 #mref.set_magh_h(FloatVector(hkm))
                 #mref.set_magh_s(sm)
                 #mref.set_magh_num_k(1)
                 #mref.set_magh_signp(1.0)
                 #mref.set_magh_keqv_minus(True)
+                #mref.set_magh_mult(2)
                 #refList[i] = mref
                 #i += 1
-    mref = MagReflection()
-    mref.set_magh_h(FloatVector(kvec))
-    mref.set_magh_s(calcS(cell, kvec))
-    mref.set_magh_num_k(1)
-    mref.set_magh_signp(-1.0)  
-    mref.set_magh_keqv_minus(True)
-    refList[i] = mref
-    i += 1
-    #mref = MagReflection()
-    #mref.set_magh_h(FloatVector(list(np.negative(kvec))))
-    #mref.set_magh_num_k(1)
-    #mref.set_magh_signp(1.0)
-    #mref.set_magh_keqv_minus(True)
-    #mref.set_magh_s(calcS(cell, list(np.negative(kvec))))
-    #i += 1
+        #elif hkl[1] in [2*n for n in range(-3,3)] and hkl[2] in [2*n for n in range(-3,3)]:
+            ## special condition
+            #if sp <= sMax:
+                #mref = MagReflection()
+                #mref.set_magh_h(FloatVector(hkp))
+                #mref.set_magh_s(sp)
+                #mref.set_magh_num_k(1)
+                #mref.set_magh_signp(-1.0)
+                #mref.set_magh_keqv_minus(True)
+                #mref.set_magh_mult(2)
+                #refList[i] = mref
+                #i += 1
+                #print hkl
     refList.set_magh_list_nref(i)
-    result = []
-    for ref in refList:
-        if ref != 0:
-            print ref.hkl, ref.s
-            result.append((twoTheta(ref.s,2.524000), ref.hkl))
     return refList
 # calcStructFact: calculates the structure factor squared for a list of planes
 #   using provided atomic positions
@@ -901,8 +917,6 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    print "tt = ", np.degrees(tt)
-    print "Lorentz = ", lorentz
     return sfs2 * lorentz #* multips * lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
@@ -976,7 +990,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         #funcs.set_spacegroup("I 1", spg)
         #funcs.write_spacegroup(spg)
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
-        refList2 = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
+        refList2 = hklGen(spaceGroup, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=xtal)
         #h, k, l = tuple([str(ref.hkl()[i]) for ref in refList2] for i in xrange(3))
         #multip = [str(ref.multip()) for ref in refList2]
         #tt = ["%.3f" % twoTheta(ref.s(), wavelength) for ref in refList2]
@@ -985,7 +999,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         #array2 = np.sort(array1, order='tt')
         #print array2
         #print "SMax: ", sMax
-        magRefList = satelliteGen_python(cell,sMax,refList2)#satelliteGen(cell, symmetry, sMax, hkls=refList2)
+        magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#satelliteGen_python(cell, sMax, None)#
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True)
@@ -1130,8 +1144,10 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
     if (observed != None):
         if exclusions:
             ttObs, observed = removeRange(ttObs, exclusions, observed)
-        pylab.plot(ttObs, observed, '-g', label="Observed",lw=1)
+        pylab.plot(ttObs, observed, 'go',linestyle='None', label="Observed",lw=1)
     pylab.plot(ttCalc, np.array(intensity), '-b', label="Calculated", lw=1)
+    intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
+    pylab.errorbar(ttObs, np.array(observed), yerr=np.sqrt(observed)+1, fmt=None, ecolor='g')
 #    pylab.fill_between(ttObs, observed, intensity, color="lightblue")
     pylab.xlabel(r"$2 \theta$")
     pylab.ylabel("Intensity")
@@ -1143,7 +1159,6 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
                            hklString(g.hkl),
                            ha="center", va="bottom", rotation="vertical")
     if (residuals):
-        intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
         resid = observed - intensityCalc
         pylab.subplot(212)
         pylab.plot(ttObs, resid, label="Residuals")
