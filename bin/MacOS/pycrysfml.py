@@ -1636,6 +1636,9 @@ class FortFuncs(_object):
     __swig_getmethods__["write_restraints_obscalc"] = lambda x: _pycrysfml.FortFuncs_write_restraints_obscalc
     if _newclass:
         write_restraints_obscalc = staticmethod(_pycrysfml.FortFuncs_write_restraints_obscalc)
+    __swig_getmethods__["alloc_mhlist_array"] = lambda x: _pycrysfml.FortFuncs_alloc_mhlist_array
+    if _newclass:
+        alloc_mhlist_array = staticmethod(_pycrysfml.FortFuncs_alloc_mhlist_array)
     __swig_getmethods__["reflct_array_ctor"] = lambda x: _pycrysfml.FortFuncs_reflct_array_ctor
     if _newclass:
         reflct_array_ctor = staticmethod(_pycrysfml.FortFuncs_reflct_array_ctor)
@@ -3181,6 +3184,10 @@ def FortFuncs_write_restraints_obscalc(a, iunit=None):
     return _pycrysfml.FortFuncs_write_restraints_obscalc(a, iunit)
 FortFuncs_write_restraints_obscalc = _pycrysfml.FortFuncs_write_restraints_obscalc
 
+def FortFuncs_alloc_mhlist_array(list):
+    return _pycrysfml.FortFuncs_alloc_mhlist_array(list)
+FortFuncs_alloc_mhlist_array = _pycrysfml.FortFuncs_alloc_mhlist_array
+
 def FortFuncs_reflct_array_ctor(array):
     return _pycrysfml.FortFuncs_reflct_array_ctor(array)
 FortFuncs_reflct_array_ctor = _pycrysfml.FortFuncs_reflct_array_ctor
@@ -4299,6 +4306,12 @@ class diffraction_pattern_type(_object):
 
     def set_diffraction_pattern_npts(self, new_value):
         return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_npts(self, new_value)
+
+    def get_diffraction_pattern_sigma(self, output_value):
+        return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_sigma(self, output_value)
+
+    def set_diffraction_pattern_sigma(self, new_value):
+        return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_sigma(self, new_value)
     __swig_setmethods__["data_ptr"] = _pycrysfml.diffraction_pattern_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.diffraction_pattern_type_data_ptr_get
     if _newclass:

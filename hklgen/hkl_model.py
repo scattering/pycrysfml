@@ -161,7 +161,7 @@ class Model(object):
 
     def __init__(self, tt, observed, background, u, v, w,
                  wavelength, spaceGroupName, cell, atoms, exclusions=None,
-                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None, sxtal=False):
+                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None, sxtal=False, error=None):
         if (isinstance(spaceGroupName, SpaceGroup)):
             self.spaceGroup = spaceGroupName
         else:
@@ -175,6 +175,7 @@ class Model(object):
         self.w = Parameter(w, name='w')
         self.scale = Parameter(scale, name='scale')
         self.eta = Parameter(eta, name='eta')
+        self.error = error
         if base != None:
             self.base = Parameter(base, name='base')
             self.has_base = True
@@ -298,7 +299,7 @@ class Model(object):
         else:
             base, zero = self.base, self.zero
         plotPattern(self.peaks, self.background, self.tt-zero, self.observed,
-                            self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = base, residuals=True)          
+                            self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = base, residuals=True, error=self.error)          
 
 #    def _cache_cell_pars(self):
 #        self._cell_pars = dict((k,v.value) for k,v in self.cell.items())

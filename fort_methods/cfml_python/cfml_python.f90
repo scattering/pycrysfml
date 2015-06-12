@@ -6071,13 +6071,13 @@ function get_diffraction_pattern_scal(obj_var)
 
 	subroutine get_diffraction_pattern_sigma(obj_var, output_value)
 		type (Diffraction_Pattern_Type) :: obj_var
-		real(kind=cp), dimension (:), allocatable, intent(out) :: output_value
+		real(kind=cp), dimension (obj_var%npts), intent(out) :: output_value
 		output_value = obj_var%sigma
 	end subroutine get_diffraction_pattern_sigma
 
 	subroutine set_diffraction_pattern_sigma(obj_var, new_value)
 		type (Diffraction_Pattern_Type) :: obj_var
-		real(kind=cp), dimension (:), allocatable, intent(in) :: new_value
+		real(kind=cp), dimension (obj_var%npts), intent(in) :: new_value
 		obj_var%sigma = new_value
 	end subroutine set_diffraction_pattern_sigma
 

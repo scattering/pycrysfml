@@ -690,17 +690,21 @@ def readIllData(filename, instrument, bacfile):
     funcs.read_ill_data(filename, data, instrument)
     tt = FloatVector([0]*data.get_diffraction_pattern_npts())
     observed = FloatVector([0]*data.get_diffraction_pattern_npts())
+    sigma = FloatVector([0]*data.get_diffraction_pattern_npts())
     #bkg = FloatVector([0]*data.get_diffraction_pattern_npts())
     #print "points",data.get_diffraction_pattern_npts()
     #return None,None
     data.get_diffraction_pattern_x(tt)
     data.get_diffraction_pattern_y(observed)
+    data.get_diffraction_pattern_sigma(sigma)
+    #error from ILL instruments is given as sigma squared according to crysfml documentation
+    sigma = np.sqrt(np.array(sigma))
     #print data.get_diffraction_pattern_step()
     funcs.read_background_file(bacfile, "POL", data)
     #data.get_diffraction_pattern_bgr(bkg)
     #print list(bkg)
     #print min(observed)
-    return list(tt), list(observed)
+    return list(tt), list(observed), list(sigma)
 # approxEq: returns True if two floats are equal to within some tolerance
 def approxEq(num1, num2, eps):
     return abs(num1-num2) <= eps
@@ -974,7 +978,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 symmetry=None, basisSymmetry=None, magAtomList=None,
                 uvw=[0,0,1], scale=1,
                 magnetic=False, info=False, plot=False, saveFile=None,
-                observedData=(None,None), labels=None, base=0, xtal=False, residuals=False):
+                observedData=(None,None), labels=None, base=0, xtal=False, residuals=False, error=None):
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
     if magnetic:
@@ -991,14 +995,6 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         #funcs.write_spacegroup(spg)
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         refList2 = hklGen(spaceGroup, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=xtal)
-        #h, k, l = tuple([str(ref.hkl()[i]) for ref in refList2] for i in xrange(3))
-        #multip = [str(ref.multip()) for ref in refList2]
-        #tt = ["%.3f" % twoTheta(ref.s(), wavelength) for ref in refList2]
-        #dtype = [('tt', float),('h', 'S10'), ('k', 'S10'), ('l','S10')]
-        #array1 = np.array([(tt[i], h[i],k[i],l[i]) for i in range(len(tt))], dtype=dtype)
-        #array2 = np.sort(array1, order='tt')
-        #print array2
-        #print "SMax: ", sMax
         magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#satelliteGen_python(cell, sMax, None)#
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
@@ -1031,7 +1027,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
         plotPattern(peaks, background, observedData[0], observedData[1],
-                    ttMin, ttMax, ttStep, exclusions, labels=labels, base=base, residuals=residuals)
+                    ttMin, ttMax, ttStep, exclusions, labels=labels, base=base, residuals=residuals, error=error)
         pylab.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
@@ -1134,7 +1130,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
 #   intensity at every 2*theta position in a specified range, as well as the
 #   observed intensity everywhere on a given list of points
 def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
-                exclusions=None, labels=None, residuals=False, base=0):
+                exclusions=None, labels=None, residuals=False, base=0, error=None):
     # TODO: finish residual plot
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     ttCalc = np.linspace(ttMin, ttMax, numPoints)
@@ -1147,7 +1143,7 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
         pylab.plot(ttObs, observed, 'go',linestyle='None', label="Observed",lw=1)
     pylab.plot(ttCalc, np.array(intensity), '-b', label="Calculated", lw=1)
     intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
-    pylab.errorbar(ttObs, np.array(observed), yerr=np.sqrt(observed)+1, fmt=None, ecolor='g')
+    pylab.errorbar(ttObs, np.array(observed), yerr=error, fmt=None, ecolor='g')
 #    pylab.fill_between(ttObs, observed, intensity, color="lightblue")
     pylab.xlabel(r"$2 \theta$")
     pylab.ylabel("Intensity")
