@@ -804,6 +804,8 @@ class diffraction_pattern_type(_object):
     def set_diffraction_pattern_y(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_y(self, *args)
     def get_diffraction_pattern_npts(self): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_npts(self)
     def set_diffraction_pattern_npts(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_npts(self, *args)
+    def get_diffraction_pattern_sigma(self, *args): return _pycrysfml.diffraction_pattern_type_get_diffraction_pattern_sigma(self, *args)
+    def set_diffraction_pattern_sigma(self, *args): return _pycrysfml.diffraction_pattern_type_set_diffraction_pattern_sigma(self, *args)
     __swig_setmethods__["data_ptr"] = _pycrysfml.diffraction_pattern_type_data_ptr_set
     __swig_getmethods__["data_ptr"] = _pycrysfml.diffraction_pattern_type_data_ptr_get
     if _newclass:data_ptr = _swig_property(_pycrysfml.diffraction_pattern_type_data_ptr_get, _pycrysfml.diffraction_pattern_type_data_ptr_set)
@@ -1582,6 +1584,8 @@ class FortFuncs(_object):
     if _newclass:write_restraints_obscalc = staticmethod(_pycrysfml.FortFuncs_write_restraints_obscalc)
     __swig_getmethods__["alloc_mhlist_array"] = lambda x: _pycrysfml.FortFuncs_alloc_mhlist_array
     if _newclass:alloc_mhlist_array = staticmethod(_pycrysfml.FortFuncs_alloc_mhlist_array)
+    __swig_getmethods__["alloc_refllist_array"] = lambda x: _pycrysfml.FortFuncs_alloc_refllist_array
+    if _newclass:alloc_refllist_array = staticmethod(_pycrysfml.FortFuncs_alloc_refllist_array)
     __swig_getmethods__["reflct_array_ctor"] = lambda x: _pycrysfml.FortFuncs_reflct_array_ctor
     if _newclass:reflct_array_ctor = staticmethod(_pycrysfml.FortFuncs_reflct_array_ctor)
     __swig_getmethods__["reflct_append"] = lambda x: _pycrysfml.FortFuncs_reflct_append
@@ -3076,6 +3080,10 @@ FortFuncs_write_restraints_obscalc = _pycrysfml.FortFuncs_write_restraints_obsca
 def FortFuncs_alloc_mhlist_array(*args):
   return _pycrysfml.FortFuncs_alloc_mhlist_array(*args)
 FortFuncs_alloc_mhlist_array = _pycrysfml.FortFuncs_alloc_mhlist_array
+
+def FortFuncs_alloc_refllist_array(*args):
+  return _pycrysfml.FortFuncs_alloc_refllist_array(*args)
+FortFuncs_alloc_refllist_array = _pycrysfml.FortFuncs_alloc_refllist_array
 
 def FortFuncs_reflct_array_ctor(*args):
   return _pycrysfml.FortFuncs_reflct_array_ctor(*args)

@@ -212,7 +212,16 @@ class Model(object):
         self.refList = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=False)
         self.reflections = self.refList[:]
         if self.magnetic:
-            hkls = hklGen(self.spaceGroup, self.cell.cell, self.sMin, np.sin(179.5/2)/self.wavelength, True, xtal=self.xtal)
+            # convert magnetic symmetry to space group
+            latt = getMagsymmK_latt(self.symmetry)
+            if self.symmetry.get_magsymm_k_mcentred() == 1: 
+                latt+= " -1" 
+            else:
+                latt += " 1"
+            spg = SpaceGroup()
+            funcs.set_spacegroup(latt, spg)
+            # use this space group to generate magnetic hkls      
+            hkls = hklGen(spg, self.cell.cell, self.sMin, np.sin(179.5/2)/self.wavelength, True, xtal=self.xtal)
             self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)#satelliteGen_python(self.cell.cell, self.sMax, hkls)
             self.magReflections = self.magRefList[:]       
 

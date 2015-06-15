@@ -14,57 +14,34 @@ np.seterr(divide="ignore", invalid="ignore")
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
 backgFile = os.path.join(DATAPATH,r"dy.bac")
 observedFile = os.path.join(DATAPATH,r"dy.dat")
-infoFile = os.path.join(DATAPATH,r"dy.pcr")
+infoFile = os.path.join(DATAPATH,r"dy.cfl")
 
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
 wavelength = 1.703700
-tt, observed = H.readIllData(observedFile, "DMC", backgFile)
-print tt, observed
+tt, observed, error = H.readIllData(observedFile, "DMC", backgFile)
+base_line = min(observed)
 ttMin = min(tt)
 ttMax = max(tt)
 ttStep = (ttMax-ttMin)/len(tt)
-exclusions = []
 backg = H.LinSpline(None)
-#print backg
 basisSymmetry = copy(symmetry)
-#basisSymmetry = symmetry
-#if (basisSymmetry.centerType() == 2):
-    ## change to acentric
-    #basisSymmetry.setCenterType(1)
-#basisSymmetry.setNumIrreps(1)
 
-## Number of the basis from BasIreps (1-6)
-#basisIndex = 2
-#index = 0
-#for magAtom in magAtomList:
-    #magAtom.setNumkVectors(1)
-    #magAtom.setIrrepNum_ind(0, 1)
-    #magAtomList[index] = magAtom
-    #index += 1
-
-
-def makeBasis(symmetry, basisIndex):
-    if (basisIndex == 2):
-        symmetry.setNumBasisFunc_ind(0, 2)
-        symmetry.setBasis(0, 0, 0, [1,0,0])
-        symmetry.setBasis(0, 0, 1, [0,0,1])
-        symmetry.setBasis(0, 1, 0, [1,0,0])
-        symmetry.setBasis(0, 1, 1, [0,0,1])
 def fit():
-    #makeBasis(basisSymmetry, basisIndex)
     cell = Mod.makeCell(crystalCell, xtalsys(spaceGroup))
     cell.a.pm(0.5)
     cell.b.pm(0.5)
     cell.c.pm(0.5)
-    m = Mod.Model(tt, observed, backg, 1.809863,  -1.476814,   0.446315, wavelength, spaceGroup, cell,
+    m = Mod.Model(tt, observed, backg,  1.808975,  -1.476480,   0.446286 , wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=94.064, sxtal=True)
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=base_line, scale=93.662/np.sqrt(2.0), eta=0.0, zero=0.03994, sxtal=True, error=error)
     m.u.range(0,10)
     m.v.range(-10,0)
     m.w.range(0,10)
-    m.scale.range(11,60)
-    m.base.range(6510,6514)
+    m.scale.range(0,60)
+    m.eta.range(0,1)
+    m.base.pm(500)
+    m.zero.pm(0.25)
     for atomModel in m.atomListModel.atomModels:
         if atomModel.magnetic:
             for coeff in atomModel.coeffs:
@@ -75,22 +52,13 @@ def fit():
     return M
 
 def main():
-    #Ho = magAtomList[0]
-    #Ni = magAtomList[1]
-    #Ho.setBasis_ind(0,0,0.127)
-    #Ho.setBasis_ind(0,1,8.993)
-    #Ni.setBasis_ind(0,0,0.584)
-    #Ni.setBasis_ind(0,1,-1.285)
-    #magAtomList[0] = Ho
-    #magAtomList[1] = Ni
-    #makeBasis(basisSymmetry, basisIndex)
-    uvw = [1.809863,  -1.476814,   0.446315]
+    uvw = [ 1.808975,  -1.476480,   0.446286 ]
     cell = crystalCell
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=94.064,
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=1.0/np.sqrt(2.0),
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,
-                  observedData=(tt,observed), base=6512, xtal=True)
+                  observedData=(tt,observed), base=base_line, xtal=True, error=error, residuals=True)
 if __name__ == "__main__":
     # program run normally
     main()

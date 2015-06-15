@@ -21,6 +21,10 @@ SUBROUTINE alloc_mhlist_array(list)
 type (magh_list_type) :: list
 allocate(list%Mh(list%nref))
 END SUBROUTINE alloc_mhlist_array
+SUBROUTINE alloc_refllist_array(list)
+type (reflection_list_type) :: list
+allocate(list%ref(list%nref))
+END SUBROUTINE alloc_refllist_array
 !-- list methods for reflection array wrapper
 SUBROUTINE reflct_array_ctor(array)
 type (reflct_array_list) :: array

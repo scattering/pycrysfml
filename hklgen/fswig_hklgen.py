@@ -806,15 +806,17 @@ def satelliteGen(cell, symmetry, sMax, hkls=None):
     return refList
 # satelliteGen_python: python implementation used for debugging
 def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
+    kvec = [0,0.5,0]
     refList = ReflectionList(True)#[0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
     hkls = []
     for x in range(-7,7):
         for y in range(-7,7):
             for z in range(-7,7):
-                if x+y+z in [2*n for n in range(-7,7)]:
-                    refl = Reflection()
-                    refl.set_reflection_h(IntVector([x,y,z]))
-                    hkls.append(refl)
+                #if x+y+z in [2*n for n in range(-7,7)]:
+                refl = Reflection()
+                refl.set_reflection_h(IntVector([x,y,z]))
+                hkls.append(refl)
+    print(len(hkls)), "python hkls"
     refList.set_magh_list_nref(len(hkls)*2+2)
     funcs.alloc_mhlist_array(refList)
     i = 0
@@ -824,8 +826,8 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
         hkm = list(np.add(hkl,np.negative(kvec)))
         sp = calcS(cell, hkp)
         sm = calcS(cell, hkm)
-        if sum(hkl) in [2*n for n in range(-3,3)]:
-            if sp <= sMax:
+        #if sum(hkl) in [2*n for n in range(-3,3)]:
+        if sp <= sMax:
                 mref = MagReflection(reflection)
                 mref.set_magh_h(FloatVector(hkp))
                 mref.set_magh_s(sp)
@@ -914,6 +916,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
         multips = np.array([ref.get_magh_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
+        #sfs2 *= multips
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
         multips = np.array([ref.get_reflection_mult() for ref in refList])
@@ -990,11 +993,38 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (symmetry == None): symmetry = info[3]
         if (basisSymmetry == None): basisSymmetry = symmetry
         ## magnetic peaks
-        #spg = SpaceGroup()
-        #funcs.set_spacegroup("I 1", spg)
-        #funcs.write_spacegroup(spg)
+        # convert magnetic symmetry to space group
+        latt = getMagsymmK_latt(basisSymmetry)
+        if basisSymmetry.get_magsymm_k_mcentred() == 1: 
+            latt+= " -1" 
+        else:
+            latt += " 1"
+        spg = SpaceGroup()
+        funcs.set_spacegroup(latt, spg)
+        # use this space group to generate magnetic hkls (refList2)
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
-        refList2 = hklGen(spaceGroup, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=xtal)
+        refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=xtal)
+        # gen hkls manually
+        #hkls2 = []
+        #hkls3 = []
+        #hkls = []
+        #for x in range(-7,7):
+            #for y in range(-7,7):
+                #for z in range(-7,7):
+                    #refl = Reflection()
+                    #refl.set_reflection_h(IntVector([x,y,z]))
+                    #hkls2.append((x,y,z))
+                    #hkls.append(refl)
+        #reflist3 = ReflectionList()
+        #reflist3.set_reflection_list_nref(len(hkls))
+        #funcs.alloc_refllist_array(reflist3)
+        #for i in range(len(hkls)):
+            #reflist3[i] = hkls[i]
+        #for ref in refList2:
+            #hkls3.append((ref.hkl[0], ref.hkl[1], ref.hkl[2]))
+        #for hkl in hkls2:
+            #if hkl not in hkls3:
+                #print hkl
         magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#satelliteGen_python(cell, sMax, None)#
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
@@ -1140,7 +1170,7 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
     if (observed != None):
         if exclusions:
             ttObs, observed = removeRange(ttObs, exclusions, observed)
-        pylab.plot(ttObs, observed, 'go',linestyle='None', label="Observed",lw=1)
+        pylab.plot(ttObs, observed, '-go', linestyle="None", label="Observed",lw=1)
     pylab.plot(ttCalc, np.array(intensity), '-b', label="Calculated", lw=1)
     intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
     pylab.errorbar(ttObs, np.array(observed), yerr=error, fmt=None, ecolor='g')
