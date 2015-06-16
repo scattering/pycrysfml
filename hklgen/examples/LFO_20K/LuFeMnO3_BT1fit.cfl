@@ -13,7 +13,7 @@ ATOM O4     O       0.33333  0.66667  0.03277 0.00000 0.33333
 
 Mag_Structure
 !
-lattice -P
+lattice P -1
 kvect   0.00000   0.00000   0.00000
 magcent
 symm  x,y,z

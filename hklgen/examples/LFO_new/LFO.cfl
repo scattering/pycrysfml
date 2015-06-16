@@ -1,0 +1,40 @@
+!   FILE for FullProf Studio: generated automatically by FullProf 
+!Title: LuFeO3 nuclear                                                                                                                                                      
+SPACEG P 63 c m            
+CELL     5.980214    5.980214   11.630193  90.0000  90.0000 120.0000   DISPLAY MULTIPLE
+BOX   -0.15  1.15   -0.15  1.15    -0.15  1.15 
+ATOM Lu1     Lu      0.00000  0.00000  0.27457  0.16797  0.16667
+ATOM Lu2     Lu      0.33333  0.66667  0.23095  0.00129  0.33333
+ATOM Fe1     Fe      0.33467  0.00000  0.00000  0.03803  0.13048
+ATOM Mn1     Mn      0.33467  0.00000  0.00000  0.03803  0.13048
+ATOM 01      O       0.30541  0.00000  0.16384  0.31185  0.50000
+ATOM O2      O       0.63773  0.00000  0.33590  0.31185  0.50000
+ATOM O3      O       0.00000  0.00000  0.47444  0.39046  0.16667
+ATOM O4      O       0.33333  0.66667  0.01795  0.39046  0.33330
+
+Mag_Structure
+LATTICE P -1
+IRREPS 1  3
+KVECT     0.00000   0.00000   0.00000
+icomp  0 0 0
+SYMM x,y,z
+BASR   1  0  0   0  0  1   1  2  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM -x,-y,z+1/2
+BASR  -1  0  0   0  0  1  -1 -2  0
+BASI   0  0  0   0  0  0  0  0  0
+SYMM -y,x-y,z
+BASR   0  1  0   0  0  1  -2 -1  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM y,-x+y,z+1/2
+BASR   0 -1  0   0  0  1   2  1  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM -x+y,-x,z
+BASR  -1 -1  0   0  0  1   1 -1  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM x-y,x,z+1/2
+BASR   1  1  0   0  0  1  -1  1  0
+BASI   0  0  0   0  0  0   0  0  0
+MATOM FE1       MFE3      0.33467  0.00000  0.00000  0.00091  1.00000
+bfcoef           1  1  3.62332  0.00000  0.00000 0.0
+End_Mag_Structure
