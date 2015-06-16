@@ -16,13 +16,13 @@ ttMin = 25.0
 ttMax = 143.0
 ttStep = 0.0249947045118
 exclusions = None
-tt, observed = H.readIllData(observedFile, "", backgFile)
+tt, observed, error = H.readIllData(observedFile, "", backgFile)
 def fit():
     # PYTHONPATH=. bumps Al2O3.py --fit=dream --store=M1 --burn=100 --steps=500
     cell = Mod.makeCell(crystalCell, spaceGroup.xtalSystem())
     cell.a.pm(0.5)
     m = Mod.Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
-                atoms, exclusions, base=min(observed), zero=0.02573)
+                atoms, exclusions, base=min(observed), zero=0.02573, error=error)
     m.u.range(0,2)
     m.zero.pm(0.1)
     m.v.range(-2,0)
@@ -52,7 +52,7 @@ def main():
     H.diffPattern(infoFile=infoFile, wavelength=wavelength,
                   cell=cell, uvw=uvw, scale=1,
                   ttMin=ttMin, ttMax=ttMax, info=True, plot=True,
-                  observedData=(tt,observed))
+                  observedData=(tt,observed), error=error)
 
 if __name__ == "__main__":
     # program run normally

@@ -916,7 +916,6 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
         multips = np.array([ref.get_magh_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
-        #sfs2 *= multips
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
         multips = np.array([ref.get_reflection_mult() for ref in refList])
@@ -1001,6 +1000,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             latt += " 1"
         spg = SpaceGroup()
         funcs.set_spacegroup(latt, spg)
+        funcs.write_spacegroup(spg)
         # use this space group to generate magnetic hkls (refList2)
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=xtal)

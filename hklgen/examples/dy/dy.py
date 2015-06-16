@@ -15,7 +15,7 @@ DATAPATH = os.path.dirname(os.path.abspath(__file__))
 backgFile = os.path.join(DATAPATH,r"dy.bac")
 observedFile = os.path.join(DATAPATH,r"dy.dat")
 infoFile = os.path.join(DATAPATH,r"dy.cfl")
-
+exclusions = []
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
 wavelength = 1.703700
@@ -38,7 +38,7 @@ def fit():
     m.u.range(0,10)
     m.v.range(-10,0)
     m.w.range(0,10)
-    m.scale.range(0,60)
+    m.scale.range(0,100)
     m.eta.range(0,1)
     m.base.pm(500)
     m.zero.pm(0.25)
@@ -54,7 +54,7 @@ def fit():
 def main():
     uvw = [ 1.808975,  -1.476480,   0.446286 ]
     cell = crystalCell
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=1.0/np.sqrt(2.0),
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=93.662/6.5,
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,

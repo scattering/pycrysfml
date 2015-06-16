@@ -1,0 +1,16 @@
+!   FILE for FullProf Studio: generated automatically by FullProf 
+!Title: CuF2  P21/n       magph2                                                                                                                                            
+SPGR P 21/n              
+CELL     4.596810    4.547753    3.294645  90.0000  96.4187  90.0000                                                 
+ATOM Cu      CU      0.00000  0.00000  0.00000  0.11845  0.50000
+ATOM F       F       0.29440  0.29840  0.03883  0.36053  1.00000
+Mag_Structure
+LATTICE P -1
+KVECT     0.50000   0.00000   0.50000
+SYMM x,y,z
+MSYM u,v,w,0.0
+SYMM x+1/2,y+1/2,z+1/2
+MSYM -u,-v,-w,0.0
+MATOM Cu1     MCU2      0.00000  0.00000  0.00000  0.11845  1.00000
+SKP           1  1  0.00000  0.75731  0.00000    0.00000  0.00000  0.00000    0.00000
+End_Magnetic Structure

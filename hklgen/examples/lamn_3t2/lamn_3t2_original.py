@@ -13,7 +13,7 @@ infoFile = os.path.join(DATAPATH,"lamn_3t2.pcr")
 wavelength = 1.225300
 backg = H.LinSpline(None)
 exclusions = [[-1.00,11.00],[125.0,180.0]]
-tt, observed = H.readIllData(observedFile, "D1A", backgFile)
+tt, observed, error = H.readIllData(observedFile, "D1A", backgFile)
 ttMin = min(tt)
 ttMax = max(tt)
 ttStep = (ttMax-ttMin)/len(tt)
@@ -24,7 +24,7 @@ def fit():
     cell.b.pm(0.5)
     cell.c.pm(0.5)
     m = Mod.Model(tt, observed, backg, 0, 0, 1, wavelength, spaceGroup, cell,
-                atoms, exclusions, base=min(observed), zero=0.00029)
+                atoms, exclusions, base=min(observed), zero=0.00029, error=error)
     m.u.range(0,2)
     m.zero.pm(0.1)
     m.v.range(-2,0)
@@ -56,7 +56,7 @@ def main():
     H.diffPattern(infoFile=infoFile, wavelength=wavelength,
                   cell=cell, uvw=uvw, scale=0.86927E-01,
                   ttMin=ttMin, ttMax=ttMax, info=True, plot=True,
-                  observedData=(tt,observed), base=min(observed))
+                  observedData=(tt,observed), base=min(observed), error=error)
 
 if __name__ == "__main__":
     # program run normally

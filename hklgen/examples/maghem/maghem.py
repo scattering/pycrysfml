@@ -14,12 +14,12 @@ np.seterr(divide="ignore", invalid="ignore")
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
 backgFile = os.path.join(DATAPATH,r"maghem.bac")
 observedFile = os.path.join(DATAPATH,r"maghem.dat")
-infoFile = os.path.join(DATAPATH,r"maghem.pcr")
+infoFile = os.path.join(DATAPATH,r"maghem.cfl")
 
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
 wavelength = 1.887600
-tt, observed = H.readIllData(observedFile, "D1A", backgFile)
+tt, observed, error = H.readIllData(observedFile, "D1A", backgFile)
 print tt, observed
 ttMin = min(tt)
 ttMax = max(tt)
@@ -36,7 +36,7 @@ def fit():
     cell.c.pm(0.5)
     m = Mod.Model(tt, observed, backg, 1.809863,  -1.476814,   0.446315, wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=94.064, sxtal=True)
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=94.064, sxtal=True, error=error)
     m.u.range(0,10)
     m.v.range(-10,0)
     m.w.range(0,10)
@@ -58,7 +58,7 @@ def main():
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,
-                  observedData=(tt,observed), base=6512, xtal=True)
+                  observedData=(tt,observed), base=6512, xtal=True, error=error)
 if __name__ == "__main__":
     # program run normally
     main()
