@@ -1,0 +1,48 @@
+.atoms
+  .Cu
+    .Cu B = Parameter(0.11845, name='Cu B')
+    .Cu occ = Parameter(1, name='Cu occ')
+    .Cu x = Parameter(0, name='Cu x')
+    .Cu y = Parameter(0, name='Cu y')
+    .Cu z = Parameter(0, name='Cu z')
+  .F
+    .F B = Parameter(0.36053, name='F B')
+    .F occ = Parameter(1, name='F occ')
+    .F x = Parameter(0.2944, name='F x')
+    .F y = Parameter(0.2984, name='F y')
+    .F z = Parameter(0.03883, name='F z')
+.base = Parameter(61.8362, name='base', bounds=(-500,600))
+.cell
+  .a = Parameter(4.5964, name='a', bounds=(4,5.1))
+  .b = Parameter(4.54759, name='b', bounds=(4,5.1))
+  .beta = Parameter(96.4187, name='beta')
+  .c = Parameter(3.29408, name='c', bounds=(2.7,3.8))
+.eta = Parameter(0.243275, name='eta', bounds=(0,1))
+.scale = Parameter(14.9035, name='scale', bounds=(0,100))
+.u = Parameter(0.133212, name='u', bounds=(0,10))
+.v = Parameter(-0.265631, name='v', bounds=(-10,0))
+.w = Parameter(0.32807, name='w', bounds=(0,10))
+.zero = Parameter(-0.0208976, name='zero', bounds=(-0.38,0.13))
+
+[chisq=4.1986(42), nllf=11504.1]
+                                    base .....|....    61.8362 in (-500,600)
+                                       a .....|....     4.5964 in (4,5.1)
+                                       b ....|.....    4.54759 in (4,5.1)
+                                       c .....|....    3.29408 in (2.7,3.8)
+                                     eta ..|.......   0.243275 in (0,1)
+                                   scale .|........    14.9035 in (0,100)
+                                       u |.........   0.133212 in (0,10)
+                                       v .........|  -0.265631 in (-10,0)
+                                       w |.........    0.32807 in (0,10)
+                                    zero .......|.. -0.0208976 in (-0.38,0.13)
+              Parameter       mean  median    best [   68% interval] [   95% interval]
+ 1                 base   61.9(15)  61.919  61.836 [  61.52   62.20] [  58.69   64.92]
+ 2                    a 4.59632(47) 4.59635 4.59640 [ 4.5962  4.5964] [ 4.5952  4.5972]
+ 3                    b 4.54757(45) 4.54758 4.54759 [ 4.5475  4.5477] [ 4.5465  4.5485]
+ 4                    c 3.29408(34) 3.29408 3.29408 [ 3.2940  3.2942] [ 3.2934  3.2949]
+ 5                  eta  0.242(40)   0.244   0.243 [   0.23    0.25] [   0.13    0.33]
+ 6                scale  14.87(28)  14.907  14.903 [  14.83   14.96] [  14.09   15.30]
+ 7                    u  0.141(42)   0.135   0.133 [   0.13    0.14] [   0.09    0.24]
+ 8                    v -0.278(82)  -0.269  -0.266 [  -0.28   -0.26] [  -0.48   -0.16]
+ 9                    w  0.333(40)   0.329   0.328 [   0.32    0.34] [   0.27    0.44]
+10                 zero -0.0214(80) -0.0210 -0.0209 [ -0.023  -0.019] [ -0.040  -0.005]
