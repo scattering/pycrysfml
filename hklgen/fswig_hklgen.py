@@ -1000,7 +1000,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             latt += " 1"
         spg = SpaceGroup()
         funcs.set_spacegroup(latt, spg)
-        funcs.write_spacegroup(spg)
+        #funcs.write_spacegroup(spg)
         # use this space group to generate magnetic hkls (refList2)
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=xtal)

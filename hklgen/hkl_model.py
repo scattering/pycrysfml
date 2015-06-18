@@ -283,13 +283,13 @@ class Model(object):
     def theory(self):
         # add check in case zero not defined
         if self.has_base and self.has_zero:
-            return getIntensity(self.peaks, self.background, self.tt-self.zero.value, base=self.base.value)
+            return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero.value, base=self.base.value)
         elif self.has_base:
-            return getIntensity(self.peaks, self.background, self.tt-self.zero, base=self.base.value)
+            return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero, base=self.base.value)
         elif self.has_zero:
-            return getIntensity(self.peaks, self.background, self.tt-self.zero.value, base=self.base)
+            return getIntensity(self.peaks, self.background, removeRannge(self.tt, self.exclusions)-self.zero.value, base=self.base)
         else:
-            return getIntensity(self.peaks, self.background, self.tt-self.zero, base=self.base)
+            return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero, base=self.base)
 
     def residuals(self):
         return (self.theory() - self.observed)/(np.sqrt(self.observed)+1)
