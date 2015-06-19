@@ -37,6 +37,7 @@ LIBFLAGS='-lgfortran -L/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/li
 STR_MOD='LF'
 PY_HEADERS='/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/include/python2.7'
 FORTCOMP=ftn
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/lib
 fi
 if [ $# -lt 1 ]; then
 svn co http://forge.epn-campus.eu/svn/crysfml/Src
