@@ -39,6 +39,14 @@ PY_HEADERS='/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/include/pytho
 FORTCOMP=ftn
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/lib
 fi
+if [[ "$HOSTNAME" == "rocks"* ]]; then
+#running on rocks cluster
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/python/lib
+LIBFLAGS='-lgfortran -L/opt/python/lib -lpython2.7'
+PY_HEADERS='/opt/python/include/python2.7'
+alias python=/opt/python/bin/python2.7
+STR_MOD='LF'
+fi
 if [ $# -lt 1 ]; then
 svn co http://forge.epn-campus.eu/svn/crysfml/Src
 #rm Src/CFML_Conf_Calc.f90
