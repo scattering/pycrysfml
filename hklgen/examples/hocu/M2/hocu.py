@@ -12,15 +12,16 @@ from pycrysfml import getSpaceGroup_crystalsys as xtalsys
 np.seterr(divide="ignore", invalid="ignore")
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
-backgFile = os.path.join(DATAPATH,r"dy.bac")
-observedFile = os.path.join(DATAPATH,r"dy.dat")
-infoFile = os.path.join(DATAPATH,r"dy.cfl")
-exclusions = []
+backgFile = os.path.join(DATAPATH,r"hocu.bac")
+observedFile = os.path.join(DATAPATH,r"hocu.dat")
+infoFile = os.path.join(DATAPATH,r"hocu.cfl")
+
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
-wavelength = 1.703700
-tt, observed, error = H.readIllData(observedFile, "DMC", backgFile)
+exclusions = []
+tt, observed, error = H.readIllData(observedFile, "D1B", backgFile)
 base_line = min(observed)
+wavelength = 2.524000
 ttMin = min(tt)
 ttMax = max(tt)
 ttStep = (ttMax-ttMin)/len(tt)
@@ -30,15 +31,15 @@ basisSymmetry = copy(symmetry)
 def fit():
     cell = Mod.makeCell(crystalCell, xtalsys(spaceGroup))
     cell.a.pm(0.5)
-    #cell.b.pm(0.5)
+    cell.b.pm(0.5)
     cell.c.pm(0.5)
-    m = Mod.Model(tt, observed, backg,  1.808975,  -1.476480,   0.446286 , wavelength, spaceGroup, cell,
+    m = Mod.Model(tt, observed, backg, 1.161020,  -0.658240,   0.29176, wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=base_line, scale=93.662/6.5, eta=0.0, zero=0.03994, sxtal=True, error=error)
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=base_line, scale=9.6286/np.sqrt(2.0), eta=0.1031, zero=0.0197, sxtal=True, error=error)
     m.u.range(0,10)
     m.v.range(-10,0)
     m.w.range(0,10)
-    m.scale.range(0,100)
+    m.scale.range(0,60)
     m.eta.range(0,1)
     m.base.pm(500)
     m.zero.pm(0.25)
@@ -52,9 +53,9 @@ def fit():
     return M
 
 def main():
-    uvw = [ 1.808975,  -1.476480,   0.446286 ]
+    uvw = [ 1.161020,  -0.658240,   0.29176 ]
     cell = crystalCell
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=93.662/(600.5*1.5),
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=9.6286/np.sqrt(2.0),
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,

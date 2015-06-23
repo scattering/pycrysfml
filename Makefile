@@ -31,7 +31,7 @@ copy:
 
 # Build the shared object file from the list of objects
 libcrysfml.so: $(OBJECTS)
-	gfortran -o libcrysfml.so -g -shared $(OBJECTS)
+	$(FORTCOMP) -o libcrysfml.so -g -shared $(OBJECTS)
 
 # Generate dependencies.  This needs to be rerun whenever a new module is added
 # or a Use statement is updated.

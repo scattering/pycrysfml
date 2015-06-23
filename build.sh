@@ -17,7 +17,9 @@ BIN_DIR='MacOS'
 PY_HEADERS='/usr/include/python2.7'
 STR_MOD='gf'
 FORTCOMP=gfortran
-else
+SOLIB_EXT='.so'
+fi
+if [[ "$OSTYPE" == "linux"* ]]; then
 CPPCOMP=g++
 SEDCOM=sed
 LIBFLAGS='-lgfortran'
@@ -26,6 +28,27 @@ BIN_DIR='Linux'
 PY_HEADERS='/usr/include/python2.7'
 STR_MOD='gf'
 FORTCOMP=gfortran
+SOLIB_EXT='.so'
+fi
+if [[ "$OSTYPE" == "msys"* ]]; then
+# running on windows
+# build requires full install of mingw and Python XY in their default locations
+# additionally command line based svn and git clients answering to standard calls are required
+# some windows svn clients do not hold the processing thread while they are checking out libraries
+# so it may be necessary to manually checkout the source first and then build from a local copy
+# In order for sed to work the user account running the build must be given "Full Control" over the
+# pycrysfml directory in the windows folder permissions window
+CPPCOMP=g++
+SEDCOM=sed
+LIBFLAGS='-L/c/Python27/libs -lgfortran -lpython27'
+SOFLAGS='-shared -fPIC'
+BIN_DIR='Windows'
+PY_HEADERS='/c/Python27/include'
+STR_MOD='gf'
+FORTCOMP=gfortran
+SOLIB_EXT='.pyd'
+ln -s /c/Python27/python /usr/bin/python
+mount c:/mingw /mingw
 fi
 if [[ "$HOSTNAME" == "darter"* ]]; then
 #running on Cray XC30
@@ -120,18 +143,18 @@ $CPPCOMP -O2 -fPIC -c *.cpp *.cxx ../crysfml.so -I$PY_HEADERS $LIBFLAGS -Xlinker
 echo "making shared-object library"
 ##$CPPCOMP $SOFLAGS -o _pycrysfml.so -g -Wall ./*.o ../CFML_GlobalDeps_Linux.o ../CFML_Math_Gen.o ../CFML_LSQ_TypeDef.o ../CFML_Spher_Harm.o ../CFML_Random.o ../CFML_FFTs.o ../CFML_String_Util.o ../CFML_IO_Mess.o ../CFML_Profile_TOF.o ../CFML_Profile_Finger.o ../CFML_Profile_Functs.o ../CFML_Math_3D.o ../CFML_Optimization.o ../CFML_Optimization_LSQ.o ../CFML_Sym_Table.o ../CFML_Chem_Scatt.o ../CFML_Diffpatt.o ../CFML_Bonds_Table.o ../CFML_Cryst_Types.o ../CFML_Symmetry.o ../CFML_ILL_Instrm_Data.o ../CFML_Reflct_Util.o ../CFML_Atom_Mod.o ../CFML_Export_Vtk.o ../CFML_Sfac.o ../CFML_Geom_Calc.o ../CFML_Propagk.o ../CFML_Maps.o ../CFML_Molecules.o ../CFML_SXTAL_Geom.o ../CFML_Conf_Calc.o ../CFML_Form_CIF.o ../CFML_MagSymm.o ../CFML_Msfac.o ../CFML_Polar.o ../CFML_Refcodes.o ../cfml_python.o $LIBFLAGS
 
-$CPPCOMP $SOFLAGS -o _pycrysfml.so -g -Wall ./*.o ../CFML_GlobalDeps_Linux.o ../CFML_Math_Gen.o ../CFML_LSQ_TypeDef.o ../CFML_Spher_Harm.o ../CFML_Random.o ../CFML_FFTs.o ../CFML_String_Util_$STR_MOD.o ../CFML_IO_Mess.o ../CFML_Profile_TOF.o ../CFML_Profile_Finger.o ../CFML_Profile_Functs.o ../CFML_Math_3D.o ../CFML_Optimization.o ../CFML_Optimization_LSQ.o ../CFML_Sym_Table.o ../CFML_Chem_Scatt.o ../CFML_Diffpatt.o ../CFML_Bonds_Table.o ../CFML_Cryst_Types.o ../CFML_Symmetry.o ../CFML_ILL_Instrm_Data.o ../CFML_Reflct_Util.o ../CFML_Atom_Mod.o ../CFML_Export_Vtk_LF95.o ../CFML_Sfac.o ../CFML_Geom_Calc.o ../CFML_Propagk.o ../CFML_Maps.o ../CFML_Molecules.o ../CFML_SXTAL_Geom.o ../CFML_Conf_Calc.o ../CFML_Form_CIF.o ../CFML_MagSymm.o ../CFML_Msfac.o ../CFML_Polar.o ../CFML_Refcodes.o ../CFML_BVSpar.o ../cfml_python.o $LIBFLAGS
+$CPPCOMP $SOFLAGS -o _pycrysfml.$SOLIB_EXT -g -Wall ./*.o ../CFML_GlobalDeps_Linux.o ../CFML_Math_Gen.o ../CFML_LSQ_TypeDef.o ../CFML_Spher_Harm.o ../CFML_Random.o ../CFML_FFTs.o ../CFML_String_Util_$STR_MOD.o ../CFML_IO_Mess.o ../CFML_Profile_TOF.o ../CFML_Profile_Finger.o ../CFML_Profile_Functs.o ../CFML_Math_3D.o ../CFML_Optimization.o ../CFML_Optimization_LSQ.o ../CFML_Sym_Table.o ../CFML_Chem_Scatt.o ../CFML_Diffpatt.o ../CFML_Bonds_Table.o ../CFML_Cryst_Types.o ../CFML_Symmetry.o ../CFML_ILL_Instrm_Data.o ../CFML_Reflct_Util.o ../CFML_Atom_Mod.o ../CFML_Export_Vtk_LF95.o ../CFML_Sfac.o ../CFML_Geom_Calc.o ../CFML_Propagk.o ../CFML_Maps.o ../CFML_Molecules.o ../CFML_SXTAL_Geom.o ../CFML_Conf_Calc.o ../CFML_Form_CIF.o ../CFML_MagSymm.o ../CFML_Msfac.o ../CFML_Polar.o ../CFML_Refcodes.o ../CFML_BVSpar.o ../cfml_python.o $LIBFLAGS
 
 #$CPPCOMP -shared -fPIC -o _pycrysfml.so -g -Wall ./*.o ../crysfml.so $LIBFLAGS -L.. -I.. -Xlinker -rpath .
 cd $wd
 make clean
 # install to hklgen directory
 cp Src/wrap/pycrysfml.py hklgen/
-cp Src/wrap/_pycrysfml.so hklgen/
+cp Src/wrap/_pycrysfml.$SOLIB_EXT hklgen/
 rm hklgen/pycrysfml.pyc
 # update binary release
 cp Src/wrap/pycrysfml.py $wd/bin/$BIN_DIR/
-cp Src/wrap/_pycrysfml.so $wd/bin/$BIN_DIR/
+cp Src/wrap/_pycrysfml.$SOLIB_EXT $wd/bin/$BIN_DIR/
 # update help file
 cd $wd/bin/$BIN_DIR/
 cp $wd/gen_help_file.py .
