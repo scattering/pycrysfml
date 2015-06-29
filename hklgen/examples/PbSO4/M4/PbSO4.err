@@ -1,0 +1,89 @@
+.atoms
+  .O1
+    .O1 B = Parameter(0.5, name='O1 B')
+    .O1 occ = Parameter(1, name='O1 occ')
+    .O1 x = Parameter(0.907299, name='O1 x', bounds=(0.8,1.01))
+    .O1 y = Parameter(0.25, name='O1 y')
+    .O1 z = Parameter(0.595671, name='O1 z', bounds=(0.49,0.7))
+  .O2
+    .O2 B = Parameter(0.5, name='O2 B')
+    .O2 occ = Parameter(1, name='O2 occ')
+    .O2 x = Parameter(0.193208, name='O2 x', bounds=(0.09,0.3))
+    .O2 y = Parameter(0.25, name='O2 y')
+    .O2 z = Parameter(0.542208, name='O2 z', bounds=(0.44,0.65))
+  .O3
+    .O3 B = Parameter(0.5, name='O3 B')
+    .O3 occ = Parameter(1, name='O3 occ')
+    .O3 x = Parameter(0.0809262, name='O3 x', bounds=(-0.02,0.19))
+    .O3 y = Parameter(0.02709, name='O3 y')
+    .O3 z = Parameter(0.809325, name='O3 z', bounds=(0.7,0.91))
+  .Pb
+    .Pb B = Parameter(0.897221, name='Pb B', bounds=(0,10))
+    .Pb occ = Parameter(1, name='Pb occ')
+    .Pb x = Parameter(0.187384, name='Pb x', bounds=(0.08,0.29))
+    .Pb y = Parameter(0.25, name='Pb y')
+    .Pb z = Parameter(0.167023, name='Pb z', bounds=(0.06,0.27))
+  .S
+    .S B = Parameter(0.5, name='S B')
+    .S occ = Parameter(1, name='S occ')
+    .S x = Parameter(0.0641805, name='S x', bounds=(-0.04,0.17))
+    .S y = Parameter(0.25, name='S y')
+    .S z = Parameter(0.678808, name='S z', bounds=(0.58,0.79))
+.base = Parameter(210.861, name='base', bounds=(-400,700))
+.cell
+  .a = Parameter(8.47809, name='a', bounds=(3,14))
+  .b = Parameter(5.39705, name='b', bounds=(0,11))
+  .c = Parameter(6.95843, name='c', bounds=(1,12))
+.eta = Parameter(0.470969, name='eta', bounds=(0,1))
+.scale = Parameter(1.30702, name='scale', bounds=(0,100))
+.u = Parameter(0.16888, name='u', bounds=(0,1))
+.v = Parameter(-0.372525, name='v', bounds=(-1,0))
+.w = Parameter(0.371129, name='w', bounds=(0,1))
+.zero = Parameter(-0.136802, name='zero', bounds=(-0.6,0.5))
+
+[chisq=2.0522(81), nllf=5928.83]
+                                    O1 x .....|....   0.907299 in (0.8,1.01)
+                                    O1 z .....|....   0.595671 in (0.49,0.7)
+                                    O2 x ....|.....   0.193208 in (0.09,0.3)
+                                    O2 z ....|.....   0.542208 in (0.44,0.65)
+                                    O3 x ....|.....  0.0809262 in (-0.02,0.19)
+                                    O3 z .....|....   0.809325 in (0.7,0.91)
+                                    Pb B |.........   0.897221 in (0,10)
+                                    Pb x .....|....   0.187384 in (0.08,0.29)
+                                    Pb z .....|....   0.167023 in (0.06,0.27)
+                                     S x ....|.....  0.0641805 in (-0.04,0.17)
+                                     S z ....|.....   0.678808 in (0.58,0.79)
+                                    base .....|....    210.861 in (-400,700)
+                                       a ....|.....    8.47809 in (3,14)
+                                       b ....|.....    5.39705 in (0,11)
+                                       c .....|....    6.95843 in (1,12)
+                                     eta ....|.....   0.470969 in (0,1)
+                                   scale |.........    1.30702 in (0,100)
+                                       u .|........    0.16888 in (0,1)
+                                       v ......|...  -0.372525 in (-1,0)
+                                       w ...|......   0.371129 in (0,1)
+                                    zero ....|.....  -0.136802 in (-0.6,0.5)
+/home/jel/.local/lib/python2.7/site-packages/matplotlib/axes/_axes.py:2651: MatplotlibDeprecationWarning: Use of None object as fmt keyword argument to suppress plotting of data values is deprecated since 1.4; use the string "none" instead.
+  warnings.warn(msg, mplDeprecation, stacklevel=1)
+              Parameter       mean  median    best [   68% interval] [   95% interval]
+ 1                 O1 x 0.90720(17) 0.907199 0.907299 [0.90703 0.90737] [0.90686 0.90753]
+ 2                 O1 z 0.59580(20) 0.595797 0.595671 [0.59560 0.59599] [0.59541 0.59618]
+ 3                 O2 x 0.19324(17) 0.193241 0.193208 [0.19308 0.19341] [0.19292 0.19357]
+ 4                 O2 z 0.54217(21) 0.542169 0.542208 [0.54196 0.54238] [0.54176 0.54258]
+ 5                 O3 x 0.08093(11) 0.080930 0.080926 [0.08082 0.08104] [0.08072 0.08114]
+ 6                 O3 z 0.80940(13) 0.809402 0.809325 [0.80927 0.80953] [0.80914 0.80966]
+ 7                 Pb B  0.890(18)  0.8897  0.8972 [  0.872   0.907] [  0.855   0.924]
+ 8                 Pb x 0.187395(93) 0.187394 0.187384 [0.18730 0.18749] [0.18721 0.18758]
+ 9                 Pb z 0.16704(14) 0.167044 0.167023 [0.16690 0.16718] [0.16677 0.16732]
+10                  S x 0.06425(29) 0.06424 0.06418 [ 0.0640  0.0645] [ 0.0637  0.0648]
+11                  S z 0.67844(41) 0.67844 0.67881 [ 0.6780  0.6788] [ 0.6776  0.6792]
+12                 base 211.16(33) 211.161 210.861 [ 210.83  211.49] [ 210.52  211.81]
+13                    a 8.478183(85) 8.478183 8.478087 [8.47810 8.47827] [8.47802 8.47835]
+14                    b 5.397038(57) 5.397038 5.397053 [5.39698 5.39710] [5.39693 5.39715]
+15                    c 6.958490(74) 6.958490 6.958431 [6.95842 6.95856] [6.95834 6.95863]
+16                  eta 0.4705(63)  0.4703  0.4710 [  0.464   0.477] [  0.459   0.484]
+17                scale 1.3032(35)  1.3032  1.3070 [  1.300   1.307] [  1.296   1.310]
+18                    u 0.1677(22) 0.16786 0.16888 [ 0.1656  0.1699] [ 0.1629  0.1719]
+19                    v -0.3700(52) -0.3705 -0.3725 [ -0.375  -0.366] [ -0.379  -0.357]
+20                    w 0.3697(30)  0.3703  0.3711 [  0.368   0.372] [  0.361   0.374]
+21                 zero -0.13619(85) -0.13618 -0.13680 [-0.1370 -0.1353] [-0.1379 -0.1345]

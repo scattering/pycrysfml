@@ -10,7 +10,7 @@
 from pycrysfml import *
 import os
 import numpy as np
-import pylab
+import matplotlib.pylab as pylab
 from math import floor, sqrt, log, tan, radians
 from string import rstrip, ljust, rjust, center
 from collections import OrderedDict
@@ -920,10 +920,10 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength))
         multips = np.array([ref.get_reflection_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
-        sfs2 *= multips
+        #sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    return sfs2 * lorentz #* multips * lorentz
+    return sfs2 #* lorentz #* multips * lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern

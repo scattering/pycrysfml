@@ -54,7 +54,7 @@ def fit():
 def main():
     uvw = [ 1.808975,  -1.476480,   0.446286 ]
     cell = crystalCell
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=93.662/(600.5*1.5),
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=93.662/(6.5*1.5),
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,

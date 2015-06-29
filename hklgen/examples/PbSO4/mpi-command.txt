@@ -1,0 +1,1 @@
+PYTHONPATH=/home/jel/pycrysfml/hklgen mpirun -n 128 --hostfile hostfile -x PYTHONPATH -x PATH bumps hocu.py --store=`pwd`/M2 --batch --fit=dream --burn=100 --steps=1000 --mpi

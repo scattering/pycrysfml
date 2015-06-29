@@ -1,0 +1,79 @@
+.atoms
+  .Ba
+    .Ba B = Parameter(0, name='Ba B')
+    .Ba occ = Parameter(1, name='Ba occ')
+    .Ba x = Parameter(0.5, name='Ba x')
+    .Ba y = Parameter(0.5, name='Ba y')
+    .Ba z = Parameter(0, name='Ba z')
+  .Ho
+    .Ho B = Parameter(0, name='Ho B')
+    .Ho C0 = Parameter(0.109453, name='Ho C0', bounds=(-20,20))
+    .Ho C1 = Parameter(9.06158, name='Ho C1', bounds=(-20,20))
+    .Ho occ = Parameter(1, name='Ho occ')
+    .Ho x = Parameter(0.5, name='Ho x')
+    .Ho y = Parameter(0, name='Ho y')
+    .Ho z = Parameter(0.20264, name='Ho z')
+  .Ni
+    .Ni B = Parameter(0, name='Ni B')
+    .Ni C0 = Parameter(0.959909, name='Ni C0', bounds=(-20,20))
+    .Ni C1 = Parameter(-1.33493, name='Ni C1', bounds=(-20,20))
+    .Ni occ = Parameter(1, name='Ni occ')
+    .Ni x = Parameter(0, name='Ni x')
+    .Ni y = Parameter(0, name='Ni y')
+    .Ni z = Parameter(0, name='Ni z')
+  .O1
+    .O1 B = Parameter(0, name='O1 B')
+    .O1 occ = Parameter(1, name='O1 occ')
+    .O1 x = Parameter(0, name='O1 x')
+    .O1 y = Parameter(0.24367, name='O1 y')
+    .O1 z = Parameter(0.14959, name='O1 z')
+  .O2
+    .O2 B = Parameter(0, name='O2 B')
+    .O2 occ = Parameter(1, name='O2 occ')
+    .O2 x = Parameter(0.5, name='O2 x')
+    .O2 y = Parameter(0, name='O2 y')
+    .O2 z = Parameter(0, name='O2 z')
+.base = Parameter(7193.19, name='base', bounds=(5500,7600))
+.cell
+  .a = Parameter(3.75426, name='a', bounds=(-2,9))
+  .b = Parameter(5.72998, name='b', bounds=(0,11))
+  .c = Parameter(11.2697, name='c', bounds=(6,17))
+.eta = Parameter(0.00962447, name='eta', bounds=(0,1))
+.scale = Parameter(55.2428, name='scale', bounds=(0,100))
+.u = Parameter(1.59241, name='u', bounds=(0,10))
+.v = Parameter(-1.02731, name='v', bounds=(-10,0))
+.w = Parameter(0.346467, name='w', bounds=(0,10))
+.zero = Parameter(0.084776, name='zero', bounds=(-0.5,0.6))
+
+[chisq=50.720(41), nllf=19577.8]
+                                   Ho C0 .....|....   0.109453 in (-20,20)
+                                   Ho C1 .......|..    9.06158 in (-20,20)
+                                   Ni C0 .....|....   0.959909 in (-20,20)
+                                   Ni C1 ....|.....   -1.33493 in (-20,20)
+                                    base ........|.    7193.19 in (5500,7600)
+                                       a .....|....    3.75426 in (-2,9)
+                                       b .....|....    5.72998 in (0,11)
+                                       c ....|.....    11.2697 in (6,17)
+                                     eta |......... 0.00962447 in (0,1)
+                                   scale .....|....    55.2428 in (0,100)
+                                       u .|........    1.59241 in (0,10)
+                                       v ........|.   -1.02731 in (-10,0)
+                                       w |.........   0.346467 in (0,10)
+                                    zero .....|....   0.084776 in (-0.5,0.6)
+/home/jel/.local/lib/python2.7/site-packages/matplotlib/axes/_axes.py:2651: MatplotlibDeprecationWarning: Use of None object as fmt keyword argument to suppress plotting of data values is deprecated since 1.4; use the string "none" instead.
+  warnings.warn(msg, mplDeprecation, stacklevel=1)
+              Parameter       mean  median    best [   68% interval] [   95% interval]
+ 1                Ho C0 0.1079(66)  0.1079  0.1095 [  0.101   0.115] [  0.095   0.121]
+ 2                Ho C1 9.0639(54)  9.0639  9.0616 [  9.058   9.069] [  9.053   9.075]
+ 3                Ni C0  0.953(13)  0.9532  0.9599 [  0.940   0.966] [  0.928   0.978]
+ 4                Ni C1 -1.3341(54) -1.3341 -1.3349 [ -1.339  -1.329] [ -1.345  -1.324]
+ 5                 base 7191.2(44) 7191.23 7193.19 [ 7186.8  7195.6] [ 7182.6  7199.8]
+ 6                    a 3.754274(32) 3.754273 3.754262 [3.75424 3.75431] [3.75421 3.75434]
+ 7                    b 5.729982(45) 5.729982 5.729981 [5.72994 5.73003] [5.72989 5.73007]
+ 8                    c 11.26968(12) 11.269681 11.269688 [11.26956 11.26981] [11.26944 11.26992]
+ 9                  eta 9.7(18)e-3 0.00974 0.00962 [ 0.0079  0.0116] [ 0.0062  0.0134]
+10                scale 55.233(59)  55.233  55.243 [  55.17   55.29] [  55.12   55.35]
+11                    u 1.5900(65)  1.5900  1.5924 [  1.583   1.597] [  1.577   1.603]
+12                    v -1.0262(62) -1.0262 -1.0273 [ -1.032  -1.020] [ -1.038  -1.014]
+13                    w 0.3464(13) 0.34643 0.34647 [ 0.3452  0.3477] [ 0.3440  0.3489]
+14                 zero 0.08474(27) 0.08474 0.08478 [ 0.0845  0.0850] [ 0.0842  0.0853]

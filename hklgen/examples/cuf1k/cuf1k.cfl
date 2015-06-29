@@ -6,8 +6,8 @@ ATOM Cu      CU      0.00000  0.00000  0.00000  0.11845  0.50000
 ATOM F       F       0.29440  0.29840  0.03883  0.36053  1.00000
 Mag_Structure
 LATTICE P -1
-spherical
 KVECT     0.50000   0.00000   0.50000
+!KVECT     0.00000   0.00000   0.16509
 SYMM x,y,z
 MSYM u,v,w,0.0
 SYMM x+1/2,y+1/2,z+1/2
