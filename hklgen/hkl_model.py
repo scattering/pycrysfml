@@ -161,7 +161,7 @@ class Model(object):
 
     def __init__(self, tt, observed, background, u, v, w,
                  wavelength, spaceGroupName, cell, atoms, exclusions=None,
-                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None, sxtal=False, error=None):
+                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None, sxtal=False, error=None, hkls=None):
         if (isinstance(spaceGroupName, SpaceGroup)):
             self.spaceGroup = spaceGroupName
         else:
@@ -176,6 +176,9 @@ class Model(object):
         self.scale = Parameter(scale, name='scale')
         self.eta = Parameter(eta, name='eta')
         self.error = error
+        # hkls for single crystal only
+        if hkls != None:
+            self.refList = hkls
         if base != None:
             self.base = Parameter(base, name='base')
             self.has_base = True
@@ -209,27 +212,33 @@ class Model(object):
     def _set_reflections(self):
         maxLattice = self.cell.getMaxLattice()
         maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
-        self.refList = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=False)
-        self.reflections = self.refList[:]
-        if self.magnetic:
-            # convert magnetic symmetry to space group
-            latt = getMagsymmK_latt(self.symmetry)
-            if self.symmetry.get_magsymm_k_mcentred() == 1: 
-                latt+= " -1" 
-            else:
-                latt += " 1"
-            spg = SpaceGroup()
-            funcs.set_spacegroup(latt, spg)
-            # use this space group to generate magnetic hkls      
-            hkls = hklGen(spg, self.cell.cell, self.sMin, np.sin(179.5/2)/self.wavelength, True, xtal=self.xtal)
-            self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)#satelliteGen_python(self.cell.cell, self.sMax, hkls)
-            self.magReflections = self.magRefList[:]       
-
+        if not self.xtal:
+            # powder calculations
+            self.refList = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=False)
+            self.reflections = self.refList[:]
+            if self.magnetic:
+                # convert magnetic symmetry to space group
+                latt = getMagsymmK_latt(self.symmetry)
+                if self.symmetry.get_magsymm_k_mcentred() == 1: 
+                    latt+= " -1" 
+                else:
+                    latt += " 1"
+                spg = SpaceGroup()
+                funcs.set_spacegroup(latt, spg)
+                # use this space group to generate magnetic hkls      
+                hkls = hklGen(spg, self.cell.cell, self.sMin, np.sin(179.5/2)/self.wavelength, True, xtal=True)
+                self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)#satelliteGen_python(self.cell.cell, self.sMax, hkls)
+                self.magReflections = self.magRefList[:]                   
+        else:
+            self.reflections = self.refList[:]
+            self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=self.refList)
+            
     def __getstate__(self):
         state = self.__dict__.copy()
         del state["refList"]
         del state["magRefList"]
         return state
+    
     def __setstate__(self, state):
         self.__dict__ = state
         self._set_reflections()
@@ -275,8 +284,7 @@ class Model(object):
                     'cell': self.cell.parameters(),
                     'atoms': self.atomListModel.parameters()
                     }
-            
-
+        
     def numpoints(self):
         return len(self.observed)
 

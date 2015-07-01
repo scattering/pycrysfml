@@ -1,0 +1,70 @@
+COMM G2+G2 Single Phase Fit
+! Current global Chi2 (Bragg contrib.) =      15.59    
+! Files => DAT-file: MagOnly.dat,  PCR-file: MagOnly
+!Job Npr Nph Nba Nex Nsc Nor Dum Iwg Ilo Ias Res Ste Nre Cry Uni Cor Opt Aut
+   1   0   1   0   0   0   0   0   0  -1   0   0   0   0   1   0   0   0   1
+!
+!Ipr Ppl Ioc Mat Pcr Ls1 Ls2 Ls3 NLI Prf Ins Rpa Sym Hkl Fou Sho Ana
+   1   0   1   0   1   0   4   0   0   3   0   2   0   0   0   0   0
+!
+!NCY  Eps  R_at  R_an  R_pr  R_gl     Thmin       Step       Thmax    PSD    Sent0
+ 50  0.10  1.00  1.00  1.00  1.00      0.0968   0.000000     0.3182   0.000   0.000
+!
+!
+       3    !Number of refined parameters
+!-------------------------------------------------------------------------------
+!  Data for PHASE number:   1  ==> Current R_Bragg for Pattern#  1:     7.06
+!-------------------------------------------------------------------------------
+Magnetic Phase
+!
+!Nat Dis Mom Pr1 Pr2 Pr3 Jbt Irf Isy Str Furth       ATZ    Nvk Npr More
+   1   0   0 0.0 0.0 1.0   1   4  -2   0   0          0.000   0   0   0
+!
+P -1                     <--Space group symbol for hkl generation
+! Nsym   Cen  Laue Ireps N_Bas
+     6     1     1    -1     3
+! Real(0)-Imaginary(1) indicator for Ci
+  0  0  0
+!
+SYMM x,y,z
+BASR   1  0  0   0  0  1   1  2  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM -x,-y,z+1/2
+BASR  -1  0  0   0  0  1  -1 -2  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM -y,x-y,z
+BASR   0  1  0   0  0  1   -2 -1  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM y,-x+y,z+1/2
+BASR   0 -1  0   0  0  1   2  1  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM -x+y,-x,z
+BASR  -1 -1  0   0  0  1   1 -1  0
+BASI   0  0  0   0  0  0   0  0  0
+SYMM x-y,x,z+1/2
+BASR   1  1  0   0  0  1   -1  1  0
+BASI   0  0  0   0  0  0    0  0  0
+!
+!Atom   Typ  Mag Vek    X      Y      Z       Biso    Occ      C1      C2      C3
+!     C4     C5     C6      C7      C8      C9      MagPh
+FE1    MFE3  1  0  0.33415 0.00000 0.00000 0.00000  1.00000   3.182   0.000   0.905  
+                     11.00    0.00    0.00    0.00     0.00   21.00    0.00   31.00
+     0.000   0.000   0.000   0.000   0.000   0.000  0.00000
+      0.00    0.00    0.00    0.00    0.00    0.00     0.00
+!-------> Scale, Extinction and  Cell Parameters for Pattern #  1
+!  Scale Factors 
+!   Sc1        Sc2         Sc3         Sc4         Sc5         Sc6
+   7.297       0.000       0.000       0.000       0.000       0.000    
+        0.00        0.00        0.00        0.00        0.00        0.00
+!  Extinction Parameters 
+! Ext1       Ext2       Ext3       Ext4       Ext5       Ext6       Ext7   Ext-Model
+ 0.6385      0.000      0.000      0.000      0.000      0.000      0.000       1
+       0.00       0.00       0.00       0.00       0.00       0.00       0.00
+!     a          b         c        alpha      beta       gamma      #Cell Info
+   5.964001   5.964001  11.533996  90.000000  90.000000 120.000000   
+    0.00000    0.00000    0.00000    0.00000    0.00000    0.00000
+! x-Lambda/2  +          Not yet used parameters
+     0.00000     0.00001     0.00000     0.00000     0.00000
+        0.00        0.00        0.00        0.00        0.00
+!  2Th1/TOF1    2Th2/TOF2  Pattern to plot
+       0.097       0.318       1
