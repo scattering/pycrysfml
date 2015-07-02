@@ -621,6 +621,13 @@ class Peak(object):
             v[idx] += self.__call__(np.array(x)[idx])
         except:
             pass
+
+class sXtalPeak(object):
+    def __init__(self, sfs2, svalue):
+        self.sfs2 = sfs2
+        self.svalue = svalue
+    def __eq__(self, other):
+        return self.svalue == other.svalue
 # LinSpline: represents a linear spline function to be used for the background
 class LinSpline(object):
     def __init__(self, arg1=None, arg2=None, fn="LinSpline"):
@@ -931,22 +938,24 @@ def extinctionFactor(sfs2, wavelength, tt, scale, coeffs):
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
 def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
-                  magnetic=False, xtal=False):
+                  magnetic=False, xtal=False, extinctions=None):
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
         sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
         sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
         multips = np.array([ref.get_magh_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
+        svalues = np.array([ref.get_magh_s() for ref in refList])
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=xtal))
         multips = np.array([ref.get_reflection_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
+        svalues = np.array([ref.get_magh_s() for ref in refList])
         if not xtal: sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
     if not xtal: return sfs2 * lorentz
-    return sfs2
+    return sfs2, svalues
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
@@ -956,7 +965,15 @@ def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian", eta=N
                           coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl, shape, eta)
                  for rk,Ik in zip(reflections,I)]
     return peaks
-
+def makeXtalPeaks(sfs2, svalues):
+    peaks = []
+    for i in range(len(svalues)):
+        p = sXtalPeak(sfs2[i], svalues[i])
+        if p not in peaks:
+            peaks.append(p)
+        else:
+            peaks[peaks.index(p)].sfs2 += sfs2[i]
+    return peaks
 # getIntensity: calculates the intensity at a given 2*theta position, or for an
 #   array of 2*theta positions
 def getIntensity(peaks, background, tt, base=0):
@@ -1111,7 +1128,7 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
     if plot:
         sObs = np.array([getS(value, wavelength) for value in tt])
         sCalc = np.array([ref.s for ref in reflections])
-        plotXtalPattern(sObs, sCalc, obsIntensity, intensities, background=background, error=error, base=base, residuals=residuals,labels=labels)
+        plotXtalPattern(sObs, sCalc, obsIntensity, intensities*scale, background=background, error=error, base=base, residuals=residuals,labels=labels)
         pylab.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")

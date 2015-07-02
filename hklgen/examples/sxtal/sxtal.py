@@ -63,7 +63,7 @@ def main():
                   #observedData=(tt,observed), base=6512, xtal=True, residuals=True, error=error)
     H.diffPatternXtal(infoFile=infoFile, cell=cell, scale=2.34, tt=tt, 
                       obsIntensity=sfs2, wavelength=wavelength, basisSymmetry=basisSymmetry, 
-                      magAtomList=magAtomList, plot=True, residuals=False, error=error, magnetic=True, 
+                      magAtomList=magAtomList, plot=True, residuals=True, error=error, magnetic=True, 
                       info=True, base=0, refList=refList)
 if __name__ == "__main__":
     # program run normally
