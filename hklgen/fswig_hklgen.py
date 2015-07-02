@@ -923,7 +923,10 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
         #print atom.basis()
     mivs = np.array([ref.magIntVec() for ref in refList])
     return mivs
-
+# extinctionFactor: applies extinction coeffiecients to the structure factor squared
+#   currently implemented for only one extinction coefficient
+def extinctionFactor(sfs2, wavelength, tt, scale, coeffs):
+    return sfs2 * (scale*(1+(0.001*coeffs[0]*sfs2*wavelength**3)/np.sin(tt))**(1/4))**2
 
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
@@ -1255,7 +1258,7 @@ def plotXtalPattern(sObs, sCalc, obsIntensity, calcIntensity, background=None,
     if (residuals):
         resid = obsIntensity - calcIntensity
         pylab.subplot(212)
-        pylab.plot(sObs*(4*np.pi), resid, label="Residuals")
+        pylab.plot(sObs*(4*np.pi), resid, '-bo', linestyle="None", label="Residuals")
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
