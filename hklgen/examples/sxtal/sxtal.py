@@ -29,15 +29,11 @@ def fit():
     cell.a.pm(5.0)
     cell.b.pm(5.0)
     cell.c.pm(5.0)
-    m = Mod.Model(tt, observed, backg, 1.548048,-0.988016,0.338780, wavelength, spaceGroup, cell,
+    m = S.Model(tt, observed, backg, wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=59.08, sxtal=True, eta=0.0382, zero=0.08416, error=error)
-    m.u.range(0,10)
-    m.v.range(-10,0)
-    m.w.range(0,10)
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=59.08, eta=0.0382, zero=0.08416, error=error)
     m.scale.range(0,100)
     m.zero.pm(0.5)
-    m.eta.range(0,1)
     m.base.pm(1000)
     for atomModel in m.atomListModel.atomModels:
         atomModel.x.range(0,1)
