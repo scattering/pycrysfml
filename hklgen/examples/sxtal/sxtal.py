@@ -4,6 +4,7 @@ from copy import copy
 import numpy as np
 import fswig_hklgen as H
 import hkl_model as Mod
+import sxtal_model as S
 #import bumps.parameter
 #def dont(self, *args, **kw): raise Exception("don't")
 #bumps.parameter.OperatorAdd.__init__ = dont
@@ -17,12 +18,9 @@ infoFile = os.path.join(DATAPATH,r"NC35L.cfl")
 
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
-#ttMin = 10.010000228881836
-#ttMax = 89.81000518798828
-#ttStep = 0.20000000298
 exclusions = []
 # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
-wavelength, refList, sfs2, error, tt, four_circle = H.readData(observedFile, kind="int")
+wavelength, refList, sfs2, error, tt, four_circle = S.readIntFile(observedFile)
 backg = H.LinSpline(None)
 basisSymmetry = copy(symmetry)
 
@@ -56,15 +54,10 @@ def fit():
 
 def main():
     cell = crystalCell
-    #H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=59.08,
-                  #ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
-                  #basisSymmetry=basisSymmetry, magAtomList=magAtomList,
-                  #magnetic=True, info=True, plot=True,
-                  #observedData=(tt,observed), base=6512, xtal=True, residuals=True, error=error)
-    H.diffPatternXtal(infoFile=infoFile, cell=cell, scale=2.34, tt=tt, 
+    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=2.34, tt=tt, 
                       obsIntensity=sfs2, wavelength=wavelength, basisSymmetry=basisSymmetry, 
-                      magAtomList=magAtomList, plot=True, residuals=True, error=error, magnetic=True, 
-                      info=True, base=0, refList=refList)
+                      magAtomList=magAtomList, plot=True, residuals=True, error=error, magnetic=False, 
+                      info=True, base=0, refList=refList, extinctions=[2.974])
 if __name__ == "__main__":
     # program run normally
     main()

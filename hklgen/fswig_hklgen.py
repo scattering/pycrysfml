@@ -621,13 +621,6 @@ class Peak(object):
             v[idx] += self.__call__(np.array(x)[idx])
         except:
             pass
-
-class sXtalPeak(object):
-    def __init__(self, sfs2, svalue):
-        self.sfs2 = sfs2
-        self.svalue = svalue
-    def __eq__(self, other):
-        return self.svalue == other.svalue
 # LinSpline: represents a linear spline function to be used for the background
 class LinSpline(object):
     def __init__(self, arg1=None, arg2=None, fn="LinSpline"):
@@ -682,23 +675,6 @@ def readMagInfo(filename):
 #   y: data file only contains intensities for a linear 2*theta range
 def readData(filename, kind="xy", skiplines=0, skipcols=0, colstep=1,
              start=None, stop=None, step=None, exclusions=None):
-    if (kind == "int"):
-        HKLs = np.loadtxt(filename, dtype=int, usecols=(0,1,2), skiprows=3, comments='!')
-        data = np.loadtxt(filename, dtype=float, usecols=(3,4,6,7,8,9), skiprows=3, comments='!')
-        wavelength = np.loadtxt(filename, dtype=float, skiprows=2, usecols=[0], comments='!')[0]
-        refList = ReflectionList()
-        refList.set_reflection_list_nref(len(HKLs[:,0]))
-        funcs.alloc_refllist_array(refList)
-        tt = data[:,2]
-        for i in range(len(HKLs[:,0])):
-            reflection = Reflection()
-            hkl = IntVector(HKLs[i,:])
-            reflection.set_reflection_h(hkl)
-            reflection.set_reflection_s(getS(tt[i], wavelength))
-            reflection.set_reflection_mult(1)
-            refList[i] = reflection
-        # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
-        return wavelength, refList, data[:,0], data[:,1], tt, data[:,3:]
     if (kind == "xy"):
         tt, observed = np.loadtxt(filename, dtype=float, usecols=(0,1),
                                   skiprows=skiplines, unpack=True)
@@ -930,32 +906,25 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
         #print atom.basis()
     mivs = np.array([ref.magIntVec() for ref in refList])
     return mivs
-# extinctionFactor: applies extinction coeffiecients to the structure factor squared
-#   currently implemented for only one extinction coefficient
-def extinctionFactor(sfs2, wavelength, tt, scale, coeffs):
-    return sfs2 * (scale*(1+(0.001*coeffs[0]*sfs2*wavelength**3)/np.sin(tt))**(1/4))**2
 
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
 def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
-                  magnetic=False, xtal=False, extinctions=None):
+                  magnetic=False, xtal=False, extinctions=None, scale=None):
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
         sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
         sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
         multips = np.array([ref.get_magh_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
-        svalues = np.array([ref.get_magh_s() for ref in refList])
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=xtal))
         multips = np.array([ref.get_reflection_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
-        svalues = np.array([ref.get_magh_s() for ref in refList])
-        if not xtal: sfs2 *= multips
+        sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    if not xtal: return sfs2 * lorentz
-    return sfs2, svalues
+    return sfs2 * lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
@@ -965,15 +934,7 @@ def makePeaks(reflections, coeffs, I, scale, wavelength, shape="Gaussian", eta=N
                           coeffs[0], coeffs[1], coeffs[2], Ik, rk.hkl, shape, eta)
                  for rk,Ik in zip(reflections,I)]
     return peaks
-def makeXtalPeaks(sfs2, svalues):
-    peaks = []
-    for i in range(len(svalues)):
-        p = sXtalPeak(sfs2[i], svalues[i])
-        if p not in peaks:
-            peaks.append(p)
-        else:
-            peaks[peaks.index(p)].sfs2 += sfs2[i]
-    return peaks
+
 # getIntensity: calculates the intensity at a given 2*theta position, or for an
 #   array of 2*theta positions
 def getIntensity(peaks, background, tt, base=0):
@@ -1082,57 +1043,6 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
     return (tt, intensity)
 
-# diffPatternXtal: generates a neutron diffraction pattern from a file containing
-#   crystallographic information or from the same information generated
-#   elsewhere Use this version for single crystal data
-def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
-                    tt=None, exclusions=None,
-                spaceGroup=None, cell=None, atomList=None,
-                symmetry=None, basisSymmetry=None, magAtomList=None, scale=1,
-                magnetic=False, info=False, plot=False, saveFile=None,
-                obsIntensity=None, labels=None, base=0, residuals=False, error=None, refList=None):
-    background = LinSpline(backgroundFile)
-    sMin, sMax = getS(min(tt), wavelength), getS(max(tt), wavelength)
-    reflections = None
-    if magnetic:
-        if (infoFile != None):
-            infofile = readMagInfo(infoFile)
-            if (spaceGroup == None): spaceGroup = infofile[0]
-            if (cell == None): cell = infofile[1]
-            if (magAtomList == None): magAtomList = infofile[2]
-            if (symmetry == None): symmetry = infofile[3]
-        if (basisSymmetry == None): basisSymmetry = symmetry
-        magRefList = satelliteGen(cell, symmetry, np.sin(179.5/2)/wavelength, hkls=refList)
-        print "length of reflection list " + str(len(magRefList))
-        magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
-                                       wavelength, cell, True, xtal=True)
-        # add in structural peaks
-        if (atomList == None): atomList = readInfo(infoFile)[2]
-        intensities = calcIntensity(refList, atomList, spaceGroup, wavelength, xtal=True)
-        reflections = magRefList[:] + refList[:]
-        intensities = np.append(magIntensities, intensities)
-    else:
-        if (infoFile != None):
-            infofile = readInfo(infoFile)
-            if (spaceGroup == None): spaceGroup = infofile[0]
-            if (cell == None): cell = infofile[1]
-            if (atomList == None): atomList = infofile[2]         
-        reflections = refList[:]
-        intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
-    if info:
-        if magnetic:
-            printInfo(cell, spaceGroup, (atomList, magAtomList), (refList, magRefList),
-                      wavelength, basisSymmetry)
-        else:
-            printInfo(cell, spaceGroup, atomList, refList, wavelength)
-    if plot:
-        sObs = np.array([getS(value, wavelength) for value in tt])
-        sCalc = np.array([ref.s for ref in reflections])
-        plotXtalPattern(sObs, sCalc, obsIntensity, intensities*scale, background=background, error=error, base=base, residuals=residuals,labels=labels)
-        pylab.show()
-    if saveFile:
-        np.savetxt(saveFile, (tt, intensity), delimiter=" ")
-    return
 
 # printInfo: prints out information about the provided space group and atoms,
 #   as well as the generated reflections
@@ -1200,8 +1110,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in xrange(3))
         multip = [str(ref.multip) for ref in refList]
         tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
-        intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject,
-                                                       wavelength, cell, magnetic, xtal=True)]
+        intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject, wavelength, cell, magnetic)]
         #dtype = [('tt', float),('h', 'S10'), ('k', 'S10'), ('l','S10'), ('intensity', 'S10')]
         #array1 = np.array([(tt[i], str(float(h[i])+0.5),k[i],str(float(l[i])+0.5),intensity[i]) for i in range(len(tt))], dtype=dtype)
         #array2 = np.sort(array1, order='tt')
@@ -1260,22 +1169,6 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
         resid = observed - intensityCalc
         pylab.subplot(212)
         pylab.plot(ttObs, resid, label="Residuals")
-    return
-def plotXtalPattern(sObs, sCalc, obsIntensity, calcIntensity, background=None, 
-                    exclusions=None, labels=None, residuals=False, base=0, error=None):
-    # plot single crystal intesities vs q as single points
-    pylab.subplot(211)
-    if (obsIntensity != None):
-        pylab.plot(sObs*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
-    pylab.plot(sCalc*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
-    pylab.errorbar(sObs*(4*np.pi), obsIntensity, yerr=error, fmt=None, ecolor='g')
-    pylab.xlabel("Q")
-    pylab.ylabel("Intensity")
-    pylab.legend()
-    if (residuals):
-        resid = obsIntensity - calcIntensity
-        pylab.subplot(212)
-        pylab.plot(sObs*(4*np.pi), resid, '-bo', linestyle="None", label="Residuals")
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
