@@ -21,29 +21,28 @@ atomList = H.readInfo(infoFile)[2]
 exclusions = []
 # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
 wavelength, refList, sfs2, error, tt, four_circle = S.readIntFile(observedFile)
-backg = H.LinSpline(None)
+backg = None
 basisSymmetry = copy(symmetry)
 
 def fit():
     cell = Mod.makeCell(crystalCell, spaceGroup.xtalSystem)
     cell.a.pm(5.0)
-    cell.b.pm(5.0)
     cell.c.pm(5.0)
-    m = S.Model(tt, observed, backg, wavelength, spaceGroup, cell,
+    m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=59.08, eta=0.0382, zero=0.08416, error=error)
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=min(sfs2), scale=1, error=error, hkls=refList)
     m.scale.range(0,100)
-    m.zero.pm(0.5)
     m.base.pm(1000)
-    for atomModel in m.atomListModel.atomModels:
-        atomModel.x.range(0,1)
-        atomModel.y.range(0,1)
-        atomModel.z.range(0,1)
-        atomModel.B.range(0,10)
-        if atomModel.magnetic:
-            for coeff in atomModel.coeffs:
-                #coeff.range(-10, 10)
-                coeff.range(-20,20)
+    m.extinction.range(0,10.0)
+    #for atomModel in m.atomListModel.atomModels:
+        #atomModel.x.range(0,1)
+        #atomModel.y.range(0,1)
+        #atomModel.z.range(0,1)
+        #atomModel.B.range(0,10)
+        #if atomModel.magnetic:
+            #for coeff in atomModel.coeffs:
+                ##coeff.range(-10, 10)
+                #coeff.range(-20,20)
     M = bumps.FitProblem(m)
     M.model_update()
     return M

@@ -14,169 +14,6 @@ class sXtalPeak(object):
         self.svalue = svalue
     def __eq__(self, other):
         return self.svalue == other.svalue
-# Model: represents an object that can be used with bumps for optimization
-#   purposes single crystal version
-#   TODO: fix plot, theory, and update
-class Model(object):
-
-    def __init__(self, tt, observed, background,
-                 wavelength, spaceGroupName, cell, atoms, exclusions=None,
-                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, zero=None, sxtal=False, error=None, hkls=None):
-        if (isinstance(spaceGroupName, SpaceGroup)):
-            self.spaceGroup = spaceGroupName
-        else:
-            self.spaceGroup = SpaceGroup(spaceGroupName)
-        self.xtal = sxtal
-        self.tt = np.array(tt)
-        self.observed = observed
-        self.background = background
-        self.scale = Parameter(scale, name='scale')
-        self.error = error
-        self.refList = hkls
-        if base != None:
-            self.base = Parameter(base, name='base')
-            self.has_base = True
-        else:
-            self.base=0
-            self.has_base = False
-        if zero != None:
-            self.zero = Parameter(zero, name='zero')
-            self.has_zero = True
-        else:
-            self.zero = 0
-            self.has_zero = False
-        self.wavelength = wavelength
-        self.cell = cell
-        self.exclusions = exclusions
-        self.ttMin = min(self.tt)
-        self.ttMax = max(self.tt)
-        self.sMin = getS(self.ttMin, self.wavelength)
-        self.sMax = getS(self.ttMax, self.wavelength)
-        self.magnetic = magnetic
-        if magnetic:
-            self.symmetry = symmetry
-            # used for basis vector structure factor generation
-            self.newSymmetry = newSymmetry
-            self.atomListModel = AtomListModel(atoms, self.spaceGroup.get_space_group_multip(),
-                                               True, self.newSymmetry)            
-        else:
-            self.atomListModel = AtomListModel(atoms, self.spaceGroup.get_space_group_multip(), False)
-        self._set_reflections()           
-        self.update()
-    def _set_reflections(self):
-        maxLattice = self.cell.getMaxLattice()
-        maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
-        self.reflections = self.refList[:]
-        if self.magnetic:
-            self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=self.refList)
-            self.magReflections = self.magRefList[:]
-            
-    def __getstate__(self):
-        state = self.__dict__.copy()
-        del state["refList"]
-        del state["magRefList"]
-        return state
-    
-    def __setstate__(self, state):
-        self.__dict__ = state
-        self._set_reflections()
-
-    def parameters(self):
-        if self.has_base and self.has_zero:
-            return {
-                    'scale': self.scale,
-                    'base': self.base,
-                    'zero' : self.zero,
-                    'cell': self.cell.parameters(),
-                    'atoms': self.atomListModel.parameters()
-                    }
-        elif self.has_base:
-            return {'scale': self.scale,
-                    'base': self.base,
-                    'cell': self.cell.parameters(),
-                    'atoms': self.atomListModel.parameters()
-                    }
-        elif self.has_zero:
-            return {
-                    'scale': self.scale,
-                    'zero' : self.zero,
-                    'cell': self.cell.parameters(),
-                    'atoms': self.atomListModel.parameters()
-                    }
-        else:
-            return {
-                    'scale': self.scale,
-                    'cell': self.cell.parameters(),
-                    'atoms': self.atomListModel.parameters()
-                    }
-        
-    def numpoints(self):
-        return len(self.observed)
-
-    def theory(self):
-        # add check in case zero not defined
-        if self.has_base and self.has_zero:
-            return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero.value, base=self.base.value)
-        elif self.has_base:
-            return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero, base=self.base.value)
-        elif self.has_zero:
-            return getIntensity(self.peaks, self.background, removeRannge(self.tt, self.exclusions)-self.zero.value, base=self.base)
-        else:
-            return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero, base=self.base)
-
-    def residuals(self):
-        return (self.theory() - self.observed)/(np.sqrt(self.observed)+1)
-
-    def nllf(self):
-        return np.sum(self.residuals()**2)
-
-    def plot(self, view="linear"):
-        import pylab
-        if self.has_base and self.has_zero:
-            base, zero = self.base.value, self.zero.value
-        elif self.has_base:
-            base, zero = self.base.value, self.zero
-        elif self.has_zero:
-            base, zero = self.base, self.zero.value  
-        else:
-            base, zero = self.base, self.zero
-        plotPattern(self.peaks, self.background, self.tt-zero, self.observed,
-                            self.ttMin, self.ttMax, 0.01, self.exclusions, labels=None, base = base, residuals=True, error=self.error)          
-    def update(self):  
-        self.cell.update()     
-        self.atomListModel.update()
-        hkls = [reflection.hkl for reflection in self.reflections]
-        sList = calcS(self.cell.cell, hkls)
-        ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
-        # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
-        ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
-        for i in xrange(len(self.reflections)):
-            self.reflections[i].set_reflection_s(getS(ttPos[i], self.wavelength))
-        self.intensities = calcIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength)
-        self.peaks = makePeaks(self.reflections,
-                                       [self.u.value, self.v.value, self.w.value],
-                                       self.intensities, self.scale.value,
-                                       self.wavelength, shape="pseudovoigt", eta=self.eta)
-        if self.magnetic:
-            # update magnetic reflections and add their peaks to the list of
-            #   Peaks         
-            hkls = [reflection.hkl for reflection in self.magReflections]
-            sList = calcS(self.cell.cell, hkls)
-            ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
-            # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
-            ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
-            for i in xrange(len(self.magReflections)):
-                self.magReflections[i].set_magh_s(getS(ttPos[i], self.wavelength))            
-            #printInfo(self.cell.cell, self.spaceGroup, [self.atomListModel.atomList, self.atomListModel.magAtomList], [self.refList,self.magRefList], self.wavelength, symmetry=self.newSymmetry)
-            self.magIntensities = calcIntensity(self.magRefList,
-                                                self.atomListModel.magAtomList, 
-                                                self.newSymmetry, self.wavelength,
-                                                self.cell.cell, True)
-            #print self.magIntensities
-            self.peaks.extend(makePeaks(self.magReflections,
-                                           [self.u.value, self.v.value, self.w.value],
-                                           self.magIntensities, self.scale.value,
-                                           self.wavelength, shape="pseudovoigt", eta=self.eta))
 
 # functions
 def readIntFile(filename, skiplines=3, exclusions=None):
@@ -199,8 +36,9 @@ def readIntFile(filename, skiplines=3, exclusions=None):
     return wavelength, refList, data[:,0], data[:,1], tt, data[:,3:]    
 # Create a list of single crystal peak objects from a list 
 # of structure factors squared and sin(theta)/lambda values
-def makeXtalPeaks(sfs2, svalues):
-    peaks = []
+def makeXtalPeaks(sfs2, svalues, peaks=None):
+    if peaks == None:
+        peaks = []
     for i in range(len(svalues)):
         p = sXtalPeak(sfs2[i], svalues[i])
         if p not in peaks:
@@ -208,6 +46,24 @@ def makeXtalPeaks(sfs2, svalues):
         else:
             peaks[peaks.index(p)].sfs2 += sfs2[i]
     return peaks
+def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0, scale=1):
+    if background == None:
+        background = np.zeros(len(sList))
+    if sList == None:
+        return (np.array([peak.sfs2 for peak in peaks])*scale)-background+base
+    else:
+        intensities = []
+        icalc = [peak.sfs2 for peak in peaks]
+        scalc = [peak.svalue for peak in peaks]
+        for s in sList:
+            if s in scalc:
+                intensities.append(icalc[scalc.indexof(s)])
+            else:
+                intensities.append(0.0)
+        #for peak in peaks:
+            #if peak.svalue in sList:
+                #intensities.append(peak.sfs2)
+        return np.array(np.array(intensities)*scale)-background+base
 # extinctionFactor: applies extinction coeffiecients to the structure factor squared
 #   currently implemented for only one extinction coefficient
 def extinctionFactor(sfs2, wavelength, tt, scale, coeffs):
@@ -215,7 +71,7 @@ def extinctionFactor(sfs2, wavelength, tt, scale, coeffs):
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
 def calcXtalIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
-                  magnetic=False, xtal=False, extinctions=None, scale=None):
+                  magnetic=False, extinctions=None, scale=None):
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
         sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
@@ -224,7 +80,7 @@ def calcXtalIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
         svalues = np.array([ref.get_magh_s() for ref in refList])
     else:
-        sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=xtal))
+        sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=True))
         multips = np.array([ref.get_reflection_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
         svalues = np.array([ref.get_reflection_s() for ref in refList])
@@ -244,9 +100,10 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
                     symmetry=None, basisSymmetry=None, magAtomList=None, scale=1,
                     magnetic=False, info=False, plot=False, saveFile=None,
                     obsIntensity=None, labels=None, base=0, residuals=False, error=None, refList=None, extinctions=None):
-    background = LinSpline(backgroundFile)
+    background = None
     sMin, sMax = getS(min(tt), wavelength), getS(max(tt), wavelength)
     reflections = None
+    peaks = None
     if magnetic:
         if (infoFile != None):
             infofile = readMagInfo(infoFile)
@@ -258,18 +115,14 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
         magRefList = satelliteGen(cell, symmetry, np.sin(179.5/2)/wavelength, hkls=refList)
         print "length of reflection list " + str(len(magRefList))
         sfs2, svalues = calcXtalIntensity(magRefList, magAtomList, basisSymmetry,
-                                      wavelength, cell, True, xtal=True, extinctions=extinctions, scale=scale)
-        magIntensities = makeXtalPeaks(sfs2, svalues)
+                                      wavelength, cell, True, extinctions=extinctions, scale=scale)
+        magpeaks = makeXtalPeaks(sfs2, svalues)
         # add in structural peaks
         if (atomList == None): atomList = readInfo(infoFile)[2]
-        sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, xtal=True, extinctions=extinctions, scale=scale)     
-        intensities = makeXtalPeaks(sfs2, svalues)
+        sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, extinctions=extinctions, scale=scale)     
+        peaks = makeXtalPeaks(sfs2, svalues, peaks=magpeaks)
         reflections = magRefList[:] + refList[:]
-        sfs2 = np.array([peak.sfs2 for peak in magIntensities])
-        sfs2 = np.append(sfs2, np.array([peak.sfs2 for peak in intensities]))
-        svals = np.array([peak.svalue for peak in magIntensities])
-        svals = np.append(svals, np.array([peak.svalue for peak in intensities]))
-        intensities = makeXtalPeaks(sfs2, svals)
+        intensities = getXtalIntensity(peaks, sList=[getS(value, wavelength) for value in tt], background=background, exclusions=exclusions, base=base, scale=scale)
     else:
         if (infoFile != None):
             infofile = readInfo(infoFile)
@@ -277,8 +130,9 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (cell == None): cell = infofile[1]
             if (atomList == None): atomList = infofile[2]         
         reflections = refList[:]
-        sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, xtal=True, extinctions=extinctions, scale=scale)
-        intensities = makeXtalPeaks(sfs2, svalues)
+        sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, extinctions=extinctions, scale=scale)
+        peaks = makeXtalPeaks(sfs2, svalues)
+        intensities = getXtalIntensity(peaks, sList=[getS(value, wavelength) for value in tt], background=background, exclusions=exclusions, base=base, scale=scale)
     if info:
         if magnetic:
             printInfo(cell, spaceGroup, (atomList, magAtomList), (refList, magRefList),
@@ -287,31 +141,32 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
         sObs = np.array([getS(value, wavelength) for value in tt])
-        sCalc = np.array([peak.svalue for peak in intensities])
-        Icalc = np.array([peak.sfs2 for peak in intensities])
-        plotXtalPattern(sObs, sCalc, obsIntensity, Icalc*scale, background=background, error=error, base=base, residuals=residuals,labels=labels)
+        plotXtalPattern(peaks, sObs, obsIntensity, background=background, error=error, base=base, residuals=residuals,labels=labels)
         pylab.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
     return
-def plotXtalPattern(sObs, sCalc, obsIntensity, calcIntensity, background=None, 
-                    exclusions=None, labels=None, residuals=False, base=0, error=None):
+def plotXtalPattern(peaks, sList, obsIntensity, background=None, 
+                    exclusions=None, labels=None, residuals=False, base=0, scale=1, error=None):
     # plot single crystal intesities vs q as single points
-    peaks = makeXtalPeaks(obsIntensity, sObs)
-    obsIntensity = np.array([peak.sfs2 for peak in peaks])
-    sObs = np.array([peak.svalue for peak in peaks])
+    obspeaks = makeXtalPeaks(obsIntensity, sList)
+    sList = np.array([peak.svalue for peak in obspeaks])
+    obsIntensity = np.array([peak.sfs2 for peak in obspeaks])
+    calcIntensity = getXtalIntensity(peaks, sList=sList, background=background, 
+                                    exclusions=exclusions, 
+                                    base=base, scale=scale)
     pylab.subplot(211)
     if (obsIntensity != None):
-        pylab.plot(sObs*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
-    pylab.plot(sCalc*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
-    pylab.errorbar(sObs*(4*np.pi), obsIntensity, yerr=[0.1373,1.3232,0.2366,3.7006,0.4503,7.4395,0.4176,1.8760], fmt=None, ecolor='g')
+        pylab.plot(sList*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
+    pylab.plot(sList*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
+    pylab.errorbar(sList*(4*np.pi), obsIntensity, yerr=[0.1373,1.3232,0.2366,3.7006,0.4503,7.4395,0.4176,1.8760], fmt=None, ecolor='g')
     pylab.xlabel("Q")
     pylab.ylabel("Intensity")
     pylab.legend()
     if (residuals):
         resid = obsIntensity - calcIntensity
         pylab.subplot(212)
-        pylab.plot(sObs*(4*np.pi), resid, '-bo', linestyle="None", label="Residuals")
+        pylab.plot(sList*(4*np.pi), resid, '-bo', linestyle="None", label="Residuals")
     return
 
 # printInfo: prints out information about the provided space group and atoms,
@@ -405,3 +260,172 @@ def printXtalInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=No
         print
     print divider
     print
+    
+# bumps model
+# Model: represents an object that can be used with bumps for optimization
+#   purposes single crystal version
+class Model(object):
+
+    def __init__(self, tt, observed, background,
+                 wavelength, spaceGroupName, cell, atoms, exclusions=None,
+                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, zero=None, sxtal=False, error=None, hkls=None, extinction=0):
+        if (isinstance(spaceGroupName, SpaceGroup)):
+            self.spaceGroup = spaceGroupName
+        else:
+            self.spaceGroup = SpaceGroup(spaceGroupName)
+        self.xtal = sxtal
+        self.tt = np.array(tt)
+        obspeaks = makeXtalPeaks(observed, [getS(ttval, wavelength) for ttval in self.tt])
+        self.sList = np.array([peak.svalue for peak in obspeaks])
+        self.observed = np.array([peak.sfs2 for peak in obspeaks])
+        self.background = background
+        self.scale = Parameter(scale, name='scale')
+        self.extinction = Parameter(extinction, name='extinction')
+        self.error = error
+        self.refList = hkls
+        if base != None:
+            self.base = Parameter(base, name='base')
+            self.has_base = True
+        else:
+            self.base=0
+            self.has_base = False
+        if zero != None:
+            self.zero = Parameter(zero, name='zero')
+            self.has_zero = True
+        else:
+            self.zero = 0
+            self.has_zero = False
+        self.wavelength = wavelength
+        self.cell = cell
+        self.exclusions = exclusions
+        self.ttMin = min(self.tt)
+        self.ttMax = max(self.tt)
+        self.sMin = getS(self.ttMin, self.wavelength)
+        self.sMax = getS(self.ttMax, self.wavelength)
+        self.magnetic = magnetic
+        if magnetic:
+            self.symmetry = symmetry
+            # used for basis vector structure factor generation
+            self.newSymmetry = newSymmetry
+            self.atomListModel = AtomListModel(atoms, self.spaceGroup.get_space_group_multip(),
+                                               True, self.newSymmetry)            
+        else:
+            self.atomListModel = AtomListModel(atoms, self.spaceGroup.get_space_group_multip(), False)
+        self._set_reflections()           
+        self.update()
+    def _set_reflections(self):
+        maxLattice = self.cell.getMaxLattice()
+        maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
+        self.reflections = self.refList
+        if self.magnetic:
+            self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=self.refList)
+            self.magReflections = self.magRefList[:]
+            
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        del state["refList"]
+        del state["magRefList"]
+        return state
+    
+    def __setstate__(self, state):
+        self.__dict__ = state
+        self._set_reflections()
+
+    def parameters(self):
+        if self.has_base and self.has_zero:
+            return {
+                    'scale': self.scale,
+                    'extinction': self.extinction,
+                    'base': self.base,
+                    'zero' : self.zero,
+                    'cell': self.cell.parameters(),
+                    'atoms': self.atomListModel.parameters()
+                    }
+        elif self.has_base:
+            return {'scale': self.scale,
+                    'extinction': self.extinction,
+                    'base': self.base,
+                    'cell': self.cell.parameters(),
+                    'atoms': self.atomListModel.parameters()
+                    }
+        elif self.has_zero:
+            return {
+                    'scale': self.scale,
+                    'extinction': self.extinction,
+                    'zero' : self.zero,
+                    'cell': self.cell.parameters(),
+                    'atoms': self.atomListModel.parameters()
+                    }
+        else:
+            return {
+                    'scale': self.scale,
+                    'extinction': self.extinction,
+                    'cell': self.cell.parameters(),
+                    'atoms': self.atomListModel.parameters()
+                    }
+        
+    def numpoints(self):
+        return len(self.observed)
+
+    def theory(self):
+        if self.has_base:
+            return getXtalIntensity(self.peaks, background=self.background, sList=self.sList, scale=self.scale.value, base=self.base.value)
+        else:
+            return getXtalIntensity(self.peaks, background=self.background, sList=self.sList, scale=self.scale.value, base=self.base)
+
+    def residuals(self):
+        return (self.theory() - self.observed)/(np.sqrt(self.observed)+1)
+
+    def nllf(self):
+        return np.sum(self.residuals()**2)
+
+    def plot(self, view="linear"):
+        import pylab
+        if self.has_base and self.has_zero:
+            base, zero = self.base.value, self.zero.value
+        elif self.has_base:
+            base, zero = self.base.value, self.zero
+        elif self.has_zero:
+            base, zero = self.base, self.zero.value  
+        else:
+            base, zero = self.base, self.zero
+        plotXtalPattern(self.peaks, self.sList, self.observed, 
+                       background=self.background, 
+                       exclusions=self.exclusions, 
+                       residuals=True, base=base, 
+                       error=self.error)
+    def update(self):  
+        self.cell.update()
+        self.atomListModel.update()
+        hkls = [reflection.hkl for reflection in self.reflections]
+        sList = calcS(self.cell.cell, hkls)
+        ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
+        # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
+        ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
+        for i in xrange(len(self.reflections)):
+            self.reflections[i].set_reflection_s(getS(ttPos[i], self.wavelength))
+        sfs2, svalues = calcXtalIntensity(self.reflections, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale)
+        self.intensities = sfs2
+        self.peaks = makeXtalPeaks(sfs2, svalues)
+        #self.sList = svalues
+        if self.magnetic:
+            # update magnetic reflections and add their peaks to the list of
+            #   Peaks         
+            hkls = [reflection.hkl for reflection in self.magReflections]
+            sList = calcS(self.cell.cell, hkls)
+            ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
+            # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
+            ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
+            for i in xrange(len(self.magReflections)):
+                self.magReflections[i].set_magh_s(getS(ttPos[i], self.wavelength))            
+            #printInfo(self.cell.cell, self.spaceGroup, [self.atomListModel.atomList, self.atomListModel.magAtomList], [self.refList,self.magRefList], self.wavelength, symmetry=self.newSymmetry)
+            self.magIntensities = calcIntensity(self.magRefList,
+                                                self.atomListModel.magAtomList, 
+                                                self.newSymmetry, self.wavelength,
+                                                self.cell.cell, True)
+            sfs2, svalues = calcXtalIntensity(self.reflections, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale)
+            self.magIntensities = sfs2
+            #print self.magIntensities
+            self.peaks = makeXtalPeaks(sfs2, svalues, peaks=self.peaks)
+            #self.sList = np.array([peak.svalue for peak in self.peaks])
+            #self.peaks.extend(makeXtalPeaks(sfs2, svalues))
