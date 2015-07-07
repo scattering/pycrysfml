@@ -373,12 +373,13 @@ class AtomListModel(object):
     def _rebuild_object(self, atoms):
         if (not self.magnetic):
             # one list of atoms
-            if (isinstance(atoms, AtomList)):
-                self.atomList = atoms
-                self.atoms = atoms[:]
+            if (isinstance(atoms[0], AtomList)):
+                self.atomList = atoms[0]
+                self.atoms = atoms[0][:]
             else:
-                self.atomList = AtomList(atoms)
+                self.atomList = AtomList(atoms[0])
                 self.atoms = atoms
+            self.atomModels = [AtomModel(atom, self.sgmultip) for atom in atoms[0]]
         else:
             # a tuple containing a list of atoms and a list of magnetic atoms
             if (isinstance(atoms[0], AtomList)):
@@ -391,7 +392,7 @@ class AtomListModel(object):
                 self.magAtomList = AtomList(atoms[1], magnetic=True)
                 self.atoms = atoms[0]
                 self.magAtoms = atoms[1]
-        self.atomModels = [AtomModel(atom, self.sgmultip) for atom in self.atoms]
+                self.atomModels = [AtomModel(atom, self.sgmultip) for atom in self.atoms]
         if self.magnetic:
             # correct atom models to include magnetic atoms
             for magAtom in self.magAtoms:

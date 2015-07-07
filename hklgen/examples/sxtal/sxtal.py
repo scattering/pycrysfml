@@ -29,7 +29,7 @@ def fit():
     cell.a.pm(5.0)
     cell.c.pm(5.0)
     m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell,
-                (atomList, magAtomList), exclusions, magnetic=True,
+                (atomList, magAtomList), exclusions, magnetic=False,
                 symmetry=symmetry, newSymmetry=basisSymmetry, base=min(sfs2), scale=1, error=error, hkls=refList)
     m.scale.range(0,100)
     m.base.pm(1000)

@@ -59,7 +59,7 @@ def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0
             if s in scalc:
                 intensities.append(icalc[scalc.indexof(s)])
             else:
-                intensities.append(0.0)
+                intensities.append(-10000.0)
         #for peak in peaks:
             #if peak.svalue in sList:
                 #intensities.append(peak.sfs2)

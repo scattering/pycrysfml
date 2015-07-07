@@ -342,9 +342,9 @@ class AtomList(atom_list_type, matom_list_type):
             atom_list_type.__init__(self)
         if (atoms != None):
             self.numAtoms = len(atoms)
-            funcs.allocate_atom_list(numAtoms, self, None)
-            self.numAtoms = numAtoms
-            self.set_atom_list_natoms(numAtoms)
+            funcs.allocate_atom_list(len(atoms), self, None)
+            #self.numAtoms = numAtoms
+            self.set_atom_list_natoms(len(atoms))
             
             # TODO: replace following with pycrysfml equivalent
             ## copy information from provided atom list
