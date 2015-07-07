@@ -392,7 +392,7 @@ class AtomListModel(object):
                 self.magAtomList = AtomList(atoms[1], magnetic=True)
                 self.atoms = atoms[0]
                 self.magAtoms = atoms[1]
-                self.atomModels = [AtomModel(atom, self.sgmultip) for atom in self.atoms]
+            self.atomModels = [AtomModel(atom, self.sgmultip) for atom in self.atoms]
         if self.magnetic:
             # correct atom models to include magnetic atoms
             for magAtom in self.magAtoms:

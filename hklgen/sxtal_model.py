@@ -46,6 +46,13 @@ def makeXtalPeaks(sfs2, svalues, peaks=None):
         else:
             peaks[peaks.index(p)].sfs2 += sfs2[i]
     return peaks
+def checkInt(value, sCalc):
+    index = 0
+    for s in sCalc:
+        if approxEq(value, s, 0.001):
+            return True, index
+        index += 1
+    return False
 def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0, scale=1):
     if background == None:
         background = np.zeros(len(sList))
@@ -56,8 +63,8 @@ def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0
         icalc = [peak.sfs2 for peak in peaks]
         scalc = [peak.svalue for peak in peaks]
         for s in sList:
-            if s in scalc:
-                intensities.append(icalc[scalc.indexof(s)])
+            if checkInt(s, scalc)[0]:
+                intensities.append(icalc[checkInt(s, scalc)[1]])
             else:
                 intensities.append(-10000.0)
         #for peak in peaks:
@@ -159,7 +166,7 @@ def plotXtalPattern(peaks, sList, obsIntensity, background=None,
     if (obsIntensity != None):
         pylab.plot(sList*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
     pylab.plot(sList*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
-    pylab.errorbar(sList*(4*np.pi), obsIntensity, yerr=[0.1373,1.3232,0.2366,3.7006,0.4503,7.4395,0.4176,1.8760], fmt=None, ecolor='g')
+    pylab.errorbar(sList*(4*np.pi), obsIntensity, yerr=[0.1373,1.3232,0.2366,3.7006,0.4503,7.4395,0.4176,1.8760,0,0,0,0,0,0,0,0,0,0,0], fmt=None, ecolor='g')
     pylab.xlabel("Q")
     pylab.ylabel("Intensity")
     pylab.legend()
@@ -404,7 +411,7 @@ class Model(object):
         ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
         for i in xrange(len(self.reflections)):
             self.reflections[i].set_reflection_s(getS(ttPos[i], self.wavelength))
-        sfs2, svalues = calcXtalIntensity(self.reflections, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale)
+        sfs2, svalues = calcXtalIntensity(self.reflections, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale.value)
         self.intensities = sfs2
         self.peaks = makeXtalPeaks(sfs2, svalues)
         #self.sList = svalues
@@ -423,7 +430,7 @@ class Model(object):
                                                 self.atomListModel.magAtomList, 
                                                 self.newSymmetry, self.wavelength,
                                                 self.cell.cell, True)
-            sfs2, svalues = calcXtalIntensity(self.reflections, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale)
+            sfs2, svalues = calcXtalIntensity(self.reflections, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale.value)
             self.magIntensities = sfs2
             #print self.magIntensities
             self.peaks = makeXtalPeaks(sfs2, svalues, peaks=self.peaks)
