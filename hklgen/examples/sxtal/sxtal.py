@@ -13,7 +13,7 @@ np.seterr(divide="ignore", invalid="ignore")
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
 backgFile = None#os.path.join(DATAPATH,r"hobk_bas.bac")
-observedFile = os.path.join(DATAPATH,r"NC35L.dat")
+observedFile = os.path.join(DATAPATH,r"35Lcombined.dat")
 infoFile = os.path.join(DATAPATH,r"NC35L.cfl")
 
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
@@ -26,32 +26,32 @@ basisSymmetry = copy(symmetry)
 
 def fit():
     cell = Mod.makeCell(crystalCell, spaceGroup.xtalSystem)
-    cell.a.pm(5.0)
-    cell.c.pm(5.0)
+    #cell.a.pm(5.0)
+    #cell.c.pm(5.0)
     m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
                 symmetry=symmetry, newSymmetry=basisSymmetry, base=min(sfs2), scale=1, error=error, hkls=refList)
     m.scale.range(0,100)
     m.base.pm(1000)
     m.extinction.range(0,10.0)
-    #for atomModel in m.atomListModel.atomModels:
+    for atomModel in m.atomListModel.atomModels:
         #atomModel.x.range(0,1)
         #atomModel.y.range(0,1)
         #atomModel.z.range(0,1)
         #atomModel.B.range(0,10)
-        #if atomModel.magnetic:
-            #for coeff in atomModel.coeffs:
-                ##coeff.range(-10, 10)
-                #coeff.range(-20,20)
+        if atomModel.magnetic:
+            for coeff in atomModel.coeffs:
+                #coeff.range(-10, 10)
+                coeff.range(-20,20)
     M = bumps.FitProblem(m)
     M.model_update()
     return M
 
 def main():
     cell = crystalCell
-    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=2.34, tt=tt, 
+    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=2.342, tt=tt, 
                       obsIntensity=sfs2, wavelength=wavelength, basisSymmetry=basisSymmetry, 
-                      magAtomList=magAtomList, plot=True, residuals=True, error=error, magnetic=False, 
+                      magAtomList=magAtomList, plot=True, residuals=True, error=error, magnetic=True, 
                       info=True, base=0, refList=refList, extinctions=[2.974])
 if __name__ == "__main__":
     # program run normally

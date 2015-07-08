@@ -166,7 +166,7 @@ def plotXtalPattern(peaks, sList, obsIntensity, background=None,
     if (obsIntensity != None):
         pylab.plot(sList*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
     pylab.plot(sList*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
-    pylab.errorbar(sList*(4*np.pi), obsIntensity, yerr=[0.1373,1.3232,0.2366,3.7006,0.4503,7.4395,0.4176,1.8760,0,0,0,0,0,0,0,0,0,0,0], fmt=None, ecolor='g')
+    pylab.errorbar(sList*(4*np.pi), obsIntensity, yerr=error, fmt=None, ecolor='g')
     pylab.xlabel("Q")
     pylab.ylabel("Intensity")
     pylab.legend()
