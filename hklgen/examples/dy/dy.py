@@ -53,14 +53,14 @@ def fit():
     return M
 
 def main():
-    uvw = [ 1.808975,  -1.476480,   0.446286 ]
+    uvw = [1.814645,  -1.482013,   0.447611 ]
     cell = crystalCell
     #refList = H.hklGen(spaceGroup, cell, np.float32(0.0), np.sin(179.5/2.)/wavelength, xtal=True)
     #S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=1, tt=tt, 
                       #obsIntensity=np.zeros(len(refList)), wavelength=wavelength, basisSymmetry=basisSymmetry, 
                       #magAtomList=magAtomList, plot=True, residuals=False, error=None, magnetic=True, 
                       #info=True, base=0, refList=refList, extinctions=None)    
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=1,
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=94.5/np.sqrt(2),
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,

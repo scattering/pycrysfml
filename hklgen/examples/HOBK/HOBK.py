@@ -61,7 +61,7 @@ def main():
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,
-                  observedData=(tt,observed), base=6512, xtal=True, residuals=True, error=error)
+                  observedData=(tt,observed), base=6512, residuals=True, error=error)
 if __name__ == "__main__":
     # program run normally
     main()

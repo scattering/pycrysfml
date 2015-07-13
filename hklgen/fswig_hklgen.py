@@ -945,7 +945,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    return sfs2 #* lorentz
+    return sfs2 * lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
