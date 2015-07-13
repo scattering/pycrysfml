@@ -82,8 +82,7 @@ def calcXtalIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
                   magnetic=False, extinctions=None, scale=None):
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
-        sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
-        sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
+        sfs2 = calcMagStructFact(refList, atomList, spaceGroup, cell)
         multips = np.array([ref.get_magh_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
         svalues = np.array([ref.get_magh_s() for ref in refList])

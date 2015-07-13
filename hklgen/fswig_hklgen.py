@@ -906,28 +906,36 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=False):
         structFacts[i] = sFpoint.value()
     return structFacts
 
+## calcMagStructFact: calculates the magnetic structure factors around a list
+##   of lattice reflections
+#def calcMagStructFact(refList, atomList, symmetry, cell): 
+    ##funcs.print_strfac_stuff(cell, atomList, symmetry, refList)
+    #funcs.init_mag_structure_factors(refList, atomList, symmetry)
+    #funcs.mag_structure_factors(cell, atomList, symmetry, refList)
+    ## calculate the "magnetic interaction vector" (the square of which is
+    ##   proportional to the intensity)    
+    #funcs.calc_mag_interaction_vector(refList, cell)
+    ##for atom in atomList:
+        ##print atom.basis()
+    #mivs = np.array([ref.magIntVec() for ref in refList])
+    #return mivs
 # calcMagStructFact: calculates the magnetic structure factors around a list
 #   of lattice reflections
 def calcMagStructFact(refList, atomList, symmetry, cell): 
-    #funcs.print_strfac_stuff(cell, atomList, symmetry, refList)
-    funcs.init_mag_structure_factors(refList, atomList, symmetry)
-    funcs.mag_structure_factors(cell, atomList, symmetry, refList)
-    # calculate the "magnetic interaction vector" (the square of which is
+    # calculate the "magnetic interaction vectors" (the square of which is
     #   proportional to the intensity)    
-    funcs.calc_mag_interaction_vector(refList, cell)
-    #for atom in atomList:
-        #print atom.basis()
-    mivs = np.array([ref.magIntVec() for ref in refList])
-    return mivs
-
+    sqMivs = []
+    for ref in refList:
+        funcs.calc_magnetic_strf_miv(cell, symmetry, atomList, ref)
+        sqMivs.append(ref.sqMiV)
+    return np.array(sqMivs)
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
 def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
                   magnetic=False, xtal=False, extinctions=None, scale=None):
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
-        sfs = calcMagStructFact(refList, atomList, spaceGroup, cell)
-        sfs2 = np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
+        sfs2 = calcMagStructFact(refList, atomList, spaceGroup, cell)#np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
         multips = np.array([ref.get_magh_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
     else:
@@ -937,7 +945,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    return sfs2 * lorentz
+    return sfs2 #* lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
