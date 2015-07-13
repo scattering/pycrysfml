@@ -3285,6 +3285,8 @@ CLASSES
      |  
      |  get_basis_element(self, *args)
      |  
+     |  get_kvector(self, *args)
+     |  
      |  get_magsymm_k_bns_number(self, *args)
      |  
      |  get_magsymm_k_bns_symbol(self, *args)

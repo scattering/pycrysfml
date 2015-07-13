@@ -14,7 +14,7 @@ np.seterr(divide="ignore", invalid="ignore")
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
 backgFile = None#os.path.join(DATAPATH,r"hobk_bas.bac")
 observedFile = os.path.join(DATAPATH,r"35Lcombined.dat")
-infoFile = os.path.join(DATAPATH,r"NC35L.cfl")
+infoFile = os.path.join(DATAPATH,r"35Lcombined.cfl")
 
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 atomList = H.readInfo(infoFile)[2]
@@ -33,7 +33,7 @@ def fit():
                 symmetry=symmetry, newSymmetry=basisSymmetry, base=min(sfs2), scale=1, error=error, hkls=refList)
     m.scale.range(0,100)
     #m.base.pm(1000)
-    m.extinction.range(0,10.0)
+    #m.extinction.range(0,10.0)
     for atomModel in m.atomListModel.atomModels:
         #atomModel.x.range(0,1)
         #atomModel.y.range(0,1)
@@ -42,18 +42,17 @@ def fit():
         if atomModel.magnetic:
             for coeff in atomModel.coeffs:
                 #coeff.range(-10, 10)
-                coeff.range(-20,20)
-                print "Hello!"
+                coeff.range(0,5)
     M = bumps.FitProblem(m)
     M.model_update()
     return M
 
 def main():
     cell = crystalCell
-    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=2.342, tt=tt, 
+    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=1.557, tt=tt, 
                       obsIntensity=sfs2, wavelength=wavelength, basisSymmetry=basisSymmetry, 
                       magAtomList=magAtomList, plot=True, residuals=True, error=error, magnetic=True, 
-                      info=True, base=0, refList=refList, extinctions=[2.974])
+                      info=True, base=0, refList=refList, extinctions=[0.5120])
 if __name__ == "__main__":
     # program run normally
     main()

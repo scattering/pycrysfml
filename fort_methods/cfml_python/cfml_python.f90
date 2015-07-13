@@ -213,6 +213,13 @@ FUNCTION get_matom_basis_element(atm, i, j)
 	! use c-style indexing
 	get_matom_basis_element = atm%cbas(j+1, i+1)
 END FUNCTION get_matom_basis_element
+SUBROUTINE get_kvector(msymm, elem, ind)
+	TYPE(magsymm_k_type) :: msymm
+	INTEGER, INTENT(IN) :: ind
+	REAL, DIMENSION(3), INTENT(OUT) :: elem
+	! Use c-style indexing
+	elem = msymm%kvec(:,ind+1)
+END SUBROUTINE get_kvector
 ! setters:
 SUBROUTINE set_atom_list_element(lst, elem, ind)
 	TYPE(Atom_List_Type) :: lst

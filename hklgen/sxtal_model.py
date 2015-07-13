@@ -46,13 +46,14 @@ def makeXtalPeaks(sfs2, svalues, peaks=None):
         else:
             peaks[peaks.index(p)].sfs2 += sfs2[i]
     return peaks
+# Check if an intensity's sin(theta)/lambda value is approximately in a list of st/l values
 def checkInt(value, sCalc):
     index = 0
     for s in sCalc:
         if approxEq(value, s, 0.001):
             return True, index
         index += 1
-    return False
+    return False, False
 def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0, scale=1):
     if background == None:
         background = np.zeros(len(sList))

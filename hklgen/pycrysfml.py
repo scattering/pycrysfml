@@ -3689,6 +3689,7 @@ class magsymm_k_type(_object):
     __swig_destroy__ = _pycrysfml.delete_magsymm_k_type
     __del__ = lambda self : None;
     def get_basis_element(self, *args): return _pycrysfml.magsymm_k_type_get_basis_element(self, *args)
+    def get_kvector(self, *args): return _pycrysfml.magsymm_k_type_get_kvector(self, *args)
     def set_basis_element(self, *args): return _pycrysfml.magsymm_k_type_set_basis_element(self, *args)
     def get_magsymm_k_latt(self, *args): return _pycrysfml.magsymm_k_type_get_magsymm_k_latt(self, *args)
     def set_magsymm_k_latt(self, *args): return _pycrysfml.magsymm_k_type_set_magsymm_k_latt(self, *args)

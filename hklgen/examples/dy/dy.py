@@ -4,6 +4,7 @@ from copy import copy
 import numpy as np
 import fswig_hklgen as H
 import hkl_model as Mod
+import sxtal_model as S
 from pycrysfml import getSpaceGroup_crystalsys as xtalsys
 #import bumps.parameter
 #def dont(self, *args, **kw): raise Exception("don't")
@@ -54,11 +55,16 @@ def fit():
 def main():
     uvw = [ 1.808975,  -1.476480,   0.446286 ]
     cell = crystalCell
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=93.662/(6.5*1.5),
-                  ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
-                  basisSymmetry=basisSymmetry, magAtomList=magAtomList,
-                  magnetic=True, info=True, plot=True,
-                  observedData=(tt,observed), base=base_line, xtal=True, error=error, residuals=True)
+    refList = H.hklGen(spaceGroup, cell, np.float32(0.0), np.sin(179.5/2.)/wavelength, xtal=True)
+    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=1, tt=tt, 
+                      obsIntensity=np.zeros(len(refList)), wavelength=wavelength, basisSymmetry=basisSymmetry, 
+                      magAtomList=magAtomList, plot=True, residuals=False, error=None, magnetic=True, 
+                      info=True, base=0, refList=refList, extinctions=None)    
+    #H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=1,
+                  #ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
+                  #basisSymmetry=basisSymmetry, magAtomList=magAtomList,
+                  #magnetic=True, info=True, plot=True,
+                  #observedData=(tt,observed), base=base_line, error=error, residuals=True)
 if __name__ == "__main__":
     # program run normally
     main()

@@ -1,0 +1,50 @@
+!   FILE for FullProf Studio: generated automatically by FullProf 
+Title Fe1 Lu1 O3                                                                                                                                                          
+SPGR P 63 c m            
+CELL     5.964001    5.964001   11.533996  90.0000  90.0000 120.0000
+!    Lab  Scatt       x        y       z      Biso     Occ
+ATOM Lu1     Lu      0.00000  0.00000  0.27015  0.00000   0.16667
+ATOM Lu2     Lu      0.33333  0.66667  0.22894  0.00000   0.33333
+ATOM Fe1     Fe      0.33333  0.00000  0.00000  0.00000   0.35618
+ATOM Mn1     Mn      0.33333  0.00000  0.00000  0.00000   0.11097
+ATOM O1      O       0.30542  0.00000  0.17013  0.00000   0.50000
+ATOM O2      O       0.63506  0.00000  0.33957  0.00000   0.50000
+ATOM O3      O       0.00000  0.00000  0.47263  0.00000   0.16667
+ATOM O4      O       0.33333  0.66667  0.01764  0.00000   0.33330
+
+Mag_Structure
+!
+lattice P -1
+kvect   0.00000   0.00000   0.00000
+!magdom  u,v,w, 0.0  : 1.0
+!      n  nba1  nba2
+IRREPS 1   3  
+icomp   0 0 0
+symm x,y,z
+BASR   1  0  0   0  0  1   1  2  0
+BASI   0  0  0   0  0  0   0  0  0
+!
+symm -x,-y,z+1/2
+BASR  -1  0  0   0  0  1  -1 -2  0
+BASI   0  0  0   0  0  0   0  0  0
+!
+symm -y,x-y,z
+BASR   0  1  0   0  0  1   -2 -1  0
+BASI   0  0  0   0  0  0   0  0  0
+!
+symm y,-x+y,z+1/2
+BASR   0 -1  0   0  0  1   2  1  0
+BASI   0  0  0   0  0  0   0  0  0
+!
+symm -x+y,-x,z
+BASR  -1 -1  0   0  0  1   1 -1  0
+BASI   0  0  0   0  0  0   0  0  0
+!
+symm x-y,x,z+1/2
+BASR   1  1  0   0  0  1   -1  1  0
+BASI   0  0  0   0  0  0    0  0  0
+matom Fe1   MFE3    0.33333 0.00000 0.00000 0.10000  1.00000
+bfcoef     1  1     5.137   0.000   1.544 0.0
+!
+End_Mag_Structure
+

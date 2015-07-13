@@ -191,7 +191,14 @@ class MagSymmetry(magsymm_k_type):
             ri_comps.append(num.real)
             ri_comps.append(num.imag)
         self.set_basis_element(irrRepNum, symOpNum, vectorNum, FloatVector(ri_comps))
-        #self.set_basis_element(vectorNum, symOpNum, irrRepNum, FloatVector(ri_comps))                                                     
+        #self.set_basis_element(vectorNum, symOpNum, irrRepNum, FloatVector(ri_comps))
+    def kvec(self, index):
+        k = FloatVector([0,0,0])
+        self.get_kvector(k, index)
+        return np.array(k)
+    @property
+    def lattice(self):
+        return getMagsymmK_latt(self)
 # Atom attributes:
 #   lab --> label       - label for the atom
 #   element     - chemical symbol of the element 
@@ -430,13 +437,13 @@ class Reflection(reflection_type):
 
 # MagReflection attributes:
 # [corresponds to CFML MagH_type]
-#   equalMinus      - True if k is equivalent to -k
+#   keq             - True if k is equivalent to -k
 #   multip          - multiplicity
 #   knum            - index of the propagation vector (k)
 #   signk           - equal to +1 for -k and -1 for +k, because somebody
 #                     thought that labeling system was logical
 #   s               - sin(theta)/lambda
-#   magIntVecSq     - norm squared of the magnetic interaction vector
+#   sqMiV     - norm squared of the magnetic interaction vector
 #   hkl             - reciprocal scattering vector +/- k
 #   magStrFact      - magnetic structure factor
 #   magIntVec       - magnetic interaction vector
@@ -455,6 +462,9 @@ class MagReflection(magh_type):
     @multip.setter
     def multip(self, value):
         self.set_magh_mult(value)
+    @property
+    def keq(self):
+        return self.get_magh_keqv_minus()
     def magStrFact(self):
         rVec = FloatVector([0 for i in range(6)])
         self.get_msf(rVec)
@@ -488,6 +498,9 @@ class MagReflection(magh_type):
     @hkl.setter
     def hkl(self, value):
         self.set_magh_h(FloatVector(value))
+    @property
+    def sqMiV(self):
+        return self.get_magh_sqmiv()
     
 # ReflectionList attributes
 #   numReflections  - the number of reflections
@@ -578,7 +591,7 @@ def readInfo(filename):
     cell = CrystalCell()
     spaceGroup = SpaceGroup()
     atomList = AtomList()
-    ext = filename.split(".")[len(filename.split("."))-1]
+    ext = filename.split(".")[-1]
     funcs.readxtal_structure_file(filename, cell, spaceGroup, atomList, ext, None, None, None)
     return (spaceGroup, cell, atomList)
 
@@ -775,7 +788,7 @@ def getMaxNumRef(sMax, volume, sMin=0.0, multip=2):
 
 # hklGen: generates a list of reflections in a specified range
 #   If getList is true, returns a ReflectionList object
-def hklGen(spaceGroup, cell, sMin, sMax, getList=False, xtal=False):
+def hklGen(spaceGroup, cell, sMin, sMax, getList=True, xtal=False):
     # Calculate the reflection positions
     maxReflections = getMaxNumRef(sMax+0.2, cell.volume, multip=spaceGroup.multip)
     # Create a reference that will be modified by calling Fortran
