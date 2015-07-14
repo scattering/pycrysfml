@@ -1,6 +1,6 @@
 import unittest
 from pycrysfml import *
-
+# TODO: populate tests
 class TestCrysFMLIO(unittest.TestCase):
     def test_cfl_reader(self):
         pass
@@ -10,16 +10,32 @@ class TestCrysFMLIO(unittest.TestCase):
         pass
     def test_mcif_reader(self):
         pass
-    def test_Crystal_Cell(self):
-        pass
-    def test_SpaceGroup(self):
-        pass
-    def test_AtomList(self):
-        pass
-    def test_magAtomList(self):
-        pass
-    def test_MagSymmetry(self):
-        pass
+class TestSpaceGroup(unittest.TestCase):
+    pass
+class TestAtom(unittest.TestCase):
+    pass
+class TestMagAtom(unittest.TestCase):
+    pass
+class TestAtomList(unittest.TestCase):
+    pass
+class TestCrystallCell(unittest.TestCase):
+    pass
+class TestMagAtomList(unittest.TestCase):
+    pass
+class TestMagSymmetry(unittest.TestCase):
+    pass
+class TestSatelliteGen(unittest.TestCase):
+    pass
+class TestReflection(unittest.TestCase):
+    pass
+class TestMagReflection(unittest.TestCase):
+    pass
+class TestReflectionList(unittest.TestCase):
+    pass
+class TestMagReflectionList(unittest.TestCase):
+    pass
+class TestMiscCalculations(unittest.TestCase):
+    pass
 class TestStrFactors(unittest.TestCase):
     def test_test(self):
         "test of green"
