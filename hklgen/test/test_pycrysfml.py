@@ -10,6 +10,16 @@ class TestCrysFMLIO(unittest.TestCase):
         pass
     def test_mcif_reader(self):
         pass
+    def test_Crystal_Cell(self):
+        pass
+    def test_SpaceGroup(self):
+        pass
+    def test_AtomList(self):
+        pass
+    def test_magAtomList(self):
+        pass
+    def test_MagSymmetry(self):
+        pass
 class TestStrFactors(unittest.TestCase):
     def test_test(self):
         "test of green"
