@@ -24,7 +24,6 @@ class TestStrFactors(unittest.TestCase):
     def test_test(self):
         "test of green"
         self.assertEqual(type("hello"), str, msg="hello")
-        self.assertEqual(type("hello2"), int, msg="NOT AN INT")
     def test_mag_orthohombic(self):
         "Test magnetic structure factor calculations for orthorhombic crystall cell"
         pass
