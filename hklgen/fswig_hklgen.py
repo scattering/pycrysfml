@@ -10,7 +10,10 @@
 from pycrysfml import *
 import os
 import numpy as np
-import matplotlib.pylab as pylab
+try:
+    import matplotlib.pylab as pylab
+except:
+    import pylab
 from math import floor, sqrt, log, tan, radians
 from string import rstrip, ljust, rjust, center
 from collections import OrderedDict
