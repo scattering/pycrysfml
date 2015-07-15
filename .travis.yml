@@ -10,7 +10,7 @@ before_install:
   - sudo -H pip install nose
 install:
   - "./build.sh"
-  - "sudo pip install scipy matplotlib pylab numpy"
+  - "sudo -H pip install scipy matplotlib pylab numpy"
 # command to run tests
 script:
   - cd hklgen
