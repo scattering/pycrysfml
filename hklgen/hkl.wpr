@@ -140,7 +140,8 @@ proj.file-list = [loc('examples/Al2O3/Al2O3.py'),
                   loc('fswig_hklgen.py'),
                   loc('hkl_model.py'),
                   loc('run.py'),
-                  loc('sxtal_model.py')]
+                  loc('sxtal_model.py'),
+                  loc('test/test_pycrysfml.py')]
 proj.file-type = 'shared'
 proj.launch-config = {loc('examples/CeO2/CeO2.py'): ('project',
         (u'',

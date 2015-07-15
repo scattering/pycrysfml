@@ -1,0 +1,143 @@
+# Created by the Bilbao Crystallographic Server
+# http://www.cryst.ehu.es
+# Date: 05/31/2015 02:16:19
+# Database entry: 0.117 LuFeO3
+# Cif-like file for the case 0.117
+
+
+data_5yOhtAoR
+_audit_creation_date            2015-05-31
+_audit_creation_method          "Bilbao Crystallographic Server"
+
+_chemical_name_systematic
+;
+;
+_chemical_name_common                    ?
+_chemical_formula_moiety                 ?
+_chemical_formula_structural             ?
+_chemical_formula_analytical             ?
+_chemical_formula_iupac                  ?
+_chemical_formula_sum                    'Lu Fe O3'
+_chemical_formula_weight                 ?
+_chemical_melting_point                  ?
+_chemical_compound_source                ?
+_chemical_absolute_configuration         .
+
+
+_citation_journal_abbrev        "PHYSICAL REVIEW LETTERS"
+_citation_journal_volume        114
+_citation_page_first            ?
+_citation_page_last             ?
+_citation_article_id            217602
+_citation_year                  2015
+_citation_DOI                   10.1103/PhysRevLett.114.217602
+
+loop_
+_citation_author_name
+"Disseler, S.M."
+
+_atomic_positions_source_database_code_ICSD   183152
+_atomic_positions_source_other               .
+
+_transition_temperature     155
+_experiment_temperature     ?
+
+loop_
+_irrep_id
+_irrep_dimension
+_irrep_small_dimension
+_irrep_direction_type
+_irrep_action
+_irrep_modes_number
+_irrep_presence
+? ? ? ? ? ? ?
+
+_exptl_crystal_magnetic_properties_details
+;
+Thin film
+Multiferroic type I
+weak FM along c
+Other models and transition temperatures have been reported (Phys. Rev. Lett. 110, 237601 (2013))
+;
+
+_active_magnetic_irreps_details
+;
+1k magnetic structure
+k-maximal magnetic symmetry
+1-dim irrep active: equivalence of MSG and irrep assignment
+Paraelectric parent symmetry P6_3/mmc. The symmetry of AFM mx without structural distortion is P6_3/m'c'm'. The weak FM is a secondary mode with respect to the paraelectric parent symmetry.
+;
+
+_magnetic_space_group_standard_setting  'yes'
+_parent_space_group.name_H-M              'P 6_3c m'
+_parent_space_group.IT_number             185
+
+loop_
+_magnetic_propagation_vector_seq_id
+_magnetic_propagation_vector_kxkykz
+k1 0,0,0
+
+_magnetic_space_group.transform_from_parent_Pp_abc  'a,b,c;0,0,0'
+_magnetic_space_group.transform_to_standard_Pp_abc  'a,b,c;0,0,0'
+
+loop_
+_magnetic_atom_site_moment_symmetry_constraints_label
+_atom_site_magnetic_moment_symmetry_constraints_mxmymz
+Fe1 mx,0,mz
+
+_space_group.magn_number_BNS   185.201
+_space_group.magn_name_BNS     "P 6_3c' m' "
+_space_group.magn_point_group "6m'm'"
+_space_group.magn_point_group_number "25.4.94"
+_cell_length_a                 5.96520
+_cell_length_b                 5.96520
+_cell_length_c                 11.70220
+_cell_angle_alpha              90.00
+_cell_angle_beta               90.00
+_cell_angle_gamma              120.00
+
+loop_
+_space_group_symop.magn_id
+_space_group_symop.magn_operation_xyz
+_space_group_symop.magn_operation_mxmymz
+1 x,y,z,+1 mx,my,mz
+2 x-y,x,z+1/2,+1 mx-my,mx,mz
+3 -y,x-y,z,+1 -my,mx-my,mz
+4 -x,-y,z+1/2,+1 -mx,-my,mz
+5 -x+y,-x,z,+1 -mx+my,-mx,mz
+6 y,-x+y,z+1/2,+1 my,-mx+my,mz
+7 -x+y,y,z+1/2,-1 -mx+my,my,mz
+8 -y,-x,z+1/2,-1 -my,-mx,mz
+9 x,x-y,z+1/2,-1 mx,mx-my,mz
+10 -x,-x+y,z,-1 -mx,-mx+my,mz
+11 x-y,-y,z,-1 mx-my,-my,mz
+12 y,x,z,-1 my,mx,mz
+
+loop_
+_space_group_symop.magn_centering_id
+_space_group_symop.magn_centering_xyz
+_space_group_symop.magn_centering_mxmymz
+1 x,y,z,+1 mx,my,mz
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Lu1 Lu 0.00000 0.00000 0.27207 1
+Lu2 Lu 0.33330 0.66670 0.23320 1
+Fe1 Fe 0.33300 0.00000 0.00000 1
+O1 O 0.30300 0.00000 0.15420 1
+O2 O 0.64900 0.00000 0.33200 1
+O3 O 0.00000 0.00000 0.47200 1
+O4 O 0.33330 0.66670 0.01700 1
+
+loop_
+_atom_site_moment_label
+_atom_site_moment_crystalaxis_x
+_atom_site_moment_crystalaxis_y
+_atom_site_moment_crystalaxis_z
+Fe1 2.9(5) 0.0 0.0
+

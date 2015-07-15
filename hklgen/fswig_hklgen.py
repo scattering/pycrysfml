@@ -82,6 +82,9 @@ class SpaceGroup(space_group_type):
             groupName = str(groupName)
             funcs.set_spacegroup(groupName, self, None, None, None, None)
     @property
+    def number(self):
+        return self.get_space_group_numspg()    
+    @property
     def multip(self):
         return self.get_space_group_multip()
     @multip.setter
