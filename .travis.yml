@@ -10,7 +10,7 @@ before_install:
 install:
   - "./build.sh"
   - "pip install --upgrade pip"
-  - "pip install -r requirements.txt"
+  - "pip install -r requirements.txt --upgrade"
 # command to run tests
 script:
   - cd hklgen
