@@ -5,10 +5,13 @@ python:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y build-essential gfortran python python-dev subversion git swig
-  - git clone https://github.com/bumps/bumps.git
-  - sudo -H pip install ./bumps
+#  - git clone https://github.com/bumps/bumps.git
+#  - sudo -H pip install ./bumps
 install:
   - "./build.sh"
+  - "python -c 'import sys; print sys.prefix; print sys.path'"
+  - "which python"
+  - "which pip"
   - "pip install --upgrade pip"
   - "pip install -r requirements.txt --upgrade"
 # command to run tests
