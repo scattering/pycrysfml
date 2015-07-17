@@ -826,7 +826,7 @@ def satelliteGen(cell, symmetry, sMax, hkls=None):
 # satelliteGen_python: python implementation used for debugging
 def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
     kvec = [0,0.,0.]
-    kvec2 = [0.,0,0.1651010]
+    kvec = [0.,0,0.1651010]
     refList = ReflectionList(True)#[0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
     hkls = []
     for x in range(-7,7):
@@ -846,10 +846,10 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
         hkm = list(np.add(hkl,np.negative(kvec)))
         sp = calcS(cell, hkp)
         sm = calcS(cell, hkm)
-        hkp2 = list(np.add(hkl, kvec2))
-        hkm2 = list(np.add(hkl, np.negative(kvec2)))
-        sp2 = calcS(cell, hkp2)
-        sm2 = calcS(cell, hkm2)
+        #hkp2 = list(np.add(hkl, kvec2))
+        #hkm2 = list(np.add(hkl, np.negative(kvec2)))
+        #sp2 = calcS(cell, hkp2)
+        #sm2 = calcS(cell, hkm2)
         #if sum(hkl) in [2*n for n in range(-3,3)]:
         if sp <= sMax:
             mref = MagReflection(reflection)
@@ -857,10 +857,20 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
             mref.set_magh_s(sp)
             mref.set_magh_num_k(1)
             mref.set_magh_signp(-1.0)
-            mref.set_magh_keqv_minus(True)
+            mref.set_magh_keqv_minus(False)
             mref.set_magh_mult(2)
             refList[i] = mref
             i += 1
+        if sm <= sMax:
+            mref = MagReflection(reflection)
+            mref.set_magh_h(FloatVector(hkm))
+            mref.set_magh_s(sm)
+            mref.set_magh_num_k(1)
+            mref.set_magh_signp(1.0)
+            mref.set_magh_keqv_minus(False)
+            mref.set_magh_mult(2)
+            refList[i] = mref
+            i += 1            
         #if sp2 <= sMax:
             #mref = MagReflection(reflection)
             #mref.set_magh_h(FloatVector(hkp2))
@@ -976,7 +986,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    return sfs2 * lorentz
+    return sfs2 #* lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
@@ -1057,7 +1067,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         # use this space group to generate magnetic hkls (refList2)
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=True)
-        magRefList = satelliteGen_python(cell, sMax, None)#satelliteGen(cell, symmetry, sMax, hkls=refList2)#
+        magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#satelliteGen_python(cell, sMax, None)#
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True)
@@ -1161,7 +1171,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         else: symmObject = spaceGroup
         h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in xrange(3))
         multip = [str(ref.multip) for ref in refList]
-        tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
+        tt = ["%.3f" % ref.s for ref in refList]
         intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject, wavelength, cell, magnetic)]
         #dtype = [('tt', float),('h', 'S10'), ('k', 'S10'), ('l','S10'), ('intensity', 'S10')]
         #array1 = np.array([(tt[i], str(float(h[i])+0.5),k[i],str(float(l[i])+0.5),intensity[i]) for i in range(len(tt))], dtype=dtype)
