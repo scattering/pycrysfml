@@ -11,7 +11,7 @@ before_install:
   - conda update --yes conda
 install:
   - "./build.sh"
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy matplotlib pylab nose
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy matplotlib nose
 #  - "python -c 'import sys; print sys.prefix; print sys.path'"
 #  - "which python"
 #  - "which pip"
