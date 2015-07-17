@@ -11,9 +11,8 @@ before_install:
   - conda update --yes conda
 install:
   - "./build.sh"
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy matplotlib nose multiprocessing
-  - sudo -H pip install green
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy matplotlib nose
 # command to run tests
 script:
   - cd hklgen
-  - PYTHONPATH=$PYTHONPATH:. green
+  - PYTHONPATH=$PYTHONPATH:. nosetests -vv

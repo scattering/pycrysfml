@@ -861,26 +861,26 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
             mref.set_magh_mult(2)
             refList[i] = mref
             i += 1
-        if sp2 <= sMax:
-            mref = MagReflection(reflection)
-            mref.set_magh_h(FloatVector(hkp2))
-            mref.set_magh_s(sp2)
-            mref.set_magh_num_k(1)
-            mref.set_magh_signp(-1.0)
-            mref.set_magh_keqv_minus(False)
-            mref.set_magh_mult(1)
-            refList[i] = mref
-            i += 1
-        if sm2 <= sMax:
-            mref = MagReflection(reflection)
-            mref.set_magh_h(FloatVector(hkm2))
-            mref.set_magh_s(sm2)
-            mref.set_magh_num_k(1)
-            mref.set_magh_signp(1.0)
-            mref.set_magh_keqv_minus(False)
-            mref.set_magh_mult(1)
-            refList[i] = mref
-            i += 1        
+        #if sp2 <= sMax:
+            #mref = MagReflection(reflection)
+            #mref.set_magh_h(FloatVector(hkp2))
+            #mref.set_magh_s(sp2)
+            #mref.set_magh_num_k(1)
+            #mref.set_magh_signp(-1.0)
+            #mref.set_magh_keqv_minus(False)
+            #mref.set_magh_mult(1)
+            #refList[i] = mref
+            #i += 1
+        #if sm2 <= sMax:
+            #mref = MagReflection(reflection)
+            #mref.set_magh_h(FloatVector(hkm2))
+            #mref.set_magh_s(sm2)
+            #mref.set_magh_num_k(1)
+            #mref.set_magh_signp(1.0)
+            #mref.set_magh_keqv_minus(False)
+            #mref.set_magh_mult(1)
+            #refList[i] = mref
+            #i += 1        
                 #if hkl[2] == 0 and hkl[0] <= 1:
                     ## this part causes double counting
                     #ks = np.add([-hkl[0],-hkl[1],0.0],kvec)
