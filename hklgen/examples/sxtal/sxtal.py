@@ -30,7 +30,7 @@ def fit():
     #cell.c.pm(5.0)
     m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=min(sfs2), scale=1, error=error, hkls=refList)
+                symmetry=symmetry, newSymmetry=basisSymmetry, scale=1.557, error=error, hkls=refList)
     m.scale.range(0,100)
     #m.base.pm(1000)
     #m.extinction.range(0,10.0)
@@ -41,8 +41,8 @@ def fit():
         #atomModel.B.range(0,10)
         if atomModel.magnetic:
             for coeff in atomModel.coeffs:
-                #coeff.range(-10, 10)
-                coeff.range(0,5)
+                coeff.range(-10, 10)
+                #coeff.range(0,5)
     M = bumps.FitProblem(m)
     M.model_update()
     return M

@@ -825,7 +825,8 @@ def satelliteGen(cell, symmetry, sMax, hkls=None):
     return refList
 # satelliteGen_python: python implementation used for debugging
 def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
-    kvec = [0,0.5,0]
+    kvec = [0,0.,0.]
+    kvec2 = [0.,0,0.1651010]
     refList = ReflectionList(True)#[0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
     hkls = []
     for x in range(-7,7):
@@ -845,17 +846,41 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
         hkm = list(np.add(hkl,np.negative(kvec)))
         sp = calcS(cell, hkp)
         sm = calcS(cell, hkm)
+        hkp2 = list(np.add(hkl, kvec2))
+        hkm2 = list(np.add(hkl, np.negative(kvec2)))
+        sp2 = calcS(cell, hkp2)
+        sm2 = calcS(cell, hkm2)
         #if sum(hkl) in [2*n for n in range(-3,3)]:
         if sp <= sMax:
-                mref = MagReflection(reflection)
-                mref.set_magh_h(FloatVector(hkp))
-                mref.set_magh_s(sp)
-                mref.set_magh_num_k(1)
-                mref.set_magh_signp(-1.0)
-                mref.set_magh_keqv_minus(True)
-                mref.set_magh_mult(2)
-                refList[i] = mref
-                i += 1
+            mref = MagReflection(reflection)
+            mref.set_magh_h(FloatVector(hkp))
+            mref.set_magh_s(sp)
+            mref.set_magh_num_k(1)
+            mref.set_magh_signp(-1.0)
+            mref.set_magh_keqv_minus(True)
+            mref.set_magh_mult(2)
+            refList[i] = mref
+            i += 1
+        if sp2 <= sMax:
+            mref = MagReflection(reflection)
+            mref.set_magh_h(FloatVector(hkp2))
+            mref.set_magh_s(sp2)
+            mref.set_magh_num_k(2)
+            mref.set_magh_signp(-1.0)
+            mref.set_magh_keqv_minus(False)
+            mref.set_magh_mult(1)
+            refList[i] = mref
+            i += 1
+        if sm2 <= sMax:
+            mref = MagReflection(reflection)
+            mref.set_magh_h(FloatVector(hkm2))
+            mref.set_magh_s(sm2)
+            mref.set_magh_num_k(2)
+            mref.set_magh_signp(1.0)
+            mref.set_magh_keqv_minus(False)
+            mref.set_magh_mult(1)
+            refList[i] = mref
+            i += 1        
                 #if hkl[2] == 0 and hkl[0] <= 1:
                     ## this part causes double counting
                     #ks = np.add([-hkl[0],-hkl[1],0.0],kvec)
@@ -1031,8 +1056,8 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         #funcs.write_spacegroup(spg)
         # use this space group to generate magnetic hkls (refList2)
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
-        refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=True)
-        magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#satelliteGen_python(cell, sMax, None)#
+        refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=True)#satelliteGen_python(cell, sMax, None)#
+        magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True)
