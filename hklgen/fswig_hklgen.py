@@ -1056,7 +1056,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         #funcs.write_spacegroup(spg)
         # use this space group to generate magnetic hkls (refList2)
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
-        refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=True)#satelliteGen_python(cell, sMax, None)#
+        refList2 = satelliteGen_python(cell, sMax, None)#hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=True)#
         magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,

@@ -11,14 +11,8 @@ before_install:
   - conda update --yes conda
 install:
   - "./build.sh"
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy matplotlib nose green
-#  - "python -c 'import sys; print sys.prefix; print sys.path'"
-#  - "which python"
-#  - "which pip"
-#  - "pip install --upgrade pip"
-#  - "PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages/"
-#  - "python -c 'import sys; print sys.prefix; print sys.path'"
-#  - "pip install -r requirements.txt --upgrade"
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy matplotlib nose
+  - sudo -H pip install green
 # command to run tests
 script:
   - cd hklgen
