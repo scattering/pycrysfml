@@ -9,14 +9,14 @@ before_install:
 #  - sudo -H pip install ./bumps
 install:
   - "./build.sh"
-  - "python -c 'import sys; print sys.prefix; print sys.path'"
-  - "which python"
-  - "which pip"
-  - "pip install --upgrade pip"
-  - "PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages/"
-  - "python -c 'import sys; print sys.prefix; print sys.path'"
-  - "pip install -r requirements.txt --upgrade"
+#  - "python -c 'import sys; print sys.prefix; print sys.path'"
+#  - "which python"
+#  - "which pip"
+#  - "pip install --upgrade pip"
+#  - "PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages/"
+#  - "python -c 'import sys; print sys.prefix; print sys.path'"
+#  - "pip install -r requirements.txt --upgrade"
 # command to run tests
 script:
   - cd hklgen
-  - PYTHONPATH=$PYTHONPATH:. nosetests
+  - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages/:. nosetests
