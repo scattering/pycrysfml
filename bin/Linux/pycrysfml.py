@@ -391,6 +391,24 @@ class atom_equiv_type(_object):
 atom_equiv_type_swigregister = _pycrysfml.atom_equiv_type_swigregister
 atom_equiv_type_swigregister(atom_equiv_type)
 
+class atomic_properties_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, atomic_properties_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, atomic_properties_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_atomic_properties_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_atomic_properties_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.atomic_properties_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.atomic_properties_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.atomic_properties_type_data_ptr_get, _pycrysfml.atomic_properties_type_data_ptr_set)
+atomic_properties_type_swigregister = _pycrysfml.atomic_properties_type_swigregister
+atomic_properties_type_swigregister(atomic_properties_type)
+
 class atom_list_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, atom_list_type, name, value)
@@ -594,6 +612,42 @@ class basic_numr_type(_object):
     if _newclass:data_ptr = _swig_property(_pycrysfml.basic_numr_type_data_ptr_get, _pycrysfml.basic_numr_type_data_ptr_set)
 basic_numr_type_swigregister = _pycrysfml.basic_numr_type_swigregister
 basic_numr_type_swigregister(basic_numr_type)
+
+class bvel_par_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, bvel_par_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, bvel_par_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_bvel_par_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_bvel_par_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.bvel_par_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.bvel_par_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.bvel_par_type_data_ptr_get, _pycrysfml.bvel_par_type_data_ptr_set)
+bvel_par_type_swigregister = _pycrysfml.bvel_par_type_swigregister
+bvel_par_type_swigregister(bvel_par_type)
+
+class bvs_par_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, bvs_par_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, bvs_par_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_bvs_par_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_bvs_par_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.bvs_par_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.bvs_par_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.bvs_par_type_data_ptr_get, _pycrysfml.bvs_par_type_data_ptr_set)
+bvs_par_type_swigregister = _pycrysfml.bvs_par_type_swigregister
+bvs_par_type_swigregister(bvs_par_type)
 
 class calibration_detector_type(_object):
     __swig_setmethods__ = {}
@@ -892,368 +946,6 @@ class FortFuncs(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, FortFuncs, name)
     __repr__ = _swig_repr
-    __swig_getmethods__["directory_exists"] = lambda x: _pycrysfml.FortFuncs_directory_exists
-    if _newclass:directory_exists = staticmethod(_pycrysfml.FortFuncs_directory_exists)
-    __swig_getmethods__["write_date_time"] = lambda x: _pycrysfml.FortFuncs_write_date_time
-    if _newclass:write_date_time = staticmethod(_pycrysfml.FortFuncs_write_date_time)
-    __swig_getmethods__["bessj"] = lambda x: _pycrysfml.FortFuncs_bessj
-    if _newclass:bessj = staticmethod(_pycrysfml.FortFuncs_bessj)
-    __swig_getmethods__["pgcd"] = lambda x: _pycrysfml.FortFuncs_pgcd
-    if _newclass:pgcd = staticmethod(_pycrysfml.FortFuncs_pgcd)
-    __swig_getmethods__["ppcm"] = lambda x: _pycrysfml.FortFuncs_ppcm
-    if _newclass:ppcm = staticmethod(_pycrysfml.FortFuncs_ppcm)
-    __swig_getmethods__["init_err_mathgen"] = lambda x: _pycrysfml.FortFuncs_init_err_mathgen
-    if _newclass:init_err_mathgen = staticmethod(_pycrysfml.FortFuncs_init_err_mathgen)
-    __swig_getmethods__["set_epsg"] = lambda x: _pycrysfml.FortFuncs_set_epsg
-    if _newclass:set_epsg = staticmethod(_pycrysfml.FortFuncs_set_epsg)
-    __swig_getmethods__["set_epsg_default"] = lambda x: _pycrysfml.FortFuncs_set_epsg_default
-    if _newclass:set_epsg_default = staticmethod(_pycrysfml.FortFuncs_set_epsg_default)
-    __swig_getmethods__["cubic_harm_ang"] = lambda x: _pycrysfml.FortFuncs_cubic_harm_ang
-    if _newclass:cubic_harm_ang = staticmethod(_pycrysfml.FortFuncs_cubic_harm_ang)
-    __swig_getmethods__["cubic_harm_ucvec"] = lambda x: _pycrysfml.FortFuncs_cubic_harm_ucvec
-    if _newclass:cubic_harm_ucvec = staticmethod(_pycrysfml.FortFuncs_cubic_harm_ucvec)
-    __swig_getmethods__["int_slater_bessel"] = lambda x: _pycrysfml.FortFuncs_int_slater_bessel
-    if _newclass:int_slater_bessel = staticmethod(_pycrysfml.FortFuncs_int_slater_bessel)
-    __swig_getmethods__["real_spher_harm_ang"] = lambda x: _pycrysfml.FortFuncs_real_spher_harm_ang
-    if _newclass:real_spher_harm_ang = staticmethod(_pycrysfml.FortFuncs_real_spher_harm_ang)
-    __swig_getmethods__["real_spher_harm_ucvec"] = lambda x: _pycrysfml.FortFuncs_real_spher_harm_ucvec
-    if _newclass:real_spher_harm_ucvec = staticmethod(_pycrysfml.FortFuncs_real_spher_harm_ucvec)
-    __swig_getmethods__["real_spher_harmcharge_ucvec"] = lambda x: _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec
-    if _newclass:real_spher_harmcharge_ucvec = staticmethod(_pycrysfml.FortFuncs_real_spher_harmcharge_ucvec)
-    __swig_getmethods__["init_err_spher"] = lambda x: _pycrysfml.FortFuncs_init_err_spher
-    if _newclass:init_err_spher = staticmethod(_pycrysfml.FortFuncs_init_err_spher)
-    __swig_getmethods__["pikout_lj_cubic"] = lambda x: _pycrysfml.FortFuncs_pikout_lj_cubic
-    if _newclass:pikout_lj_cubic = staticmethod(_pycrysfml.FortFuncs_pikout_lj_cubic)
-    __swig_getmethods__["init_err_random"] = lambda x: _pycrysfml.FortFuncs_init_err_random
-    if _newclass:init_err_random = staticmethod(_pycrysfml.FortFuncs_init_err_random)
-    __swig_getmethods__["random_beta"] = lambda x: _pycrysfml.FortFuncs_random_beta
-    if _newclass:random_beta = staticmethod(_pycrysfml.FortFuncs_random_beta)
-    __swig_getmethods__["random_binomial1"] = lambda x: _pycrysfml.FortFuncs_random_binomial1
-    if _newclass:random_binomial1 = staticmethod(_pycrysfml.FortFuncs_random_binomial1)
-    __swig_getmethods__["random_binomial2"] = lambda x: _pycrysfml.FortFuncs_random_binomial2
-    if _newclass:random_binomial2 = staticmethod(_pycrysfml.FortFuncs_random_binomial2)
-    __swig_getmethods__["random_cauchy"] = lambda x: _pycrysfml.FortFuncs_random_cauchy
-    if _newclass:random_cauchy = staticmethod(_pycrysfml.FortFuncs_random_cauchy)
-    __swig_getmethods__["random_chisq"] = lambda x: _pycrysfml.FortFuncs_random_chisq
-    if _newclass:random_chisq = staticmethod(_pycrysfml.FortFuncs_random_chisq)
-    __swig_getmethods__["random_exponential"] = lambda x: _pycrysfml.FortFuncs_random_exponential
-    if _newclass:random_exponential = staticmethod(_pycrysfml.FortFuncs_random_exponential)
-    __swig_getmethods__["random_gamma"] = lambda x: _pycrysfml.FortFuncs_random_gamma
-    if _newclass:random_gamma = staticmethod(_pycrysfml.FortFuncs_random_gamma)
-    __swig_getmethods__["random_gamma1"] = lambda x: _pycrysfml.FortFuncs_random_gamma1
-    if _newclass:random_gamma1 = staticmethod(_pycrysfml.FortFuncs_random_gamma1)
-    __swig_getmethods__["random_gamma2"] = lambda x: _pycrysfml.FortFuncs_random_gamma2
-    if _newclass:random_gamma2 = staticmethod(_pycrysfml.FortFuncs_random_gamma2)
-    __swig_getmethods__["random_inv_gauss"] = lambda x: _pycrysfml.FortFuncs_random_inv_gauss
-    if _newclass:random_inv_gauss = staticmethod(_pycrysfml.FortFuncs_random_inv_gauss)
-    __swig_getmethods__["random_mvnorm"] = lambda x: _pycrysfml.FortFuncs_random_mvnorm
-    if _newclass:random_mvnorm = staticmethod(_pycrysfml.FortFuncs_random_mvnorm)
-    __swig_getmethods__["random_neg_binomial"] = lambda x: _pycrysfml.FortFuncs_random_neg_binomial
-    if _newclass:random_neg_binomial = staticmethod(_pycrysfml.FortFuncs_random_neg_binomial)
-    __swig_getmethods__["random_normal"] = lambda x: _pycrysfml.FortFuncs_random_normal
-    if _newclass:random_normal = staticmethod(_pycrysfml.FortFuncs_random_normal)
-    __swig_getmethods__["random_order"] = lambda x: _pycrysfml.FortFuncs_random_order
-    if _newclass:random_order = staticmethod(_pycrysfml.FortFuncs_random_order)
-    __swig_getmethods__["random_poisson"] = lambda x: _pycrysfml.FortFuncs_random_poisson
-    if _newclass:random_poisson = staticmethod(_pycrysfml.FortFuncs_random_poisson)
-    __swig_getmethods__["random_t"] = lambda x: _pycrysfml.FortFuncs_random_t
-    if _newclass:random_t = staticmethod(_pycrysfml.FortFuncs_random_t)
-    __swig_getmethods__["random_von_mises"] = lambda x: _pycrysfml.FortFuncs_random_von_mises
-    if _newclass:random_von_mises = staticmethod(_pycrysfml.FortFuncs_random_von_mises)
-    __swig_getmethods__["random_weibull"] = lambda x: _pycrysfml.FortFuncs_random_weibull
-    if _newclass:random_weibull = staticmethod(_pycrysfml.FortFuncs_random_weibull)
-    __swig_getmethods__["seed_random_number"] = lambda x: _pycrysfml.FortFuncs_seed_random_number
-    if _newclass:seed_random_number = staticmethod(_pycrysfml.FortFuncs_seed_random_number)
-    __swig_getmethods__["string_count"] = lambda x: _pycrysfml.FortFuncs_string_count
-    if _newclass:string_count = staticmethod(_pycrysfml.FortFuncs_string_count)
-    __swig_getmethods__["frac_trans_1dig"] = lambda x: _pycrysfml.FortFuncs_frac_trans_1dig
-    if _newclass:frac_trans_1dig = staticmethod(_pycrysfml.FortFuncs_frac_trans_1dig)
-    __swig_getmethods__["frac_trans_2dig"] = lambda x: _pycrysfml.FortFuncs_frac_trans_2dig
-    if _newclass:frac_trans_2dig = staticmethod(_pycrysfml.FortFuncs_frac_trans_2dig)
-    __swig_getmethods__["get_basename"] = lambda x: _pycrysfml.FortFuncs_get_basename
-    if _newclass:get_basename = staticmethod(_pycrysfml.FortFuncs_get_basename)
-    __swig_getmethods__["get_dirname"] = lambda x: _pycrysfml.FortFuncs_get_dirname
-    if _newclass:get_dirname = staticmethod(_pycrysfml.FortFuncs_get_dirname)
-    __swig_getmethods__["get_extension"] = lambda x: _pycrysfml.FortFuncs_get_extension
-    if _newclass:get_extension = staticmethod(_pycrysfml.FortFuncs_get_extension)
-    __swig_getmethods__["get_fraction_1dig"] = lambda x: _pycrysfml.FortFuncs_get_fraction_1dig
-    if _newclass:get_fraction_1dig = staticmethod(_pycrysfml.FortFuncs_get_fraction_1dig)
-    __swig_getmethods__["get_fraction_2dig"] = lambda x: _pycrysfml.FortFuncs_get_fraction_2dig
-    if _newclass:get_fraction_2dig = staticmethod(_pycrysfml.FortFuncs_get_fraction_2dig)
-    __swig_getmethods__["get_logunit"] = lambda x: _pycrysfml.FortFuncs_get_logunit
-    if _newclass:get_logunit = staticmethod(_pycrysfml.FortFuncs_get_logunit)
-    __swig_getmethods__["get_transf"] = lambda x: _pycrysfml.FortFuncs_get_transf
-    if _newclass:get_transf = staticmethod(_pycrysfml.FortFuncs_get_transf)
-    __swig_getmethods__["inc_linenum"] = lambda x: _pycrysfml.FortFuncs_inc_linenum
-    if _newclass:inc_linenum = staticmethod(_pycrysfml.FortFuncs_inc_linenum)
-    __swig_getmethods__["init_err_string"] = lambda x: _pycrysfml.FortFuncs_init_err_string
-    if _newclass:init_err_string = staticmethod(_pycrysfml.FortFuncs_init_err_string)
-    __swig_getmethods__["init_findfmt"] = lambda x: _pycrysfml.FortFuncs_init_findfmt
-    if _newclass:init_findfmt = staticmethod(_pycrysfml.FortFuncs_init_findfmt)
-    __swig_getmethods__["number_lines"] = lambda x: _pycrysfml.FortFuncs_number_lines
-    if _newclass:number_lines = staticmethod(_pycrysfml.FortFuncs_number_lines)
-    __swig_getmethods__["numcol_from_numfmt"] = lambda x: _pycrysfml.FortFuncs_numcol_from_numfmt
-    if _newclass:numcol_from_numfmt = staticmethod(_pycrysfml.FortFuncs_numcol_from_numfmt)
-    __swig_getmethods__["setnum_std"] = lambda x: _pycrysfml.FortFuncs_setnum_std
-    if _newclass:setnum_std = staticmethod(_pycrysfml.FortFuncs_setnum_std)
-    __swig_getmethods__["error_message"] = lambda x: _pycrysfml.FortFuncs_error_message
-    if _newclass:error_message = staticmethod(_pycrysfml.FortFuncs_error_message)
-    __swig_getmethods__["info_message"] = lambda x: _pycrysfml.FortFuncs_info_message
-    if _newclass:info_message = staticmethod(_pycrysfml.FortFuncs_info_message)
-    __swig_getmethods__["print_message"] = lambda x: _pycrysfml.FortFuncs_print_message
-    if _newclass:print_message = staticmethod(_pycrysfml.FortFuncs_print_message)
-    __swig_getmethods__["wait_message"] = lambda x: _pycrysfml.FortFuncs_wait_message
-    if _newclass:wait_message = staticmethod(_pycrysfml.FortFuncs_wait_message)
-    __swig_getmethods__["write_scroll_text"] = lambda x: _pycrysfml.FortFuncs_write_scroll_text
-    if _newclass:write_scroll_text = staticmethod(_pycrysfml.FortFuncs_write_scroll_text)
-    __swig_getmethods__["tof_carpenter"] = lambda x: _pycrysfml.FortFuncs_tof_carpenter
-    if _newclass:tof_carpenter = staticmethod(_pycrysfml.FortFuncs_tof_carpenter)
-    __swig_getmethods__["tof_jorgensen"] = lambda x: _pycrysfml.FortFuncs_tof_jorgensen
-    if _newclass:tof_jorgensen = staticmethod(_pycrysfml.FortFuncs_tof_jorgensen)
-    __swig_getmethods__["tof_jorgensen_vondreele"] = lambda x: _pycrysfml.FortFuncs_tof_jorgensen_vondreele
-    if _newclass:tof_jorgensen_vondreele = staticmethod(_pycrysfml.FortFuncs_tof_jorgensen_vondreele)
-    __swig_getmethods__["init_prof_val"] = lambda x: _pycrysfml.FortFuncs_init_prof_val
-    if _newclass:init_prof_val = staticmethod(_pycrysfml.FortFuncs_init_prof_val)
-    __swig_getmethods__["prof_val"] = lambda x: _pycrysfml.FortFuncs_prof_val
-    if _newclass:prof_val = staticmethod(_pycrysfml.FortFuncs_prof_val)
-    __swig_getmethods__["veclength"] = lambda x: _pycrysfml.FortFuncs_veclength
-    if _newclass:veclength = staticmethod(_pycrysfml.FortFuncs_veclength)
-    __swig_getmethods__["init_err_math3d"] = lambda x: _pycrysfml.FortFuncs_init_err_math3d
-    if _newclass:init_err_math3d = staticmethod(_pycrysfml.FortFuncs_init_err_math3d)
-    __swig_getmethods__["set_eps"] = lambda x: _pycrysfml.FortFuncs_set_eps
-    if _newclass:set_eps = staticmethod(_pycrysfml.FortFuncs_set_eps)
-    __swig_getmethods__["set_eps_default"] = lambda x: _pycrysfml.FortFuncs_set_eps_default
-    if _newclass:set_eps_default = staticmethod(_pycrysfml.FortFuncs_set_eps_default)
-    __swig_getmethods__["get_plane_from_points"] = lambda x: _pycrysfml.FortFuncs_get_plane_from_points
-    if _newclass:get_plane_from_points = staticmethod(_pycrysfml.FortFuncs_get_plane_from_points)
-    __swig_getmethods__["matrix_diageigen"] = lambda x: _pycrysfml.FortFuncs_matrix_diageigen
-    if _newclass:matrix_diageigen = staticmethod(_pycrysfml.FortFuncs_matrix_diageigen)
-    __swig_getmethods__["matrix_inverse"] = lambda x: _pycrysfml.FortFuncs_matrix_inverse
-    if _newclass:matrix_inverse = staticmethod(_pycrysfml.FortFuncs_matrix_inverse)
-    __swig_getmethods__["resolv_sist_1x2"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_1x2
-    if _newclass:resolv_sist_1x2 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_1x2)
-    __swig_getmethods__["resolv_sist_1x3"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_1x3
-    if _newclass:resolv_sist_1x3 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_1x3)
-    __swig_getmethods__["resolv_sist_2x2"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_2x2
-    if _newclass:resolv_sist_2x2 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_2x2)
-    __swig_getmethods__["resolv_sist_2x3"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_2x3
-    if _newclass:resolv_sist_2x3 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_2x3)
-    __swig_getmethods__["resolv_sist_3x3"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_3x3
-    if _newclass:resolv_sist_3x3 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_3x3)
-    __swig_getmethods__["init_err_optim"] = lambda x: _pycrysfml.FortFuncs_init_err_optim
-    if _newclass:init_err_optim = staticmethod(_pycrysfml.FortFuncs_init_err_optim)
-    __swig_getmethods__["init_opt_conditions"] = lambda x: _pycrysfml.FortFuncs_init_opt_conditions
-    if _newclass:init_opt_conditions = staticmethod(_pycrysfml.FortFuncs_init_opt_conditions)
-    __swig_getmethods__["write_optimization_conditions"] = lambda x: _pycrysfml.FortFuncs_write_optimization_conditions
-    if _newclass:write_optimization_conditions = staticmethod(_pycrysfml.FortFuncs_write_optimization_conditions)
-    __swig_getmethods__["get_generators"] = lambda x: _pycrysfml.FortFuncs_get_generators
-    if _newclass:get_generators = staticmethod(_pycrysfml.FortFuncs_get_generators)
-    __swig_getmethods__["remove_spgr_info"] = lambda x: _pycrysfml.FortFuncs_remove_spgr_info
-    if _newclass:remove_spgr_info = staticmethod(_pycrysfml.FortFuncs_remove_spgr_info)
-    __swig_getmethods__["remove_system_equiv"] = lambda x: _pycrysfml.FortFuncs_remove_system_equiv
-    if _newclass:remove_system_equiv = staticmethod(_pycrysfml.FortFuncs_remove_system_equiv)
-    __swig_getmethods__["remove_wyckoff_info"] = lambda x: _pycrysfml.FortFuncs_remove_wyckoff_info
-    if _newclass:remove_wyckoff_info = staticmethod(_pycrysfml.FortFuncs_remove_wyckoff_info)
-    __swig_getmethods__["set_spgr_info"] = lambda x: _pycrysfml.FortFuncs_set_spgr_info
-    if _newclass:set_spgr_info = staticmethod(_pycrysfml.FortFuncs_set_spgr_info)
-    __swig_getmethods__["set_system_equiv"] = lambda x: _pycrysfml.FortFuncs_set_system_equiv
-    if _newclass:set_system_equiv = staticmethod(_pycrysfml.FortFuncs_set_system_equiv)
-    __swig_getmethods__["set_wyckoff_info"] = lambda x: _pycrysfml.FortFuncs_set_wyckoff_info
-    if _newclass:set_wyckoff_info = staticmethod(_pycrysfml.FortFuncs_set_wyckoff_info)
-    __swig_getmethods__["get_atomic_mass"] = lambda x: _pycrysfml.FortFuncs_get_atomic_mass
-    if _newclass:get_atomic_mass = staticmethod(_pycrysfml.FortFuncs_get_atomic_mass)
-    __swig_getmethods__["get_atomic_vol"] = lambda x: _pycrysfml.FortFuncs_get_atomic_vol
-    if _newclass:get_atomic_vol = staticmethod(_pycrysfml.FortFuncs_get_atomic_vol)
-    __swig_getmethods__["get_chemsymb"] = lambda x: _pycrysfml.FortFuncs_get_chemsymb
-    if _newclass:get_chemsymb = staticmethod(_pycrysfml.FortFuncs_get_chemsymb)
-    __swig_getmethods__["get_covalent_radius"] = lambda x: _pycrysfml.FortFuncs_get_covalent_radius
-    if _newclass:get_covalent_radius = staticmethod(_pycrysfml.FortFuncs_get_covalent_radius)
-    __swig_getmethods__["get_fermi_length"] = lambda x: _pycrysfml.FortFuncs_get_fermi_length
-    if _newclass:get_fermi_length = staticmethod(_pycrysfml.FortFuncs_get_fermi_length)
-    __swig_getmethods__["get_inc_xs"] = lambda x: _pycrysfml.FortFuncs_get_inc_xs
-    if _newclass:get_inc_xs = staticmethod(_pycrysfml.FortFuncs_get_inc_xs)
-    __swig_getmethods__["get_abs_xs"] = lambda x: _pycrysfml.FortFuncs_get_abs_xs
-    if _newclass:get_abs_xs = staticmethod(_pycrysfml.FortFuncs_get_abs_xs)
-    __swig_getmethods__["get_ionic_radius"] = lambda x: _pycrysfml.FortFuncs_get_ionic_radius
-    if _newclass:get_ionic_radius = staticmethod(_pycrysfml.FortFuncs_get_ionic_radius)
-    __swig_getmethods__["remove_chem_info"] = lambda x: _pycrysfml.FortFuncs_remove_chem_info
-    if _newclass:remove_chem_info = staticmethod(_pycrysfml.FortFuncs_remove_chem_info)
-    __swig_getmethods__["remove_delta_fp_fpp"] = lambda x: _pycrysfml.FortFuncs_remove_delta_fp_fpp
-    if _newclass:remove_delta_fp_fpp = staticmethod(_pycrysfml.FortFuncs_remove_delta_fp_fpp)
-    __swig_getmethods__["remove_magnetic_form"] = lambda x: _pycrysfml.FortFuncs_remove_magnetic_form
-    if _newclass:remove_magnetic_form = staticmethod(_pycrysfml.FortFuncs_remove_magnetic_form)
-    __swig_getmethods__["remove_xray_form"] = lambda x: _pycrysfml.FortFuncs_remove_xray_form
-    if _newclass:remove_xray_form = staticmethod(_pycrysfml.FortFuncs_remove_xray_form)
-    __swig_getmethods__["set_chem_info"] = lambda x: _pycrysfml.FortFuncs_set_chem_info
-    if _newclass:set_chem_info = staticmethod(_pycrysfml.FortFuncs_set_chem_info)
-    __swig_getmethods__["set_delta_fp_fpp"] = lambda x: _pycrysfml.FortFuncs_set_delta_fp_fpp
-    if _newclass:set_delta_fp_fpp = staticmethod(_pycrysfml.FortFuncs_set_delta_fp_fpp)
-    __swig_getmethods__["set_magnetic_form"] = lambda x: _pycrysfml.FortFuncs_set_magnetic_form
-    if _newclass:set_magnetic_form = staticmethod(_pycrysfml.FortFuncs_set_magnetic_form)
-    __swig_getmethods__["set_xray_form"] = lambda x: _pycrysfml.FortFuncs_set_xray_form
-    if _newclass:set_xray_form = staticmethod(_pycrysfml.FortFuncs_set_xray_form)
-    __swig_getmethods__["calc_fwhm_peak"] = lambda x: _pycrysfml.FortFuncs_calc_fwhm_peak
-    if _newclass:calc_fwhm_peak = staticmethod(_pycrysfml.FortFuncs_calc_fwhm_peak)
-    __swig_getmethods__["allocate_diffraction_pattern"] = lambda x: _pycrysfml.FortFuncs_allocate_diffraction_pattern
-    if _newclass:allocate_diffraction_pattern = staticmethod(_pycrysfml.FortFuncs_allocate_diffraction_pattern)
-    __swig_getmethods__["calc_background"] = lambda x: _pycrysfml.FortFuncs_calc_background
-    if _newclass:calc_background = staticmethod(_pycrysfml.FortFuncs_calc_background)
-    __swig_getmethods__["delete_noisy_points"] = lambda x: _pycrysfml.FortFuncs_delete_noisy_points
-    if _newclass:delete_noisy_points = staticmethod(_pycrysfml.FortFuncs_delete_noisy_points)
-    __swig_getmethods__["init_err_diffpatt"] = lambda x: _pycrysfml.FortFuncs_init_err_diffpatt
-    if _newclass:init_err_diffpatt = staticmethod(_pycrysfml.FortFuncs_init_err_diffpatt)
-    __swig_getmethods__["purge_diffraction_pattern"] = lambda x: _pycrysfml.FortFuncs_purge_diffraction_pattern
-    if _newclass:purge_diffraction_pattern = staticmethod(_pycrysfml.FortFuncs_purge_diffraction_pattern)
-    __swig_getmethods__["read_background_file"] = lambda x: _pycrysfml.FortFuncs_read_background_file
-    if _newclass:read_background_file = staticmethod(_pycrysfml.FortFuncs_read_background_file)
-    __swig_getmethods__["write_pattern_freeformat"] = lambda x: _pycrysfml.FortFuncs_write_pattern_freeformat
-    if _newclass:write_pattern_freeformat = staticmethod(_pycrysfml.FortFuncs_write_pattern_freeformat)
-    __swig_getmethods__["write_pattern_instrm5"] = lambda x: _pycrysfml.FortFuncs_write_pattern_instrm5
-    if _newclass:write_pattern_instrm5 = staticmethod(_pycrysfml.FortFuncs_write_pattern_instrm5)
-    __swig_getmethods__["write_pattern_xysig"] = lambda x: _pycrysfml.FortFuncs_write_pattern_xysig
-    if _newclass:write_pattern_xysig = staticmethod(_pycrysfml.FortFuncs_write_pattern_xysig)
-    __swig_getmethods__["init_err_bond"] = lambda x: _pycrysfml.FortFuncs_init_err_bond
-    if _newclass:init_err_bond = staticmethod(_pycrysfml.FortFuncs_init_err_bond)
-    __swig_getmethods__["remove_bonds_table"] = lambda x: _pycrysfml.FortFuncs_remove_bonds_table
-    if _newclass:remove_bonds_table = staticmethod(_pycrysfml.FortFuncs_remove_bonds_table)
-    __swig_getmethods__["set_bonds_table"] = lambda x: _pycrysfml.FortFuncs_set_bonds_table
-    if _newclass:set_bonds_table = staticmethod(_pycrysfml.FortFuncs_set_bonds_table)
-    __swig_getmethods__["cell_volume_sigma"] = lambda x: _pycrysfml.FortFuncs_cell_volume_sigma
-    if _newclass:cell_volume_sigma = staticmethod(_pycrysfml.FortFuncs_cell_volume_sigma)
-    __swig_getmethods__["u_equiv"] = lambda x: _pycrysfml.FortFuncs_u_equiv
-    if _newclass:u_equiv = staticmethod(_pycrysfml.FortFuncs_u_equiv)
-    __swig_getmethods__["get_basis_from_uvw"] = lambda x: _pycrysfml.FortFuncs_get_basis_from_uvw
-    if _newclass:get_basis_from_uvw = staticmethod(_pycrysfml.FortFuncs_get_basis_from_uvw)
-    __swig_getmethods__["get_conventional_cell"] = lambda x: _pycrysfml.FortFuncs_get_conventional_cell
-    if _newclass:get_conventional_cell = staticmethod(_pycrysfml.FortFuncs_get_conventional_cell)
-    __swig_getmethods__["get_primitive_cell"] = lambda x: _pycrysfml.FortFuncs_get_primitive_cell
-    if _newclass:get_primitive_cell = staticmethod(_pycrysfml.FortFuncs_get_primitive_cell)
-    __swig_getmethods__["init_err_crys"] = lambda x: _pycrysfml.FortFuncs_init_err_crys
-    if _newclass:init_err_crys = staticmethod(_pycrysfml.FortFuncs_init_err_crys)
-    __swig_getmethods__["read_bin_crystal_cell"] = lambda x: _pycrysfml.FortFuncs_read_bin_crystal_cell
-    if _newclass:read_bin_crystal_cell = staticmethod(_pycrysfml.FortFuncs_read_bin_crystal_cell)
-    __swig_getmethods__["set_crystal_cell"] = lambda x: _pycrysfml.FortFuncs_set_crystal_cell
-    if _newclass:set_crystal_cell = staticmethod(_pycrysfml.FortFuncs_set_crystal_cell)
-    __swig_getmethods__["volume_sigma_from_cell"] = lambda x: _pycrysfml.FortFuncs_volume_sigma_from_cell
-    if _newclass:volume_sigma_from_cell = staticmethod(_pycrysfml.FortFuncs_volume_sigma_from_cell)
-    __swig_getmethods__["write_bin_crystal_cell"] = lambda x: _pycrysfml.FortFuncs_write_bin_crystal_cell
-    if _newclass:write_bin_crystal_cell = staticmethod(_pycrysfml.FortFuncs_write_bin_crystal_cell)
-    __swig_getmethods__["write_crystal_cell"] = lambda x: _pycrysfml.FortFuncs_write_crystal_cell
-    if _newclass:write_crystal_cell = staticmethod(_pycrysfml.FortFuncs_write_crystal_cell)
-    __swig_getmethods__["axes_rotation"] = lambda x: _pycrysfml.FortFuncs_axes_rotation
-    if _newclass:axes_rotation = staticmethod(_pycrysfml.FortFuncs_axes_rotation)
-    __swig_getmethods__["get_laue_num"] = lambda x: _pycrysfml.FortFuncs_get_laue_num
-    if _newclass:get_laue_num = staticmethod(_pycrysfml.FortFuncs_get_laue_num)
-    __swig_getmethods__["get_multip_pos"] = lambda x: _pycrysfml.FortFuncs_get_multip_pos
-    if _newclass:get_multip_pos = staticmethod(_pycrysfml.FortFuncs_get_multip_pos)
-    __swig_getmethods__["get_occ_site"] = lambda x: _pycrysfml.FortFuncs_get_occ_site
-    if _newclass:get_occ_site = staticmethod(_pycrysfml.FortFuncs_get_occ_site)
-    __swig_getmethods__["get_pointgroup_num"] = lambda x: _pycrysfml.FortFuncs_get_pointgroup_num
-    if _newclass:get_pointgroup_num = staticmethod(_pycrysfml.FortFuncs_get_pointgroup_num)
-    __swig_getmethods__["lattice_trans"] = lambda x: _pycrysfml.FortFuncs_lattice_trans
-    if _newclass:lattice_trans = staticmethod(_pycrysfml.FortFuncs_lattice_trans)
-    __swig_getmethods__["spgr_equal"] = lambda x: _pycrysfml.FortFuncs_spgr_equal
-    if _newclass:spgr_equal = staticmethod(_pycrysfml.FortFuncs_spgr_equal)
-    __swig_getmethods__["allocate_lattice_centring"] = lambda x: _pycrysfml.FortFuncs_allocate_lattice_centring
-    if _newclass:allocate_lattice_centring = staticmethod(_pycrysfml.FortFuncs_allocate_lattice_centring)
-    __swig_getmethods__["check_generator"] = lambda x: _pycrysfml.FortFuncs_check_generator
-    if _newclass:check_generator = staticmethod(_pycrysfml.FortFuncs_check_generator)
-    __swig_getmethods__["decodmatmag"] = lambda x: _pycrysfml.FortFuncs_decodmatmag
-    if _newclass:decodmatmag = staticmethod(_pycrysfml.FortFuncs_decodmatmag)
-    __swig_getmethods__["get_laue_str"] = lambda x: _pycrysfml.FortFuncs_get_laue_str
-    if _newclass:get_laue_str = staticmethod(_pycrysfml.FortFuncs_get_laue_str)
-    __swig_getmethods__["get_pointgroup_str"] = lambda x: _pycrysfml.FortFuncs_get_pointgroup_str
-    if _newclass:get_pointgroup_str = staticmethod(_pycrysfml.FortFuncs_get_pointgroup_str)
-    __swig_getmethods__["get_seitz_symbol"] = lambda x: _pycrysfml.FortFuncs_get_seitz_symbol
-    if _newclass:get_seitz_symbol = staticmethod(_pycrysfml.FortFuncs_get_seitz_symbol)
-    __swig_getmethods__["get_shubnikov_operator_symbol"] = lambda x: _pycrysfml.FortFuncs_get_shubnikov_operator_symbol
-    if _newclass:get_shubnikov_operator_symbol = staticmethod(_pycrysfml.FortFuncs_get_shubnikov_operator_symbol)
-    __swig_getmethods__["get_string_resolv"] = lambda x: _pycrysfml.FortFuncs_get_string_resolv
-    if _newclass:get_string_resolv = staticmethod(_pycrysfml.FortFuncs_get_string_resolv)
-    __swig_getmethods__["get_symel"] = lambda x: _pycrysfml.FortFuncs_get_symel
-    if _newclass:get_symel = staticmethod(_pycrysfml.FortFuncs_get_symel)
-    __swig_getmethods__["get_symkov"] = lambda x: _pycrysfml.FortFuncs_get_symkov
-    if _newclass:get_symkov = staticmethod(_pycrysfml.FortFuncs_get_symkov)
-    __swig_getmethods__["get_trasfm_symbol"] = lambda x: _pycrysfml.FortFuncs_get_trasfm_symbol
-    if _newclass:get_trasfm_symbol = staticmethod(_pycrysfml.FortFuncs_get_trasfm_symbol)
-    __swig_getmethods__["get_transl_symbol"] = lambda x: _pycrysfml.FortFuncs_get_transl_symbol
-    if _newclass:get_transl_symbol = staticmethod(_pycrysfml.FortFuncs_get_transl_symbol)
-    __swig_getmethods__["init_err_symm"] = lambda x: _pycrysfml.FortFuncs_init_err_symm
-    if _newclass:init_err_symm = staticmethod(_pycrysfml.FortFuncs_init_err_symm)
-    __swig_getmethods__["inverse_symm"] = lambda x: _pycrysfml.FortFuncs_inverse_symm
-    if _newclass:inverse_symm = staticmethod(_pycrysfml.FortFuncs_inverse_symm)
-    __swig_getmethods__["latsym"] = lambda x: _pycrysfml.FortFuncs_latsym
-    if _newclass:latsym = staticmethod(_pycrysfml.FortFuncs_latsym)
-    __swig_getmethods__["read_bin_spacegroup"] = lambda x: _pycrysfml.FortFuncs_read_bin_spacegroup
-    if _newclass:read_bin_spacegroup = staticmethod(_pycrysfml.FortFuncs_read_bin_spacegroup)
-    __swig_getmethods__["read_msymm"] = lambda x: _pycrysfml.FortFuncs_read_msymm
-    if _newclass:read_msymm = staticmethod(_pycrysfml.FortFuncs_read_msymm)
-    __swig_getmethods__["read_symtrans_code"] = lambda x: _pycrysfml.FortFuncs_read_symtrans_code
-    if _newclass:read_symtrans_code = staticmethod(_pycrysfml.FortFuncs_read_symtrans_code)
-    __swig_getmethods__["read_xsym"] = lambda x: _pycrysfml.FortFuncs_read_xsym
-    if _newclass:read_xsym = staticmethod(_pycrysfml.FortFuncs_read_xsym)
-    __swig_getmethods__["searchop"] = lambda x: _pycrysfml.FortFuncs_searchop
-    if _newclass:searchop = staticmethod(_pycrysfml.FortFuncs_searchop)
-    __swig_getmethods__["set_spacegroup"] = lambda x: _pycrysfml.FortFuncs_set_spacegroup
-    if _newclass:set_spacegroup = staticmethod(_pycrysfml.FortFuncs_set_spacegroup)
-    __swig_getmethods__["similar_transf_sg"] = lambda x: _pycrysfml.FortFuncs_similar_transf_sg
-    if _newclass:similar_transf_sg = staticmethod(_pycrysfml.FortFuncs_similar_transf_sg)
-    __swig_getmethods__["sym_prod_st"] = lambda x: _pycrysfml.FortFuncs_sym_prod_st
-    if _newclass:sym_prod_st = staticmethod(_pycrysfml.FortFuncs_sym_prod_st)
-    __swig_getmethods__["write_bin_spacegroup"] = lambda x: _pycrysfml.FortFuncs_write_bin_spacegroup
-    if _newclass:write_bin_spacegroup = staticmethod(_pycrysfml.FortFuncs_write_bin_spacegroup)
-    __swig_getmethods__["write_spacegroup"] = lambda x: _pycrysfml.FortFuncs_write_spacegroup
-    if _newclass:write_spacegroup = staticmethod(_pycrysfml.FortFuncs_write_spacegroup)
-    __swig_getmethods__["write_sym"] = lambda x: _pycrysfml.FortFuncs_write_sym
-    if _newclass:write_sym = staticmethod(_pycrysfml.FortFuncs_write_sym)
-    __swig_getmethods__["write_symtrans_code"] = lambda x: _pycrysfml.FortFuncs_write_symtrans_code
-    if _newclass:write_symtrans_code = staticmethod(_pycrysfml.FortFuncs_write_symtrans_code)
-    __swig_getmethods__["write_wyckoff"] = lambda x: _pycrysfml.FortFuncs_write_wyckoff
-    if _newclass:write_wyckoff = staticmethod(_pycrysfml.FortFuncs_write_wyckoff)
-    __swig_getmethods__["copy_ns_spg_to_spg"] = lambda x: _pycrysfml.FortFuncs_copy_ns_spg_to_spg
-    if _newclass:copy_ns_spg_to_spg = staticmethod(_pycrysfml.FortFuncs_copy_ns_spg_to_spg)
-    __swig_getmethods__["define_uncompress_program"] = lambda x: _pycrysfml.FortFuncs_define_uncompress_program
-    if _newclass:define_uncompress_program = staticmethod(_pycrysfml.FortFuncs_define_uncompress_program)
-    __swig_getmethods__["get_absolute_data_path"] = lambda x: _pycrysfml.FortFuncs_get_absolute_data_path
-    if _newclass:get_absolute_data_path = staticmethod(_pycrysfml.FortFuncs_get_absolute_data_path)
-    __swig_getmethods__["get_next_yearcycle"] = lambda x: _pycrysfml.FortFuncs_get_next_yearcycle
-    if _newclass:get_next_yearcycle = staticmethod(_pycrysfml.FortFuncs_get_next_yearcycle)
-    __swig_getmethods__["init_err_illdata"] = lambda x: _pycrysfml.FortFuncs_init_err_illdata
-    if _newclass:init_err_illdata = staticmethod(_pycrysfml.FortFuncs_init_err_illdata)
-    __swig_getmethods__["initialize_data_directory"] = lambda x: _pycrysfml.FortFuncs_initialize_data_directory
-    if _newclass:initialize_data_directory = staticmethod(_pycrysfml.FortFuncs_initialize_data_directory)
-    __swig_getmethods__["read_current_instrm"] = lambda x: _pycrysfml.FortFuncs_read_current_instrm
-    if _newclass:read_current_instrm = staticmethod(_pycrysfml.FortFuncs_read_current_instrm)
-    __swig_getmethods__["set_current_orient"] = lambda x: _pycrysfml.FortFuncs_set_current_orient
-    if _newclass:set_current_orient = staticmethod(_pycrysfml.FortFuncs_set_current_orient)
-    __swig_getmethods__["set_default_instrument"] = lambda x: _pycrysfml.FortFuncs_set_default_instrument
-    if _newclass:set_default_instrument = staticmethod(_pycrysfml.FortFuncs_set_default_instrument)
-    __swig_getmethods__["set_ill_data_directory"] = lambda x: _pycrysfml.FortFuncs_set_ill_data_directory
-    if _newclass:set_ill_data_directory = staticmethod(_pycrysfml.FortFuncs_set_ill_data_directory)
-    __swig_getmethods__["set_instrm_directory"] = lambda x: _pycrysfml.FortFuncs_set_instrm_directory
-    if _newclass:set_instrm_directory = staticmethod(_pycrysfml.FortFuncs_set_instrm_directory)
-    __swig_getmethods__["set_instrm_geometry_directory"] = lambda x: _pycrysfml.FortFuncs_set_instrm_geometry_directory
-    if _newclass:set_instrm_geometry_directory = staticmethod(_pycrysfml.FortFuncs_set_instrm_geometry_directory)
-    __swig_getmethods__["update_current_instrm_ub"] = lambda x: _pycrysfml.FortFuncs_update_current_instrm_ub
-    if _newclass:update_current_instrm_ub = staticmethod(_pycrysfml.FortFuncs_update_current_instrm_ub)
-    __swig_getmethods__["write_current_instrm_data"] = lambda x: _pycrysfml.FortFuncs_write_current_instrm_data
-    if _newclass:write_current_instrm_data = staticmethod(_pycrysfml.FortFuncs_write_current_instrm_data)
-    __swig_getmethods__["write_generic_numor"] = lambda x: _pycrysfml.FortFuncs_write_generic_numor
-    if _newclass:write_generic_numor = staticmethod(_pycrysfml.FortFuncs_write_generic_numor)
-    __swig_getmethods__["read_calibration_file"] = lambda x: _pycrysfml.FortFuncs_read_calibration_file
-    if _newclass:read_calibration_file = staticmethod(_pycrysfml.FortFuncs_read_calibration_file)
-    __swig_getmethods__["get_maxnumref"] = lambda x: _pycrysfml.FortFuncs_get_maxnumref
-    if _newclass:get_maxnumref = staticmethod(_pycrysfml.FortFuncs_get_maxnumref)
-    __swig_getmethods__["hkl_lat_absent"] = lambda x: _pycrysfml.FortFuncs_hkl_lat_absent
-    if _newclass:hkl_lat_absent = staticmethod(_pycrysfml.FortFuncs_hkl_lat_absent)
-    __swig_getmethods__["init_err_refl"] = lambda x: _pycrysfml.FortFuncs_init_err_refl
-    if _newclass:init_err_refl = staticmethod(_pycrysfml.FortFuncs_init_err_refl)
-    __swig_getmethods__["init_reflist"] = lambda x: _pycrysfml.FortFuncs_init_reflist
-    if _newclass:init_reflist = staticmethod(_pycrysfml.FortFuncs_init_reflist)
-    __swig_getmethods__["write_asu"] = lambda x: _pycrysfml.FortFuncs_write_asu
-    if _newclass:write_asu = staticmethod(_pycrysfml.FortFuncs_write_asu)
-    __swig_getmethods__["write_reflist_info"] = lambda x: _pycrysfml.FortFuncs_write_reflist_info
-    if _newclass:write_reflist_info = staticmethod(_pycrysfml.FortFuncs_write_reflist_info)
     __swig_getmethods__["equiv_atm"] = lambda x: _pycrysfml.FortFuncs_equiv_atm
     if _newclass:equiv_atm = staticmethod(_pycrysfml.FortFuncs_equiv_atm)
     __swig_getmethods__["allocate_atoms_cell"] = lambda x: _pycrysfml.FortFuncs_allocate_atoms_cell
@@ -1294,22 +986,148 @@ class FortFuncs(_object):
     if _newclass:write_atom_list = staticmethod(_pycrysfml.FortFuncs_write_atom_list)
     __swig_getmethods__["write_bin_atom_list"] = lambda x: _pycrysfml.FortFuncs_write_bin_atom_list
     if _newclass:write_bin_atom_list = staticmethod(_pycrysfml.FortFuncs_write_bin_atom_list)
+    __swig_getmethods__["deallocate_ap_table"] = lambda x: _pycrysfml.FortFuncs_deallocate_ap_table
+    if _newclass:deallocate_ap_table = staticmethod(_pycrysfml.FortFuncs_deallocate_ap_table)
+    __swig_getmethods__["deallocate_bvel_table"] = lambda x: _pycrysfml.FortFuncs_deallocate_bvel_table
+    if _newclass:deallocate_bvel_table = staticmethod(_pycrysfml.FortFuncs_deallocate_bvel_table)
+    __swig_getmethods__["deallocate_bvs_table"] = lambda x: _pycrysfml.FortFuncs_deallocate_bvs_table
+    if _newclass:deallocate_bvs_table = staticmethod(_pycrysfml.FortFuncs_deallocate_bvs_table)
+    __swig_getmethods__["deallocate_sbvs_table"] = lambda x: _pycrysfml.FortFuncs_deallocate_sbvs_table
+    if _newclass:deallocate_sbvs_table = staticmethod(_pycrysfml.FortFuncs_deallocate_sbvs_table)
+    __swig_getmethods__["set_atomic_properties"] = lambda x: _pycrysfml.FortFuncs_set_atomic_properties
+    if _newclass:set_atomic_properties = staticmethod(_pycrysfml.FortFuncs_set_atomic_properties)
+    __swig_getmethods__["set_bvel_table"] = lambda x: _pycrysfml.FortFuncs_set_bvel_table
+    if _newclass:set_bvel_table = staticmethod(_pycrysfml.FortFuncs_set_bvel_table)
+    __swig_getmethods__["set_bvs_table"] = lambda x: _pycrysfml.FortFuncs_set_bvs_table
+    if _newclass:set_bvs_table = staticmethod(_pycrysfml.FortFuncs_set_bvs_table)
+    __swig_getmethods__["set_sbvs_table"] = lambda x: _pycrysfml.FortFuncs_set_sbvs_table
+    if _newclass:set_sbvs_table = staticmethod(_pycrysfml.FortFuncs_set_sbvs_table)
+    __swig_getmethods__["init_err_bond"] = lambda x: _pycrysfml.FortFuncs_init_err_bond
+    if _newclass:init_err_bond = staticmethod(_pycrysfml.FortFuncs_init_err_bond)
+    __swig_getmethods__["remove_bonds_table"] = lambda x: _pycrysfml.FortFuncs_remove_bonds_table
+    if _newclass:remove_bonds_table = staticmethod(_pycrysfml.FortFuncs_remove_bonds_table)
+    __swig_getmethods__["set_bonds_table"] = lambda x: _pycrysfml.FortFuncs_set_bonds_table
+    if _newclass:set_bonds_table = staticmethod(_pycrysfml.FortFuncs_set_bonds_table)
+    __swig_getmethods__["get_atomic_mass"] = lambda x: _pycrysfml.FortFuncs_get_atomic_mass
+    if _newclass:get_atomic_mass = staticmethod(_pycrysfml.FortFuncs_get_atomic_mass)
+    __swig_getmethods__["get_atomic_vol"] = lambda x: _pycrysfml.FortFuncs_get_atomic_vol
+    if _newclass:get_atomic_vol = staticmethod(_pycrysfml.FortFuncs_get_atomic_vol)
+    __swig_getmethods__["get_chemsymb"] = lambda x: _pycrysfml.FortFuncs_get_chemsymb
+    if _newclass:get_chemsymb = staticmethod(_pycrysfml.FortFuncs_get_chemsymb)
+    __swig_getmethods__["get_covalent_radius"] = lambda x: _pycrysfml.FortFuncs_get_covalent_radius
+    if _newclass:get_covalent_radius = staticmethod(_pycrysfml.FortFuncs_get_covalent_radius)
+    __swig_getmethods__["get_fermi_length"] = lambda x: _pycrysfml.FortFuncs_get_fermi_length
+    if _newclass:get_fermi_length = staticmethod(_pycrysfml.FortFuncs_get_fermi_length)
+    __swig_getmethods__["get_inc_xs"] = lambda x: _pycrysfml.FortFuncs_get_inc_xs
+    if _newclass:get_inc_xs = staticmethod(_pycrysfml.FortFuncs_get_inc_xs)
+    __swig_getmethods__["get_abs_xs"] = lambda x: _pycrysfml.FortFuncs_get_abs_xs
+    if _newclass:get_abs_xs = staticmethod(_pycrysfml.FortFuncs_get_abs_xs)
+    __swig_getmethods__["get_ionic_radius"] = lambda x: _pycrysfml.FortFuncs_get_ionic_radius
+    if _newclass:get_ionic_radius = staticmethod(_pycrysfml.FortFuncs_get_ionic_radius)
+    __swig_getmethods__["remove_chem_info"] = lambda x: _pycrysfml.FortFuncs_remove_chem_info
+    if _newclass:remove_chem_info = staticmethod(_pycrysfml.FortFuncs_remove_chem_info)
+    __swig_getmethods__["remove_delta_fp_fpp"] = lambda x: _pycrysfml.FortFuncs_remove_delta_fp_fpp
+    if _newclass:remove_delta_fp_fpp = staticmethod(_pycrysfml.FortFuncs_remove_delta_fp_fpp)
+    __swig_getmethods__["remove_magnetic_form"] = lambda x: _pycrysfml.FortFuncs_remove_magnetic_form
+    if _newclass:remove_magnetic_form = staticmethod(_pycrysfml.FortFuncs_remove_magnetic_form)
+    __swig_getmethods__["remove_xray_form"] = lambda x: _pycrysfml.FortFuncs_remove_xray_form
+    if _newclass:remove_xray_form = staticmethod(_pycrysfml.FortFuncs_remove_xray_form)
+    __swig_getmethods__["set_chem_info"] = lambda x: _pycrysfml.FortFuncs_set_chem_info
+    if _newclass:set_chem_info = staticmethod(_pycrysfml.FortFuncs_set_chem_info)
+    __swig_getmethods__["set_delta_fp_fpp"] = lambda x: _pycrysfml.FortFuncs_set_delta_fp_fpp
+    if _newclass:set_delta_fp_fpp = staticmethod(_pycrysfml.FortFuncs_set_delta_fp_fpp)
+    __swig_getmethods__["set_magnetic_form"] = lambda x: _pycrysfml.FortFuncs_set_magnetic_form
+    if _newclass:set_magnetic_form = staticmethod(_pycrysfml.FortFuncs_set_magnetic_form)
+    __swig_getmethods__["set_xray_form"] = lambda x: _pycrysfml.FortFuncs_set_xray_form
+    if _newclass:set_xray_form = staticmethod(_pycrysfml.FortFuncs_set_xray_form)
+    __swig_getmethods__["allocate_atoms_conf_list"] = lambda x: _pycrysfml.FortFuncs_allocate_atoms_conf_list
+    if _newclass:allocate_atoms_conf_list = staticmethod(_pycrysfml.FortFuncs_allocate_atoms_conf_list)
+    __swig_getmethods__["calc_bvs"] = lambda x: _pycrysfml.FortFuncs_calc_bvs
+    if _newclass:calc_bvs = staticmethod(_pycrysfml.FortFuncs_calc_bvs)
+    __swig_getmethods__["calc_map_bvel"] = lambda x: _pycrysfml.FortFuncs_calc_map_bvel
+    if _newclass:calc_map_bvel = staticmethod(_pycrysfml.FortFuncs_calc_map_bvel)
+    __swig_getmethods__["calc_map_bvs"] = lambda x: _pycrysfml.FortFuncs_calc_map_bvs
+    if _newclass:calc_map_bvs = staticmethod(_pycrysfml.FortFuncs_calc_map_bvs)
+    __swig_getmethods__["cost_bvs"] = lambda x: _pycrysfml.FortFuncs_cost_bvs
+    if _newclass:cost_bvs = staticmethod(_pycrysfml.FortFuncs_cost_bvs)
+    __swig_getmethods__["cost_bvs_coulombrep"] = lambda x: _pycrysfml.FortFuncs_cost_bvs_coulombrep
+    if _newclass:cost_bvs_coulombrep = staticmethod(_pycrysfml.FortFuncs_cost_bvs_coulombrep)
+    __swig_getmethods__["deallocate_atoms_conf_list"] = lambda x: _pycrysfml.FortFuncs_deallocate_atoms_conf_list
+    if _newclass:deallocate_atoms_conf_list = staticmethod(_pycrysfml.FortFuncs_deallocate_atoms_conf_list)
+    __swig_getmethods__["init_err_conf"] = lambda x: _pycrysfml.FortFuncs_init_err_conf
+    if _newclass:init_err_conf = staticmethod(_pycrysfml.FortFuncs_init_err_conf)
+    __swig_getmethods__["species_on_list"] = lambda x: _pycrysfml.FortFuncs_species_on_list
+    if _newclass:species_on_list = staticmethod(_pycrysfml.FortFuncs_species_on_list)
+    __swig_getmethods__["cell_volume_sigma"] = lambda x: _pycrysfml.FortFuncs_cell_volume_sigma
+    if _newclass:cell_volume_sigma = staticmethod(_pycrysfml.FortFuncs_cell_volume_sigma)
+    __swig_getmethods__["u_equiv"] = lambda x: _pycrysfml.FortFuncs_u_equiv
+    if _newclass:u_equiv = staticmethod(_pycrysfml.FortFuncs_u_equiv)
+    __swig_getmethods__["get_basis_from_uvw"] = lambda x: _pycrysfml.FortFuncs_get_basis_from_uvw
+    if _newclass:get_basis_from_uvw = staticmethod(_pycrysfml.FortFuncs_get_basis_from_uvw)
+    __swig_getmethods__["get_conventional_cell"] = lambda x: _pycrysfml.FortFuncs_get_conventional_cell
+    if _newclass:get_conventional_cell = staticmethod(_pycrysfml.FortFuncs_get_conventional_cell)
+    __swig_getmethods__["get_primitive_cell"] = lambda x: _pycrysfml.FortFuncs_get_primitive_cell
+    if _newclass:get_primitive_cell = staticmethod(_pycrysfml.FortFuncs_get_primitive_cell)
+    __swig_getmethods__["init_err_crys"] = lambda x: _pycrysfml.FortFuncs_init_err_crys
+    if _newclass:init_err_crys = staticmethod(_pycrysfml.FortFuncs_init_err_crys)
+    __swig_getmethods__["read_bin_crystal_cell"] = lambda x: _pycrysfml.FortFuncs_read_bin_crystal_cell
+    if _newclass:read_bin_crystal_cell = staticmethod(_pycrysfml.FortFuncs_read_bin_crystal_cell)
+    __swig_getmethods__["set_crystal_cell"] = lambda x: _pycrysfml.FortFuncs_set_crystal_cell
+    if _newclass:set_crystal_cell = staticmethod(_pycrysfml.FortFuncs_set_crystal_cell)
+    __swig_getmethods__["volume_sigma_from_cell"] = lambda x: _pycrysfml.FortFuncs_volume_sigma_from_cell
+    if _newclass:volume_sigma_from_cell = staticmethod(_pycrysfml.FortFuncs_volume_sigma_from_cell)
+    __swig_getmethods__["write_bin_crystal_cell"] = lambda x: _pycrysfml.FortFuncs_write_bin_crystal_cell
+    if _newclass:write_bin_crystal_cell = staticmethod(_pycrysfml.FortFuncs_write_bin_crystal_cell)
+    __swig_getmethods__["write_crystal_cell"] = lambda x: _pycrysfml.FortFuncs_write_crystal_cell
+    if _newclass:write_crystal_cell = staticmethod(_pycrysfml.FortFuncs_write_crystal_cell)
+    __swig_getmethods__["calc_fwhm_peak"] = lambda x: _pycrysfml.FortFuncs_calc_fwhm_peak
+    if _newclass:calc_fwhm_peak = staticmethod(_pycrysfml.FortFuncs_calc_fwhm_peak)
+    __swig_getmethods__["allocate_diffraction_pattern"] = lambda x: _pycrysfml.FortFuncs_allocate_diffraction_pattern
+    if _newclass:allocate_diffraction_pattern = staticmethod(_pycrysfml.FortFuncs_allocate_diffraction_pattern)
+    __swig_getmethods__["calc_background"] = lambda x: _pycrysfml.FortFuncs_calc_background
+    if _newclass:calc_background = staticmethod(_pycrysfml.FortFuncs_calc_background)
+    __swig_getmethods__["delete_noisy_points"] = lambda x: _pycrysfml.FortFuncs_delete_noisy_points
+    if _newclass:delete_noisy_points = staticmethod(_pycrysfml.FortFuncs_delete_noisy_points)
+    __swig_getmethods__["init_err_diffpatt"] = lambda x: _pycrysfml.FortFuncs_init_err_diffpatt
+    if _newclass:init_err_diffpatt = staticmethod(_pycrysfml.FortFuncs_init_err_diffpatt)
+    __swig_getmethods__["purge_diffraction_pattern"] = lambda x: _pycrysfml.FortFuncs_purge_diffraction_pattern
+    if _newclass:purge_diffraction_pattern = staticmethod(_pycrysfml.FortFuncs_purge_diffraction_pattern)
+    __swig_getmethods__["read_background_file"] = lambda x: _pycrysfml.FortFuncs_read_background_file
+    if _newclass:read_background_file = staticmethod(_pycrysfml.FortFuncs_read_background_file)
+    __swig_getmethods__["write_pattern_freeformat"] = lambda x: _pycrysfml.FortFuncs_write_pattern_freeformat
+    if _newclass:write_pattern_freeformat = staticmethod(_pycrysfml.FortFuncs_write_pattern_freeformat)
+    __swig_getmethods__["write_pattern_instrm5"] = lambda x: _pycrysfml.FortFuncs_write_pattern_instrm5
+    if _newclass:write_pattern_instrm5 = staticmethod(_pycrysfml.FortFuncs_write_pattern_instrm5)
+    __swig_getmethods__["write_pattern_xysig"] = lambda x: _pycrysfml.FortFuncs_write_pattern_xysig
+    if _newclass:write_pattern_xysig = staticmethod(_pycrysfml.FortFuncs_write_pattern_xysig)
     __swig_getmethods__["unitcell_to_pdbfile"] = lambda x: _pycrysfml.FortFuncs_unitcell_to_pdbfile
     if _newclass:unitcell_to_pdbfile = staticmethod(_pycrysfml.FortFuncs_unitcell_to_pdbfile)
-    __swig_getmethods__["calc_strfactor"] = lambda x: _pycrysfml.FortFuncs_calc_strfactor
-    if _newclass:calc_strfactor = staticmethod(_pycrysfml.FortFuncs_calc_strfactor)
-    __swig_getmethods__["calc_hkl_strfactor"] = lambda x: _pycrysfml.FortFuncs_calc_hkl_strfactor
-    if _newclass:calc_hkl_strfactor = staticmethod(_pycrysfml.FortFuncs_calc_hkl_strfactor)
-    __swig_getmethods__["init_calc_hkl_strfactors"] = lambda x: _pycrysfml.FortFuncs_init_calc_hkl_strfactors
-    if _newclass:init_calc_hkl_strfactors = staticmethod(_pycrysfml.FortFuncs_init_calc_hkl_strfactors)
-    __swig_getmethods__["init_calc_strfactors"] = lambda x: _pycrysfml.FortFuncs_init_calc_strfactors
-    if _newclass:init_calc_strfactors = staticmethod(_pycrysfml.FortFuncs_init_calc_strfactors)
-    __swig_getmethods__["init_structure_factors"] = lambda x: _pycrysfml.FortFuncs_init_structure_factors
-    if _newclass:init_structure_factors = staticmethod(_pycrysfml.FortFuncs_init_structure_factors)
-    __swig_getmethods__["structure_factors"] = lambda x: _pycrysfml.FortFuncs_structure_factors
-    if _newclass:structure_factors = staticmethod(_pycrysfml.FortFuncs_structure_factors)
-    __swig_getmethods__["write_structure_factors"] = lambda x: _pycrysfml.FortFuncs_write_structure_factors
-    if _newclass:write_structure_factors = staticmethod(_pycrysfml.FortFuncs_write_structure_factors)
+    __swig_getmethods__["ag_theta"] = lambda x: _pycrysfml.FortFuncs_ag_theta
+    if _newclass:ag_theta = staticmethod(_pycrysfml.FortFuncs_ag_theta)
+    __swig_getmethods__["al_theta"] = lambda x: _pycrysfml.FortFuncs_al_theta
+    if _newclass:al_theta = staticmethod(_pycrysfml.FortFuncs_al_theta)
+    __swig_getmethods__["bg_theta"] = lambda x: _pycrysfml.FortFuncs_bg_theta
+    if _newclass:bg_theta = staticmethod(_pycrysfml.FortFuncs_bg_theta)
+    __swig_getmethods__["bl_theta"] = lambda x: _pycrysfml.FortFuncs_bl_theta
+    if _newclass:bl_theta = staticmethod(_pycrysfml.FortFuncs_bl_theta)
+    __swig_getmethods__["becker_coppens"] = lambda x: _pycrysfml.FortFuncs_becker_coppens
+    if _newclass:becker_coppens = staticmethod(_pycrysfml.FortFuncs_becker_coppens)
+    __swig_getmethods__["shelx_extinction"] = lambda x: _pycrysfml.FortFuncs_shelx_extinction
+    if _newclass:shelx_extinction = staticmethod(_pycrysfml.FortFuncs_shelx_extinction)
+    __swig_getmethods__["correct_flippingratios"] = lambda x: _pycrysfml.FortFuncs_correct_flippingratios
+    if _newclass:correct_flippingratios = staticmethod(_pycrysfml.FortFuncs_correct_flippingratios)
+    __swig_getmethods__["file_to_filelist"] = lambda x: _pycrysfml.FortFuncs_file_to_filelist
+    if _newclass:file_to_filelist = staticmethod(_pycrysfml.FortFuncs_file_to_filelist)
+    __swig_getmethods__["init_err_form"] = lambda x: _pycrysfml.FortFuncs_init_err_form
+    if _newclass:init_err_form = staticmethod(_pycrysfml.FortFuncs_init_err_form)
+    __swig_getmethods__["read_uvals"] = lambda x: _pycrysfml.FortFuncs_read_uvals
+    if _newclass:read_uvals = staticmethod(_pycrysfml.FortFuncs_read_uvals)
+    __swig_getmethods__["write_cif_powder_profile"] = lambda x: _pycrysfml.FortFuncs_write_cif_powder_profile
+    if _newclass:write_cif_powder_profile = staticmethod(_pycrysfml.FortFuncs_write_cif_powder_profile)
+    __swig_getmethods__["write_cif_template"] = lambda x: _pycrysfml.FortFuncs_write_cif_template
+    if _newclass:write_cif_template = staticmethod(_pycrysfml.FortFuncs_write_cif_template)
+    __swig_getmethods__["write_shx_template"] = lambda x: _pycrysfml.FortFuncs_write_shx_template
+    if _newclass:write_shx_template = staticmethod(_pycrysfml.FortFuncs_write_shx_template)
     __swig_getmethods__["allocate_coordination_type"] = lambda x: _pycrysfml.FortFuncs_allocate_coordination_type
     if _newclass:allocate_coordination_type = staticmethod(_pycrysfml.FortFuncs_allocate_coordination_type)
     __swig_getmethods__["allocate_point_list"] = lambda x: _pycrysfml.FortFuncs_allocate_point_list
@@ -1348,16 +1166,62 @@ class FortFuncs(_object):
     if _newclass:set_tdist_coordination = staticmethod(_pycrysfml.FortFuncs_set_tdist_coordination)
     __swig_getmethods__["set_tdist_partial_coordination"] = lambda x: _pycrysfml.FortFuncs_set_tdist_partial_coordination
     if _newclass:set_tdist_partial_coordination = staticmethod(_pycrysfml.FortFuncs_set_tdist_partial_coordination)
-    __swig_getmethods__["hk_equiv"] = lambda x: _pycrysfml.FortFuncs_hk_equiv
-    if _newclass:hk_equiv = staticmethod(_pycrysfml.FortFuncs_hk_equiv)
-    __swig_getmethods__["k_equiv"] = lambda x: _pycrysfml.FortFuncs_k_equiv
-    if _newclass:k_equiv = staticmethod(_pycrysfml.FortFuncs_k_equiv)
-    __swig_getmethods__["k_equiv_minus_k"] = lambda x: _pycrysfml.FortFuncs_k_equiv_minus_k
-    if _newclass:k_equiv_minus_k = staticmethod(_pycrysfml.FortFuncs_k_equiv_minus_k)
-    __swig_getmethods__["k_star"] = lambda x: _pycrysfml.FortFuncs_k_star
-    if _newclass:k_star = staticmethod(_pycrysfml.FortFuncs_k_star)
-    __swig_getmethods__["write_group_k"] = lambda x: _pycrysfml.FortFuncs_write_group_k
-    if _newclass:write_group_k = staticmethod(_pycrysfml.FortFuncs_write_group_k)
+    __swig_getmethods__["directory_exists"] = lambda x: _pycrysfml.FortFuncs_directory_exists
+    if _newclass:directory_exists = staticmethod(_pycrysfml.FortFuncs_directory_exists)
+    __swig_getmethods__["write_date_time"] = lambda x: _pycrysfml.FortFuncs_write_date_time
+    if _newclass:write_date_time = staticmethod(_pycrysfml.FortFuncs_write_date_time)
+    __swig_getmethods__["define_uncompress_program"] = lambda x: _pycrysfml.FortFuncs_define_uncompress_program
+    if _newclass:define_uncompress_program = staticmethod(_pycrysfml.FortFuncs_define_uncompress_program)
+    __swig_getmethods__["get_absolute_data_path"] = lambda x: _pycrysfml.FortFuncs_get_absolute_data_path
+    if _newclass:get_absolute_data_path = staticmethod(_pycrysfml.FortFuncs_get_absolute_data_path)
+    __swig_getmethods__["get_next_yearcycle"] = lambda x: _pycrysfml.FortFuncs_get_next_yearcycle
+    if _newclass:get_next_yearcycle = staticmethod(_pycrysfml.FortFuncs_get_next_yearcycle)
+    __swig_getmethods__["init_err_illdata"] = lambda x: _pycrysfml.FortFuncs_init_err_illdata
+    if _newclass:init_err_illdata = staticmethod(_pycrysfml.FortFuncs_init_err_illdata)
+    __swig_getmethods__["initialize_data_directory"] = lambda x: _pycrysfml.FortFuncs_initialize_data_directory
+    if _newclass:initialize_data_directory = staticmethod(_pycrysfml.FortFuncs_initialize_data_directory)
+    __swig_getmethods__["read_current_instrm"] = lambda x: _pycrysfml.FortFuncs_read_current_instrm
+    if _newclass:read_current_instrm = staticmethod(_pycrysfml.FortFuncs_read_current_instrm)
+    __swig_getmethods__["set_current_orient"] = lambda x: _pycrysfml.FortFuncs_set_current_orient
+    if _newclass:set_current_orient = staticmethod(_pycrysfml.FortFuncs_set_current_orient)
+    __swig_getmethods__["set_default_instrument"] = lambda x: _pycrysfml.FortFuncs_set_default_instrument
+    if _newclass:set_default_instrument = staticmethod(_pycrysfml.FortFuncs_set_default_instrument)
+    __swig_getmethods__["set_ill_data_directory"] = lambda x: _pycrysfml.FortFuncs_set_ill_data_directory
+    if _newclass:set_ill_data_directory = staticmethod(_pycrysfml.FortFuncs_set_ill_data_directory)
+    __swig_getmethods__["set_instrm_directory"] = lambda x: _pycrysfml.FortFuncs_set_instrm_directory
+    if _newclass:set_instrm_directory = staticmethod(_pycrysfml.FortFuncs_set_instrm_directory)
+    __swig_getmethods__["set_instrm_geometry_directory"] = lambda x: _pycrysfml.FortFuncs_set_instrm_geometry_directory
+    if _newclass:set_instrm_geometry_directory = staticmethod(_pycrysfml.FortFuncs_set_instrm_geometry_directory)
+    __swig_getmethods__["update_current_instrm_ub"] = lambda x: _pycrysfml.FortFuncs_update_current_instrm_ub
+    if _newclass:update_current_instrm_ub = staticmethod(_pycrysfml.FortFuncs_update_current_instrm_ub)
+    __swig_getmethods__["write_current_instrm_data"] = lambda x: _pycrysfml.FortFuncs_write_current_instrm_data
+    if _newclass:write_current_instrm_data = staticmethod(_pycrysfml.FortFuncs_write_current_instrm_data)
+    __swig_getmethods__["write_generic_numor"] = lambda x: _pycrysfml.FortFuncs_write_generic_numor
+    if _newclass:write_generic_numor = staticmethod(_pycrysfml.FortFuncs_write_generic_numor)
+    __swig_getmethods__["read_calibration_file"] = lambda x: _pycrysfml.FortFuncs_read_calibration_file
+    if _newclass:read_calibration_file = staticmethod(_pycrysfml.FortFuncs_read_calibration_file)
+    __swig_getmethods__["error_message"] = lambda x: _pycrysfml.FortFuncs_error_message
+    if _newclass:error_message = staticmethod(_pycrysfml.FortFuncs_error_message)
+    __swig_getmethods__["info_message"] = lambda x: _pycrysfml.FortFuncs_info_message
+    if _newclass:info_message = staticmethod(_pycrysfml.FortFuncs_info_message)
+    __swig_getmethods__["print_message"] = lambda x: _pycrysfml.FortFuncs_print_message
+    if _newclass:print_message = staticmethod(_pycrysfml.FortFuncs_print_message)
+    __swig_getmethods__["wait_message"] = lambda x: _pycrysfml.FortFuncs_wait_message
+    if _newclass:wait_message = staticmethod(_pycrysfml.FortFuncs_wait_message)
+    __swig_getmethods__["write_scroll_text"] = lambda x: _pycrysfml.FortFuncs_write_scroll_text
+    if _newclass:write_scroll_text = staticmethod(_pycrysfml.FortFuncs_write_scroll_text)
+    __swig_getmethods__["calc_induced_sk"] = lambda x: _pycrysfml.FortFuncs_calc_induced_sk
+    if _newclass:calc_induced_sk = staticmethod(_pycrysfml.FortFuncs_calc_induced_sk)
+    __swig_getmethods__["init_magsymm_k_type"] = lambda x: _pycrysfml.FortFuncs_init_magsymm_k_type
+    if _newclass:init_magsymm_k_type = staticmethod(_pycrysfml.FortFuncs_init_magsymm_k_type)
+    __swig_getmethods__["set_shubnikov_group"] = lambda x: _pycrysfml.FortFuncs_set_shubnikov_group
+    if _newclass:set_shubnikov_group = staticmethod(_pycrysfml.FortFuncs_set_shubnikov_group)
+    __swig_getmethods__["write_magnetic_structure"] = lambda x: _pycrysfml.FortFuncs_write_magnetic_structure
+    if _newclass:write_magnetic_structure = staticmethod(_pycrysfml.FortFuncs_write_magnetic_structure)
+    __swig_getmethods__["write_mcif"] = lambda x: _pycrysfml.FortFuncs_write_mcif
+    if _newclass:write_mcif = staticmethod(_pycrysfml.FortFuncs_write_mcif)
+    __swig_getmethods__["write_shubnikov_group"] = lambda x: _pycrysfml.FortFuncs_write_shubnikov_group
+    if _newclass:write_shubnikov_group = staticmethod(_pycrysfml.FortFuncs_write_shubnikov_group)
     __swig_getmethods__["index_cube"] = lambda x: _pycrysfml.FortFuncs_index_cube
     if _newclass:index_cube = staticmethod(_pycrysfml.FortFuncs_index_cube)
     __swig_getmethods__["vpoint_in_cube"] = lambda x: _pycrysfml.FortFuncs_vpoint_in_cube
@@ -1370,6 +1234,42 @@ class FortFuncs(_object):
     if _newclass:init_err_maps = staticmethod(_pycrysfml.FortFuncs_init_err_maps)
     __swig_getmethods__["set_cube_info"] = lambda x: _pycrysfml.FortFuncs_set_cube_info
     if _newclass:set_cube_info = staticmethod(_pycrysfml.FortFuncs_set_cube_info)
+    __swig_getmethods__["veclength"] = lambda x: _pycrysfml.FortFuncs_veclength
+    if _newclass:veclength = staticmethod(_pycrysfml.FortFuncs_veclength)
+    __swig_getmethods__["init_err_math3d"] = lambda x: _pycrysfml.FortFuncs_init_err_math3d
+    if _newclass:init_err_math3d = staticmethod(_pycrysfml.FortFuncs_init_err_math3d)
+    __swig_getmethods__["set_eps"] = lambda x: _pycrysfml.FortFuncs_set_eps
+    if _newclass:set_eps = staticmethod(_pycrysfml.FortFuncs_set_eps)
+    __swig_getmethods__["set_eps_default"] = lambda x: _pycrysfml.FortFuncs_set_eps_default
+    if _newclass:set_eps_default = staticmethod(_pycrysfml.FortFuncs_set_eps_default)
+    __swig_getmethods__["get_plane_from_points"] = lambda x: _pycrysfml.FortFuncs_get_plane_from_points
+    if _newclass:get_plane_from_points = staticmethod(_pycrysfml.FortFuncs_get_plane_from_points)
+    __swig_getmethods__["matrix_diageigen"] = lambda x: _pycrysfml.FortFuncs_matrix_diageigen
+    if _newclass:matrix_diageigen = staticmethod(_pycrysfml.FortFuncs_matrix_diageigen)
+    __swig_getmethods__["matrix_inverse"] = lambda x: _pycrysfml.FortFuncs_matrix_inverse
+    if _newclass:matrix_inverse = staticmethod(_pycrysfml.FortFuncs_matrix_inverse)
+    __swig_getmethods__["resolv_sist_1x2"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_1x2
+    if _newclass:resolv_sist_1x2 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_1x2)
+    __swig_getmethods__["resolv_sist_1x3"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_1x3
+    if _newclass:resolv_sist_1x3 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_1x3)
+    __swig_getmethods__["resolv_sist_2x2"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_2x2
+    if _newclass:resolv_sist_2x2 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_2x2)
+    __swig_getmethods__["resolv_sist_2x3"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_2x3
+    if _newclass:resolv_sist_2x3 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_2x3)
+    __swig_getmethods__["resolv_sist_3x3"] = lambda x: _pycrysfml.FortFuncs_resolv_sist_3x3
+    if _newclass:resolv_sist_3x3 = staticmethod(_pycrysfml.FortFuncs_resolv_sist_3x3)
+    __swig_getmethods__["bessj"] = lambda x: _pycrysfml.FortFuncs_bessj
+    if _newclass:bessj = staticmethod(_pycrysfml.FortFuncs_bessj)
+    __swig_getmethods__["pgcd"] = lambda x: _pycrysfml.FortFuncs_pgcd
+    if _newclass:pgcd = staticmethod(_pycrysfml.FortFuncs_pgcd)
+    __swig_getmethods__["ppcm"] = lambda x: _pycrysfml.FortFuncs_ppcm
+    if _newclass:ppcm = staticmethod(_pycrysfml.FortFuncs_ppcm)
+    __swig_getmethods__["init_err_mathgen"] = lambda x: _pycrysfml.FortFuncs_init_err_mathgen
+    if _newclass:init_err_mathgen = staticmethod(_pycrysfml.FortFuncs_init_err_mathgen)
+    __swig_getmethods__["set_epsg"] = lambda x: _pycrysfml.FortFuncs_set_epsg
+    if _newclass:set_epsg = staticmethod(_pycrysfml.FortFuncs_set_epsg)
+    __swig_getmethods__["set_epsg_default"] = lambda x: _pycrysfml.FortFuncs_set_epsg_default
+    if _newclass:set_epsg_default = staticmethod(_pycrysfml.FortFuncs_set_epsg_default)
     __swig_getmethods__["cartesian_to_fractional"] = lambda x: _pycrysfml.FortFuncs_cartesian_to_fractional
     if _newclass:cartesian_to_fractional = staticmethod(_pycrysfml.FortFuncs_cartesian_to_fractional)
     __swig_getmethods__["cartesian_to_spherical"] = lambda x: _pycrysfml.FortFuncs_cartesian_to_spherical
@@ -1414,6 +1314,128 @@ class FortFuncs(_object):
     if _newclass:zmatrix_to_fractional = staticmethod(_pycrysfml.FortFuncs_zmatrix_to_fractional)
     __swig_getmethods__["zmatrix_to_spherical"] = lambda x: _pycrysfml.FortFuncs_zmatrix_to_spherical
     if _newclass:zmatrix_to_spherical = staticmethod(_pycrysfml.FortFuncs_zmatrix_to_spherical)
+    __swig_getmethods__["calc_mag_interaction_vector"] = lambda x: _pycrysfml.FortFuncs_calc_mag_interaction_vector
+    if _newclass:calc_mag_interaction_vector = staticmethod(_pycrysfml.FortFuncs_calc_mag_interaction_vector)
+    __swig_getmethods__["calc_magnetic_strf_miv"] = lambda x: _pycrysfml.FortFuncs_calc_magnetic_strf_miv
+    if _newclass:calc_magnetic_strf_miv = staticmethod(_pycrysfml.FortFuncs_calc_magnetic_strf_miv)
+    __swig_getmethods__["calc_magnetic_strf_miv_dom"] = lambda x: _pycrysfml.FortFuncs_calc_magnetic_strf_miv_dom
+    if _newclass:calc_magnetic_strf_miv_dom = staticmethod(_pycrysfml.FortFuncs_calc_magnetic_strf_miv_dom)
+    __swig_getmethods__["calc_magnetic_strf_tensor"] = lambda x: _pycrysfml.FortFuncs_calc_magnetic_strf_tensor
+    if _newclass:calc_magnetic_strf_tensor = staticmethod(_pycrysfml.FortFuncs_calc_magnetic_strf_tensor)
+    __swig_getmethods__["gen_satellites"] = lambda x: _pycrysfml.FortFuncs_gen_satellites
+    if _newclass:gen_satellites = staticmethod(_pycrysfml.FortFuncs_gen_satellites)
+    __swig_getmethods__["init_err_msfac"] = lambda x: _pycrysfml.FortFuncs_init_err_msfac
+    if _newclass:init_err_msfac = staticmethod(_pycrysfml.FortFuncs_init_err_msfac)
+    __swig_getmethods__["init_mag_structure_factors"] = lambda x: _pycrysfml.FortFuncs_init_mag_structure_factors
+    if _newclass:init_mag_structure_factors = staticmethod(_pycrysfml.FortFuncs_init_mag_structure_factors)
+    __swig_getmethods__["mag_structure_factors"] = lambda x: _pycrysfml.FortFuncs_mag_structure_factors
+    if _newclass:mag_structure_factors = staticmethod(_pycrysfml.FortFuncs_mag_structure_factors)
+    __swig_getmethods__["write_mag_structure_factors"] = lambda x: _pycrysfml.FortFuncs_write_mag_structure_factors
+    if _newclass:write_mag_structure_factors = staticmethod(_pycrysfml.FortFuncs_write_mag_structure_factors)
+    __swig_getmethods__["init_err_optim"] = lambda x: _pycrysfml.FortFuncs_init_err_optim
+    if _newclass:init_err_optim = staticmethod(_pycrysfml.FortFuncs_init_err_optim)
+    __swig_getmethods__["init_opt_conditions"] = lambda x: _pycrysfml.FortFuncs_init_opt_conditions
+    if _newclass:init_opt_conditions = staticmethod(_pycrysfml.FortFuncs_init_opt_conditions)
+    __swig_getmethods__["write_optimization_conditions"] = lambda x: _pycrysfml.FortFuncs_write_optimization_conditions
+    if _newclass:write_optimization_conditions = staticmethod(_pycrysfml.FortFuncs_write_optimization_conditions)
+    __swig_getmethods__["write_polar_info"] = lambda x: _pycrysfml.FortFuncs_write_polar_info
+    if _newclass:write_polar_info = staticmethod(_pycrysfml.FortFuncs_write_polar_info)
+    __swig_getmethods__["write_polar_line"] = lambda x: _pycrysfml.FortFuncs_write_polar_line
+    if _newclass:write_polar_line = staticmethod(_pycrysfml.FortFuncs_write_polar_line)
+    __swig_getmethods__["init_prof_val"] = lambda x: _pycrysfml.FortFuncs_init_prof_val
+    if _newclass:init_prof_val = staticmethod(_pycrysfml.FortFuncs_init_prof_val)
+    __swig_getmethods__["prof_val"] = lambda x: _pycrysfml.FortFuncs_prof_val
+    if _newclass:prof_val = staticmethod(_pycrysfml.FortFuncs_prof_val)
+    __swig_getmethods__["tof_carpenter"] = lambda x: _pycrysfml.FortFuncs_tof_carpenter
+    if _newclass:tof_carpenter = staticmethod(_pycrysfml.FortFuncs_tof_carpenter)
+    __swig_getmethods__["tof_jorgensen"] = lambda x: _pycrysfml.FortFuncs_tof_jorgensen
+    if _newclass:tof_jorgensen = staticmethod(_pycrysfml.FortFuncs_tof_jorgensen)
+    __swig_getmethods__["tof_jorgensen_vondreele"] = lambda x: _pycrysfml.FortFuncs_tof_jorgensen_vondreele
+    if _newclass:tof_jorgensen_vondreele = staticmethod(_pycrysfml.FortFuncs_tof_jorgensen_vondreele)
+    __swig_getmethods__["hk_equiv"] = lambda x: _pycrysfml.FortFuncs_hk_equiv
+    if _newclass:hk_equiv = staticmethod(_pycrysfml.FortFuncs_hk_equiv)
+    __swig_getmethods__["k_equiv"] = lambda x: _pycrysfml.FortFuncs_k_equiv
+    if _newclass:k_equiv = staticmethod(_pycrysfml.FortFuncs_k_equiv)
+    __swig_getmethods__["k_equiv_minus_k"] = lambda x: _pycrysfml.FortFuncs_k_equiv_minus_k
+    if _newclass:k_equiv_minus_k = staticmethod(_pycrysfml.FortFuncs_k_equiv_minus_k)
+    __swig_getmethods__["k_star"] = lambda x: _pycrysfml.FortFuncs_k_star
+    if _newclass:k_star = staticmethod(_pycrysfml.FortFuncs_k_star)
+    __swig_getmethods__["write_group_k"] = lambda x: _pycrysfml.FortFuncs_write_group_k
+    if _newclass:write_group_k = staticmethod(_pycrysfml.FortFuncs_write_group_k)
+    __swig_getmethods__["init_err_random"] = lambda x: _pycrysfml.FortFuncs_init_err_random
+    if _newclass:init_err_random = staticmethod(_pycrysfml.FortFuncs_init_err_random)
+    __swig_getmethods__["random_beta"] = lambda x: _pycrysfml.FortFuncs_random_beta
+    if _newclass:random_beta = staticmethod(_pycrysfml.FortFuncs_random_beta)
+    __swig_getmethods__["random_binomial1"] = lambda x: _pycrysfml.FortFuncs_random_binomial1
+    if _newclass:random_binomial1 = staticmethod(_pycrysfml.FortFuncs_random_binomial1)
+    __swig_getmethods__["random_binomial2"] = lambda x: _pycrysfml.FortFuncs_random_binomial2
+    if _newclass:random_binomial2 = staticmethod(_pycrysfml.FortFuncs_random_binomial2)
+    __swig_getmethods__["random_cauchy"] = lambda x: _pycrysfml.FortFuncs_random_cauchy
+    if _newclass:random_cauchy = staticmethod(_pycrysfml.FortFuncs_random_cauchy)
+    __swig_getmethods__["random_chisq"] = lambda x: _pycrysfml.FortFuncs_random_chisq
+    if _newclass:random_chisq = staticmethod(_pycrysfml.FortFuncs_random_chisq)
+    __swig_getmethods__["random_exponential"] = lambda x: _pycrysfml.FortFuncs_random_exponential
+    if _newclass:random_exponential = staticmethod(_pycrysfml.FortFuncs_random_exponential)
+    __swig_getmethods__["random_gamma"] = lambda x: _pycrysfml.FortFuncs_random_gamma
+    if _newclass:random_gamma = staticmethod(_pycrysfml.FortFuncs_random_gamma)
+    __swig_getmethods__["random_gamma1"] = lambda x: _pycrysfml.FortFuncs_random_gamma1
+    if _newclass:random_gamma1 = staticmethod(_pycrysfml.FortFuncs_random_gamma1)
+    __swig_getmethods__["random_gamma2"] = lambda x: _pycrysfml.FortFuncs_random_gamma2
+    if _newclass:random_gamma2 = staticmethod(_pycrysfml.FortFuncs_random_gamma2)
+    __swig_getmethods__["random_inv_gauss"] = lambda x: _pycrysfml.FortFuncs_random_inv_gauss
+    if _newclass:random_inv_gauss = staticmethod(_pycrysfml.FortFuncs_random_inv_gauss)
+    __swig_getmethods__["random_mvnorm"] = lambda x: _pycrysfml.FortFuncs_random_mvnorm
+    if _newclass:random_mvnorm = staticmethod(_pycrysfml.FortFuncs_random_mvnorm)
+    __swig_getmethods__["random_neg_binomial"] = lambda x: _pycrysfml.FortFuncs_random_neg_binomial
+    if _newclass:random_neg_binomial = staticmethod(_pycrysfml.FortFuncs_random_neg_binomial)
+    __swig_getmethods__["random_normal"] = lambda x: _pycrysfml.FortFuncs_random_normal
+    if _newclass:random_normal = staticmethod(_pycrysfml.FortFuncs_random_normal)
+    __swig_getmethods__["random_order"] = lambda x: _pycrysfml.FortFuncs_random_order
+    if _newclass:random_order = staticmethod(_pycrysfml.FortFuncs_random_order)
+    __swig_getmethods__["random_poisson"] = lambda x: _pycrysfml.FortFuncs_random_poisson
+    if _newclass:random_poisson = staticmethod(_pycrysfml.FortFuncs_random_poisson)
+    __swig_getmethods__["random_t"] = lambda x: _pycrysfml.FortFuncs_random_t
+    if _newclass:random_t = staticmethod(_pycrysfml.FortFuncs_random_t)
+    __swig_getmethods__["random_von_mises"] = lambda x: _pycrysfml.FortFuncs_random_von_mises
+    if _newclass:random_von_mises = staticmethod(_pycrysfml.FortFuncs_random_von_mises)
+    __swig_getmethods__["random_weibull"] = lambda x: _pycrysfml.FortFuncs_random_weibull
+    if _newclass:random_weibull = staticmethod(_pycrysfml.FortFuncs_random_weibull)
+    __swig_getmethods__["seed_random_number"] = lambda x: _pycrysfml.FortFuncs_seed_random_number
+    if _newclass:seed_random_number = staticmethod(_pycrysfml.FortFuncs_seed_random_number)
+    __swig_getmethods__["allocate_vparam"] = lambda x: _pycrysfml.FortFuncs_allocate_vparam
+    if _newclass:allocate_vparam = staticmethod(_pycrysfml.FortFuncs_allocate_vparam)
+    __swig_getmethods__["get_restang_line"] = lambda x: _pycrysfml.FortFuncs_get_restang_line
+    if _newclass:get_restang_line = staticmethod(_pycrysfml.FortFuncs_get_restang_line)
+    __swig_getmethods__["get_restdis_line"] = lambda x: _pycrysfml.FortFuncs_get_restdis_line
+    if _newclass:get_restdis_line = staticmethod(_pycrysfml.FortFuncs_get_restdis_line)
+    __swig_getmethods__["get_resttor_line"] = lambda x: _pycrysfml.FortFuncs_get_resttor_line
+    if _newclass:get_resttor_line = staticmethod(_pycrysfml.FortFuncs_get_resttor_line)
+    __swig_getmethods__["init_err_refcodes"] = lambda x: _pycrysfml.FortFuncs_init_err_refcodes
+    if _newclass:init_err_refcodes = staticmethod(_pycrysfml.FortFuncs_init_err_refcodes)
+    __swig_getmethods__["init_refcodes"] = lambda x: _pycrysfml.FortFuncs_init_refcodes
+    if _newclass:init_refcodes = staticmethod(_pycrysfml.FortFuncs_init_refcodes)
+    __swig_getmethods__["read_refgcodes_file"] = lambda x: _pycrysfml.FortFuncs_read_refgcodes_file
+    if _newclass:read_refgcodes_file = staticmethod(_pycrysfml.FortFuncs_read_refgcodes_file)
+    __swig_getmethods__["vstate_to_modelpar"] = lambda x: _pycrysfml.FortFuncs_vstate_to_modelpar
+    if _newclass:vstate_to_modelpar = staticmethod(_pycrysfml.FortFuncs_vstate_to_modelpar)
+    __swig_getmethods__["write_info_refgcodes"] = lambda x: _pycrysfml.FortFuncs_write_info_refgcodes
+    if _newclass:write_info_refgcodes = staticmethod(_pycrysfml.FortFuncs_write_info_refgcodes)
+    __swig_getmethods__["write_info_refparams"] = lambda x: _pycrysfml.FortFuncs_write_info_refparams
+    if _newclass:write_info_refparams = staticmethod(_pycrysfml.FortFuncs_write_info_refparams)
+    __swig_getmethods__["write_restraints_obscalc"] = lambda x: _pycrysfml.FortFuncs_write_restraints_obscalc
+    if _newclass:write_restraints_obscalc = staticmethod(_pycrysfml.FortFuncs_write_restraints_obscalc)
+    __swig_getmethods__["get_maxnumref"] = lambda x: _pycrysfml.FortFuncs_get_maxnumref
+    if _newclass:get_maxnumref = staticmethod(_pycrysfml.FortFuncs_get_maxnumref)
+    __swig_getmethods__["hkl_lat_absent"] = lambda x: _pycrysfml.FortFuncs_hkl_lat_absent
+    if _newclass:hkl_lat_absent = staticmethod(_pycrysfml.FortFuncs_hkl_lat_absent)
+    __swig_getmethods__["init_err_refl"] = lambda x: _pycrysfml.FortFuncs_init_err_refl
+    if _newclass:init_err_refl = staticmethod(_pycrysfml.FortFuncs_init_err_refl)
+    __swig_getmethods__["init_reflist"] = lambda x: _pycrysfml.FortFuncs_init_reflist
+    if _newclass:init_reflist = staticmethod(_pycrysfml.FortFuncs_init_reflist)
+    __swig_getmethods__["write_asu"] = lambda x: _pycrysfml.FortFuncs_write_asu
+    if _newclass:write_asu = staticmethod(_pycrysfml.FortFuncs_write_asu)
+    __swig_getmethods__["write_reflist_info"] = lambda x: _pycrysfml.FortFuncs_write_reflist_info
+    if _newclass:write_reflist_info = staticmethod(_pycrysfml.FortFuncs_write_reflist_info)
     __swig_getmethods__["angs_4c_bisecting"] = lambda x: _pycrysfml.FortFuncs_angs_4c_bisecting
     if _newclass:angs_4c_bisecting = staticmethod(_pycrysfml.FortFuncs_angs_4c_bisecting)
     __swig_getmethods__["calang"] = lambda x: _pycrysfml.FortFuncs_calang
@@ -1496,92 +1518,154 @@ class FortFuncs(_object):
     if _newclass:z4frgn = staticmethod(_pycrysfml.FortFuncs_z4frgn)
     __swig_getmethods__["z4frz1"] = lambda x: _pycrysfml.FortFuncs_z4frz1
     if _newclass:z4frz1 = staticmethod(_pycrysfml.FortFuncs_z4frz1)
-    __swig_getmethods__["allocate_atoms_conf_list"] = lambda x: _pycrysfml.FortFuncs_allocate_atoms_conf_list
-    if _newclass:allocate_atoms_conf_list = staticmethod(_pycrysfml.FortFuncs_allocate_atoms_conf_list)
-    __swig_getmethods__["calc_bvs"] = lambda x: _pycrysfml.FortFuncs_calc_bvs
-    if _newclass:calc_bvs = staticmethod(_pycrysfml.FortFuncs_calc_bvs)
-    __swig_getmethods__["calc_map_bvel"] = lambda x: _pycrysfml.FortFuncs_calc_map_bvel
-    if _newclass:calc_map_bvel = staticmethod(_pycrysfml.FortFuncs_calc_map_bvel)
-    __swig_getmethods__["calc_map_bvs"] = lambda x: _pycrysfml.FortFuncs_calc_map_bvs
-    if _newclass:calc_map_bvs = staticmethod(_pycrysfml.FortFuncs_calc_map_bvs)
-    __swig_getmethods__["cost_bvs"] = lambda x: _pycrysfml.FortFuncs_cost_bvs
-    if _newclass:cost_bvs = staticmethod(_pycrysfml.FortFuncs_cost_bvs)
-    __swig_getmethods__["cost_bvs_coulombrep"] = lambda x: _pycrysfml.FortFuncs_cost_bvs_coulombrep
-    if _newclass:cost_bvs_coulombrep = staticmethod(_pycrysfml.FortFuncs_cost_bvs_coulombrep)
-    __swig_getmethods__["deallocate_atoms_conf_list"] = lambda x: _pycrysfml.FortFuncs_deallocate_atoms_conf_list
-    if _newclass:deallocate_atoms_conf_list = staticmethod(_pycrysfml.FortFuncs_deallocate_atoms_conf_list)
-    __swig_getmethods__["init_err_conf"] = lambda x: _pycrysfml.FortFuncs_init_err_conf
-    if _newclass:init_err_conf = staticmethod(_pycrysfml.FortFuncs_init_err_conf)
-    __swig_getmethods__["species_on_list"] = lambda x: _pycrysfml.FortFuncs_species_on_list
-    if _newclass:species_on_list = staticmethod(_pycrysfml.FortFuncs_species_on_list)
-    __swig_getmethods__["file_to_filelist"] = lambda x: _pycrysfml.FortFuncs_file_to_filelist
-    if _newclass:file_to_filelist = staticmethod(_pycrysfml.FortFuncs_file_to_filelist)
-    __swig_getmethods__["init_err_form"] = lambda x: _pycrysfml.FortFuncs_init_err_form
-    if _newclass:init_err_form = staticmethod(_pycrysfml.FortFuncs_init_err_form)
-    __swig_getmethods__["read_uvals"] = lambda x: _pycrysfml.FortFuncs_read_uvals
-    if _newclass:read_uvals = staticmethod(_pycrysfml.FortFuncs_read_uvals)
-    __swig_getmethods__["write_cif_powder_profile"] = lambda x: _pycrysfml.FortFuncs_write_cif_powder_profile
-    if _newclass:write_cif_powder_profile = staticmethod(_pycrysfml.FortFuncs_write_cif_powder_profile)
-    __swig_getmethods__["write_cif_template"] = lambda x: _pycrysfml.FortFuncs_write_cif_template
-    if _newclass:write_cif_template = staticmethod(_pycrysfml.FortFuncs_write_cif_template)
-    __swig_getmethods__["write_shx_template"] = lambda x: _pycrysfml.FortFuncs_write_shx_template
-    if _newclass:write_shx_template = staticmethod(_pycrysfml.FortFuncs_write_shx_template)
-    __swig_getmethods__["calc_induced_sk"] = lambda x: _pycrysfml.FortFuncs_calc_induced_sk
-    if _newclass:calc_induced_sk = staticmethod(_pycrysfml.FortFuncs_calc_induced_sk)
-    __swig_getmethods__["init_magsymm_k_type"] = lambda x: _pycrysfml.FortFuncs_init_magsymm_k_type
-    if _newclass:init_magsymm_k_type = staticmethod(_pycrysfml.FortFuncs_init_magsymm_k_type)
-    __swig_getmethods__["set_shubnikov_group"] = lambda x: _pycrysfml.FortFuncs_set_shubnikov_group
-    if _newclass:set_shubnikov_group = staticmethod(_pycrysfml.FortFuncs_set_shubnikov_group)
-    __swig_getmethods__["write_magnetic_structure"] = lambda x: _pycrysfml.FortFuncs_write_magnetic_structure
-    if _newclass:write_magnetic_structure = staticmethod(_pycrysfml.FortFuncs_write_magnetic_structure)
-    __swig_getmethods__["write_mcif"] = lambda x: _pycrysfml.FortFuncs_write_mcif
-    if _newclass:write_mcif = staticmethod(_pycrysfml.FortFuncs_write_mcif)
-    __swig_getmethods__["write_shubnikov_group"] = lambda x: _pycrysfml.FortFuncs_write_shubnikov_group
-    if _newclass:write_shubnikov_group = staticmethod(_pycrysfml.FortFuncs_write_shubnikov_group)
-    __swig_getmethods__["calc_mag_interaction_vector"] = lambda x: _pycrysfml.FortFuncs_calc_mag_interaction_vector
-    if _newclass:calc_mag_interaction_vector = staticmethod(_pycrysfml.FortFuncs_calc_mag_interaction_vector)
-    __swig_getmethods__["calc_magnetic_strf_miv"] = lambda x: _pycrysfml.FortFuncs_calc_magnetic_strf_miv
-    if _newclass:calc_magnetic_strf_miv = staticmethod(_pycrysfml.FortFuncs_calc_magnetic_strf_miv)
-    __swig_getmethods__["calc_magnetic_strf_miv_dom"] = lambda x: _pycrysfml.FortFuncs_calc_magnetic_strf_miv_dom
-    if _newclass:calc_magnetic_strf_miv_dom = staticmethod(_pycrysfml.FortFuncs_calc_magnetic_strf_miv_dom)
-    __swig_getmethods__["calc_magnetic_strf_tensor"] = lambda x: _pycrysfml.FortFuncs_calc_magnetic_strf_tensor
-    if _newclass:calc_magnetic_strf_tensor = staticmethod(_pycrysfml.FortFuncs_calc_magnetic_strf_tensor)
-    __swig_getmethods__["gen_satellites"] = lambda x: _pycrysfml.FortFuncs_gen_satellites
-    if _newclass:gen_satellites = staticmethod(_pycrysfml.FortFuncs_gen_satellites)
-    __swig_getmethods__["init_err_msfac"] = lambda x: _pycrysfml.FortFuncs_init_err_msfac
-    if _newclass:init_err_msfac = staticmethod(_pycrysfml.FortFuncs_init_err_msfac)
-    __swig_getmethods__["init_mag_structure_factors"] = lambda x: _pycrysfml.FortFuncs_init_mag_structure_factors
-    if _newclass:init_mag_structure_factors = staticmethod(_pycrysfml.FortFuncs_init_mag_structure_factors)
-    __swig_getmethods__["mag_structure_factors"] = lambda x: _pycrysfml.FortFuncs_mag_structure_factors
-    if _newclass:mag_structure_factors = staticmethod(_pycrysfml.FortFuncs_mag_structure_factors)
-    __swig_getmethods__["write_mag_structure_factors"] = lambda x: _pycrysfml.FortFuncs_write_mag_structure_factors
-    if _newclass:write_mag_structure_factors = staticmethod(_pycrysfml.FortFuncs_write_mag_structure_factors)
-    __swig_getmethods__["write_polar_info"] = lambda x: _pycrysfml.FortFuncs_write_polar_info
-    if _newclass:write_polar_info = staticmethod(_pycrysfml.FortFuncs_write_polar_info)
-    __swig_getmethods__["write_polar_line"] = lambda x: _pycrysfml.FortFuncs_write_polar_line
-    if _newclass:write_polar_line = staticmethod(_pycrysfml.FortFuncs_write_polar_line)
-    __swig_getmethods__["allocate_vparam"] = lambda x: _pycrysfml.FortFuncs_allocate_vparam
-    if _newclass:allocate_vparam = staticmethod(_pycrysfml.FortFuncs_allocate_vparam)
-    __swig_getmethods__["get_restang_line"] = lambda x: _pycrysfml.FortFuncs_get_restang_line
-    if _newclass:get_restang_line = staticmethod(_pycrysfml.FortFuncs_get_restang_line)
-    __swig_getmethods__["get_restdis_line"] = lambda x: _pycrysfml.FortFuncs_get_restdis_line
-    if _newclass:get_restdis_line = staticmethod(_pycrysfml.FortFuncs_get_restdis_line)
-    __swig_getmethods__["get_resttor_line"] = lambda x: _pycrysfml.FortFuncs_get_resttor_line
-    if _newclass:get_resttor_line = staticmethod(_pycrysfml.FortFuncs_get_resttor_line)
-    __swig_getmethods__["init_err_refcodes"] = lambda x: _pycrysfml.FortFuncs_init_err_refcodes
-    if _newclass:init_err_refcodes = staticmethod(_pycrysfml.FortFuncs_init_err_refcodes)
-    __swig_getmethods__["init_refcodes"] = lambda x: _pycrysfml.FortFuncs_init_refcodes
-    if _newclass:init_refcodes = staticmethod(_pycrysfml.FortFuncs_init_refcodes)
-    __swig_getmethods__["read_refgcodes_file"] = lambda x: _pycrysfml.FortFuncs_read_refgcodes_file
-    if _newclass:read_refgcodes_file = staticmethod(_pycrysfml.FortFuncs_read_refgcodes_file)
-    __swig_getmethods__["vstate_to_modelpar"] = lambda x: _pycrysfml.FortFuncs_vstate_to_modelpar
-    if _newclass:vstate_to_modelpar = staticmethod(_pycrysfml.FortFuncs_vstate_to_modelpar)
-    __swig_getmethods__["write_info_refgcodes"] = lambda x: _pycrysfml.FortFuncs_write_info_refgcodes
-    if _newclass:write_info_refgcodes = staticmethod(_pycrysfml.FortFuncs_write_info_refgcodes)
-    __swig_getmethods__["write_info_refparams"] = lambda x: _pycrysfml.FortFuncs_write_info_refparams
-    if _newclass:write_info_refparams = staticmethod(_pycrysfml.FortFuncs_write_info_refparams)
-    __swig_getmethods__["write_restraints_obscalc"] = lambda x: _pycrysfml.FortFuncs_write_restraints_obscalc
-    if _newclass:write_restraints_obscalc = staticmethod(_pycrysfml.FortFuncs_write_restraints_obscalc)
+    __swig_getmethods__["calc_strfactor"] = lambda x: _pycrysfml.FortFuncs_calc_strfactor
+    if _newclass:calc_strfactor = staticmethod(_pycrysfml.FortFuncs_calc_strfactor)
+    __swig_getmethods__["calc_hkl_strfactor"] = lambda x: _pycrysfml.FortFuncs_calc_hkl_strfactor
+    if _newclass:calc_hkl_strfactor = staticmethod(_pycrysfml.FortFuncs_calc_hkl_strfactor)
+    __swig_getmethods__["init_calc_hkl_strfactors"] = lambda x: _pycrysfml.FortFuncs_init_calc_hkl_strfactors
+    if _newclass:init_calc_hkl_strfactors = staticmethod(_pycrysfml.FortFuncs_init_calc_hkl_strfactors)
+    __swig_getmethods__["init_calc_strfactors"] = lambda x: _pycrysfml.FortFuncs_init_calc_strfactors
+    if _newclass:init_calc_strfactors = staticmethod(_pycrysfml.FortFuncs_init_calc_strfactors)
+    __swig_getmethods__["init_structure_factors"] = lambda x: _pycrysfml.FortFuncs_init_structure_factors
+    if _newclass:init_structure_factors = staticmethod(_pycrysfml.FortFuncs_init_structure_factors)
+    __swig_getmethods__["structure_factors"] = lambda x: _pycrysfml.FortFuncs_structure_factors
+    if _newclass:structure_factors = staticmethod(_pycrysfml.FortFuncs_structure_factors)
+    __swig_getmethods__["write_structure_factors"] = lambda x: _pycrysfml.FortFuncs_write_structure_factors
+    if _newclass:write_structure_factors = staticmethod(_pycrysfml.FortFuncs_write_structure_factors)
+    __swig_getmethods__["cubic_harm_ang"] = lambda x: _pycrysfml.FortFuncs_cubic_harm_ang
+    if _newclass:cubic_harm_ang = staticmethod(_pycrysfml.FortFuncs_cubic_harm_ang)
+    __swig_getmethods__["cubic_harm_ucvec"] = lambda x: _pycrysfml.FortFuncs_cubic_harm_ucvec
+    if _newclass:cubic_harm_ucvec = staticmethod(_pycrysfml.FortFuncs_cubic_harm_ucvec)
+    __swig_getmethods__["int_slater_bessel"] = lambda x: _pycrysfml.FortFuncs_int_slater_bessel
+    if _newclass:int_slater_bessel = staticmethod(_pycrysfml.FortFuncs_int_slater_bessel)
+    __swig_getmethods__["real_spher_harm_ang"] = lambda x: _pycrysfml.FortFuncs_real_spher_harm_ang
+    if _newclass:real_spher_harm_ang = staticmethod(_pycrysfml.FortFuncs_real_spher_harm_ang)
+    __swig_getmethods__["real_spher_harm_ucvec"] = lambda x: _pycrysfml.FortFuncs_real_spher_harm_ucvec
+    if _newclass:real_spher_harm_ucvec = staticmethod(_pycrysfml.FortFuncs_real_spher_harm_ucvec)
+    __swig_getmethods__["real_spher_harmcharge_ucvec"] = lambda x: _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec
+    if _newclass:real_spher_harmcharge_ucvec = staticmethod(_pycrysfml.FortFuncs_real_spher_harmcharge_ucvec)
+    __swig_getmethods__["init_err_spher"] = lambda x: _pycrysfml.FortFuncs_init_err_spher
+    if _newclass:init_err_spher = staticmethod(_pycrysfml.FortFuncs_init_err_spher)
+    __swig_getmethods__["pikout_lj_cubic"] = lambda x: _pycrysfml.FortFuncs_pikout_lj_cubic
+    if _newclass:pikout_lj_cubic = staticmethod(_pycrysfml.FortFuncs_pikout_lj_cubic)
+    __swig_getmethods__["string_count"] = lambda x: _pycrysfml.FortFuncs_string_count
+    if _newclass:string_count = staticmethod(_pycrysfml.FortFuncs_string_count)
+    __swig_getmethods__["frac_trans_1dig"] = lambda x: _pycrysfml.FortFuncs_frac_trans_1dig
+    if _newclass:frac_trans_1dig = staticmethod(_pycrysfml.FortFuncs_frac_trans_1dig)
+    __swig_getmethods__["frac_trans_2dig"] = lambda x: _pycrysfml.FortFuncs_frac_trans_2dig
+    if _newclass:frac_trans_2dig = staticmethod(_pycrysfml.FortFuncs_frac_trans_2dig)
+    __swig_getmethods__["get_basename"] = lambda x: _pycrysfml.FortFuncs_get_basename
+    if _newclass:get_basename = staticmethod(_pycrysfml.FortFuncs_get_basename)
+    __swig_getmethods__["get_dirname"] = lambda x: _pycrysfml.FortFuncs_get_dirname
+    if _newclass:get_dirname = staticmethod(_pycrysfml.FortFuncs_get_dirname)
+    __swig_getmethods__["get_extension"] = lambda x: _pycrysfml.FortFuncs_get_extension
+    if _newclass:get_extension = staticmethod(_pycrysfml.FortFuncs_get_extension)
+    __swig_getmethods__["get_fraction_1dig"] = lambda x: _pycrysfml.FortFuncs_get_fraction_1dig
+    if _newclass:get_fraction_1dig = staticmethod(_pycrysfml.FortFuncs_get_fraction_1dig)
+    __swig_getmethods__["get_fraction_2dig"] = lambda x: _pycrysfml.FortFuncs_get_fraction_2dig
+    if _newclass:get_fraction_2dig = staticmethod(_pycrysfml.FortFuncs_get_fraction_2dig)
+    __swig_getmethods__["get_logunit"] = lambda x: _pycrysfml.FortFuncs_get_logunit
+    if _newclass:get_logunit = staticmethod(_pycrysfml.FortFuncs_get_logunit)
+    __swig_getmethods__["get_transf"] = lambda x: _pycrysfml.FortFuncs_get_transf
+    if _newclass:get_transf = staticmethod(_pycrysfml.FortFuncs_get_transf)
+    __swig_getmethods__["inc_linenum"] = lambda x: _pycrysfml.FortFuncs_inc_linenum
+    if _newclass:inc_linenum = staticmethod(_pycrysfml.FortFuncs_inc_linenum)
+    __swig_getmethods__["init_err_string"] = lambda x: _pycrysfml.FortFuncs_init_err_string
+    if _newclass:init_err_string = staticmethod(_pycrysfml.FortFuncs_init_err_string)
+    __swig_getmethods__["init_findfmt"] = lambda x: _pycrysfml.FortFuncs_init_findfmt
+    if _newclass:init_findfmt = staticmethod(_pycrysfml.FortFuncs_init_findfmt)
+    __swig_getmethods__["number_lines"] = lambda x: _pycrysfml.FortFuncs_number_lines
+    if _newclass:number_lines = staticmethod(_pycrysfml.FortFuncs_number_lines)
+    __swig_getmethods__["numcol_from_numfmt"] = lambda x: _pycrysfml.FortFuncs_numcol_from_numfmt
+    if _newclass:numcol_from_numfmt = staticmethod(_pycrysfml.FortFuncs_numcol_from_numfmt)
+    __swig_getmethods__["setnum_std"] = lambda x: _pycrysfml.FortFuncs_setnum_std
+    if _newclass:setnum_std = staticmethod(_pycrysfml.FortFuncs_setnum_std)
+    __swig_getmethods__["get_generators"] = lambda x: _pycrysfml.FortFuncs_get_generators
+    if _newclass:get_generators = staticmethod(_pycrysfml.FortFuncs_get_generators)
+    __swig_getmethods__["remove_spgr_info"] = lambda x: _pycrysfml.FortFuncs_remove_spgr_info
+    if _newclass:remove_spgr_info = staticmethod(_pycrysfml.FortFuncs_remove_spgr_info)
+    __swig_getmethods__["remove_system_equiv"] = lambda x: _pycrysfml.FortFuncs_remove_system_equiv
+    if _newclass:remove_system_equiv = staticmethod(_pycrysfml.FortFuncs_remove_system_equiv)
+    __swig_getmethods__["remove_wyckoff_info"] = lambda x: _pycrysfml.FortFuncs_remove_wyckoff_info
+    if _newclass:remove_wyckoff_info = staticmethod(_pycrysfml.FortFuncs_remove_wyckoff_info)
+    __swig_getmethods__["set_spgr_info"] = lambda x: _pycrysfml.FortFuncs_set_spgr_info
+    if _newclass:set_spgr_info = staticmethod(_pycrysfml.FortFuncs_set_spgr_info)
+    __swig_getmethods__["set_system_equiv"] = lambda x: _pycrysfml.FortFuncs_set_system_equiv
+    if _newclass:set_system_equiv = staticmethod(_pycrysfml.FortFuncs_set_system_equiv)
+    __swig_getmethods__["set_wyckoff_info"] = lambda x: _pycrysfml.FortFuncs_set_wyckoff_info
+    if _newclass:set_wyckoff_info = staticmethod(_pycrysfml.FortFuncs_set_wyckoff_info)
+    __swig_getmethods__["axes_rotation"] = lambda x: _pycrysfml.FortFuncs_axes_rotation
+    if _newclass:axes_rotation = staticmethod(_pycrysfml.FortFuncs_axes_rotation)
+    __swig_getmethods__["get_laue_num"] = lambda x: _pycrysfml.FortFuncs_get_laue_num
+    if _newclass:get_laue_num = staticmethod(_pycrysfml.FortFuncs_get_laue_num)
+    __swig_getmethods__["get_multip_pos"] = lambda x: _pycrysfml.FortFuncs_get_multip_pos
+    if _newclass:get_multip_pos = staticmethod(_pycrysfml.FortFuncs_get_multip_pos)
+    __swig_getmethods__["get_occ_site"] = lambda x: _pycrysfml.FortFuncs_get_occ_site
+    if _newclass:get_occ_site = staticmethod(_pycrysfml.FortFuncs_get_occ_site)
+    __swig_getmethods__["get_pointgroup_num"] = lambda x: _pycrysfml.FortFuncs_get_pointgroup_num
+    if _newclass:get_pointgroup_num = staticmethod(_pycrysfml.FortFuncs_get_pointgroup_num)
+    __swig_getmethods__["lattice_trans"] = lambda x: _pycrysfml.FortFuncs_lattice_trans
+    if _newclass:lattice_trans = staticmethod(_pycrysfml.FortFuncs_lattice_trans)
+    __swig_getmethods__["spgr_equal"] = lambda x: _pycrysfml.FortFuncs_spgr_equal
+    if _newclass:spgr_equal = staticmethod(_pycrysfml.FortFuncs_spgr_equal)
+    __swig_getmethods__["allocate_lattice_centring"] = lambda x: _pycrysfml.FortFuncs_allocate_lattice_centring
+    if _newclass:allocate_lattice_centring = staticmethod(_pycrysfml.FortFuncs_allocate_lattice_centring)
+    __swig_getmethods__["check_generator"] = lambda x: _pycrysfml.FortFuncs_check_generator
+    if _newclass:check_generator = staticmethod(_pycrysfml.FortFuncs_check_generator)
+    __swig_getmethods__["decodmatmag"] = lambda x: _pycrysfml.FortFuncs_decodmatmag
+    if _newclass:decodmatmag = staticmethod(_pycrysfml.FortFuncs_decodmatmag)
+    __swig_getmethods__["get_laue_str"] = lambda x: _pycrysfml.FortFuncs_get_laue_str
+    if _newclass:get_laue_str = staticmethod(_pycrysfml.FortFuncs_get_laue_str)
+    __swig_getmethods__["get_pointgroup_str"] = lambda x: _pycrysfml.FortFuncs_get_pointgroup_str
+    if _newclass:get_pointgroup_str = staticmethod(_pycrysfml.FortFuncs_get_pointgroup_str)
+    __swig_getmethods__["get_seitz_symbol"] = lambda x: _pycrysfml.FortFuncs_get_seitz_symbol
+    if _newclass:get_seitz_symbol = staticmethod(_pycrysfml.FortFuncs_get_seitz_symbol)
+    __swig_getmethods__["get_shubnikov_operator_symbol"] = lambda x: _pycrysfml.FortFuncs_get_shubnikov_operator_symbol
+    if _newclass:get_shubnikov_operator_symbol = staticmethod(_pycrysfml.FortFuncs_get_shubnikov_operator_symbol)
+    __swig_getmethods__["get_string_resolv"] = lambda x: _pycrysfml.FortFuncs_get_string_resolv
+    if _newclass:get_string_resolv = staticmethod(_pycrysfml.FortFuncs_get_string_resolv)
+    __swig_getmethods__["get_symel"] = lambda x: _pycrysfml.FortFuncs_get_symel
+    if _newclass:get_symel = staticmethod(_pycrysfml.FortFuncs_get_symel)
+    __swig_getmethods__["get_symkov"] = lambda x: _pycrysfml.FortFuncs_get_symkov
+    if _newclass:get_symkov = staticmethod(_pycrysfml.FortFuncs_get_symkov)
+    __swig_getmethods__["get_trasfm_symbol"] = lambda x: _pycrysfml.FortFuncs_get_trasfm_symbol
+    if _newclass:get_trasfm_symbol = staticmethod(_pycrysfml.FortFuncs_get_trasfm_symbol)
+    __swig_getmethods__["get_transl_symbol"] = lambda x: _pycrysfml.FortFuncs_get_transl_symbol
+    if _newclass:get_transl_symbol = staticmethod(_pycrysfml.FortFuncs_get_transl_symbol)
+    __swig_getmethods__["init_err_symm"] = lambda x: _pycrysfml.FortFuncs_init_err_symm
+    if _newclass:init_err_symm = staticmethod(_pycrysfml.FortFuncs_init_err_symm)
+    __swig_getmethods__["inverse_symm"] = lambda x: _pycrysfml.FortFuncs_inverse_symm
+    if _newclass:inverse_symm = staticmethod(_pycrysfml.FortFuncs_inverse_symm)
+    __swig_getmethods__["latsym"] = lambda x: _pycrysfml.FortFuncs_latsym
+    if _newclass:latsym = staticmethod(_pycrysfml.FortFuncs_latsym)
+    __swig_getmethods__["read_bin_spacegroup"] = lambda x: _pycrysfml.FortFuncs_read_bin_spacegroup
+    if _newclass:read_bin_spacegroup = staticmethod(_pycrysfml.FortFuncs_read_bin_spacegroup)
+    __swig_getmethods__["read_msymm"] = lambda x: _pycrysfml.FortFuncs_read_msymm
+    if _newclass:read_msymm = staticmethod(_pycrysfml.FortFuncs_read_msymm)
+    __swig_getmethods__["read_symtrans_code"] = lambda x: _pycrysfml.FortFuncs_read_symtrans_code
+    if _newclass:read_symtrans_code = staticmethod(_pycrysfml.FortFuncs_read_symtrans_code)
+    __swig_getmethods__["read_xsym"] = lambda x: _pycrysfml.FortFuncs_read_xsym
+    if _newclass:read_xsym = staticmethod(_pycrysfml.FortFuncs_read_xsym)
+    __swig_getmethods__["searchop"] = lambda x: _pycrysfml.FortFuncs_searchop
+    if _newclass:searchop = staticmethod(_pycrysfml.FortFuncs_searchop)
+    __swig_getmethods__["set_spacegroup"] = lambda x: _pycrysfml.FortFuncs_set_spacegroup
+    if _newclass:set_spacegroup = staticmethod(_pycrysfml.FortFuncs_set_spacegroup)
+    __swig_getmethods__["similar_transf_sg"] = lambda x: _pycrysfml.FortFuncs_similar_transf_sg
+    if _newclass:similar_transf_sg = staticmethod(_pycrysfml.FortFuncs_similar_transf_sg)
+    __swig_getmethods__["sym_prod_st"] = lambda x: _pycrysfml.FortFuncs_sym_prod_st
+    if _newclass:sym_prod_st = staticmethod(_pycrysfml.FortFuncs_sym_prod_st)
+    __swig_getmethods__["write_bin_spacegroup"] = lambda x: _pycrysfml.FortFuncs_write_bin_spacegroup
+    if _newclass:write_bin_spacegroup = staticmethod(_pycrysfml.FortFuncs_write_bin_spacegroup)
+    __swig_getmethods__["write_spacegroup"] = lambda x: _pycrysfml.FortFuncs_write_spacegroup
+    if _newclass:write_spacegroup = staticmethod(_pycrysfml.FortFuncs_write_spacegroup)
+    __swig_getmethods__["write_sym"] = lambda x: _pycrysfml.FortFuncs_write_sym
+    if _newclass:write_sym = staticmethod(_pycrysfml.FortFuncs_write_sym)
+    __swig_getmethods__["write_symtrans_code"] = lambda x: _pycrysfml.FortFuncs_write_symtrans_code
+    if _newclass:write_symtrans_code = staticmethod(_pycrysfml.FortFuncs_write_symtrans_code)
+    __swig_getmethods__["write_wyckoff"] = lambda x: _pycrysfml.FortFuncs_write_wyckoff
+    if _newclass:write_wyckoff = staticmethod(_pycrysfml.FortFuncs_write_wyckoff)
+    __swig_getmethods__["copy_ns_spg_to_spg"] = lambda x: _pycrysfml.FortFuncs_copy_ns_spg_to_spg
+    if _newclass:copy_ns_spg_to_spg = staticmethod(_pycrysfml.FortFuncs_copy_ns_spg_to_spg)
     __swig_getmethods__["alloc_mhlist_array"] = lambda x: _pycrysfml.FortFuncs_alloc_mhlist_array
     if _newclass:alloc_mhlist_array = staticmethod(_pycrysfml.FortFuncs_alloc_mhlist_array)
     __swig_getmethods__["alloc_refllist_array"] = lambda x: _pycrysfml.FortFuncs_alloc_refllist_array
@@ -1688,6 +1772,12 @@ class FortFuncs(_object):
     if _newclass:ns_sym_oper_type_ctor = staticmethod(_pycrysfml.FortFuncs_ns_sym_oper_type_ctor)
     __swig_getmethods__["sym_oper_type_ctor"] = lambda x: _pycrysfml.FortFuncs_sym_oper_type_ctor
     if _newclass:sym_oper_type_ctor = staticmethod(_pycrysfml.FortFuncs_sym_oper_type_ctor)
+    __swig_getmethods__["get_command"] = lambda x: _pycrysfml.FortFuncs_get_command
+    if _newclass:get_command = staticmethod(_pycrysfml.FortFuncs_get_command)
+    __swig_getmethods__["get_command_argument"] = lambda x: _pycrysfml.FortFuncs_get_command_argument
+    if _newclass:get_command_argument = staticmethod(_pycrysfml.FortFuncs_get_command_argument)
+    __swig_getmethods__["get_environment_variable"] = lambda x: _pycrysfml.FortFuncs_get_environment_variable
+    if _newclass:get_environment_variable = staticmethod(_pycrysfml.FortFuncs_get_environment_variable)
     def __init__(self): 
         this = _pycrysfml.new_FortFuncs()
         try: self.this.append(this)
@@ -1696,730 +1786,6 @@ class FortFuncs(_object):
     __del__ = lambda self : None;
 FortFuncs_swigregister = _pycrysfml.FortFuncs_swigregister
 FortFuncs_swigregister(FortFuncs)
-
-def FortFuncs_directory_exists(*args):
-  return _pycrysfml.FortFuncs_directory_exists(*args)
-FortFuncs_directory_exists = _pycrysfml.FortFuncs_directory_exists
-
-def FortFuncs_write_date_time(lun=None, dtim=None):
-  return _pycrysfml.FortFuncs_write_date_time(lun, dtim)
-FortFuncs_write_date_time = _pycrysfml.FortFuncs_write_date_time
-
-def FortFuncs_bessj(*args):
-  return _pycrysfml.FortFuncs_bessj(*args)
-FortFuncs_bessj = _pycrysfml.FortFuncs_bessj
-
-def FortFuncs_pgcd(*args):
-  return _pycrysfml.FortFuncs_pgcd(*args)
-FortFuncs_pgcd = _pycrysfml.FortFuncs_pgcd
-
-def FortFuncs_ppcm(*args):
-  return _pycrysfml.FortFuncs_ppcm(*args)
-FortFuncs_ppcm = _pycrysfml.FortFuncs_ppcm
-
-def FortFuncs_init_err_mathgen():
-  return _pycrysfml.FortFuncs_init_err_mathgen()
-FortFuncs_init_err_mathgen = _pycrysfml.FortFuncs_init_err_mathgen
-
-def FortFuncs_set_epsg(*args):
-  return _pycrysfml.FortFuncs_set_epsg(*args)
-FortFuncs_set_epsg = _pycrysfml.FortFuncs_set_epsg
-
-def FortFuncs_set_epsg_default():
-  return _pycrysfml.FortFuncs_set_epsg_default()
-FortFuncs_set_epsg_default = _pycrysfml.FortFuncs_set_epsg_default
-
-def FortFuncs_cubic_harm_ang(*args):
-  return _pycrysfml.FortFuncs_cubic_harm_ang(*args)
-FortFuncs_cubic_harm_ang = _pycrysfml.FortFuncs_cubic_harm_ang
-
-def FortFuncs_cubic_harm_ucvec(*args):
-  return _pycrysfml.FortFuncs_cubic_harm_ucvec(*args)
-FortFuncs_cubic_harm_ucvec = _pycrysfml.FortFuncs_cubic_harm_ucvec
-
-def FortFuncs_int_slater_bessel(*args):
-  return _pycrysfml.FortFuncs_int_slater_bessel(*args)
-FortFuncs_int_slater_bessel = _pycrysfml.FortFuncs_int_slater_bessel
-
-def FortFuncs_real_spher_harm_ang(*args):
-  return _pycrysfml.FortFuncs_real_spher_harm_ang(*args)
-FortFuncs_real_spher_harm_ang = _pycrysfml.FortFuncs_real_spher_harm_ang
-
-def FortFuncs_real_spher_harm_ucvec(*args):
-  return _pycrysfml.FortFuncs_real_spher_harm_ucvec(*args)
-FortFuncs_real_spher_harm_ucvec = _pycrysfml.FortFuncs_real_spher_harm_ucvec
-
-def FortFuncs_real_spher_harmcharge_ucvec(*args):
-  return _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec(*args)
-FortFuncs_real_spher_harmcharge_ucvec = _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec
-
-def FortFuncs_init_err_spher():
-  return _pycrysfml.FortFuncs_init_err_spher()
-FortFuncs_init_err_spher = _pycrysfml.FortFuncs_init_err_spher
-
-def FortFuncs_pikout_lj_cubic(*args):
-  return _pycrysfml.FortFuncs_pikout_lj_cubic(*args)
-FortFuncs_pikout_lj_cubic = _pycrysfml.FortFuncs_pikout_lj_cubic
-
-def FortFuncs_init_err_random():
-  return _pycrysfml.FortFuncs_init_err_random()
-FortFuncs_init_err_random = _pycrysfml.FortFuncs_init_err_random
-
-def FortFuncs_random_beta(*args):
-  return _pycrysfml.FortFuncs_random_beta(*args)
-FortFuncs_random_beta = _pycrysfml.FortFuncs_random_beta
-
-def FortFuncs_random_binomial1(*args):
-  return _pycrysfml.FortFuncs_random_binomial1(*args)
-FortFuncs_random_binomial1 = _pycrysfml.FortFuncs_random_binomial1
-
-def FortFuncs_random_binomial2(*args):
-  return _pycrysfml.FortFuncs_random_binomial2(*args)
-FortFuncs_random_binomial2 = _pycrysfml.FortFuncs_random_binomial2
-
-def FortFuncs_random_cauchy(*args):
-  return _pycrysfml.FortFuncs_random_cauchy(*args)
-FortFuncs_random_cauchy = _pycrysfml.FortFuncs_random_cauchy
-
-def FortFuncs_random_chisq(*args):
-  return _pycrysfml.FortFuncs_random_chisq(*args)
-FortFuncs_random_chisq = _pycrysfml.FortFuncs_random_chisq
-
-def FortFuncs_random_exponential(*args):
-  return _pycrysfml.FortFuncs_random_exponential(*args)
-FortFuncs_random_exponential = _pycrysfml.FortFuncs_random_exponential
-
-def FortFuncs_random_gamma(*args):
-  return _pycrysfml.FortFuncs_random_gamma(*args)
-FortFuncs_random_gamma = _pycrysfml.FortFuncs_random_gamma
-
-def FortFuncs_random_gamma1(*args):
-  return _pycrysfml.FortFuncs_random_gamma1(*args)
-FortFuncs_random_gamma1 = _pycrysfml.FortFuncs_random_gamma1
-
-def FortFuncs_random_gamma2(*args):
-  return _pycrysfml.FortFuncs_random_gamma2(*args)
-FortFuncs_random_gamma2 = _pycrysfml.FortFuncs_random_gamma2
-
-def FortFuncs_random_inv_gauss(*args):
-  return _pycrysfml.FortFuncs_random_inv_gauss(*args)
-FortFuncs_random_inv_gauss = _pycrysfml.FortFuncs_random_inv_gauss
-
-def FortFuncs_random_mvnorm(*args):
-  return _pycrysfml.FortFuncs_random_mvnorm(*args)
-FortFuncs_random_mvnorm = _pycrysfml.FortFuncs_random_mvnorm
-
-def FortFuncs_random_neg_binomial(*args):
-  return _pycrysfml.FortFuncs_random_neg_binomial(*args)
-FortFuncs_random_neg_binomial = _pycrysfml.FortFuncs_random_neg_binomial
-
-def FortFuncs_random_normal(*args):
-  return _pycrysfml.FortFuncs_random_normal(*args)
-FortFuncs_random_normal = _pycrysfml.FortFuncs_random_normal
-
-def FortFuncs_random_order(*args):
-  return _pycrysfml.FortFuncs_random_order(*args)
-FortFuncs_random_order = _pycrysfml.FortFuncs_random_order
-
-def FortFuncs_random_poisson(*args):
-  return _pycrysfml.FortFuncs_random_poisson(*args)
-FortFuncs_random_poisson = _pycrysfml.FortFuncs_random_poisson
-
-def FortFuncs_random_t(*args):
-  return _pycrysfml.FortFuncs_random_t(*args)
-FortFuncs_random_t = _pycrysfml.FortFuncs_random_t
-
-def FortFuncs_random_von_mises(*args):
-  return _pycrysfml.FortFuncs_random_von_mises(*args)
-FortFuncs_random_von_mises = _pycrysfml.FortFuncs_random_von_mises
-
-def FortFuncs_random_weibull(*args):
-  return _pycrysfml.FortFuncs_random_weibull(*args)
-FortFuncs_random_weibull = _pycrysfml.FortFuncs_random_weibull
-
-def FortFuncs_seed_random_number(i_input=None, i_output=None):
-  return _pycrysfml.FortFuncs_seed_random_number(i_input, i_output)
-FortFuncs_seed_random_number = _pycrysfml.FortFuncs_seed_random_number
-
-def FortFuncs_string_count(*args):
-  return _pycrysfml.FortFuncs_string_count(*args)
-FortFuncs_string_count = _pycrysfml.FortFuncs_string_count
-
-def FortFuncs_frac_trans_1dig(*args):
-  return _pycrysfml.FortFuncs_frac_trans_1dig(*args)
-FortFuncs_frac_trans_1dig = _pycrysfml.FortFuncs_frac_trans_1dig
-
-def FortFuncs_frac_trans_2dig(*args):
-  return _pycrysfml.FortFuncs_frac_trans_2dig(*args)
-FortFuncs_frac_trans_2dig = _pycrysfml.FortFuncs_frac_trans_2dig
-
-def FortFuncs_get_basename(*args):
-  return _pycrysfml.FortFuncs_get_basename(*args)
-FortFuncs_get_basename = _pycrysfml.FortFuncs_get_basename
-
-def FortFuncs_get_dirname(*args):
-  return _pycrysfml.FortFuncs_get_dirname(*args)
-FortFuncs_get_dirname = _pycrysfml.FortFuncs_get_dirname
-
-def FortFuncs_get_extension(*args):
-  return _pycrysfml.FortFuncs_get_extension(*args)
-FortFuncs_get_extension = _pycrysfml.FortFuncs_get_extension
-
-def FortFuncs_get_fraction_1dig(*args):
-  return _pycrysfml.FortFuncs_get_fraction_1dig(*args)
-FortFuncs_get_fraction_1dig = _pycrysfml.FortFuncs_get_fraction_1dig
-
-def FortFuncs_get_fraction_2dig(*args):
-  return _pycrysfml.FortFuncs_get_fraction_2dig(*args)
-FortFuncs_get_fraction_2dig = _pycrysfml.FortFuncs_get_fraction_2dig
-
-def FortFuncs_get_logunit(*args):
-  return _pycrysfml.FortFuncs_get_logunit(*args)
-FortFuncs_get_logunit = _pycrysfml.FortFuncs_get_logunit
-
-def FortFuncs_get_transf(*args):
-  return _pycrysfml.FortFuncs_get_transf(*args)
-FortFuncs_get_transf = _pycrysfml.FortFuncs_get_transf
-
-def FortFuncs_inc_linenum(*args):
-  return _pycrysfml.FortFuncs_inc_linenum(*args)
-FortFuncs_inc_linenum = _pycrysfml.FortFuncs_inc_linenum
-
-def FortFuncs_init_err_string():
-  return _pycrysfml.FortFuncs_init_err_string()
-FortFuncs_init_err_string = _pycrysfml.FortFuncs_init_err_string
-
-def FortFuncs_init_findfmt(nline=None):
-  return _pycrysfml.FortFuncs_init_findfmt(nline)
-FortFuncs_init_findfmt = _pycrysfml.FortFuncs_init_findfmt
-
-def FortFuncs_number_lines(*args):
-  return _pycrysfml.FortFuncs_number_lines(*args)
-FortFuncs_number_lines = _pycrysfml.FortFuncs_number_lines
-
-def FortFuncs_numcol_from_numfmt(*args):
-  return _pycrysfml.FortFuncs_numcol_from_numfmt(*args)
-FortFuncs_numcol_from_numfmt = _pycrysfml.FortFuncs_numcol_from_numfmt
-
-def FortFuncs_setnum_std(*args):
-  return _pycrysfml.FortFuncs_setnum_std(*args)
-FortFuncs_setnum_std = _pycrysfml.FortFuncs_setnum_std
-
-def FortFuncs_error_message(*args):
-  return _pycrysfml.FortFuncs_error_message(*args)
-FortFuncs_error_message = _pycrysfml.FortFuncs_error_message
-
-def FortFuncs_info_message(*args):
-  return _pycrysfml.FortFuncs_info_message(*args)
-FortFuncs_info_message = _pycrysfml.FortFuncs_info_message
-
-def FortFuncs_print_message(*args):
-  return _pycrysfml.FortFuncs_print_message(*args)
-FortFuncs_print_message = _pycrysfml.FortFuncs_print_message
-
-def FortFuncs_wait_message(mess=None):
-  return _pycrysfml.FortFuncs_wait_message(mess)
-FortFuncs_wait_message = _pycrysfml.FortFuncs_wait_message
-
-def FortFuncs_write_scroll_text(*args):
-  return _pycrysfml.FortFuncs_write_scroll_text(*args)
-FortFuncs_write_scroll_text = _pycrysfml.FortFuncs_write_scroll_text
-
-def FortFuncs_tof_carpenter(*args):
-  return _pycrysfml.FortFuncs_tof_carpenter(*args)
-FortFuncs_tof_carpenter = _pycrysfml.FortFuncs_tof_carpenter
-
-def FortFuncs_tof_jorgensen(*args):
-  return _pycrysfml.FortFuncs_tof_jorgensen(*args)
-FortFuncs_tof_jorgensen = _pycrysfml.FortFuncs_tof_jorgensen
-
-def FortFuncs_tof_jorgensen_vondreele(*args):
-  return _pycrysfml.FortFuncs_tof_jorgensen_vondreele(*args)
-FortFuncs_tof_jorgensen_vondreele = _pycrysfml.FortFuncs_tof_jorgensen_vondreele
-
-def FortFuncs_init_prof_val():
-  return _pycrysfml.FortFuncs_init_prof_val()
-FortFuncs_init_prof_val = _pycrysfml.FortFuncs_init_prof_val
-
-def FortFuncs_prof_val(*args):
-  return _pycrysfml.FortFuncs_prof_val(*args)
-FortFuncs_prof_val = _pycrysfml.FortFuncs_prof_val
-
-def FortFuncs_veclength(*args):
-  return _pycrysfml.FortFuncs_veclength(*args)
-FortFuncs_veclength = _pycrysfml.FortFuncs_veclength
-
-def FortFuncs_init_err_math3d():
-  return _pycrysfml.FortFuncs_init_err_math3d()
-FortFuncs_init_err_math3d = _pycrysfml.FortFuncs_init_err_math3d
-
-def FortFuncs_set_eps(*args):
-  return _pycrysfml.FortFuncs_set_eps(*args)
-FortFuncs_set_eps = _pycrysfml.FortFuncs_set_eps
-
-def FortFuncs_set_eps_default():
-  return _pycrysfml.FortFuncs_set_eps_default()
-FortFuncs_set_eps_default = _pycrysfml.FortFuncs_set_eps_default
-
-def FortFuncs_get_plane_from_points(*args):
-  return _pycrysfml.FortFuncs_get_plane_from_points(*args)
-FortFuncs_get_plane_from_points = _pycrysfml.FortFuncs_get_plane_from_points
-
-def FortFuncs_matrix_diageigen(*args):
-  return _pycrysfml.FortFuncs_matrix_diageigen(*args)
-FortFuncs_matrix_diageigen = _pycrysfml.FortFuncs_matrix_diageigen
-
-def FortFuncs_matrix_inverse(*args):
-  return _pycrysfml.FortFuncs_matrix_inverse(*args)
-FortFuncs_matrix_inverse = _pycrysfml.FortFuncs_matrix_inverse
-
-def FortFuncs_resolv_sist_1x2(*args):
-  return _pycrysfml.FortFuncs_resolv_sist_1x2(*args)
-FortFuncs_resolv_sist_1x2 = _pycrysfml.FortFuncs_resolv_sist_1x2
-
-def FortFuncs_resolv_sist_1x3(*args):
-  return _pycrysfml.FortFuncs_resolv_sist_1x3(*args)
-FortFuncs_resolv_sist_1x3 = _pycrysfml.FortFuncs_resolv_sist_1x3
-
-def FortFuncs_resolv_sist_2x2(*args):
-  return _pycrysfml.FortFuncs_resolv_sist_2x2(*args)
-FortFuncs_resolv_sist_2x2 = _pycrysfml.FortFuncs_resolv_sist_2x2
-
-def FortFuncs_resolv_sist_2x3(*args):
-  return _pycrysfml.FortFuncs_resolv_sist_2x3(*args)
-FortFuncs_resolv_sist_2x3 = _pycrysfml.FortFuncs_resolv_sist_2x3
-
-def FortFuncs_resolv_sist_3x3(*args):
-  return _pycrysfml.FortFuncs_resolv_sist_3x3(*args)
-FortFuncs_resolv_sist_3x3 = _pycrysfml.FortFuncs_resolv_sist_3x3
-
-def FortFuncs_init_err_optim():
-  return _pycrysfml.FortFuncs_init_err_optim()
-FortFuncs_init_err_optim = _pycrysfml.FortFuncs_init_err_optim
-
-def FortFuncs_init_opt_conditions(*args):
-  return _pycrysfml.FortFuncs_init_opt_conditions(*args)
-FortFuncs_init_opt_conditions = _pycrysfml.FortFuncs_init_opt_conditions
-
-def FortFuncs_write_optimization_conditions(*args):
-  return _pycrysfml.FortFuncs_write_optimization_conditions(*args)
-FortFuncs_write_optimization_conditions = _pycrysfml.FortFuncs_write_optimization_conditions
-
-def FortFuncs_get_generators(*args):
-  return _pycrysfml.FortFuncs_get_generators(*args)
-FortFuncs_get_generators = _pycrysfml.FortFuncs_get_generators
-
-def FortFuncs_remove_spgr_info():
-  return _pycrysfml.FortFuncs_remove_spgr_info()
-FortFuncs_remove_spgr_info = _pycrysfml.FortFuncs_remove_spgr_info
-
-def FortFuncs_remove_system_equiv():
-  return _pycrysfml.FortFuncs_remove_system_equiv()
-FortFuncs_remove_system_equiv = _pycrysfml.FortFuncs_remove_system_equiv
-
-def FortFuncs_remove_wyckoff_info():
-  return _pycrysfml.FortFuncs_remove_wyckoff_info()
-FortFuncs_remove_wyckoff_info = _pycrysfml.FortFuncs_remove_wyckoff_info
-
-def FortFuncs_set_spgr_info():
-  return _pycrysfml.FortFuncs_set_spgr_info()
-FortFuncs_set_spgr_info = _pycrysfml.FortFuncs_set_spgr_info
-
-def FortFuncs_set_system_equiv():
-  return _pycrysfml.FortFuncs_set_system_equiv()
-FortFuncs_set_system_equiv = _pycrysfml.FortFuncs_set_system_equiv
-
-def FortFuncs_set_wyckoff_info():
-  return _pycrysfml.FortFuncs_set_wyckoff_info()
-FortFuncs_set_wyckoff_info = _pycrysfml.FortFuncs_set_wyckoff_info
-
-def FortFuncs_get_atomic_mass(*args):
-  return _pycrysfml.FortFuncs_get_atomic_mass(*args)
-FortFuncs_get_atomic_mass = _pycrysfml.FortFuncs_get_atomic_mass
-
-def FortFuncs_get_atomic_vol(*args):
-  return _pycrysfml.FortFuncs_get_atomic_vol(*args)
-FortFuncs_get_atomic_vol = _pycrysfml.FortFuncs_get_atomic_vol
-
-def FortFuncs_get_chemsymb(*args):
-  return _pycrysfml.FortFuncs_get_chemsymb(*args)
-FortFuncs_get_chemsymb = _pycrysfml.FortFuncs_get_chemsymb
-
-def FortFuncs_get_covalent_radius(*args):
-  return _pycrysfml.FortFuncs_get_covalent_radius(*args)
-FortFuncs_get_covalent_radius = _pycrysfml.FortFuncs_get_covalent_radius
-
-def FortFuncs_get_fermi_length(*args):
-  return _pycrysfml.FortFuncs_get_fermi_length(*args)
-FortFuncs_get_fermi_length = _pycrysfml.FortFuncs_get_fermi_length
-
-def FortFuncs_get_inc_xs(*args):
-  return _pycrysfml.FortFuncs_get_inc_xs(*args)
-FortFuncs_get_inc_xs = _pycrysfml.FortFuncs_get_inc_xs
-
-def FortFuncs_get_abs_xs(*args):
-  return _pycrysfml.FortFuncs_get_abs_xs(*args)
-FortFuncs_get_abs_xs = _pycrysfml.FortFuncs_get_abs_xs
-
-def FortFuncs_get_ionic_radius(*args):
-  return _pycrysfml.FortFuncs_get_ionic_radius(*args)
-FortFuncs_get_ionic_radius = _pycrysfml.FortFuncs_get_ionic_radius
-
-def FortFuncs_remove_chem_info():
-  return _pycrysfml.FortFuncs_remove_chem_info()
-FortFuncs_remove_chem_info = _pycrysfml.FortFuncs_remove_chem_info
-
-def FortFuncs_remove_delta_fp_fpp():
-  return _pycrysfml.FortFuncs_remove_delta_fp_fpp()
-FortFuncs_remove_delta_fp_fpp = _pycrysfml.FortFuncs_remove_delta_fp_fpp
-
-def FortFuncs_remove_magnetic_form():
-  return _pycrysfml.FortFuncs_remove_magnetic_form()
-FortFuncs_remove_magnetic_form = _pycrysfml.FortFuncs_remove_magnetic_form
-
-def FortFuncs_remove_xray_form():
-  return _pycrysfml.FortFuncs_remove_xray_form()
-FortFuncs_remove_xray_form = _pycrysfml.FortFuncs_remove_xray_form
-
-def FortFuncs_set_chem_info():
-  return _pycrysfml.FortFuncs_set_chem_info()
-FortFuncs_set_chem_info = _pycrysfml.FortFuncs_set_chem_info
-
-def FortFuncs_set_delta_fp_fpp():
-  return _pycrysfml.FortFuncs_set_delta_fp_fpp()
-FortFuncs_set_delta_fp_fpp = _pycrysfml.FortFuncs_set_delta_fp_fpp
-
-def FortFuncs_set_magnetic_form():
-  return _pycrysfml.FortFuncs_set_magnetic_form()
-FortFuncs_set_magnetic_form = _pycrysfml.FortFuncs_set_magnetic_form
-
-def FortFuncs_set_xray_form():
-  return _pycrysfml.FortFuncs_set_xray_form()
-FortFuncs_set_xray_form = _pycrysfml.FortFuncs_set_xray_form
-
-def FortFuncs_calc_fwhm_peak(*args):
-  return _pycrysfml.FortFuncs_calc_fwhm_peak(*args)
-FortFuncs_calc_fwhm_peak = _pycrysfml.FortFuncs_calc_fwhm_peak
-
-def FortFuncs_allocate_diffraction_pattern(*args):
-  return _pycrysfml.FortFuncs_allocate_diffraction_pattern(*args)
-FortFuncs_allocate_diffraction_pattern = _pycrysfml.FortFuncs_allocate_diffraction_pattern
-
-def FortFuncs_calc_background(*args):
-  return _pycrysfml.FortFuncs_calc_background(*args)
-FortFuncs_calc_background = _pycrysfml.FortFuncs_calc_background
-
-def FortFuncs_delete_noisy_points(*args):
-  return _pycrysfml.FortFuncs_delete_noisy_points(*args)
-FortFuncs_delete_noisy_points = _pycrysfml.FortFuncs_delete_noisy_points
-
-def FortFuncs_init_err_diffpatt():
-  return _pycrysfml.FortFuncs_init_err_diffpatt()
-FortFuncs_init_err_diffpatt = _pycrysfml.FortFuncs_init_err_diffpatt
-
-def FortFuncs_purge_diffraction_pattern(*args):
-  return _pycrysfml.FortFuncs_purge_diffraction_pattern(*args)
-FortFuncs_purge_diffraction_pattern = _pycrysfml.FortFuncs_purge_diffraction_pattern
-
-def FortFuncs_read_background_file(*args):
-  return _pycrysfml.FortFuncs_read_background_file(*args)
-FortFuncs_read_background_file = _pycrysfml.FortFuncs_read_background_file
-
-def FortFuncs_write_pattern_freeformat(*args):
-  return _pycrysfml.FortFuncs_write_pattern_freeformat(*args)
-FortFuncs_write_pattern_freeformat = _pycrysfml.FortFuncs_write_pattern_freeformat
-
-def FortFuncs_write_pattern_instrm5(*args):
-  return _pycrysfml.FortFuncs_write_pattern_instrm5(*args)
-FortFuncs_write_pattern_instrm5 = _pycrysfml.FortFuncs_write_pattern_instrm5
-
-def FortFuncs_write_pattern_xysig(*args):
-  return _pycrysfml.FortFuncs_write_pattern_xysig(*args)
-FortFuncs_write_pattern_xysig = _pycrysfml.FortFuncs_write_pattern_xysig
-
-def FortFuncs_init_err_bond():
-  return _pycrysfml.FortFuncs_init_err_bond()
-FortFuncs_init_err_bond = _pycrysfml.FortFuncs_init_err_bond
-
-def FortFuncs_remove_bonds_table():
-  return _pycrysfml.FortFuncs_remove_bonds_table()
-FortFuncs_remove_bonds_table = _pycrysfml.FortFuncs_remove_bonds_table
-
-def FortFuncs_set_bonds_table():
-  return _pycrysfml.FortFuncs_set_bonds_table()
-FortFuncs_set_bonds_table = _pycrysfml.FortFuncs_set_bonds_table
-
-def FortFuncs_cell_volume_sigma(*args):
-  return _pycrysfml.FortFuncs_cell_volume_sigma(*args)
-FortFuncs_cell_volume_sigma = _pycrysfml.FortFuncs_cell_volume_sigma
-
-def FortFuncs_u_equiv(*args):
-  return _pycrysfml.FortFuncs_u_equiv(*args)
-FortFuncs_u_equiv = _pycrysfml.FortFuncs_u_equiv
-
-def FortFuncs_get_basis_from_uvw(*args):
-  return _pycrysfml.FortFuncs_get_basis_from_uvw(*args)
-FortFuncs_get_basis_from_uvw = _pycrysfml.FortFuncs_get_basis_from_uvw
-
-def FortFuncs_get_conventional_cell(*args):
-  return _pycrysfml.FortFuncs_get_conventional_cell(*args)
-FortFuncs_get_conventional_cell = _pycrysfml.FortFuncs_get_conventional_cell
-
-def FortFuncs_get_primitive_cell(*args):
-  return _pycrysfml.FortFuncs_get_primitive_cell(*args)
-FortFuncs_get_primitive_cell = _pycrysfml.FortFuncs_get_primitive_cell
-
-def FortFuncs_init_err_crys():
-  return _pycrysfml.FortFuncs_init_err_crys()
-FortFuncs_init_err_crys = _pycrysfml.FortFuncs_init_err_crys
-
-def FortFuncs_read_bin_crystal_cell(*args):
-  return _pycrysfml.FortFuncs_read_bin_crystal_cell(*args)
-FortFuncs_read_bin_crystal_cell = _pycrysfml.FortFuncs_read_bin_crystal_cell
-
-def FortFuncs_set_crystal_cell(*args):
-  return _pycrysfml.FortFuncs_set_crystal_cell(*args)
-FortFuncs_set_crystal_cell = _pycrysfml.FortFuncs_set_crystal_cell
-
-def FortFuncs_volume_sigma_from_cell(*args):
-  return _pycrysfml.FortFuncs_volume_sigma_from_cell(*args)
-FortFuncs_volume_sigma_from_cell = _pycrysfml.FortFuncs_volume_sigma_from_cell
-
-def FortFuncs_write_bin_crystal_cell(*args):
-  return _pycrysfml.FortFuncs_write_bin_crystal_cell(*args)
-FortFuncs_write_bin_crystal_cell = _pycrysfml.FortFuncs_write_bin_crystal_cell
-
-def FortFuncs_write_crystal_cell(*args):
-  return _pycrysfml.FortFuncs_write_crystal_cell(*args)
-FortFuncs_write_crystal_cell = _pycrysfml.FortFuncs_write_crystal_cell
-
-def FortFuncs_axes_rotation(*args):
-  return _pycrysfml.FortFuncs_axes_rotation(*args)
-FortFuncs_axes_rotation = _pycrysfml.FortFuncs_axes_rotation
-
-def FortFuncs_get_laue_num(*args):
-  return _pycrysfml.FortFuncs_get_laue_num(*args)
-FortFuncs_get_laue_num = _pycrysfml.FortFuncs_get_laue_num
-
-def FortFuncs_get_multip_pos(*args):
-  return _pycrysfml.FortFuncs_get_multip_pos(*args)
-FortFuncs_get_multip_pos = _pycrysfml.FortFuncs_get_multip_pos
-
-def FortFuncs_get_occ_site(*args):
-  return _pycrysfml.FortFuncs_get_occ_site(*args)
-FortFuncs_get_occ_site = _pycrysfml.FortFuncs_get_occ_site
-
-def FortFuncs_get_pointgroup_num(*args):
-  return _pycrysfml.FortFuncs_get_pointgroup_num(*args)
-FortFuncs_get_pointgroup_num = _pycrysfml.FortFuncs_get_pointgroup_num
-
-def FortFuncs_lattice_trans(*args):
-  return _pycrysfml.FortFuncs_lattice_trans(*args)
-FortFuncs_lattice_trans = _pycrysfml.FortFuncs_lattice_trans
-
-def FortFuncs_spgr_equal(*args):
-  return _pycrysfml.FortFuncs_spgr_equal(*args)
-FortFuncs_spgr_equal = _pycrysfml.FortFuncs_spgr_equal
-
-def FortFuncs_allocate_lattice_centring(*args):
-  return _pycrysfml.FortFuncs_allocate_lattice_centring(*args)
-FortFuncs_allocate_lattice_centring = _pycrysfml.FortFuncs_allocate_lattice_centring
-
-def FortFuncs_check_generator(*args):
-  return _pycrysfml.FortFuncs_check_generator(*args)
-FortFuncs_check_generator = _pycrysfml.FortFuncs_check_generator
-
-def FortFuncs_decodmatmag(*args):
-  return _pycrysfml.FortFuncs_decodmatmag(*args)
-FortFuncs_decodmatmag = _pycrysfml.FortFuncs_decodmatmag
-
-def FortFuncs_get_laue_str(*args):
-  return _pycrysfml.FortFuncs_get_laue_str(*args)
-FortFuncs_get_laue_str = _pycrysfml.FortFuncs_get_laue_str
-
-def FortFuncs_get_pointgroup_str(*args):
-  return _pycrysfml.FortFuncs_get_pointgroup_str(*args)
-FortFuncs_get_pointgroup_str = _pycrysfml.FortFuncs_get_pointgroup_str
-
-def FortFuncs_get_seitz_symbol(*args):
-  return _pycrysfml.FortFuncs_get_seitz_symbol(*args)
-FortFuncs_get_seitz_symbol = _pycrysfml.FortFuncs_get_seitz_symbol
-
-def FortFuncs_get_shubnikov_operator_symbol(*args):
-  return _pycrysfml.FortFuncs_get_shubnikov_operator_symbol(*args)
-FortFuncs_get_shubnikov_operator_symbol = _pycrysfml.FortFuncs_get_shubnikov_operator_symbol
-
-def FortFuncs_get_string_resolv(*args):
-  return _pycrysfml.FortFuncs_get_string_resolv(*args)
-FortFuncs_get_string_resolv = _pycrysfml.FortFuncs_get_string_resolv
-
-def FortFuncs_get_symel(*args):
-  return _pycrysfml.FortFuncs_get_symel(*args)
-FortFuncs_get_symel = _pycrysfml.FortFuncs_get_symel
-
-def FortFuncs_get_symkov(*args):
-  return _pycrysfml.FortFuncs_get_symkov(*args)
-FortFuncs_get_symkov = _pycrysfml.FortFuncs_get_symkov
-
-def FortFuncs_get_trasfm_symbol(*args):
-  return _pycrysfml.FortFuncs_get_trasfm_symbol(*args)
-FortFuncs_get_trasfm_symbol = _pycrysfml.FortFuncs_get_trasfm_symbol
-
-def FortFuncs_get_transl_symbol(*args):
-  return _pycrysfml.FortFuncs_get_transl_symbol(*args)
-FortFuncs_get_transl_symbol = _pycrysfml.FortFuncs_get_transl_symbol
-
-def FortFuncs_init_err_symm():
-  return _pycrysfml.FortFuncs_init_err_symm()
-FortFuncs_init_err_symm = _pycrysfml.FortFuncs_init_err_symm
-
-def FortFuncs_inverse_symm(*args):
-  return _pycrysfml.FortFuncs_inverse_symm(*args)
-FortFuncs_inverse_symm = _pycrysfml.FortFuncs_inverse_symm
-
-def FortFuncs_latsym(*args):
-  return _pycrysfml.FortFuncs_latsym(*args)
-FortFuncs_latsym = _pycrysfml.FortFuncs_latsym
-
-def FortFuncs_read_bin_spacegroup(*args):
-  return _pycrysfml.FortFuncs_read_bin_spacegroup(*args)
-FortFuncs_read_bin_spacegroup = _pycrysfml.FortFuncs_read_bin_spacegroup
-
-def FortFuncs_read_msymm(*args):
-  return _pycrysfml.FortFuncs_read_msymm(*args)
-FortFuncs_read_msymm = _pycrysfml.FortFuncs_read_msymm
-
-def FortFuncs_read_symtrans_code(*args):
-  return _pycrysfml.FortFuncs_read_symtrans_code(*args)
-FortFuncs_read_symtrans_code = _pycrysfml.FortFuncs_read_symtrans_code
-
-def FortFuncs_read_xsym(*args):
-  return _pycrysfml.FortFuncs_read_xsym(*args)
-FortFuncs_read_xsym = _pycrysfml.FortFuncs_read_xsym
-
-def FortFuncs_searchop(*args):
-  return _pycrysfml.FortFuncs_searchop(*args)
-FortFuncs_searchop = _pycrysfml.FortFuncs_searchop
-
-def FortFuncs_set_spacegroup(*args):
-  return _pycrysfml.FortFuncs_set_spacegroup(*args)
-FortFuncs_set_spacegroup = _pycrysfml.FortFuncs_set_spacegroup
-
-def FortFuncs_similar_transf_sg(*args):
-  return _pycrysfml.FortFuncs_similar_transf_sg(*args)
-FortFuncs_similar_transf_sg = _pycrysfml.FortFuncs_similar_transf_sg
-
-def FortFuncs_sym_prod_st(*args):
-  return _pycrysfml.FortFuncs_sym_prod_st(*args)
-FortFuncs_sym_prod_st = _pycrysfml.FortFuncs_sym_prod_st
-
-def FortFuncs_write_bin_spacegroup(*args):
-  return _pycrysfml.FortFuncs_write_bin_spacegroup(*args)
-FortFuncs_write_bin_spacegroup = _pycrysfml.FortFuncs_write_bin_spacegroup
-
-def FortFuncs_write_spacegroup(*args):
-  return _pycrysfml.FortFuncs_write_spacegroup(*args)
-FortFuncs_write_spacegroup = _pycrysfml.FortFuncs_write_spacegroup
-
-def FortFuncs_write_sym(*args):
-  return _pycrysfml.FortFuncs_write_sym(*args)
-FortFuncs_write_sym = _pycrysfml.FortFuncs_write_sym
-
-def FortFuncs_write_symtrans_code(*args):
-  return _pycrysfml.FortFuncs_write_symtrans_code(*args)
-FortFuncs_write_symtrans_code = _pycrysfml.FortFuncs_write_symtrans_code
-
-def FortFuncs_write_wyckoff(*args):
-  return _pycrysfml.FortFuncs_write_wyckoff(*args)
-FortFuncs_write_wyckoff = _pycrysfml.FortFuncs_write_wyckoff
-
-def FortFuncs_copy_ns_spg_to_spg(*args):
-  return _pycrysfml.FortFuncs_copy_ns_spg_to_spg(*args)
-FortFuncs_copy_ns_spg_to_spg = _pycrysfml.FortFuncs_copy_ns_spg_to_spg
-
-def FortFuncs_define_uncompress_program(*args):
-  return _pycrysfml.FortFuncs_define_uncompress_program(*args)
-FortFuncs_define_uncompress_program = _pycrysfml.FortFuncs_define_uncompress_program
-
-def FortFuncs_get_absolute_data_path(*args):
-  return _pycrysfml.FortFuncs_get_absolute_data_path(*args)
-FortFuncs_get_absolute_data_path = _pycrysfml.FortFuncs_get_absolute_data_path
-
-def FortFuncs_get_next_yearcycle(*args):
-  return _pycrysfml.FortFuncs_get_next_yearcycle(*args)
-FortFuncs_get_next_yearcycle = _pycrysfml.FortFuncs_get_next_yearcycle
-
-def FortFuncs_init_err_illdata():
-  return _pycrysfml.FortFuncs_init_err_illdata()
-FortFuncs_init_err_illdata = _pycrysfml.FortFuncs_init_err_illdata
-
-def FortFuncs_initialize_data_directory():
-  return _pycrysfml.FortFuncs_initialize_data_directory()
-FortFuncs_initialize_data_directory = _pycrysfml.FortFuncs_initialize_data_directory
-
-def FortFuncs_read_current_instrm(*args):
-  return _pycrysfml.FortFuncs_read_current_instrm(*args)
-FortFuncs_read_current_instrm = _pycrysfml.FortFuncs_read_current_instrm
-
-def FortFuncs_set_current_orient(*args):
-  return _pycrysfml.FortFuncs_set_current_orient(*args)
-FortFuncs_set_current_orient = _pycrysfml.FortFuncs_set_current_orient
-
-def FortFuncs_set_default_instrument(typ=None, wav=None):
-  return _pycrysfml.FortFuncs_set_default_instrument(typ, wav)
-FortFuncs_set_default_instrument = _pycrysfml.FortFuncs_set_default_instrument
-
-def FortFuncs_set_ill_data_directory(*args):
-  return _pycrysfml.FortFuncs_set_ill_data_directory(*args)
-FortFuncs_set_ill_data_directory = _pycrysfml.FortFuncs_set_ill_data_directory
-
-def FortFuncs_set_instrm_directory(working_dir=None, instrm=None, iyear=None, icycle=None):
-  return _pycrysfml.FortFuncs_set_instrm_directory(working_dir, instrm, iyear, icycle)
-FortFuncs_set_instrm_directory = _pycrysfml.FortFuncs_set_instrm_directory
-
-def FortFuncs_set_instrm_geometry_directory(env_var=None):
-  return _pycrysfml.FortFuncs_set_instrm_geometry_directory(env_var)
-FortFuncs_set_instrm_geometry_directory = _pycrysfml.FortFuncs_set_instrm_geometry_directory
-
-def FortFuncs_update_current_instrm_ub(*args):
-  return _pycrysfml.FortFuncs_update_current_instrm_ub(*args)
-FortFuncs_update_current_instrm_ub = _pycrysfml.FortFuncs_update_current_instrm_ub
-
-def FortFuncs_write_current_instrm_data(lun=None, fil=None):
-  return _pycrysfml.FortFuncs_write_current_instrm_data(lun, fil)
-FortFuncs_write_current_instrm_data = _pycrysfml.FortFuncs_write_current_instrm_data
-
-def FortFuncs_write_generic_numor(*args):
-  return _pycrysfml.FortFuncs_write_generic_numor(*args)
-FortFuncs_write_generic_numor = _pycrysfml.FortFuncs_write_generic_numor
-
-def FortFuncs_read_calibration_file(*args):
-  return _pycrysfml.FortFuncs_read_calibration_file(*args)
-FortFuncs_read_calibration_file = _pycrysfml.FortFuncs_read_calibration_file
-
-def FortFuncs_get_maxnumref(*args):
-  return _pycrysfml.FortFuncs_get_maxnumref(*args)
-FortFuncs_get_maxnumref = _pycrysfml.FortFuncs_get_maxnumref
-
-def FortFuncs_hkl_lat_absent(*args):
-  return _pycrysfml.FortFuncs_hkl_lat_absent(*args)
-FortFuncs_hkl_lat_absent = _pycrysfml.FortFuncs_hkl_lat_absent
-
-def FortFuncs_init_err_refl():
-  return _pycrysfml.FortFuncs_init_err_refl()
-FortFuncs_init_err_refl = _pycrysfml.FortFuncs_init_err_refl
-
-def FortFuncs_init_reflist(*args):
-  return _pycrysfml.FortFuncs_init_reflist(*args)
-FortFuncs_init_reflist = _pycrysfml.FortFuncs_init_reflist
-
-def FortFuncs_write_asu(*args):
-  return _pycrysfml.FortFuncs_write_asu(*args)
-FortFuncs_write_asu = _pycrysfml.FortFuncs_write_asu
-
-def FortFuncs_write_reflist_info(*args):
-  return _pycrysfml.FortFuncs_write_reflist_info(*args)
-FortFuncs_write_reflist_info = _pycrysfml.FortFuncs_write_reflist_info
 
 def FortFuncs_equiv_atm(*args):
   return _pycrysfml.FortFuncs_equiv_atm(*args)
@@ -2501,37 +1867,289 @@ def FortFuncs_write_bin_atom_list(*args):
   return _pycrysfml.FortFuncs_write_bin_atom_list(*args)
 FortFuncs_write_bin_atom_list = _pycrysfml.FortFuncs_write_bin_atom_list
 
+def FortFuncs_deallocate_ap_table():
+  return _pycrysfml.FortFuncs_deallocate_ap_table()
+FortFuncs_deallocate_ap_table = _pycrysfml.FortFuncs_deallocate_ap_table
+
+def FortFuncs_deallocate_bvel_table():
+  return _pycrysfml.FortFuncs_deallocate_bvel_table()
+FortFuncs_deallocate_bvel_table = _pycrysfml.FortFuncs_deallocate_bvel_table
+
+def FortFuncs_deallocate_bvs_table():
+  return _pycrysfml.FortFuncs_deallocate_bvs_table()
+FortFuncs_deallocate_bvs_table = _pycrysfml.FortFuncs_deallocate_bvs_table
+
+def FortFuncs_deallocate_sbvs_table():
+  return _pycrysfml.FortFuncs_deallocate_sbvs_table()
+FortFuncs_deallocate_sbvs_table = _pycrysfml.FortFuncs_deallocate_sbvs_table
+
+def FortFuncs_set_atomic_properties():
+  return _pycrysfml.FortFuncs_set_atomic_properties()
+FortFuncs_set_atomic_properties = _pycrysfml.FortFuncs_set_atomic_properties
+
+def FortFuncs_set_bvel_table():
+  return _pycrysfml.FortFuncs_set_bvel_table()
+FortFuncs_set_bvel_table = _pycrysfml.FortFuncs_set_bvel_table
+
+def FortFuncs_set_bvs_table():
+  return _pycrysfml.FortFuncs_set_bvs_table()
+FortFuncs_set_bvs_table = _pycrysfml.FortFuncs_set_bvs_table
+
+def FortFuncs_set_sbvs_table():
+  return _pycrysfml.FortFuncs_set_sbvs_table()
+FortFuncs_set_sbvs_table = _pycrysfml.FortFuncs_set_sbvs_table
+
+def FortFuncs_init_err_bond():
+  return _pycrysfml.FortFuncs_init_err_bond()
+FortFuncs_init_err_bond = _pycrysfml.FortFuncs_init_err_bond
+
+def FortFuncs_remove_bonds_table():
+  return _pycrysfml.FortFuncs_remove_bonds_table()
+FortFuncs_remove_bonds_table = _pycrysfml.FortFuncs_remove_bonds_table
+
+def FortFuncs_set_bonds_table():
+  return _pycrysfml.FortFuncs_set_bonds_table()
+FortFuncs_set_bonds_table = _pycrysfml.FortFuncs_set_bonds_table
+
+def FortFuncs_get_atomic_mass(*args):
+  return _pycrysfml.FortFuncs_get_atomic_mass(*args)
+FortFuncs_get_atomic_mass = _pycrysfml.FortFuncs_get_atomic_mass
+
+def FortFuncs_get_atomic_vol(*args):
+  return _pycrysfml.FortFuncs_get_atomic_vol(*args)
+FortFuncs_get_atomic_vol = _pycrysfml.FortFuncs_get_atomic_vol
+
+def FortFuncs_get_chemsymb(*args):
+  return _pycrysfml.FortFuncs_get_chemsymb(*args)
+FortFuncs_get_chemsymb = _pycrysfml.FortFuncs_get_chemsymb
+
+def FortFuncs_get_covalent_radius(*args):
+  return _pycrysfml.FortFuncs_get_covalent_radius(*args)
+FortFuncs_get_covalent_radius = _pycrysfml.FortFuncs_get_covalent_radius
+
+def FortFuncs_get_fermi_length(*args):
+  return _pycrysfml.FortFuncs_get_fermi_length(*args)
+FortFuncs_get_fermi_length = _pycrysfml.FortFuncs_get_fermi_length
+
+def FortFuncs_get_inc_xs(*args):
+  return _pycrysfml.FortFuncs_get_inc_xs(*args)
+FortFuncs_get_inc_xs = _pycrysfml.FortFuncs_get_inc_xs
+
+def FortFuncs_get_abs_xs(*args):
+  return _pycrysfml.FortFuncs_get_abs_xs(*args)
+FortFuncs_get_abs_xs = _pycrysfml.FortFuncs_get_abs_xs
+
+def FortFuncs_get_ionic_radius(*args):
+  return _pycrysfml.FortFuncs_get_ionic_radius(*args)
+FortFuncs_get_ionic_radius = _pycrysfml.FortFuncs_get_ionic_radius
+
+def FortFuncs_remove_chem_info():
+  return _pycrysfml.FortFuncs_remove_chem_info()
+FortFuncs_remove_chem_info = _pycrysfml.FortFuncs_remove_chem_info
+
+def FortFuncs_remove_delta_fp_fpp():
+  return _pycrysfml.FortFuncs_remove_delta_fp_fpp()
+FortFuncs_remove_delta_fp_fpp = _pycrysfml.FortFuncs_remove_delta_fp_fpp
+
+def FortFuncs_remove_magnetic_form():
+  return _pycrysfml.FortFuncs_remove_magnetic_form()
+FortFuncs_remove_magnetic_form = _pycrysfml.FortFuncs_remove_magnetic_form
+
+def FortFuncs_remove_xray_form():
+  return _pycrysfml.FortFuncs_remove_xray_form()
+FortFuncs_remove_xray_form = _pycrysfml.FortFuncs_remove_xray_form
+
+def FortFuncs_set_chem_info():
+  return _pycrysfml.FortFuncs_set_chem_info()
+FortFuncs_set_chem_info = _pycrysfml.FortFuncs_set_chem_info
+
+def FortFuncs_set_delta_fp_fpp():
+  return _pycrysfml.FortFuncs_set_delta_fp_fpp()
+FortFuncs_set_delta_fp_fpp = _pycrysfml.FortFuncs_set_delta_fp_fpp
+
+def FortFuncs_set_magnetic_form():
+  return _pycrysfml.FortFuncs_set_magnetic_form()
+FortFuncs_set_magnetic_form = _pycrysfml.FortFuncs_set_magnetic_form
+
+def FortFuncs_set_xray_form():
+  return _pycrysfml.FortFuncs_set_xray_form()
+FortFuncs_set_xray_form = _pycrysfml.FortFuncs_set_xray_form
+
+def FortFuncs_allocate_atoms_conf_list(*args):
+  return _pycrysfml.FortFuncs_allocate_atoms_conf_list(*args)
+FortFuncs_allocate_atoms_conf_list = _pycrysfml.FortFuncs_allocate_atoms_conf_list
+
+def FortFuncs_calc_bvs(*args):
+  return _pycrysfml.FortFuncs_calc_bvs(*args)
+FortFuncs_calc_bvs = _pycrysfml.FortFuncs_calc_bvs
+
+def FortFuncs_calc_map_bvel(*args):
+  return _pycrysfml.FortFuncs_calc_map_bvel(*args)
+FortFuncs_calc_map_bvel = _pycrysfml.FortFuncs_calc_map_bvel
+
+def FortFuncs_calc_map_bvs(*args):
+  return _pycrysfml.FortFuncs_calc_map_bvs(*args)
+FortFuncs_calc_map_bvs = _pycrysfml.FortFuncs_calc_map_bvs
+
+def FortFuncs_cost_bvs(*args):
+  return _pycrysfml.FortFuncs_cost_bvs(*args)
+FortFuncs_cost_bvs = _pycrysfml.FortFuncs_cost_bvs
+
+def FortFuncs_cost_bvs_coulombrep(*args):
+  return _pycrysfml.FortFuncs_cost_bvs_coulombrep(*args)
+FortFuncs_cost_bvs_coulombrep = _pycrysfml.FortFuncs_cost_bvs_coulombrep
+
+def FortFuncs_deallocate_atoms_conf_list(*args):
+  return _pycrysfml.FortFuncs_deallocate_atoms_conf_list(*args)
+FortFuncs_deallocate_atoms_conf_list = _pycrysfml.FortFuncs_deallocate_atoms_conf_list
+
+def FortFuncs_init_err_conf():
+  return _pycrysfml.FortFuncs_init_err_conf()
+FortFuncs_init_err_conf = _pycrysfml.FortFuncs_init_err_conf
+
+def FortFuncs_species_on_list(*args):
+  return _pycrysfml.FortFuncs_species_on_list(*args)
+FortFuncs_species_on_list = _pycrysfml.FortFuncs_species_on_list
+
+def FortFuncs_cell_volume_sigma(*args):
+  return _pycrysfml.FortFuncs_cell_volume_sigma(*args)
+FortFuncs_cell_volume_sigma = _pycrysfml.FortFuncs_cell_volume_sigma
+
+def FortFuncs_u_equiv(*args):
+  return _pycrysfml.FortFuncs_u_equiv(*args)
+FortFuncs_u_equiv = _pycrysfml.FortFuncs_u_equiv
+
+def FortFuncs_get_basis_from_uvw(*args):
+  return _pycrysfml.FortFuncs_get_basis_from_uvw(*args)
+FortFuncs_get_basis_from_uvw = _pycrysfml.FortFuncs_get_basis_from_uvw
+
+def FortFuncs_get_conventional_cell(*args):
+  return _pycrysfml.FortFuncs_get_conventional_cell(*args)
+FortFuncs_get_conventional_cell = _pycrysfml.FortFuncs_get_conventional_cell
+
+def FortFuncs_get_primitive_cell(*args):
+  return _pycrysfml.FortFuncs_get_primitive_cell(*args)
+FortFuncs_get_primitive_cell = _pycrysfml.FortFuncs_get_primitive_cell
+
+def FortFuncs_init_err_crys():
+  return _pycrysfml.FortFuncs_init_err_crys()
+FortFuncs_init_err_crys = _pycrysfml.FortFuncs_init_err_crys
+
+def FortFuncs_read_bin_crystal_cell(*args):
+  return _pycrysfml.FortFuncs_read_bin_crystal_cell(*args)
+FortFuncs_read_bin_crystal_cell = _pycrysfml.FortFuncs_read_bin_crystal_cell
+
+def FortFuncs_set_crystal_cell(*args):
+  return _pycrysfml.FortFuncs_set_crystal_cell(*args)
+FortFuncs_set_crystal_cell = _pycrysfml.FortFuncs_set_crystal_cell
+
+def FortFuncs_volume_sigma_from_cell(*args):
+  return _pycrysfml.FortFuncs_volume_sigma_from_cell(*args)
+FortFuncs_volume_sigma_from_cell = _pycrysfml.FortFuncs_volume_sigma_from_cell
+
+def FortFuncs_write_bin_crystal_cell(*args):
+  return _pycrysfml.FortFuncs_write_bin_crystal_cell(*args)
+FortFuncs_write_bin_crystal_cell = _pycrysfml.FortFuncs_write_bin_crystal_cell
+
+def FortFuncs_write_crystal_cell(*args):
+  return _pycrysfml.FortFuncs_write_crystal_cell(*args)
+FortFuncs_write_crystal_cell = _pycrysfml.FortFuncs_write_crystal_cell
+
+def FortFuncs_calc_fwhm_peak(*args):
+  return _pycrysfml.FortFuncs_calc_fwhm_peak(*args)
+FortFuncs_calc_fwhm_peak = _pycrysfml.FortFuncs_calc_fwhm_peak
+
+def FortFuncs_allocate_diffraction_pattern(*args):
+  return _pycrysfml.FortFuncs_allocate_diffraction_pattern(*args)
+FortFuncs_allocate_diffraction_pattern = _pycrysfml.FortFuncs_allocate_diffraction_pattern
+
+def FortFuncs_calc_background(*args):
+  return _pycrysfml.FortFuncs_calc_background(*args)
+FortFuncs_calc_background = _pycrysfml.FortFuncs_calc_background
+
+def FortFuncs_delete_noisy_points(*args):
+  return _pycrysfml.FortFuncs_delete_noisy_points(*args)
+FortFuncs_delete_noisy_points = _pycrysfml.FortFuncs_delete_noisy_points
+
+def FortFuncs_init_err_diffpatt():
+  return _pycrysfml.FortFuncs_init_err_diffpatt()
+FortFuncs_init_err_diffpatt = _pycrysfml.FortFuncs_init_err_diffpatt
+
+def FortFuncs_purge_diffraction_pattern(*args):
+  return _pycrysfml.FortFuncs_purge_diffraction_pattern(*args)
+FortFuncs_purge_diffraction_pattern = _pycrysfml.FortFuncs_purge_diffraction_pattern
+
+def FortFuncs_read_background_file(*args):
+  return _pycrysfml.FortFuncs_read_background_file(*args)
+FortFuncs_read_background_file = _pycrysfml.FortFuncs_read_background_file
+
+def FortFuncs_write_pattern_freeformat(*args):
+  return _pycrysfml.FortFuncs_write_pattern_freeformat(*args)
+FortFuncs_write_pattern_freeformat = _pycrysfml.FortFuncs_write_pattern_freeformat
+
+def FortFuncs_write_pattern_instrm5(*args):
+  return _pycrysfml.FortFuncs_write_pattern_instrm5(*args)
+FortFuncs_write_pattern_instrm5 = _pycrysfml.FortFuncs_write_pattern_instrm5
+
+def FortFuncs_write_pattern_xysig(*args):
+  return _pycrysfml.FortFuncs_write_pattern_xysig(*args)
+FortFuncs_write_pattern_xysig = _pycrysfml.FortFuncs_write_pattern_xysig
+
 def FortFuncs_unitcell_to_pdbfile(*args):
   return _pycrysfml.FortFuncs_unitcell_to_pdbfile(*args)
 FortFuncs_unitcell_to_pdbfile = _pycrysfml.FortFuncs_unitcell_to_pdbfile
 
-def FortFuncs_calc_strfactor(*args):
-  return _pycrysfml.FortFuncs_calc_strfactor(*args)
-FortFuncs_calc_strfactor = _pycrysfml.FortFuncs_calc_strfactor
+def FortFuncs_ag_theta(*args):
+  return _pycrysfml.FortFuncs_ag_theta(*args)
+FortFuncs_ag_theta = _pycrysfml.FortFuncs_ag_theta
 
-def FortFuncs_calc_hkl_strfactor(*args):
-  return _pycrysfml.FortFuncs_calc_hkl_strfactor(*args)
-FortFuncs_calc_hkl_strfactor = _pycrysfml.FortFuncs_calc_hkl_strfactor
+def FortFuncs_al_theta(*args):
+  return _pycrysfml.FortFuncs_al_theta(*args)
+FortFuncs_al_theta = _pycrysfml.FortFuncs_al_theta
 
-def FortFuncs_init_calc_hkl_strfactors(*args):
-  return _pycrysfml.FortFuncs_init_calc_hkl_strfactors(*args)
-FortFuncs_init_calc_hkl_strfactors = _pycrysfml.FortFuncs_init_calc_hkl_strfactors
+def FortFuncs_bg_theta(*args):
+  return _pycrysfml.FortFuncs_bg_theta(*args)
+FortFuncs_bg_theta = _pycrysfml.FortFuncs_bg_theta
 
-def FortFuncs_init_calc_strfactors(*args):
-  return _pycrysfml.FortFuncs_init_calc_strfactors(*args)
-FortFuncs_init_calc_strfactors = _pycrysfml.FortFuncs_init_calc_strfactors
+def FortFuncs_bl_theta(*args):
+  return _pycrysfml.FortFuncs_bl_theta(*args)
+FortFuncs_bl_theta = _pycrysfml.FortFuncs_bl_theta
 
-def FortFuncs_init_structure_factors(*args):
-  return _pycrysfml.FortFuncs_init_structure_factors(*args)
-FortFuncs_init_structure_factors = _pycrysfml.FortFuncs_init_structure_factors
+def FortFuncs_becker_coppens(*args):
+  return _pycrysfml.FortFuncs_becker_coppens(*args)
+FortFuncs_becker_coppens = _pycrysfml.FortFuncs_becker_coppens
 
-def FortFuncs_structure_factors(*args):
-  return _pycrysfml.FortFuncs_structure_factors(*args)
-FortFuncs_structure_factors = _pycrysfml.FortFuncs_structure_factors
+def FortFuncs_shelx_extinction(*args):
+  return _pycrysfml.FortFuncs_shelx_extinction(*args)
+FortFuncs_shelx_extinction = _pycrysfml.FortFuncs_shelx_extinction
 
-def FortFuncs_write_structure_factors(*args):
-  return _pycrysfml.FortFuncs_write_structure_factors(*args)
-FortFuncs_write_structure_factors = _pycrysfml.FortFuncs_write_structure_factors
+def FortFuncs_correct_flippingratios(*args):
+  return _pycrysfml.FortFuncs_correct_flippingratios(*args)
+FortFuncs_correct_flippingratios = _pycrysfml.FortFuncs_correct_flippingratios
+
+def FortFuncs_file_to_filelist(*args):
+  return _pycrysfml.FortFuncs_file_to_filelist(*args)
+FortFuncs_file_to_filelist = _pycrysfml.FortFuncs_file_to_filelist
+
+def FortFuncs_init_err_form():
+  return _pycrysfml.FortFuncs_init_err_form()
+FortFuncs_init_err_form = _pycrysfml.FortFuncs_init_err_form
+
+def FortFuncs_read_uvals(*args):
+  return _pycrysfml.FortFuncs_read_uvals(*args)
+FortFuncs_read_uvals = _pycrysfml.FortFuncs_read_uvals
+
+def FortFuncs_write_cif_powder_profile(*args):
+  return _pycrysfml.FortFuncs_write_cif_powder_profile(*args)
+FortFuncs_write_cif_powder_profile = _pycrysfml.FortFuncs_write_cif_powder_profile
+
+def FortFuncs_write_cif_template(*args):
+  return _pycrysfml.FortFuncs_write_cif_template(*args)
+FortFuncs_write_cif_template = _pycrysfml.FortFuncs_write_cif_template
+
+def FortFuncs_write_shx_template(*args):
+  return _pycrysfml.FortFuncs_write_shx_template(*args)
+FortFuncs_write_shx_template = _pycrysfml.FortFuncs_write_shx_template
 
 def FortFuncs_allocate_coordination_type(*args):
   return _pycrysfml.FortFuncs_allocate_coordination_type(*args)
@@ -2609,25 +2227,117 @@ def FortFuncs_set_tdist_partial_coordination(*args):
   return _pycrysfml.FortFuncs_set_tdist_partial_coordination(*args)
 FortFuncs_set_tdist_partial_coordination = _pycrysfml.FortFuncs_set_tdist_partial_coordination
 
-def FortFuncs_hk_equiv(*args):
-  return _pycrysfml.FortFuncs_hk_equiv(*args)
-FortFuncs_hk_equiv = _pycrysfml.FortFuncs_hk_equiv
+def FortFuncs_directory_exists(*args):
+  return _pycrysfml.FortFuncs_directory_exists(*args)
+FortFuncs_directory_exists = _pycrysfml.FortFuncs_directory_exists
 
-def FortFuncs_k_equiv(*args):
-  return _pycrysfml.FortFuncs_k_equiv(*args)
-FortFuncs_k_equiv = _pycrysfml.FortFuncs_k_equiv
+def FortFuncs_write_date_time(lun=None, dtim=None):
+  return _pycrysfml.FortFuncs_write_date_time(lun, dtim)
+FortFuncs_write_date_time = _pycrysfml.FortFuncs_write_date_time
 
-def FortFuncs_k_equiv_minus_k(*args):
-  return _pycrysfml.FortFuncs_k_equiv_minus_k(*args)
-FortFuncs_k_equiv_minus_k = _pycrysfml.FortFuncs_k_equiv_minus_k
+def FortFuncs_define_uncompress_program(*args):
+  return _pycrysfml.FortFuncs_define_uncompress_program(*args)
+FortFuncs_define_uncompress_program = _pycrysfml.FortFuncs_define_uncompress_program
 
-def FortFuncs_k_star(*args):
-  return _pycrysfml.FortFuncs_k_star(*args)
-FortFuncs_k_star = _pycrysfml.FortFuncs_k_star
+def FortFuncs_get_absolute_data_path(*args):
+  return _pycrysfml.FortFuncs_get_absolute_data_path(*args)
+FortFuncs_get_absolute_data_path = _pycrysfml.FortFuncs_get_absolute_data_path
 
-def FortFuncs_write_group_k(*args):
-  return _pycrysfml.FortFuncs_write_group_k(*args)
-FortFuncs_write_group_k = _pycrysfml.FortFuncs_write_group_k
+def FortFuncs_get_next_yearcycle(*args):
+  return _pycrysfml.FortFuncs_get_next_yearcycle(*args)
+FortFuncs_get_next_yearcycle = _pycrysfml.FortFuncs_get_next_yearcycle
+
+def FortFuncs_init_err_illdata():
+  return _pycrysfml.FortFuncs_init_err_illdata()
+FortFuncs_init_err_illdata = _pycrysfml.FortFuncs_init_err_illdata
+
+def FortFuncs_initialize_data_directory():
+  return _pycrysfml.FortFuncs_initialize_data_directory()
+FortFuncs_initialize_data_directory = _pycrysfml.FortFuncs_initialize_data_directory
+
+def FortFuncs_read_current_instrm(*args):
+  return _pycrysfml.FortFuncs_read_current_instrm(*args)
+FortFuncs_read_current_instrm = _pycrysfml.FortFuncs_read_current_instrm
+
+def FortFuncs_set_current_orient(*args):
+  return _pycrysfml.FortFuncs_set_current_orient(*args)
+FortFuncs_set_current_orient = _pycrysfml.FortFuncs_set_current_orient
+
+def FortFuncs_set_default_instrument(typ=None, wav=None):
+  return _pycrysfml.FortFuncs_set_default_instrument(typ, wav)
+FortFuncs_set_default_instrument = _pycrysfml.FortFuncs_set_default_instrument
+
+def FortFuncs_set_ill_data_directory(*args):
+  return _pycrysfml.FortFuncs_set_ill_data_directory(*args)
+FortFuncs_set_ill_data_directory = _pycrysfml.FortFuncs_set_ill_data_directory
+
+def FortFuncs_set_instrm_directory(working_dir=None, instrm=None, iyear=None, icycle=None):
+  return _pycrysfml.FortFuncs_set_instrm_directory(working_dir, instrm, iyear, icycle)
+FortFuncs_set_instrm_directory = _pycrysfml.FortFuncs_set_instrm_directory
+
+def FortFuncs_set_instrm_geometry_directory(env_var=None):
+  return _pycrysfml.FortFuncs_set_instrm_geometry_directory(env_var)
+FortFuncs_set_instrm_geometry_directory = _pycrysfml.FortFuncs_set_instrm_geometry_directory
+
+def FortFuncs_update_current_instrm_ub(*args):
+  return _pycrysfml.FortFuncs_update_current_instrm_ub(*args)
+FortFuncs_update_current_instrm_ub = _pycrysfml.FortFuncs_update_current_instrm_ub
+
+def FortFuncs_write_current_instrm_data(lun=None, fil=None):
+  return _pycrysfml.FortFuncs_write_current_instrm_data(lun, fil)
+FortFuncs_write_current_instrm_data = _pycrysfml.FortFuncs_write_current_instrm_data
+
+def FortFuncs_write_generic_numor(*args):
+  return _pycrysfml.FortFuncs_write_generic_numor(*args)
+FortFuncs_write_generic_numor = _pycrysfml.FortFuncs_write_generic_numor
+
+def FortFuncs_read_calibration_file(*args):
+  return _pycrysfml.FortFuncs_read_calibration_file(*args)
+FortFuncs_read_calibration_file = _pycrysfml.FortFuncs_read_calibration_file
+
+def FortFuncs_error_message(*args):
+  return _pycrysfml.FortFuncs_error_message(*args)
+FortFuncs_error_message = _pycrysfml.FortFuncs_error_message
+
+def FortFuncs_info_message(*args):
+  return _pycrysfml.FortFuncs_info_message(*args)
+FortFuncs_info_message = _pycrysfml.FortFuncs_info_message
+
+def FortFuncs_print_message(*args):
+  return _pycrysfml.FortFuncs_print_message(*args)
+FortFuncs_print_message = _pycrysfml.FortFuncs_print_message
+
+def FortFuncs_wait_message(mess=None):
+  return _pycrysfml.FortFuncs_wait_message(mess)
+FortFuncs_wait_message = _pycrysfml.FortFuncs_wait_message
+
+def FortFuncs_write_scroll_text(*args):
+  return _pycrysfml.FortFuncs_write_scroll_text(*args)
+FortFuncs_write_scroll_text = _pycrysfml.FortFuncs_write_scroll_text
+
+def FortFuncs_calc_induced_sk(*args):
+  return _pycrysfml.FortFuncs_calc_induced_sk(*args)
+FortFuncs_calc_induced_sk = _pycrysfml.FortFuncs_calc_induced_sk
+
+def FortFuncs_init_magsymm_k_type(*args):
+  return _pycrysfml.FortFuncs_init_magsymm_k_type(*args)
+FortFuncs_init_magsymm_k_type = _pycrysfml.FortFuncs_init_magsymm_k_type
+
+def FortFuncs_set_shubnikov_group(*args):
+  return _pycrysfml.FortFuncs_set_shubnikov_group(*args)
+FortFuncs_set_shubnikov_group = _pycrysfml.FortFuncs_set_shubnikov_group
+
+def FortFuncs_write_magnetic_structure(*args):
+  return _pycrysfml.FortFuncs_write_magnetic_structure(*args)
+FortFuncs_write_magnetic_structure = _pycrysfml.FortFuncs_write_magnetic_structure
+
+def FortFuncs_write_mcif(*args):
+  return _pycrysfml.FortFuncs_write_mcif(*args)
+FortFuncs_write_mcif = _pycrysfml.FortFuncs_write_mcif
+
+def FortFuncs_write_shubnikov_group(*args):
+  return _pycrysfml.FortFuncs_write_shubnikov_group(*args)
+FortFuncs_write_shubnikov_group = _pycrysfml.FortFuncs_write_shubnikov_group
 
 def FortFuncs_index_cube(*args):
   return _pycrysfml.FortFuncs_index_cube(*args)
@@ -2652,6 +2362,78 @@ FortFuncs_init_err_maps = _pycrysfml.FortFuncs_init_err_maps
 def FortFuncs_set_cube_info():
   return _pycrysfml.FortFuncs_set_cube_info()
 FortFuncs_set_cube_info = _pycrysfml.FortFuncs_set_cube_info
+
+def FortFuncs_veclength(*args):
+  return _pycrysfml.FortFuncs_veclength(*args)
+FortFuncs_veclength = _pycrysfml.FortFuncs_veclength
+
+def FortFuncs_init_err_math3d():
+  return _pycrysfml.FortFuncs_init_err_math3d()
+FortFuncs_init_err_math3d = _pycrysfml.FortFuncs_init_err_math3d
+
+def FortFuncs_set_eps(*args):
+  return _pycrysfml.FortFuncs_set_eps(*args)
+FortFuncs_set_eps = _pycrysfml.FortFuncs_set_eps
+
+def FortFuncs_set_eps_default():
+  return _pycrysfml.FortFuncs_set_eps_default()
+FortFuncs_set_eps_default = _pycrysfml.FortFuncs_set_eps_default
+
+def FortFuncs_get_plane_from_points(*args):
+  return _pycrysfml.FortFuncs_get_plane_from_points(*args)
+FortFuncs_get_plane_from_points = _pycrysfml.FortFuncs_get_plane_from_points
+
+def FortFuncs_matrix_diageigen(*args):
+  return _pycrysfml.FortFuncs_matrix_diageigen(*args)
+FortFuncs_matrix_diageigen = _pycrysfml.FortFuncs_matrix_diageigen
+
+def FortFuncs_matrix_inverse(*args):
+  return _pycrysfml.FortFuncs_matrix_inverse(*args)
+FortFuncs_matrix_inverse = _pycrysfml.FortFuncs_matrix_inverse
+
+def FortFuncs_resolv_sist_1x2(*args):
+  return _pycrysfml.FortFuncs_resolv_sist_1x2(*args)
+FortFuncs_resolv_sist_1x2 = _pycrysfml.FortFuncs_resolv_sist_1x2
+
+def FortFuncs_resolv_sist_1x3(*args):
+  return _pycrysfml.FortFuncs_resolv_sist_1x3(*args)
+FortFuncs_resolv_sist_1x3 = _pycrysfml.FortFuncs_resolv_sist_1x3
+
+def FortFuncs_resolv_sist_2x2(*args):
+  return _pycrysfml.FortFuncs_resolv_sist_2x2(*args)
+FortFuncs_resolv_sist_2x2 = _pycrysfml.FortFuncs_resolv_sist_2x2
+
+def FortFuncs_resolv_sist_2x3(*args):
+  return _pycrysfml.FortFuncs_resolv_sist_2x3(*args)
+FortFuncs_resolv_sist_2x3 = _pycrysfml.FortFuncs_resolv_sist_2x3
+
+def FortFuncs_resolv_sist_3x3(*args):
+  return _pycrysfml.FortFuncs_resolv_sist_3x3(*args)
+FortFuncs_resolv_sist_3x3 = _pycrysfml.FortFuncs_resolv_sist_3x3
+
+def FortFuncs_bessj(*args):
+  return _pycrysfml.FortFuncs_bessj(*args)
+FortFuncs_bessj = _pycrysfml.FortFuncs_bessj
+
+def FortFuncs_pgcd(*args):
+  return _pycrysfml.FortFuncs_pgcd(*args)
+FortFuncs_pgcd = _pycrysfml.FortFuncs_pgcd
+
+def FortFuncs_ppcm(*args):
+  return _pycrysfml.FortFuncs_ppcm(*args)
+FortFuncs_ppcm = _pycrysfml.FortFuncs_ppcm
+
+def FortFuncs_init_err_mathgen():
+  return _pycrysfml.FortFuncs_init_err_mathgen()
+FortFuncs_init_err_mathgen = _pycrysfml.FortFuncs_init_err_mathgen
+
+def FortFuncs_set_epsg(*args):
+  return _pycrysfml.FortFuncs_set_epsg(*args)
+FortFuncs_set_epsg = _pycrysfml.FortFuncs_set_epsg
+
+def FortFuncs_set_epsg_default():
+  return _pycrysfml.FortFuncs_set_epsg_default()
+FortFuncs_set_epsg_default = _pycrysfml.FortFuncs_set_epsg_default
 
 def FortFuncs_cartesian_to_fractional(*args):
   return _pycrysfml.FortFuncs_cartesian_to_fractional(*args)
@@ -2740,6 +2522,250 @@ FortFuncs_zmatrix_to_fractional = _pycrysfml.FortFuncs_zmatrix_to_fractional
 def FortFuncs_zmatrix_to_spherical(*args):
   return _pycrysfml.FortFuncs_zmatrix_to_spherical(*args)
 FortFuncs_zmatrix_to_spherical = _pycrysfml.FortFuncs_zmatrix_to_spherical
+
+def FortFuncs_calc_mag_interaction_vector(*args):
+  return _pycrysfml.FortFuncs_calc_mag_interaction_vector(*args)
+FortFuncs_calc_mag_interaction_vector = _pycrysfml.FortFuncs_calc_mag_interaction_vector
+
+def FortFuncs_calc_magnetic_strf_miv(*args):
+  return _pycrysfml.FortFuncs_calc_magnetic_strf_miv(*args)
+FortFuncs_calc_magnetic_strf_miv = _pycrysfml.FortFuncs_calc_magnetic_strf_miv
+
+def FortFuncs_calc_magnetic_strf_miv_dom(*args):
+  return _pycrysfml.FortFuncs_calc_magnetic_strf_miv_dom(*args)
+FortFuncs_calc_magnetic_strf_miv_dom = _pycrysfml.FortFuncs_calc_magnetic_strf_miv_dom
+
+def FortFuncs_calc_magnetic_strf_tensor(*args):
+  return _pycrysfml.FortFuncs_calc_magnetic_strf_tensor(*args)
+FortFuncs_calc_magnetic_strf_tensor = _pycrysfml.FortFuncs_calc_magnetic_strf_tensor
+
+def FortFuncs_gen_satellites(*args):
+  return _pycrysfml.FortFuncs_gen_satellites(*args)
+FortFuncs_gen_satellites = _pycrysfml.FortFuncs_gen_satellites
+
+def FortFuncs_init_err_msfac():
+  return _pycrysfml.FortFuncs_init_err_msfac()
+FortFuncs_init_err_msfac = _pycrysfml.FortFuncs_init_err_msfac
+
+def FortFuncs_init_mag_structure_factors(*args):
+  return _pycrysfml.FortFuncs_init_mag_structure_factors(*args)
+FortFuncs_init_mag_structure_factors = _pycrysfml.FortFuncs_init_mag_structure_factors
+
+def FortFuncs_mag_structure_factors(*args):
+  return _pycrysfml.FortFuncs_mag_structure_factors(*args)
+FortFuncs_mag_structure_factors = _pycrysfml.FortFuncs_mag_structure_factors
+
+def FortFuncs_write_mag_structure_factors(*args):
+  return _pycrysfml.FortFuncs_write_mag_structure_factors(*args)
+FortFuncs_write_mag_structure_factors = _pycrysfml.FortFuncs_write_mag_structure_factors
+
+def FortFuncs_init_err_optim():
+  return _pycrysfml.FortFuncs_init_err_optim()
+FortFuncs_init_err_optim = _pycrysfml.FortFuncs_init_err_optim
+
+def FortFuncs_init_opt_conditions(*args):
+  return _pycrysfml.FortFuncs_init_opt_conditions(*args)
+FortFuncs_init_opt_conditions = _pycrysfml.FortFuncs_init_opt_conditions
+
+def FortFuncs_write_optimization_conditions(*args):
+  return _pycrysfml.FortFuncs_write_optimization_conditions(*args)
+FortFuncs_write_optimization_conditions = _pycrysfml.FortFuncs_write_optimization_conditions
+
+def FortFuncs_write_polar_info(*args):
+  return _pycrysfml.FortFuncs_write_polar_info(*args)
+FortFuncs_write_polar_info = _pycrysfml.FortFuncs_write_polar_info
+
+def FortFuncs_write_polar_line(*args):
+  return _pycrysfml.FortFuncs_write_polar_line(*args)
+FortFuncs_write_polar_line = _pycrysfml.FortFuncs_write_polar_line
+
+def FortFuncs_init_prof_val():
+  return _pycrysfml.FortFuncs_init_prof_val()
+FortFuncs_init_prof_val = _pycrysfml.FortFuncs_init_prof_val
+
+def FortFuncs_prof_val(*args):
+  return _pycrysfml.FortFuncs_prof_val(*args)
+FortFuncs_prof_val = _pycrysfml.FortFuncs_prof_val
+
+def FortFuncs_tof_carpenter(*args):
+  return _pycrysfml.FortFuncs_tof_carpenter(*args)
+FortFuncs_tof_carpenter = _pycrysfml.FortFuncs_tof_carpenter
+
+def FortFuncs_tof_jorgensen(*args):
+  return _pycrysfml.FortFuncs_tof_jorgensen(*args)
+FortFuncs_tof_jorgensen = _pycrysfml.FortFuncs_tof_jorgensen
+
+def FortFuncs_tof_jorgensen_vondreele(*args):
+  return _pycrysfml.FortFuncs_tof_jorgensen_vondreele(*args)
+FortFuncs_tof_jorgensen_vondreele = _pycrysfml.FortFuncs_tof_jorgensen_vondreele
+
+def FortFuncs_hk_equiv(*args):
+  return _pycrysfml.FortFuncs_hk_equiv(*args)
+FortFuncs_hk_equiv = _pycrysfml.FortFuncs_hk_equiv
+
+def FortFuncs_k_equiv(*args):
+  return _pycrysfml.FortFuncs_k_equiv(*args)
+FortFuncs_k_equiv = _pycrysfml.FortFuncs_k_equiv
+
+def FortFuncs_k_equiv_minus_k(*args):
+  return _pycrysfml.FortFuncs_k_equiv_minus_k(*args)
+FortFuncs_k_equiv_minus_k = _pycrysfml.FortFuncs_k_equiv_minus_k
+
+def FortFuncs_k_star(*args):
+  return _pycrysfml.FortFuncs_k_star(*args)
+FortFuncs_k_star = _pycrysfml.FortFuncs_k_star
+
+def FortFuncs_write_group_k(*args):
+  return _pycrysfml.FortFuncs_write_group_k(*args)
+FortFuncs_write_group_k = _pycrysfml.FortFuncs_write_group_k
+
+def FortFuncs_init_err_random():
+  return _pycrysfml.FortFuncs_init_err_random()
+FortFuncs_init_err_random = _pycrysfml.FortFuncs_init_err_random
+
+def FortFuncs_random_beta(*args):
+  return _pycrysfml.FortFuncs_random_beta(*args)
+FortFuncs_random_beta = _pycrysfml.FortFuncs_random_beta
+
+def FortFuncs_random_binomial1(*args):
+  return _pycrysfml.FortFuncs_random_binomial1(*args)
+FortFuncs_random_binomial1 = _pycrysfml.FortFuncs_random_binomial1
+
+def FortFuncs_random_binomial2(*args):
+  return _pycrysfml.FortFuncs_random_binomial2(*args)
+FortFuncs_random_binomial2 = _pycrysfml.FortFuncs_random_binomial2
+
+def FortFuncs_random_cauchy(*args):
+  return _pycrysfml.FortFuncs_random_cauchy(*args)
+FortFuncs_random_cauchy = _pycrysfml.FortFuncs_random_cauchy
+
+def FortFuncs_random_chisq(*args):
+  return _pycrysfml.FortFuncs_random_chisq(*args)
+FortFuncs_random_chisq = _pycrysfml.FortFuncs_random_chisq
+
+def FortFuncs_random_exponential(*args):
+  return _pycrysfml.FortFuncs_random_exponential(*args)
+FortFuncs_random_exponential = _pycrysfml.FortFuncs_random_exponential
+
+def FortFuncs_random_gamma(*args):
+  return _pycrysfml.FortFuncs_random_gamma(*args)
+FortFuncs_random_gamma = _pycrysfml.FortFuncs_random_gamma
+
+def FortFuncs_random_gamma1(*args):
+  return _pycrysfml.FortFuncs_random_gamma1(*args)
+FortFuncs_random_gamma1 = _pycrysfml.FortFuncs_random_gamma1
+
+def FortFuncs_random_gamma2(*args):
+  return _pycrysfml.FortFuncs_random_gamma2(*args)
+FortFuncs_random_gamma2 = _pycrysfml.FortFuncs_random_gamma2
+
+def FortFuncs_random_inv_gauss(*args):
+  return _pycrysfml.FortFuncs_random_inv_gauss(*args)
+FortFuncs_random_inv_gauss = _pycrysfml.FortFuncs_random_inv_gauss
+
+def FortFuncs_random_mvnorm(*args):
+  return _pycrysfml.FortFuncs_random_mvnorm(*args)
+FortFuncs_random_mvnorm = _pycrysfml.FortFuncs_random_mvnorm
+
+def FortFuncs_random_neg_binomial(*args):
+  return _pycrysfml.FortFuncs_random_neg_binomial(*args)
+FortFuncs_random_neg_binomial = _pycrysfml.FortFuncs_random_neg_binomial
+
+def FortFuncs_random_normal(*args):
+  return _pycrysfml.FortFuncs_random_normal(*args)
+FortFuncs_random_normal = _pycrysfml.FortFuncs_random_normal
+
+def FortFuncs_random_order(*args):
+  return _pycrysfml.FortFuncs_random_order(*args)
+FortFuncs_random_order = _pycrysfml.FortFuncs_random_order
+
+def FortFuncs_random_poisson(*args):
+  return _pycrysfml.FortFuncs_random_poisson(*args)
+FortFuncs_random_poisson = _pycrysfml.FortFuncs_random_poisson
+
+def FortFuncs_random_t(*args):
+  return _pycrysfml.FortFuncs_random_t(*args)
+FortFuncs_random_t = _pycrysfml.FortFuncs_random_t
+
+def FortFuncs_random_von_mises(*args):
+  return _pycrysfml.FortFuncs_random_von_mises(*args)
+FortFuncs_random_von_mises = _pycrysfml.FortFuncs_random_von_mises
+
+def FortFuncs_random_weibull(*args):
+  return _pycrysfml.FortFuncs_random_weibull(*args)
+FortFuncs_random_weibull = _pycrysfml.FortFuncs_random_weibull
+
+def FortFuncs_seed_random_number(i_input=None, i_output=None):
+  return _pycrysfml.FortFuncs_seed_random_number(i_input, i_output)
+FortFuncs_seed_random_number = _pycrysfml.FortFuncs_seed_random_number
+
+def FortFuncs_allocate_vparam(*args):
+  return _pycrysfml.FortFuncs_allocate_vparam(*args)
+FortFuncs_allocate_vparam = _pycrysfml.FortFuncs_allocate_vparam
+
+def FortFuncs_get_restang_line(*args):
+  return _pycrysfml.FortFuncs_get_restang_line(*args)
+FortFuncs_get_restang_line = _pycrysfml.FortFuncs_get_restang_line
+
+def FortFuncs_get_restdis_line(*args):
+  return _pycrysfml.FortFuncs_get_restdis_line(*args)
+FortFuncs_get_restdis_line = _pycrysfml.FortFuncs_get_restdis_line
+
+def FortFuncs_get_resttor_line(*args):
+  return _pycrysfml.FortFuncs_get_resttor_line(*args)
+FortFuncs_get_resttor_line = _pycrysfml.FortFuncs_get_resttor_line
+
+def FortFuncs_init_err_refcodes():
+  return _pycrysfml.FortFuncs_init_err_refcodes()
+FortFuncs_init_err_refcodes = _pycrysfml.FortFuncs_init_err_refcodes
+
+def FortFuncs_init_refcodes(fatom=None, fmatom=None, mag_dom=None, molcrys=None, molec=None, model=None):
+  return _pycrysfml.FortFuncs_init_refcodes(fatom, fmatom, mag_dom, molcrys, molec, model)
+FortFuncs_init_refcodes = _pycrysfml.FortFuncs_init_refcodes
+
+def FortFuncs_read_refgcodes_file(*args):
+  return _pycrysfml.FortFuncs_read_refgcodes_file(*args)
+FortFuncs_read_refgcodes_file = _pycrysfml.FortFuncs_read_refgcodes_file
+
+def FortFuncs_vstate_to_modelpar(*args):
+  return _pycrysfml.FortFuncs_vstate_to_modelpar(*args)
+FortFuncs_vstate_to_modelpar = _pycrysfml.FortFuncs_vstate_to_modelpar
+
+def FortFuncs_write_info_refgcodes(*args):
+  return _pycrysfml.FortFuncs_write_info_refgcodes(*args)
+FortFuncs_write_info_refgcodes = _pycrysfml.FortFuncs_write_info_refgcodes
+
+def FortFuncs_write_info_refparams(iunit=None):
+  return _pycrysfml.FortFuncs_write_info_refparams(iunit)
+FortFuncs_write_info_refparams = _pycrysfml.FortFuncs_write_info_refparams
+
+def FortFuncs_write_restraints_obscalc(*args):
+  return _pycrysfml.FortFuncs_write_restraints_obscalc(*args)
+FortFuncs_write_restraints_obscalc = _pycrysfml.FortFuncs_write_restraints_obscalc
+
+def FortFuncs_get_maxnumref(*args):
+  return _pycrysfml.FortFuncs_get_maxnumref(*args)
+FortFuncs_get_maxnumref = _pycrysfml.FortFuncs_get_maxnumref
+
+def FortFuncs_hkl_lat_absent(*args):
+  return _pycrysfml.FortFuncs_hkl_lat_absent(*args)
+FortFuncs_hkl_lat_absent = _pycrysfml.FortFuncs_hkl_lat_absent
+
+def FortFuncs_init_err_refl():
+  return _pycrysfml.FortFuncs_init_err_refl()
+FortFuncs_init_err_refl = _pycrysfml.FortFuncs_init_err_refl
+
+def FortFuncs_init_reflist(*args):
+  return _pycrysfml.FortFuncs_init_reflist(*args)
+FortFuncs_init_reflist = _pycrysfml.FortFuncs_init_reflist
+
+def FortFuncs_write_asu(*args):
+  return _pycrysfml.FortFuncs_write_asu(*args)
+FortFuncs_write_asu = _pycrysfml.FortFuncs_write_asu
+
+def FortFuncs_write_reflist_info(*args):
+  return _pycrysfml.FortFuncs_write_reflist_info(*args)
+FortFuncs_write_reflist_info = _pycrysfml.FortFuncs_write_reflist_info
 
 def FortFuncs_angs_4c_bisecting(*args):
   return _pycrysfml.FortFuncs_angs_4c_bisecting(*args)
@@ -2905,177 +2931,301 @@ def FortFuncs_z4frz1(*args):
   return _pycrysfml.FortFuncs_z4frz1(*args)
 FortFuncs_z4frz1 = _pycrysfml.FortFuncs_z4frz1
 
-def FortFuncs_allocate_atoms_conf_list(*args):
-  return _pycrysfml.FortFuncs_allocate_atoms_conf_list(*args)
-FortFuncs_allocate_atoms_conf_list = _pycrysfml.FortFuncs_allocate_atoms_conf_list
+def FortFuncs_calc_strfactor(*args):
+  return _pycrysfml.FortFuncs_calc_strfactor(*args)
+FortFuncs_calc_strfactor = _pycrysfml.FortFuncs_calc_strfactor
 
-def FortFuncs_calc_bvs(*args):
-  return _pycrysfml.FortFuncs_calc_bvs(*args)
-FortFuncs_calc_bvs = _pycrysfml.FortFuncs_calc_bvs
+def FortFuncs_calc_hkl_strfactor(*args):
+  return _pycrysfml.FortFuncs_calc_hkl_strfactor(*args)
+FortFuncs_calc_hkl_strfactor = _pycrysfml.FortFuncs_calc_hkl_strfactor
 
-def FortFuncs_calc_map_bvel(*args):
-  return _pycrysfml.FortFuncs_calc_map_bvel(*args)
-FortFuncs_calc_map_bvel = _pycrysfml.FortFuncs_calc_map_bvel
+def FortFuncs_init_calc_hkl_strfactors(*args):
+  return _pycrysfml.FortFuncs_init_calc_hkl_strfactors(*args)
+FortFuncs_init_calc_hkl_strfactors = _pycrysfml.FortFuncs_init_calc_hkl_strfactors
 
-def FortFuncs_calc_map_bvs(*args):
-  return _pycrysfml.FortFuncs_calc_map_bvs(*args)
-FortFuncs_calc_map_bvs = _pycrysfml.FortFuncs_calc_map_bvs
+def FortFuncs_init_calc_strfactors(*args):
+  return _pycrysfml.FortFuncs_init_calc_strfactors(*args)
+FortFuncs_init_calc_strfactors = _pycrysfml.FortFuncs_init_calc_strfactors
 
-def FortFuncs_cost_bvs(*args):
-  return _pycrysfml.FortFuncs_cost_bvs(*args)
-FortFuncs_cost_bvs = _pycrysfml.FortFuncs_cost_bvs
+def FortFuncs_init_structure_factors(*args):
+  return _pycrysfml.FortFuncs_init_structure_factors(*args)
+FortFuncs_init_structure_factors = _pycrysfml.FortFuncs_init_structure_factors
 
-def FortFuncs_cost_bvs_coulombrep(*args):
-  return _pycrysfml.FortFuncs_cost_bvs_coulombrep(*args)
-FortFuncs_cost_bvs_coulombrep = _pycrysfml.FortFuncs_cost_bvs_coulombrep
+def FortFuncs_structure_factors(*args):
+  return _pycrysfml.FortFuncs_structure_factors(*args)
+FortFuncs_structure_factors = _pycrysfml.FortFuncs_structure_factors
 
-def FortFuncs_deallocate_atoms_conf_list(*args):
-  return _pycrysfml.FortFuncs_deallocate_atoms_conf_list(*args)
-FortFuncs_deallocate_atoms_conf_list = _pycrysfml.FortFuncs_deallocate_atoms_conf_list
+def FortFuncs_write_structure_factors(*args):
+  return _pycrysfml.FortFuncs_write_structure_factors(*args)
+FortFuncs_write_structure_factors = _pycrysfml.FortFuncs_write_structure_factors
 
-def FortFuncs_init_err_conf():
-  return _pycrysfml.FortFuncs_init_err_conf()
-FortFuncs_init_err_conf = _pycrysfml.FortFuncs_init_err_conf
+def FortFuncs_cubic_harm_ang(*args):
+  return _pycrysfml.FortFuncs_cubic_harm_ang(*args)
+FortFuncs_cubic_harm_ang = _pycrysfml.FortFuncs_cubic_harm_ang
 
-def FortFuncs_species_on_list(*args):
-  return _pycrysfml.FortFuncs_species_on_list(*args)
-FortFuncs_species_on_list = _pycrysfml.FortFuncs_species_on_list
+def FortFuncs_cubic_harm_ucvec(*args):
+  return _pycrysfml.FortFuncs_cubic_harm_ucvec(*args)
+FortFuncs_cubic_harm_ucvec = _pycrysfml.FortFuncs_cubic_harm_ucvec
 
-def FortFuncs_file_to_filelist(*args):
-  return _pycrysfml.FortFuncs_file_to_filelist(*args)
-FortFuncs_file_to_filelist = _pycrysfml.FortFuncs_file_to_filelist
+def FortFuncs_int_slater_bessel(*args):
+  return _pycrysfml.FortFuncs_int_slater_bessel(*args)
+FortFuncs_int_slater_bessel = _pycrysfml.FortFuncs_int_slater_bessel
 
-def FortFuncs_init_err_form():
-  return _pycrysfml.FortFuncs_init_err_form()
-FortFuncs_init_err_form = _pycrysfml.FortFuncs_init_err_form
+def FortFuncs_real_spher_harm_ang(*args):
+  return _pycrysfml.FortFuncs_real_spher_harm_ang(*args)
+FortFuncs_real_spher_harm_ang = _pycrysfml.FortFuncs_real_spher_harm_ang
 
-def FortFuncs_read_uvals(*args):
-  return _pycrysfml.FortFuncs_read_uvals(*args)
-FortFuncs_read_uvals = _pycrysfml.FortFuncs_read_uvals
+def FortFuncs_real_spher_harm_ucvec(*args):
+  return _pycrysfml.FortFuncs_real_spher_harm_ucvec(*args)
+FortFuncs_real_spher_harm_ucvec = _pycrysfml.FortFuncs_real_spher_harm_ucvec
 
-def FortFuncs_write_cif_powder_profile(*args):
-  return _pycrysfml.FortFuncs_write_cif_powder_profile(*args)
-FortFuncs_write_cif_powder_profile = _pycrysfml.FortFuncs_write_cif_powder_profile
+def FortFuncs_real_spher_harmcharge_ucvec(*args):
+  return _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec(*args)
+FortFuncs_real_spher_harmcharge_ucvec = _pycrysfml.FortFuncs_real_spher_harmcharge_ucvec
 
-def FortFuncs_write_cif_template(*args):
-  return _pycrysfml.FortFuncs_write_cif_template(*args)
-FortFuncs_write_cif_template = _pycrysfml.FortFuncs_write_cif_template
+def FortFuncs_init_err_spher():
+  return _pycrysfml.FortFuncs_init_err_spher()
+FortFuncs_init_err_spher = _pycrysfml.FortFuncs_init_err_spher
 
-def FortFuncs_write_shx_template(*args):
-  return _pycrysfml.FortFuncs_write_shx_template(*args)
-FortFuncs_write_shx_template = _pycrysfml.FortFuncs_write_shx_template
+def FortFuncs_pikout_lj_cubic(*args):
+  return _pycrysfml.FortFuncs_pikout_lj_cubic(*args)
+FortFuncs_pikout_lj_cubic = _pycrysfml.FortFuncs_pikout_lj_cubic
 
-def FortFuncs_calc_induced_sk(*args):
-  return _pycrysfml.FortFuncs_calc_induced_sk(*args)
-FortFuncs_calc_induced_sk = _pycrysfml.FortFuncs_calc_induced_sk
+def FortFuncs_string_count(*args):
+  return _pycrysfml.FortFuncs_string_count(*args)
+FortFuncs_string_count = _pycrysfml.FortFuncs_string_count
 
-def FortFuncs_init_magsymm_k_type(*args):
-  return _pycrysfml.FortFuncs_init_magsymm_k_type(*args)
-FortFuncs_init_magsymm_k_type = _pycrysfml.FortFuncs_init_magsymm_k_type
+def FortFuncs_frac_trans_1dig(*args):
+  return _pycrysfml.FortFuncs_frac_trans_1dig(*args)
+FortFuncs_frac_trans_1dig = _pycrysfml.FortFuncs_frac_trans_1dig
 
-def FortFuncs_set_shubnikov_group(*args):
-  return _pycrysfml.FortFuncs_set_shubnikov_group(*args)
-FortFuncs_set_shubnikov_group = _pycrysfml.FortFuncs_set_shubnikov_group
+def FortFuncs_frac_trans_2dig(*args):
+  return _pycrysfml.FortFuncs_frac_trans_2dig(*args)
+FortFuncs_frac_trans_2dig = _pycrysfml.FortFuncs_frac_trans_2dig
 
-def FortFuncs_write_magnetic_structure(*args):
-  return _pycrysfml.FortFuncs_write_magnetic_structure(*args)
-FortFuncs_write_magnetic_structure = _pycrysfml.FortFuncs_write_magnetic_structure
+def FortFuncs_get_basename(*args):
+  return _pycrysfml.FortFuncs_get_basename(*args)
+FortFuncs_get_basename = _pycrysfml.FortFuncs_get_basename
 
-def FortFuncs_write_mcif(*args):
-  return _pycrysfml.FortFuncs_write_mcif(*args)
-FortFuncs_write_mcif = _pycrysfml.FortFuncs_write_mcif
+def FortFuncs_get_dirname(*args):
+  return _pycrysfml.FortFuncs_get_dirname(*args)
+FortFuncs_get_dirname = _pycrysfml.FortFuncs_get_dirname
 
-def FortFuncs_write_shubnikov_group(*args):
-  return _pycrysfml.FortFuncs_write_shubnikov_group(*args)
-FortFuncs_write_shubnikov_group = _pycrysfml.FortFuncs_write_shubnikov_group
+def FortFuncs_get_extension(*args):
+  return _pycrysfml.FortFuncs_get_extension(*args)
+FortFuncs_get_extension = _pycrysfml.FortFuncs_get_extension
 
-def FortFuncs_calc_mag_interaction_vector(*args):
-  return _pycrysfml.FortFuncs_calc_mag_interaction_vector(*args)
-FortFuncs_calc_mag_interaction_vector = _pycrysfml.FortFuncs_calc_mag_interaction_vector
+def FortFuncs_get_fraction_1dig(*args):
+  return _pycrysfml.FortFuncs_get_fraction_1dig(*args)
+FortFuncs_get_fraction_1dig = _pycrysfml.FortFuncs_get_fraction_1dig
 
-def FortFuncs_calc_magnetic_strf_miv(*args):
-  return _pycrysfml.FortFuncs_calc_magnetic_strf_miv(*args)
-FortFuncs_calc_magnetic_strf_miv = _pycrysfml.FortFuncs_calc_magnetic_strf_miv
+def FortFuncs_get_fraction_2dig(*args):
+  return _pycrysfml.FortFuncs_get_fraction_2dig(*args)
+FortFuncs_get_fraction_2dig = _pycrysfml.FortFuncs_get_fraction_2dig
 
-def FortFuncs_calc_magnetic_strf_miv_dom(*args):
-  return _pycrysfml.FortFuncs_calc_magnetic_strf_miv_dom(*args)
-FortFuncs_calc_magnetic_strf_miv_dom = _pycrysfml.FortFuncs_calc_magnetic_strf_miv_dom
+def FortFuncs_get_logunit(*args):
+  return _pycrysfml.FortFuncs_get_logunit(*args)
+FortFuncs_get_logunit = _pycrysfml.FortFuncs_get_logunit
 
-def FortFuncs_calc_magnetic_strf_tensor(*args):
-  return _pycrysfml.FortFuncs_calc_magnetic_strf_tensor(*args)
-FortFuncs_calc_magnetic_strf_tensor = _pycrysfml.FortFuncs_calc_magnetic_strf_tensor
+def FortFuncs_get_transf(*args):
+  return _pycrysfml.FortFuncs_get_transf(*args)
+FortFuncs_get_transf = _pycrysfml.FortFuncs_get_transf
 
-def FortFuncs_gen_satellites(*args):
-  return _pycrysfml.FortFuncs_gen_satellites(*args)
-FortFuncs_gen_satellites = _pycrysfml.FortFuncs_gen_satellites
+def FortFuncs_inc_linenum(*args):
+  return _pycrysfml.FortFuncs_inc_linenum(*args)
+FortFuncs_inc_linenum = _pycrysfml.FortFuncs_inc_linenum
 
-def FortFuncs_init_err_msfac():
-  return _pycrysfml.FortFuncs_init_err_msfac()
-FortFuncs_init_err_msfac = _pycrysfml.FortFuncs_init_err_msfac
+def FortFuncs_init_err_string():
+  return _pycrysfml.FortFuncs_init_err_string()
+FortFuncs_init_err_string = _pycrysfml.FortFuncs_init_err_string
 
-def FortFuncs_init_mag_structure_factors(*args):
-  return _pycrysfml.FortFuncs_init_mag_structure_factors(*args)
-FortFuncs_init_mag_structure_factors = _pycrysfml.FortFuncs_init_mag_structure_factors
+def FortFuncs_init_findfmt(nline=None):
+  return _pycrysfml.FortFuncs_init_findfmt(nline)
+FortFuncs_init_findfmt = _pycrysfml.FortFuncs_init_findfmt
 
-def FortFuncs_mag_structure_factors(*args):
-  return _pycrysfml.FortFuncs_mag_structure_factors(*args)
-FortFuncs_mag_structure_factors = _pycrysfml.FortFuncs_mag_structure_factors
+def FortFuncs_number_lines(*args):
+  return _pycrysfml.FortFuncs_number_lines(*args)
+FortFuncs_number_lines = _pycrysfml.FortFuncs_number_lines
 
-def FortFuncs_write_mag_structure_factors(*args):
-  return _pycrysfml.FortFuncs_write_mag_structure_factors(*args)
-FortFuncs_write_mag_structure_factors = _pycrysfml.FortFuncs_write_mag_structure_factors
+def FortFuncs_numcol_from_numfmt(*args):
+  return _pycrysfml.FortFuncs_numcol_from_numfmt(*args)
+FortFuncs_numcol_from_numfmt = _pycrysfml.FortFuncs_numcol_from_numfmt
 
-def FortFuncs_write_polar_info(*args):
-  return _pycrysfml.FortFuncs_write_polar_info(*args)
-FortFuncs_write_polar_info = _pycrysfml.FortFuncs_write_polar_info
+def FortFuncs_setnum_std(*args):
+  return _pycrysfml.FortFuncs_setnum_std(*args)
+FortFuncs_setnum_std = _pycrysfml.FortFuncs_setnum_std
 
-def FortFuncs_write_polar_line(*args):
-  return _pycrysfml.FortFuncs_write_polar_line(*args)
-FortFuncs_write_polar_line = _pycrysfml.FortFuncs_write_polar_line
+def FortFuncs_get_generators(*args):
+  return _pycrysfml.FortFuncs_get_generators(*args)
+FortFuncs_get_generators = _pycrysfml.FortFuncs_get_generators
 
-def FortFuncs_allocate_vparam(*args):
-  return _pycrysfml.FortFuncs_allocate_vparam(*args)
-FortFuncs_allocate_vparam = _pycrysfml.FortFuncs_allocate_vparam
+def FortFuncs_remove_spgr_info():
+  return _pycrysfml.FortFuncs_remove_spgr_info()
+FortFuncs_remove_spgr_info = _pycrysfml.FortFuncs_remove_spgr_info
 
-def FortFuncs_get_restang_line(*args):
-  return _pycrysfml.FortFuncs_get_restang_line(*args)
-FortFuncs_get_restang_line = _pycrysfml.FortFuncs_get_restang_line
+def FortFuncs_remove_system_equiv():
+  return _pycrysfml.FortFuncs_remove_system_equiv()
+FortFuncs_remove_system_equiv = _pycrysfml.FortFuncs_remove_system_equiv
 
-def FortFuncs_get_restdis_line(*args):
-  return _pycrysfml.FortFuncs_get_restdis_line(*args)
-FortFuncs_get_restdis_line = _pycrysfml.FortFuncs_get_restdis_line
+def FortFuncs_remove_wyckoff_info():
+  return _pycrysfml.FortFuncs_remove_wyckoff_info()
+FortFuncs_remove_wyckoff_info = _pycrysfml.FortFuncs_remove_wyckoff_info
 
-def FortFuncs_get_resttor_line(*args):
-  return _pycrysfml.FortFuncs_get_resttor_line(*args)
-FortFuncs_get_resttor_line = _pycrysfml.FortFuncs_get_resttor_line
+def FortFuncs_set_spgr_info():
+  return _pycrysfml.FortFuncs_set_spgr_info()
+FortFuncs_set_spgr_info = _pycrysfml.FortFuncs_set_spgr_info
 
-def FortFuncs_init_err_refcodes():
-  return _pycrysfml.FortFuncs_init_err_refcodes()
-FortFuncs_init_err_refcodes = _pycrysfml.FortFuncs_init_err_refcodes
+def FortFuncs_set_system_equiv():
+  return _pycrysfml.FortFuncs_set_system_equiv()
+FortFuncs_set_system_equiv = _pycrysfml.FortFuncs_set_system_equiv
 
-def FortFuncs_init_refcodes(fatom=None, fmatom=None, mag_dom=None, molcrys=None, molec=None, model=None):
-  return _pycrysfml.FortFuncs_init_refcodes(fatom, fmatom, mag_dom, molcrys, molec, model)
-FortFuncs_init_refcodes = _pycrysfml.FortFuncs_init_refcodes
+def FortFuncs_set_wyckoff_info():
+  return _pycrysfml.FortFuncs_set_wyckoff_info()
+FortFuncs_set_wyckoff_info = _pycrysfml.FortFuncs_set_wyckoff_info
 
-def FortFuncs_read_refgcodes_file(*args):
-  return _pycrysfml.FortFuncs_read_refgcodes_file(*args)
-FortFuncs_read_refgcodes_file = _pycrysfml.FortFuncs_read_refgcodes_file
+def FortFuncs_axes_rotation(*args):
+  return _pycrysfml.FortFuncs_axes_rotation(*args)
+FortFuncs_axes_rotation = _pycrysfml.FortFuncs_axes_rotation
 
-def FortFuncs_vstate_to_modelpar(*args):
-  return _pycrysfml.FortFuncs_vstate_to_modelpar(*args)
-FortFuncs_vstate_to_modelpar = _pycrysfml.FortFuncs_vstate_to_modelpar
+def FortFuncs_get_laue_num(*args):
+  return _pycrysfml.FortFuncs_get_laue_num(*args)
+FortFuncs_get_laue_num = _pycrysfml.FortFuncs_get_laue_num
 
-def FortFuncs_write_info_refgcodes(*args):
-  return _pycrysfml.FortFuncs_write_info_refgcodes(*args)
-FortFuncs_write_info_refgcodes = _pycrysfml.FortFuncs_write_info_refgcodes
+def FortFuncs_get_multip_pos(*args):
+  return _pycrysfml.FortFuncs_get_multip_pos(*args)
+FortFuncs_get_multip_pos = _pycrysfml.FortFuncs_get_multip_pos
 
-def FortFuncs_write_info_refparams(iunit=None):
-  return _pycrysfml.FortFuncs_write_info_refparams(iunit)
-FortFuncs_write_info_refparams = _pycrysfml.FortFuncs_write_info_refparams
+def FortFuncs_get_occ_site(*args):
+  return _pycrysfml.FortFuncs_get_occ_site(*args)
+FortFuncs_get_occ_site = _pycrysfml.FortFuncs_get_occ_site
 
-def FortFuncs_write_restraints_obscalc(*args):
-  return _pycrysfml.FortFuncs_write_restraints_obscalc(*args)
-FortFuncs_write_restraints_obscalc = _pycrysfml.FortFuncs_write_restraints_obscalc
+def FortFuncs_get_pointgroup_num(*args):
+  return _pycrysfml.FortFuncs_get_pointgroup_num(*args)
+FortFuncs_get_pointgroup_num = _pycrysfml.FortFuncs_get_pointgroup_num
+
+def FortFuncs_lattice_trans(*args):
+  return _pycrysfml.FortFuncs_lattice_trans(*args)
+FortFuncs_lattice_trans = _pycrysfml.FortFuncs_lattice_trans
+
+def FortFuncs_spgr_equal(*args):
+  return _pycrysfml.FortFuncs_spgr_equal(*args)
+FortFuncs_spgr_equal = _pycrysfml.FortFuncs_spgr_equal
+
+def FortFuncs_allocate_lattice_centring(*args):
+  return _pycrysfml.FortFuncs_allocate_lattice_centring(*args)
+FortFuncs_allocate_lattice_centring = _pycrysfml.FortFuncs_allocate_lattice_centring
+
+def FortFuncs_check_generator(*args):
+  return _pycrysfml.FortFuncs_check_generator(*args)
+FortFuncs_check_generator = _pycrysfml.FortFuncs_check_generator
+
+def FortFuncs_decodmatmag(*args):
+  return _pycrysfml.FortFuncs_decodmatmag(*args)
+FortFuncs_decodmatmag = _pycrysfml.FortFuncs_decodmatmag
+
+def FortFuncs_get_laue_str(*args):
+  return _pycrysfml.FortFuncs_get_laue_str(*args)
+FortFuncs_get_laue_str = _pycrysfml.FortFuncs_get_laue_str
+
+def FortFuncs_get_pointgroup_str(*args):
+  return _pycrysfml.FortFuncs_get_pointgroup_str(*args)
+FortFuncs_get_pointgroup_str = _pycrysfml.FortFuncs_get_pointgroup_str
+
+def FortFuncs_get_seitz_symbol(*args):
+  return _pycrysfml.FortFuncs_get_seitz_symbol(*args)
+FortFuncs_get_seitz_symbol = _pycrysfml.FortFuncs_get_seitz_symbol
+
+def FortFuncs_get_shubnikov_operator_symbol(*args):
+  return _pycrysfml.FortFuncs_get_shubnikov_operator_symbol(*args)
+FortFuncs_get_shubnikov_operator_symbol = _pycrysfml.FortFuncs_get_shubnikov_operator_symbol
+
+def FortFuncs_get_string_resolv(*args):
+  return _pycrysfml.FortFuncs_get_string_resolv(*args)
+FortFuncs_get_string_resolv = _pycrysfml.FortFuncs_get_string_resolv
+
+def FortFuncs_get_symel(*args):
+  return _pycrysfml.FortFuncs_get_symel(*args)
+FortFuncs_get_symel = _pycrysfml.FortFuncs_get_symel
+
+def FortFuncs_get_symkov(*args):
+  return _pycrysfml.FortFuncs_get_symkov(*args)
+FortFuncs_get_symkov = _pycrysfml.FortFuncs_get_symkov
+
+def FortFuncs_get_trasfm_symbol(*args):
+  return _pycrysfml.FortFuncs_get_trasfm_symbol(*args)
+FortFuncs_get_trasfm_symbol = _pycrysfml.FortFuncs_get_trasfm_symbol
+
+def FortFuncs_get_transl_symbol(*args):
+  return _pycrysfml.FortFuncs_get_transl_symbol(*args)
+FortFuncs_get_transl_symbol = _pycrysfml.FortFuncs_get_transl_symbol
+
+def FortFuncs_init_err_symm():
+  return _pycrysfml.FortFuncs_init_err_symm()
+FortFuncs_init_err_symm = _pycrysfml.FortFuncs_init_err_symm
+
+def FortFuncs_inverse_symm(*args):
+  return _pycrysfml.FortFuncs_inverse_symm(*args)
+FortFuncs_inverse_symm = _pycrysfml.FortFuncs_inverse_symm
+
+def FortFuncs_latsym(*args):
+  return _pycrysfml.FortFuncs_latsym(*args)
+FortFuncs_latsym = _pycrysfml.FortFuncs_latsym
+
+def FortFuncs_read_bin_spacegroup(*args):
+  return _pycrysfml.FortFuncs_read_bin_spacegroup(*args)
+FortFuncs_read_bin_spacegroup = _pycrysfml.FortFuncs_read_bin_spacegroup
+
+def FortFuncs_read_msymm(*args):
+  return _pycrysfml.FortFuncs_read_msymm(*args)
+FortFuncs_read_msymm = _pycrysfml.FortFuncs_read_msymm
+
+def FortFuncs_read_symtrans_code(*args):
+  return _pycrysfml.FortFuncs_read_symtrans_code(*args)
+FortFuncs_read_symtrans_code = _pycrysfml.FortFuncs_read_symtrans_code
+
+def FortFuncs_read_xsym(*args):
+  return _pycrysfml.FortFuncs_read_xsym(*args)
+FortFuncs_read_xsym = _pycrysfml.FortFuncs_read_xsym
+
+def FortFuncs_searchop(*args):
+  return _pycrysfml.FortFuncs_searchop(*args)
+FortFuncs_searchop = _pycrysfml.FortFuncs_searchop
+
+def FortFuncs_set_spacegroup(*args):
+  return _pycrysfml.FortFuncs_set_spacegroup(*args)
+FortFuncs_set_spacegroup = _pycrysfml.FortFuncs_set_spacegroup
+
+def FortFuncs_similar_transf_sg(*args):
+  return _pycrysfml.FortFuncs_similar_transf_sg(*args)
+FortFuncs_similar_transf_sg = _pycrysfml.FortFuncs_similar_transf_sg
+
+def FortFuncs_sym_prod_st(*args):
+  return _pycrysfml.FortFuncs_sym_prod_st(*args)
+FortFuncs_sym_prod_st = _pycrysfml.FortFuncs_sym_prod_st
+
+def FortFuncs_write_bin_spacegroup(*args):
+  return _pycrysfml.FortFuncs_write_bin_spacegroup(*args)
+FortFuncs_write_bin_spacegroup = _pycrysfml.FortFuncs_write_bin_spacegroup
+
+def FortFuncs_write_spacegroup(*args):
+  return _pycrysfml.FortFuncs_write_spacegroup(*args)
+FortFuncs_write_spacegroup = _pycrysfml.FortFuncs_write_spacegroup
+
+def FortFuncs_write_sym(*args):
+  return _pycrysfml.FortFuncs_write_sym(*args)
+FortFuncs_write_sym = _pycrysfml.FortFuncs_write_sym
+
+def FortFuncs_write_symtrans_code(*args):
+  return _pycrysfml.FortFuncs_write_symtrans_code(*args)
+FortFuncs_write_symtrans_code = _pycrysfml.FortFuncs_write_symtrans_code
+
+def FortFuncs_write_wyckoff(*args):
+  return _pycrysfml.FortFuncs_write_wyckoff(*args)
+FortFuncs_write_wyckoff = _pycrysfml.FortFuncs_write_wyckoff
+
+def FortFuncs_copy_ns_spg_to_spg(*args):
+  return _pycrysfml.FortFuncs_copy_ns_spg_to_spg(*args)
+FortFuncs_copy_ns_spg_to_spg = _pycrysfml.FortFuncs_copy_ns_spg_to_spg
 
 def FortFuncs_alloc_mhlist_array(*args):
   return _pycrysfml.FortFuncs_alloc_mhlist_array(*args)
@@ -3289,6 +3439,18 @@ def FortFuncs_sym_oper_type_ctor(*args):
   return _pycrysfml.FortFuncs_sym_oper_type_ctor(*args)
 FortFuncs_sym_oper_type_ctor = _pycrysfml.FortFuncs_sym_oper_type_ctor
 
+def FortFuncs_get_command(command=None, length=None, status=None):
+  return _pycrysfml.FortFuncs_get_command(command, length, status)
+FortFuncs_get_command = _pycrysfml.FortFuncs_get_command
+
+def FortFuncs_get_command_argument(*args):
+  return _pycrysfml.FortFuncs_get_command_argument(*args)
+FortFuncs_get_command_argument = _pycrysfml.FortFuncs_get_command_argument
+
+def FortFuncs_get_environment_variable(*args):
+  return _pycrysfml.FortFuncs_get_environment_variable(*args)
+FortFuncs_get_environment_variable = _pycrysfml.FortFuncs_get_environment_variable
+
 class generic_numor_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, generic_numor_type, name, value)
@@ -3409,6 +3571,60 @@ class lattice_centring_type(_object):
     if _newclass:data_ptr = _swig_property(_pycrysfml.lattice_centring_type_data_ptr_get, _pycrysfml.lattice_centring_type_data_ptr_set)
 lattice_centring_type_swigregister = _pycrysfml.lattice_centring_type_swigregister
 lattice_centring_type_swigregister(lattice_centring_type)
+
+class lsq_conditions_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_conditions_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, lsq_conditions_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_lsq_conditions_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_lsq_conditions_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_conditions_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_conditions_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_conditions_type_data_ptr_get, _pycrysfml.lsq_conditions_type_data_ptr_set)
+lsq_conditions_type_swigregister = _pycrysfml.lsq_conditions_type_swigregister
+lsq_conditions_type_swigregister(lsq_conditions_type)
+
+class lsq_data_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_data_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, lsq_data_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_lsq_data_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_lsq_data_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_data_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_data_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_data_type_data_ptr_get, _pycrysfml.lsq_data_type_data_ptr_set)
+lsq_data_type_swigregister = _pycrysfml.lsq_data_type_swigregister
+lsq_data_type_swigregister(lsq_data_type)
+
+class lsq_state_vector_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_state_vector_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, lsq_state_vector_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_lsq_state_vector_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_lsq_state_vector_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_state_vector_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_state_vector_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_state_vector_type_data_ptr_get, _pycrysfml.lsq_state_vector_type_data_ptr_set)
+lsq_state_vector_type_swigregister = _pycrysfml.lsq_state_vector_type_swigregister
+lsq_state_vector_type_swigregister(lsq_state_vector_type)
 
 class maghd_list_type(_object):
     __swig_setmethods__ = {}
@@ -4483,6 +4699,24 @@ class reflect_type(_object):
 reflect_type_swigregister = _pycrysfml.reflect_type_swigregister
 reflect_type_swigregister(reflect_type)
 
+class sbvs_par_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, sbvs_par_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, sbvs_par_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_sbvs_par_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_sbvs_par_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.sbvs_par_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.sbvs_par_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.sbvs_par_type_data_ptr_get, _pycrysfml.sbvs_par_type_data_ptr_set)
+sbvs_par_type_swigregister = _pycrysfml.sbvs_par_type_swigregister
+sbvs_par_type_swigregister(sbvs_par_type)
+
 class space_group_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, space_group_type, name, value)
@@ -4495,11 +4729,11 @@ class space_group_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_space_group_type
     __del__ = lambda self : None;
-    def get_hallsymb_from_gener(self, spaceh=None): return _pycrysfml.space_group_type_get_hallsymb_from_gener(self, spaceh)
-    def get_laue_pg(self, *args): return _pycrysfml.space_group_type_get_laue_pg(self, *args)
     def set_atom_equiv_list(self, *args): return _pycrysfml.space_group_type_set_atom_equiv_list(self, *args)
     def set_new_asymunit(self, *args): return _pycrysfml.space_group_type_set_new_asymunit(self, *args)
     def set_orbits_inlist(self, *args): return _pycrysfml.space_group_type_set_orbits_inlist(self, *args)
+    def get_hallsymb_from_gener(self, spaceh=None): return _pycrysfml.space_group_type_get_hallsymb_from_gener(self, spaceh)
+    def get_laue_pg(self, *args): return _pycrysfml.space_group_type_get_laue_pg(self, *args)
     def get_space_group_centred(self): return _pycrysfml.space_group_type_get_space_group_centred(self)
     def set_space_group_centred(self, *args): return _pycrysfml.space_group_type_set_space_group_centred(self, *args)
     def get_space_group_centre_coord(self, *args): return _pycrysfml.space_group_type_get_space_group_centre_coord(self, *args)

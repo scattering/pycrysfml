@@ -26,11 +26,14 @@ CLASSES
         atom_equiv_type
         atom_list_type
         atom_type
+        atomic_properties_type
         atoms_cell_type
         atoms_conf_list_type
         basic_numc_type
         basic_numi_type
         basic_numr_type
+        bvel_par_type
+        bvs_par_type
         calibration_detector_type
         chem_info_type
         coordination_type
@@ -51,6 +54,9 @@ CLASSES
         intp
         job_info_type
         lattice_centring_type
+        lsq_conditions_type
+        lsq_data_type
+        lsq_state_vector_type
         magh_list_type
         magh_type
         maghd_list_type
@@ -88,6 +94,7 @@ CLASSES
         reflect_type
         reflection_list_type
         reflection_type
+        sbvs_par_type
         space_group_type
         spgr_info_type
         sxd_val_type
@@ -312,6 +319,10 @@ CLASSES
      |  ----------------------------------------------------------------------
      |  Static methods defined here:
      |  
+     |  ag_theta = FortFuncs_ag_theta(...)
+     |  
+     |  al_theta = FortFuncs_al_theta(...)
+     |  
      |  alloc_mhlist_array = FortFuncs_alloc_mhlist_array(...)
      |  
      |  alloc_refllist_array = FortFuncs_alloc_refllist_array(...)
@@ -348,7 +359,13 @@ CLASSES
      |  
      |  axes_rotation = FortFuncs_axes_rotation(...)
      |  
+     |  becker_coppens = FortFuncs_becker_coppens(...)
+     |  
      |  bessj = FortFuncs_bessj(...)
+     |  
+     |  bg_theta = FortFuncs_bg_theta(...)
+     |  
+     |  bl_theta = FortFuncs_bl_theta(...)
      |  
      |  calang = FortFuncs_calang(...)
      |  
@@ -410,6 +427,8 @@ CLASSES
      |  
      |  copy_ns_spg_to_spg = FortFuncs_copy_ns_spg_to_spg(...)
      |  
+     |  correct_flippingratios = FortFuncs_correct_flippingratios(...)
+     |  
      |  cost_bvs = FortFuncs_cost_bvs(...)
      |  
      |  cost_bvs_coulombrep = FortFuncs_cost_bvs_coulombrep(...)
@@ -422,17 +441,25 @@ CLASSES
      |  
      |  d19psd = FortFuncs_d19psd(...)
      |  
+     |  deallocate_ap_table = FortFuncs_deallocate_ap_table(...)
+     |  
      |  deallocate_atom_list = FortFuncs_deallocate_atom_list(...)
      |  
      |  deallocate_atoms_cell = FortFuncs_deallocate_atoms_cell(...)
      |  
      |  deallocate_atoms_conf_list = FortFuncs_deallocate_atoms_conf_list(...)
      |  
+     |  deallocate_bvel_table = FortFuncs_deallocate_bvel_table(...)
+     |  
+     |  deallocate_bvs_table = FortFuncs_deallocate_bvs_table(...)
+     |  
      |  deallocate_coordination_type = FortFuncs_deallocate_coordination_type(...)
      |  
      |  deallocate_matom_list = FortFuncs_deallocate_matom_list(...)
      |  
      |  deallocate_point_list = FortFuncs_deallocate_point_list(...)
+     |  
+     |  deallocate_sbvs_table = FortFuncs_deallocate_sbvs_table(...)
      |  
      |  decodmatmag = FortFuncs_decodmatmag(...)
      |  
@@ -500,6 +527,10 @@ CLASSES
      |  
      |  get_chemsymb = FortFuncs_get_chemsymb(...)
      |  
+     |  get_command = FortFuncs_get_command(...)
+     |  
+     |  get_command_argument = FortFuncs_get_command_argument(...)
+     |  
      |  get_conventional_cell = FortFuncs_get_conventional_cell(...)
      |  
      |  get_covalent_radius = FortFuncs_get_covalent_radius(...)
@@ -507,6 +538,8 @@ CLASSES
      |  get_dirname = FortFuncs_get_dirname(...)
      |  
      |  get_dspacing_theta = FortFuncs_get_dspacing_theta(...)
+     |  
+     |  get_environment_variable = FortFuncs_get_environment_variable(...)
      |  
      |  get_euler_from_fract = FortFuncs_get_euler_from_fract(...)
      |  
@@ -880,7 +913,13 @@ CLASSES
      |  
      |  seed_random_number = FortFuncs_seed_random_number(...)
      |  
+     |  set_atomic_properties = FortFuncs_set_atomic_properties(...)
+     |  
      |  set_bonds_table = FortFuncs_set_bonds_table(...)
+     |  
+     |  set_bvel_table = FortFuncs_set_bvel_table(...)
+     |  
+     |  set_bvs_table = FortFuncs_set_bvs_table(...)
      |  
      |  set_chem_info = FortFuncs_set_chem_info(...)
      |  
@@ -915,6 +954,8 @@ CLASSES
      |  set_psd = FortFuncs_set_psd(...)
      |  
      |  set_rotation_matrix = FortFuncs_set_rotation_matrix(...)
+     |  
+     |  set_sbvs_table = FortFuncs_set_sbvs_table(...)
      |  
      |  set_shubnikov_group = FortFuncs_set_shubnikov_group(...)
      |  
@@ -955,6 +996,8 @@ CLASSES
      |  set_xray_form = FortFuncs_set_xray_form(...)
      |  
      |  setnum_std = FortFuncs_setnum_std(...)
+     |  
+     |  shelx_extinction = FortFuncs_shelx_extinction(...)
      |  
      |  similar_transf_sg = FortFuncs_similar_transf_sg(...)
      |  
@@ -1123,7 +1166,7 @@ CLASSES
      |  __swig_destroy__ = <built-in function delete_FortFuncs>
      |  
      |  
-     |  __swig_getmethods__ = {'alloc_mhlist_array': <function <lambda>>, 'all...
+     |  __swig_getmethods__ = {'ag_theta': <function <lambda>>, 'al_theta': <f...
      |  
      |  __swig_setmethods__ = {}
     
@@ -1653,6 +1696,40 @@ CLASSES
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function atom_type_data_p...
     
+    class atomic_properties_type(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  data_ptr
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_atomic_properties_type>
+     |  
+     |  
+     |  __swig_getmethods__ = {'data_ptr': <built-in function atomic_propertie...
+     |  
+     |  __swig_setmethods__ = {'data_ptr': <built-in function atomic_propertie...
+    
     class atoms_cell_type(__builtin__.object)
      |  Methods defined here:
      |  
@@ -1834,6 +1911,74 @@ CLASSES
      |  __swig_getmethods__ = {'data_ptr': <built-in function basic_numr_type_...
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function basic_numr_type_...
+    
+    class bvel_par_type(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  data_ptr
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_bvel_par_type>
+     |  
+     |  
+     |  __swig_getmethods__ = {'data_ptr': <built-in function bvel_par_type_da...
+     |  
+     |  __swig_setmethods__ = {'data_ptr': <built-in function bvel_par_type_da...
+    
+    class bvs_par_type(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  data_ptr
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_bvs_par_type>
+     |  
+     |  
+     |  __swig_getmethods__ = {'data_ptr': <built-in function bvs_par_type_dat...
+     |  
+     |  __swig_setmethods__ = {'data_ptr': <built-in function bvs_par_type_dat...
     
     class calibration_detector_type(__builtin__.object)
      |  Methods defined here:
@@ -2753,6 +2898,108 @@ CLASSES
      |  __swig_getmethods__ = {'data_ptr': <built-in function lattice_centring...
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function lattice_centring...
+    
+    class lsq_conditions_type(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  data_ptr
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_lsq_conditions_type>
+     |  
+     |  
+     |  __swig_getmethods__ = {'data_ptr': <built-in function lsq_conditions_t...
+     |  
+     |  __swig_setmethods__ = {'data_ptr': <built-in function lsq_conditions_t...
+    
+    class lsq_data_type(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  data_ptr
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_lsq_data_type>
+     |  
+     |  
+     |  __swig_getmethods__ = {'data_ptr': <built-in function lsq_data_type_da...
+     |  
+     |  __swig_setmethods__ = {'data_ptr': <built-in function lsq_data_type_da...
+    
+    class lsq_state_vector_type(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  data_ptr
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_lsq_state_vector_type>
+     |  
+     |  
+     |  __swig_getmethods__ = {'data_ptr': <built-in function lsq_state_vector...
+     |  
+     |  __swig_setmethods__ = {'data_ptr': <built-in function lsq_state_vector...
     
     class magh_list_type(__builtin__.object)
      |  Methods defined here:
@@ -4826,6 +5073,40 @@ CLASSES
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function reflection_type_...
     
+    class sbvs_par_type(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  data_ptr
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_sbvs_par_type>
+     |  
+     |  
+     |  __swig_getmethods__ = {'data_ptr': <built-in function sbvs_par_type_da...
+     |  
+     |  __swig_setmethods__ = {'data_ptr': <built-in function sbvs_par_type_da...
+    
     class space_group_type(__builtin__.object)
      |  Methods defined here:
      |  
@@ -5483,6 +5764,10 @@ FUNCTIONS
     
     FloatVector_swigregister(...)
     
+    FortFuncs_ag_theta(...)
+    
+    FortFuncs_al_theta(...)
+    
     FortFuncs_alloc_mhlist_array(...)
     
     FortFuncs_alloc_refllist_array(...)
@@ -5519,7 +5804,13 @@ FUNCTIONS
     
     FortFuncs_axes_rotation(...)
     
+    FortFuncs_becker_coppens(...)
+    
     FortFuncs_bessj(...)
+    
+    FortFuncs_bg_theta(...)
+    
+    FortFuncs_bl_theta(...)
     
     FortFuncs_calang(...)
     
@@ -5581,6 +5872,8 @@ FUNCTIONS
     
     FortFuncs_copy_ns_spg_to_spg(...)
     
+    FortFuncs_correct_flippingratios(...)
+    
     FortFuncs_cost_bvs(...)
     
     FortFuncs_cost_bvs_coulombrep(...)
@@ -5593,17 +5886,25 @@ FUNCTIONS
     
     FortFuncs_d19psd(...)
     
+    FortFuncs_deallocate_ap_table(...)
+    
     FortFuncs_deallocate_atom_list(...)
     
     FortFuncs_deallocate_atoms_cell(...)
     
     FortFuncs_deallocate_atoms_conf_list(...)
     
+    FortFuncs_deallocate_bvel_table(...)
+    
+    FortFuncs_deallocate_bvs_table(...)
+    
     FortFuncs_deallocate_coordination_type(...)
     
     FortFuncs_deallocate_matom_list(...)
     
     FortFuncs_deallocate_point_list(...)
+    
+    FortFuncs_deallocate_sbvs_table(...)
     
     FortFuncs_decodmatmag(...)
     
@@ -5671,6 +5972,10 @@ FUNCTIONS
     
     FortFuncs_get_chemsymb(...)
     
+    FortFuncs_get_command(...)
+    
+    FortFuncs_get_command_argument(...)
+    
     FortFuncs_get_conventional_cell(...)
     
     FortFuncs_get_covalent_radius(...)
@@ -5678,6 +5983,8 @@ FUNCTIONS
     FortFuncs_get_dirname(...)
     
     FortFuncs_get_dspacing_theta(...)
+    
+    FortFuncs_get_environment_variable(...)
     
     FortFuncs_get_euler_from_fract(...)
     
@@ -6051,7 +6358,13 @@ FUNCTIONS
     
     FortFuncs_seed_random_number(...)
     
+    FortFuncs_set_atomic_properties(...)
+    
     FortFuncs_set_bonds_table(...)
+    
+    FortFuncs_set_bvel_table(...)
+    
+    FortFuncs_set_bvs_table(...)
     
     FortFuncs_set_chem_info(...)
     
@@ -6086,6 +6399,8 @@ FUNCTIONS
     FortFuncs_set_psd(...)
     
     FortFuncs_set_rotation_matrix(...)
+    
+    FortFuncs_set_sbvs_table(...)
     
     FortFuncs_set_shubnikov_group(...)
     
@@ -6126,6 +6441,8 @@ FUNCTIONS
     FortFuncs_set_xray_form(...)
     
     FortFuncs_setnum_std(...)
+    
+    FortFuncs_shelx_extinction(...)
     
     FortFuncs_similar_transf_sg(...)
     
@@ -6297,6 +6614,8 @@ FUNCTIONS
     
     atom_type_swigregister(...)
     
+    atomic_properties_type_swigregister(...)
+    
     atoms_cell_type_swigregister(...)
     
     atoms_conf_list_type_swigregister(...)
@@ -6306,6 +6625,10 @@ FUNCTIONS
     basic_numi_type_swigregister(...)
     
     basic_numr_type_swigregister(...)
+    
+    bvel_par_type_swigregister(...)
+    
+    bvs_par_type_swigregister(...)
     
     calibration_detector_type_swigregister(...)
     
@@ -6503,6 +6826,12 @@ FUNCTIONS
     
     lattice_centring_type_swigregister(...)
     
+    lsq_conditions_type_swigregister(...)
+    
+    lsq_data_type_swigregister(...)
+    
+    lsq_state_vector_type_swigregister(...)
+    
     magh_list_type_swigregister(...)
     
     magh_type_swigregister(...)
@@ -6576,6 +6905,8 @@ FUNCTIONS
     reflection_list_type_swigregister(...)
     
     reflection_type_swigregister(...)
+    
+    sbvs_par_type_swigregister(...)
     
     space_group_type_swigregister(...)
     
