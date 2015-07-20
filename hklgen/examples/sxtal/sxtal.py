@@ -33,7 +33,7 @@ def fit():
                 symmetry=symmetry, newSymmetry=basisSymmetry, scale=1.557, error=error, hkls=refList)
     m.scale.range(0,100)
     #m.base.pm(1000)
-    #m.extinction.range(0,10.0)
+    m.extinction.range(0,10.0)
     for atomModel in m.atomListModel.atomModels:
         #atomModel.x.range(0,1)
         #atomModel.y.range(0,1)
@@ -41,7 +41,7 @@ def fit():
         #atomModel.B.range(0,10)
         if atomModel.magnetic:
             for coeff in atomModel.coeffs:
-                coeff.range(-10, 10)
+                coeff.range(-20, 20)
                 #coeff.range(0,5)
     M = bumps.FitProblem(m)
     M.model_update()

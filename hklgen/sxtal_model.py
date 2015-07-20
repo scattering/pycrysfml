@@ -315,10 +315,10 @@ class Model(object):
     def _set_reflections(self):
         maxLattice = self.cell.getMaxLattice()
         maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
-        self.reflections = self.refList
         if self.magnetic:
             self.magRefList = satelliteGen(self.cell.cell, self.symmetry, np.sin(179.5/2)/self.wavelength, hkls=self.refList)
             self.magReflections = self.magRefList[:]
+        self.reflections = self.refList
             
     def __getstate__(self):
         state = self.__dict__.copy()
@@ -373,14 +373,6 @@ class Model(object):
     def update(self):  
         self.cell.update()
         self.atomListModel.update()
-        hkls = [reflection.hkl for reflection in self.reflections]
-        sList = calcS(self.cell.cell, hkls)
-        for i in xrange(len(self.reflections)):
-            self.reflections[i].set_reflection_s(sList[i])
-        sfs2, svalues = calcXtalIntensity(self.reflections, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=None, scale=self.scale.value)
-        self.intensities = sfs2
-        self.peaks = makeXtalPeaks(sfs2, svalues)
-        #self.sList = svalues
         if self.magnetic:
             # update magnetic reflections and add their peaks to the list of
             #   Peaks         
@@ -388,9 +380,17 @@ class Model(object):
             sList = calcS(self.cell.cell, hkls)
             for i in xrange(len(self.magReflections)):
                 self.magReflections[i].set_magh_s(sList[i])
-            sfs2, svalues = calcXtalIntensity(self.magRefList, self.atomListModel.magAtomList, self.symmetry, self.wavelength, magnetic=True, cell=self.cell.cell, extinctions=None, scale=self.scale.value)
+            sfs2, svalues = calcXtalIntensity(self.magRefList, self.atomListModel.magAtomList, self.symmetry, self.wavelength, magnetic=True, cell=self.cell.cell, extinctions=[self.extinction.value], scale=self.scale.value)
             self.magIntensities = sfs2
             #print self.magIntensities
-            self.peaks = makeXtalPeaks(sfs2, svalues, peaks=self.peaks)
+            self.peaks = makeXtalPeaks(sfs2, svalues)
             #self.sList = np.array([peak.svalue for peak in self.peaks])
-            #self.peaks.extend(makeXtalPeaks(sfs2, svalues))
+            #self.peaks.extend(makeXtalPeaks(sfs2, svalues))        
+        hkls = [reflection.hkl for reflection in self.reflections]
+        sList = calcS(self.cell.cell, hkls)
+        for i in xrange(len(self.reflections)):
+            self.reflections[i].set_reflection_s(sList[i])
+        sfs2, svalues = calcXtalIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale.value)
+        self.intensities = sfs2
+        self.peaks = makeXtalPeaks(sfs2, svalues, peaks=self.peaks)
+        #self.sList = svalues
