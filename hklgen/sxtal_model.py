@@ -16,24 +16,42 @@ class sXtalPeak(object):
         return self.svalue == other.svalue
 
 # functions
-def readIntFile(filename, skiplines=3, exclusions=None):
+def readIntFile(filename, skiplines=3, exclusions=None, kind="dat", cell=None):
     # TODO: implement exclusions
-    HKLs = np.loadtxt(filename, dtype=int, usecols=(0,1,2), skiprows=skiplines, comments='!')
-    data = np.loadtxt(filename, dtype=float, usecols=(3,4,6,7,8,9), skiprows=skiplines, comments='!')
-    wavelength = np.loadtxt(filename, dtype=float, skiprows=skiplines-1, usecols=[0], comments='!')[0]
-    refList = ReflectionList()
-    refList.set_reflection_list_nref(len(HKLs[:,0]))
-    funcs.alloc_refllist_array(refList)
-    tt = data[:,2]
-    for i in range(len(HKLs[:,0])):
-        reflection = Reflection()
-        hkl = IntVector(HKLs[i,:])
-        reflection.set_reflection_h(hkl)
-        reflection.set_reflection_s(getS(tt[i], wavelength))
-        reflection.set_reflection_mult(1)
-        refList[i] = reflection
-    # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
-    return wavelength, refList, data[:,0], data[:,1], tt, data[:,3:]    
+    if kind == "dat":
+        HKLs = np.loadtxt(filename, dtype=int, usecols=(0,1,2), skiprows=skiplines, comments='!')
+        data = np.loadtxt(filename, dtype=float, usecols=(3,4,6,7,8,9), skiprows=skiplines, comments='!')
+        wavelength = np.loadtxt(filename, dtype=float, skiprows=skiplines-1, usecols=[0], comments='!')[0]
+        refList = ReflectionList()
+        refList.set_reflection_list_nref(len(HKLs[:,0]))
+        funcs.alloc_refllist_array(refList)
+        tt = data[:,2]
+        for i in range(len(HKLs[:,0])):
+            reflection = Reflection()
+            hkl = IntVector(HKLs[i,:])
+            reflection.set_reflection_h(hkl)
+            reflection.set_reflection_s(getS(tt[i], wavelength))
+            reflection.set_reflection_mult(1)
+            refList[i] = reflection
+        # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
+        return wavelength, refList, data[:,0], data[:,1], tt, data[:,3:]    
+    else:
+        HKLs = np.loadtxt(filename, dtype=int, usecols=(0,1,2), skiprows=skiplines, comments='!')
+        data = np.loadtxt(filename, dtype=float, usecols=(3,4), skiprows=skiplines, comments='!')
+        wavelength = np.loadtxt(filename, dtype=float, skiprows=skiplines-1, usecols=[0], comments='!')[0]
+        refList = ReflectionList()
+        refList.set_reflection_list_nref(len(HKLs[:,0]))
+        funcs.alloc_refllist_array(refList)
+        for i in range(len(HKLs[:,0])):
+            reflection = Reflection()
+            hkl = IntVector(HKLs[i,:])
+            reflection.set_reflection_h(hkl)
+            reflection.set_reflection_s(calcS(cell, hkl))
+            reflection.set_reflection_mult(1)
+            refList[i] = reflection
+        # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
+        return wavelength, refList, data[:,0], data[:,1]      
+    
 # Create a list of single crystal peak objects from a list 
 # of structure factors squared and sin(theta)/lambda values
 def makeXtalPeaks(sfs2, svalues, peaks=None):
@@ -149,7 +167,7 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
         sObs = np.array([getS(value, wavelength) for value in tt])
-        plotXtalPattern(peaks, sObs, obsIntensity, background=background, error=error, base=base, residuals=residuals,labels=labels)
+        plotXtalPattern(peaks, sObs, obsIntensity, background=background, error=error, base=base, residuals=residuals,labels=labels, scale=scale)
         pylab.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
@@ -372,7 +390,7 @@ class Model(object):
                        background=self.background, 
                        exclusions=self.exclusions, 
                        residuals=True,
-                       error=self.error)
+                       error=self.error, scale=self.scale.value)
     def update(self):  
         self.cell.update()
         self.atomListModel.update()
@@ -395,5 +413,6 @@ class Model(object):
             self.reflections[i].set_reflection_s(sList[i])
         sfs2, svalues = calcXtalIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale.value)
         self.intensities = sfs2
+        if not self.magnetic: self.peaks = None
         self.peaks = makeXtalPeaks(sfs2, svalues, peaks=self.peaks)
         #self.sList = svalues
