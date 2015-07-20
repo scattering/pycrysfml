@@ -52,7 +52,7 @@ def main():
     S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=1.557, tt=tt, 
                       obsIntensity=sfs2, wavelength=wavelength, basisSymmetry=basisSymmetry, 
                       magAtomList=magAtomList, plot=True, residuals=True, error=error, magnetic=True, 
-                      info=True, base=0, refList=refList, extinctions=None)
+                      info=True, base=0, refList=refList, extinctions=[0])
 if __name__ == "__main__":
     # program run normally
     main()

@@ -90,10 +90,13 @@ def calcXtalIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         tt = np.radians(np.array([twoTheta(ref.get_reflection_s(), wavelength) for ref in refList]))
         svalues = np.array([ref.get_reflection_s() for ref in refList])
     if extinctions != None:
-        newsfs = []
+        extfs = []
         for i in range(len(sfs2)):
-            newsfs.append(extinctionFactor(sfs2[i], wavelength, tt[i], scale, extinctions))
-        sfs2 = np.array(newsfs)
+            #newsfs.append(extinctionFactor(sfs2[i], wavelength, tt[i], scale, extinctions))
+            extf = floatp()
+            funcs.shelx_extinction(3, 1, wavelength, svalues[i]**2, FloatVector(refList[i].hkl), sfs2[i], FloatVector([extinctions[0],0,0,0,0,0]), extf)
+            extfs.append(extf.value())
+        sfs2 *= np.array(extfs)
     return sfs2, svalues
 
 # diffPatternXtal: generates a neutron diffraction pattern from a file containing
