@@ -3572,60 +3572,6 @@ class lattice_centring_type(_object):
 lattice_centring_type_swigregister = _pycrysfml.lattice_centring_type_swigregister
 lattice_centring_type_swigregister(lattice_centring_type)
 
-class lsq_conditions_type(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_conditions_type, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, lsq_conditions_type, name)
-    __repr__ = _swig_repr
-    def __init__(self): 
-        this = _pycrysfml.new_lsq_conditions_type()
-        try: self.this.append(this)
-        except: self.this = this
-    __swig_destroy__ = _pycrysfml.delete_lsq_conditions_type
-    __del__ = lambda self : None;
-    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_conditions_type_data_ptr_set
-    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_conditions_type_data_ptr_get
-    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_conditions_type_data_ptr_get, _pycrysfml.lsq_conditions_type_data_ptr_set)
-lsq_conditions_type_swigregister = _pycrysfml.lsq_conditions_type_swigregister
-lsq_conditions_type_swigregister(lsq_conditions_type)
-
-class lsq_data_type(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_data_type, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, lsq_data_type, name)
-    __repr__ = _swig_repr
-    def __init__(self): 
-        this = _pycrysfml.new_lsq_data_type()
-        try: self.this.append(this)
-        except: self.this = this
-    __swig_destroy__ = _pycrysfml.delete_lsq_data_type
-    __del__ = lambda self : None;
-    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_data_type_data_ptr_set
-    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_data_type_data_ptr_get
-    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_data_type_data_ptr_get, _pycrysfml.lsq_data_type_data_ptr_set)
-lsq_data_type_swigregister = _pycrysfml.lsq_data_type_swigregister
-lsq_data_type_swigregister(lsq_data_type)
-
-class lsq_state_vector_type(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, lsq_state_vector_type, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, lsq_state_vector_type, name)
-    __repr__ = _swig_repr
-    def __init__(self): 
-        this = _pycrysfml.new_lsq_state_vector_type()
-        try: self.this.append(this)
-        except: self.this = this
-    __swig_destroy__ = _pycrysfml.delete_lsq_state_vector_type
-    __del__ = lambda self : None;
-    __swig_setmethods__["data_ptr"] = _pycrysfml.lsq_state_vector_type_data_ptr_set
-    __swig_getmethods__["data_ptr"] = _pycrysfml.lsq_state_vector_type_data_ptr_get
-    if _newclass:data_ptr = _swig_property(_pycrysfml.lsq_state_vector_type_data_ptr_get, _pycrysfml.lsq_state_vector_type_data_ptr_set)
-lsq_state_vector_type_swigregister = _pycrysfml.lsq_state_vector_type_swigregister
-lsq_state_vector_type_swigregister(lsq_state_vector_type)
-
 class maghd_list_type(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, maghd_list_type, name, value)

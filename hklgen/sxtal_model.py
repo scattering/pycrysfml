@@ -67,7 +67,8 @@ def makeXtalPeaks(sfs2, svalues, peaks=None):
         else:
             #print "Peak at: ", svalues[i], "adding: ", peaks[peaks.index(p)].sfs2, " to: ", sfs2[i], " = ", peaks[peaks.index(p)].sfs2+sfs2[i]
             #peaks[peaks.index(p)].sfs2 += sfs2[i]
-            pass
+            peaks.append(p)
+            #pass
     return peaks
 # Check if an intensity's sin(theta)/lambda value is approximately in a list of st/l values
 def checkInt(value, sCalc):
@@ -86,15 +87,15 @@ def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0
         intensities = []
         icalc = [peak.sfs2 for peak in peaks]
         scalc = [peak.svalue for peak in peaks]
-        for s in sList:
-            if checkInt(s, scalc)[0]:
-                intensities.append(icalc[checkInt(s, scalc)[1]])
-            else:
-                intensities.append(-10000.0)
+        #for s in sList:
+            #if checkInt(s, scalc)[0]:
+                #intensities.append(icalc[checkInt(s, scalc)[1]])
+            #else:
+                #intensities.append(-10000.0)
         #for peak in peaks:
             #if peak.svalue in sList:
                 #intensities.append(peak.sfs2)
-        return np.array(np.array(intensities)*scale)
+        return np.array(icalc)*scale, np.array(scalc)
 # extinctionFactor: applies extinction coeffiecients to the structure factor squared
 #   currently implemented for only one extinction coefficient
 def extinctionFactor(sfs2, wavelength, tt, scale, coeffs):
@@ -188,11 +189,11 @@ def plotXtalPattern(peaks, sList, obsIntensity, background=None,
     obspeaks = makeXtalPeaks(obsIntensity, sList)
     sList = np.array([peak.svalue for peak in obspeaks])
     obsIntensity = np.array([peak.sfs2 for peak in obspeaks])
-    calcIntensity = getXtalIntensity(peaks, sList=sList, exclusions=exclusions, scale=scale)
+    calcIntensity, scalc = getXtalIntensity(peaks, sList=sList, exclusions=exclusions, scale=scale)
     pylab.subplot(211)
     if (obsIntensity != None):
         pylab.plot(sList*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
-    pylab.plot(sList*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
+    pylab.plot(scalc*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
     pylab.errorbar(sList*(4*np.pi), obsIntensity, yerr=error, fmt=None, ecolor='g')
     pylab.xlabel("Q")
     pylab.ylabel("Intensity")

@@ -72,11 +72,12 @@ STR_MOD='LF'
 fi
 if [ $# -lt 1 ]; then
 svn co http://forge.epn-campus.eu/svn/crysfml/Src
-#rm Src/CFML_Conf_Calc.f90
-#rm Src/CFML_BVSpar.f90
-cp tmp/CFML_BVSpar.f90 Src
-echo "hi1"
-pwd
+# Add patch to CrysFML to fix MsFac bugs
+cp CFML_Msfac.patch Src/
+cd Src
+patch < CFML_Msfac.patch
+cd $wd
+# End Patch to CrysFML
 else
 cp -r $1 $wd/Src
 fi
@@ -94,11 +95,12 @@ $wd/fix_type_decl.py
 $wd/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log
 if [ $# -lt 1 ]; then
 svn co http://forge.epn-campus.eu/svn/crysfml/Src
-#rm Src/CFML_Conf_Calc.f90
-#rm Src/CFML_BVSpar.f90
-echo "hi2"
-pwd
-cp ../tmp/CFML_BVSpar.f90 Src
+# Add patch to CrysFML to fix MsFac bugs
+cp CFML_Msfac.patch Src/
+cd Src
+patch < CFML_Msfac.patch
+cd $wd/Src
+# End Patch to CrysFML
 cp Src/*.f90 .
 rm -rf Src
 else

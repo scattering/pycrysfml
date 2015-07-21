@@ -54,9 +54,6 @@ CLASSES
         intp
         job_info_type
         lattice_centring_type
-        lsq_conditions_type
-        lsq_data_type
-        lsq_state_vector_type
         magh_list_type
         magh_type
         maghd_list_type
@@ -2898,108 +2895,6 @@ CLASSES
      |  __swig_getmethods__ = {'data_ptr': <built-in function lattice_centring...
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function lattice_centring...
-    
-    class lsq_conditions_type(__builtin__.object)
-     |  Methods defined here:
-     |  
-     |  __del__ lambda self
-     |  
-     |  __getattr__ lambda self, name
-     |  
-     |  __init__(self)
-     |  
-     |  __repr__ = _swig_repr(self)
-     |  
-     |  __setattr__ lambda self, name, value
-     |  
-     |  ----------------------------------------------------------------------
-     |  Data descriptors defined here:
-     |  
-     |  __dict__
-     |      dictionary for instance variables (if defined)
-     |  
-     |  __weakref__
-     |      list of weak references to the object (if defined)
-     |  
-     |  data_ptr
-     |  
-     |  ----------------------------------------------------------------------
-     |  Data and other attributes defined here:
-     |  
-     |  __swig_destroy__ = <built-in function delete_lsq_conditions_type>
-     |  
-     |  
-     |  __swig_getmethods__ = {'data_ptr': <built-in function lsq_conditions_t...
-     |  
-     |  __swig_setmethods__ = {'data_ptr': <built-in function lsq_conditions_t...
-    
-    class lsq_data_type(__builtin__.object)
-     |  Methods defined here:
-     |  
-     |  __del__ lambda self
-     |  
-     |  __getattr__ lambda self, name
-     |  
-     |  __init__(self)
-     |  
-     |  __repr__ = _swig_repr(self)
-     |  
-     |  __setattr__ lambda self, name, value
-     |  
-     |  ----------------------------------------------------------------------
-     |  Data descriptors defined here:
-     |  
-     |  __dict__
-     |      dictionary for instance variables (if defined)
-     |  
-     |  __weakref__
-     |      list of weak references to the object (if defined)
-     |  
-     |  data_ptr
-     |  
-     |  ----------------------------------------------------------------------
-     |  Data and other attributes defined here:
-     |  
-     |  __swig_destroy__ = <built-in function delete_lsq_data_type>
-     |  
-     |  
-     |  __swig_getmethods__ = {'data_ptr': <built-in function lsq_data_type_da...
-     |  
-     |  __swig_setmethods__ = {'data_ptr': <built-in function lsq_data_type_da...
-    
-    class lsq_state_vector_type(__builtin__.object)
-     |  Methods defined here:
-     |  
-     |  __del__ lambda self
-     |  
-     |  __getattr__ lambda self, name
-     |  
-     |  __init__(self)
-     |  
-     |  __repr__ = _swig_repr(self)
-     |  
-     |  __setattr__ lambda self, name, value
-     |  
-     |  ----------------------------------------------------------------------
-     |  Data descriptors defined here:
-     |  
-     |  __dict__
-     |      dictionary for instance variables (if defined)
-     |  
-     |  __weakref__
-     |      list of weak references to the object (if defined)
-     |  
-     |  data_ptr
-     |  
-     |  ----------------------------------------------------------------------
-     |  Data and other attributes defined here:
-     |  
-     |  __swig_destroy__ = <built-in function delete_lsq_state_vector_type>
-     |  
-     |  
-     |  __swig_getmethods__ = {'data_ptr': <built-in function lsq_state_vector...
-     |  
-     |  __swig_setmethods__ = {'data_ptr': <built-in function lsq_state_vector...
     
     class magh_list_type(__builtin__.object)
      |  Methods defined here:
@@ -6825,12 +6720,6 @@ FUNCTIONS
     job_info_type_swigregister(...)
     
     lattice_centring_type_swigregister(...)
-    
-    lsq_conditions_type_swigregister(...)
-    
-    lsq_data_type_swigregister(...)
-    
-    lsq_state_vector_type_swigregister(...)
     
     magh_list_type_swigregister(...)
     

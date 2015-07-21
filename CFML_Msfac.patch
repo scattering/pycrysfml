@@ -1,0 +1,46 @@
+--- CFML_Msfac.f90	2015-07-21 15:22:04.364274155 -0400
++++ new.f90	2015-07-21 15:29:06.022986189 -0400
+@@ -1291,20 +1291,20 @@
+                 hloc%Mh(ng)%num_k= i
+                 hloc%Mh(ng)%signp= 1.0
+                 hloc%Mh(ng)%h=ks
+-             else if ( abs(hr(3)) < epv .and. abs(hr(1)) <= 1.0+epv) then   !complete with the reflections (-h,k,0)+kvec
+-                ng=ng+1
+-                if (ng > Hloc%nref) exit outer
+-                ks=(/-hr(1),-hr(2),0.0_cp/)+kv
+-                hloc%Mh(ng)%s = hkl_s(ks,Cell)
+-                if( hloc%Mh(ng)%s > smax) then     !avoid reflection with s>smax
+-                  ng=ng-1
+-                  cycle
+-                end if
+-                keq = K_Equiv_Minus_K(kv,Grp%latt)
+-                hloc%Mh(ng)%keqv_minus= keq
+-                hloc%Mh(ng)%num_k= i
+-                hloc%Mh(ng)%signp=-1.0
+-                hloc%Mh(ng)%h=ks
++             !else if ( abs(hr(3)) < epv .and. abs(hr(1)) <= 1.0+epv) then   !complete with the reflections (-h,k,0)+kvec
++             !   ng=ng+1
++             !   if (ng > Hloc%nref) exit outer
++             !   ks=(/-hr(1),-hr(2),0.0_cp/)+kv
++             !   hloc%Mh(ng)%s = hkl_s(ks,Cell)
++             !   if( hloc%Mh(ng)%s > smax) then     !avoid reflection with s>smax
++             !     ng=ng-1
++             !     cycle
++             !   end if
++             !   keq = K_Equiv_Minus_K(kv,Grp%latt)
++             !   hloc%Mh(ng)%keqv_minus= keq
++             !   hloc%Mh(ng)%num_k= i
++             !   hloc%Mh(ng)%signp=-1.0
++             !   hloc%Mh(ng)%h=ks
+              end if
+           end do
+        end do outer
+@@ -1455,7 +1455,7 @@
+              end do
+ 
+           else   ! present(ord)=.false.
+-             h%nref=ng-1
++             h%nref=ng
+              do j=1,h%nref
+                 h%Mh(j)%keqv_minus = hloc%Mh(j)%keqv_minus
+                 h%Mh(j)%num_k      = hloc%Mh(j)%num_k
