@@ -156,6 +156,8 @@ proj.file-list = [loc('examples/Al2O3/Al2O3.py'),
                   loc('hkl_model.py'),
                   loc('run.py'),
                   loc('sxtal_model.py'),
+                  loc('test/dy.cfl'),
+                  loc('test/test_dy_sxtal.py'),
                   loc('test/test_pycrysfml.py')]
 proj.file-type = 'shared'
 proj.launch-config = {loc('examples/CeO2/CeO2.py'): ('project',
@@ -190,4 +192,7 @@ proj.launch-config = {loc('examples/CeO2/CeO2.py'): ('project',
          'launch-5OO9WEKuNaZwSpb3')),
                       loc('run.py'): ('custom',
                                       (u'',
-                                       'launch-N2OqfZn7wATr7F8y'))}
+                                       'launch-N2OqfZn7wATr7F8y')),
+                      loc('test/test_dy_sxtal.py'): ('custom',
+        (u'',
+         'launch-dgRX3mCDxnu5xpHQ'))}

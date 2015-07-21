@@ -1,0 +1,19 @@
+!   FILE for FullProf Studio: generated automatically by FullProf 
+!Title: DyMn6Ge6     nuclear   magph2                                                                                                                                       
+SPGR P -1          
+CELL 5.12200     5.12200     8.19398    90.00000    90.00000    98.0 
+!    Lab  Scatt       x        y       z      Biso     Occ                                           
+ATOM Dy      DY      0.00000  0.00000  0.00000  0.00000  0.04167
+ATOM Mn      MN      0.50000  0.00000  0.25024  0.00000  0.25000
+ATOM Ge1     GE      0.33333  0.66666  0.50000  0.00000  0.08333
+ATOM Ge2     GE      0.33333  0.66666  0.00000  0.00000  0.08333
+ATOM Ge3     GE      0.00000  0.00000  0.34468  0.00000  0.08333
+
+Mag_Structure
+    LATTICE P -1
+    KVECT     0.00000   0.00000   0.1651010
+    SYMM   x, y, z
+    MSYM   u, v, w, 0.00
+    MATOM Dy      JDY3      0.00000  0.00000  0.00000  0.00000 1.0
+    SKP            1  1  5.804   0.000   0.000    3.155   7.238   0.000    0.00000 
+End_Mag_Structure

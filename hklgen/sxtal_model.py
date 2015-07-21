@@ -13,7 +13,10 @@ class sXtalPeak(object):
         self.sfs2 = sfs2
         self.svalue = svalue
     def __eq__(self, other):
-        return self.svalue == other.svalue
+        #if self.svalue == other.svalue: print self.svalue, " != ", other.svalue
+        return approxEq(self.svalue, other.svalue, 0.00001)
+    def __str__(self):
+        return "Single Crystal Peak at: "+ str(self.svalue) + " with intensity: " + str(self.sfs2)
 
 # functions
 def readIntFile(filename, skiplines=3, exclusions=None, kind="dat", cell=None):
@@ -62,7 +65,9 @@ def makeXtalPeaks(sfs2, svalues, peaks=None):
         if p not in peaks:
             peaks.append(p)
         else:
-            peaks[peaks.index(p)].sfs2 += sfs2[i]
+            #print "Peak at: ", svalues[i], "adding: ", peaks[peaks.index(p)].sfs2, " to: ", sfs2[i], " = ", peaks[peaks.index(p)].sfs2+sfs2[i]
+            #peaks[peaks.index(p)].sfs2 += sfs2[i]
+            pass
     return peaks
 # Check if an intensity's sin(theta)/lambda value is approximately in a list of st/l values
 def checkInt(value, sCalc):
@@ -76,7 +81,7 @@ def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0
     if background == None:
         background = np.zeros(len(sList))
     if sList == None:
-        return (np.array([peak.sfs2 for peak in peaks])*scale)-background+base
+        return (np.array([peak.sfs2 for peak in peaks])*scale)
     else:
         intensities = []
         icalc = [peak.sfs2 for peak in peaks]
@@ -89,7 +94,7 @@ def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0
         #for peak in peaks:
             #if peak.svalue in sList:
                 #intensities.append(peak.sfs2)
-        return np.array(np.array(intensities)*scale)-background+base
+        return np.array(np.array(intensities)*scale)
 # extinctionFactor: applies extinction coeffiecients to the structure factor squared
 #   currently implemented for only one extinction coefficient
 def extinctionFactor(sfs2, wavelength, tt, scale, coeffs):
@@ -124,7 +129,7 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
                     tt=None, exclusions=None,
                     spaceGroup=None, cell=None, atomList=None,
                     symmetry=None, basisSymmetry=None, magAtomList=None, scale=1,
-                    magnetic=False, info=False, plot=False, saveFile=None,
+                    magnetic=False, nuclear=True, info=False, plot=False, saveFile=None,
                     obsIntensity=None, labels=None, base=0, residuals=False, error=None, refList=None, extinctions=None):
     background = None
     sMin, sMax = getS(min(tt), wavelength), getS(max(tt), wavelength)
@@ -145,10 +150,15 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
         magpeaks = makeXtalPeaks(sfs2, svalues)
         # add in structural peaks
         if (atomList == None): atomList = readInfo(infoFile)[2]
-        sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, extinctions=extinctions, scale=scale)     
-        peaks = makeXtalPeaks(sfs2, svalues, peaks=magpeaks)
-        reflections = magRefList[:] + refList[:]
-        intensities = getXtalIntensity(peaks, sList=[getS(value, wavelength) for value in tt], background=background, exclusions=exclusions, base=base, scale=scale)
+        if nuclear:
+            sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, extinctions=extinctions, scale=scale)     
+            peaks = makeXtalPeaks(sfs2, svalues, peaks=magpeaks)
+            reflections = magRefList[:] + refList[:]
+            intensities = getXtalIntensity(peaks, sList=[getS(value, wavelength) for value in tt], background=background, exclusions=exclusions, base=base, scale=scale)
+        else:
+            peaks = magpeaks
+            reflections = magRefList[:]
+            intensities = getXtalIntensity(peaks, sList=[getS(value, wavelength) for value in tt], exclusions=exclusions, scale=scale)
     else:
         if (infoFile != None):
             infofile = readInfo(infoFile)
@@ -178,9 +188,7 @@ def plotXtalPattern(peaks, sList, obsIntensity, background=None,
     obspeaks = makeXtalPeaks(obsIntensity, sList)
     sList = np.array([peak.svalue for peak in obspeaks])
     obsIntensity = np.array([peak.sfs2 for peak in obspeaks])
-    calcIntensity = getXtalIntensity(peaks, sList=sList, background=background, 
-                                    exclusions=exclusions, 
-                                    base=base, scale=scale)
+    calcIntensity = getXtalIntensity(peaks, sList=sList, exclusions=exclusions, scale=scale)
     pylab.subplot(211)
     if (obsIntensity != None):
         pylab.plot(sList*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
