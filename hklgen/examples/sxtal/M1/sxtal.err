@@ -1,0 +1,74 @@
+.atoms
+  .Fe1
+    .Fe1 B = Parameter(0, name='Fe1 B')
+    .Fe1 C0 = Parameter(4.12034, name='Fe1 C0', bounds=(-20,20))
+    .Fe1 C1 = Parameter(-7.67789, name='Fe1 C1', bounds=(-20,20))
+    .Fe1 C2 = Parameter(1.23264, name='Fe1 C2', bounds=(-20,20))
+    .Fe1 occ = Parameter(0.71236, name='Fe1 occ')
+    .Fe1 x = Parameter(0.33333, name='Fe1 x')
+    .Fe1 y = Parameter(0, name='Fe1 y')
+    .Fe1 z = Parameter(0, name='Fe1 z')
+  .Lu1
+    .Lu1 B = Parameter(0, name='Lu1 B')
+    .Lu1 occ = Parameter(1.00002, name='Lu1 occ')
+    .Lu1 x = Parameter(0, name='Lu1 x')
+    .Lu1 y = Parameter(0, name='Lu1 y')
+    .Lu1 z = Parameter(0.27015, name='Lu1 z')
+  .Lu2
+    .Lu2 B = Parameter(0, name='Lu2 B')
+    .Lu2 occ = Parameter(0.99999, name='Lu2 occ')
+    .Lu2 x = Parameter(0.33333, name='Lu2 x')
+    .Lu2 y = Parameter(0.66667, name='Lu2 y')
+    .Lu2 z = Parameter(0.22894, name='Lu2 z')
+  .Mn1
+    .Mn1 B = Parameter(0, name='Mn1 B')
+    .Mn1 occ = Parameter(0.22194, name='Mn1 occ')
+    .Mn1 x = Parameter(0.33333, name='Mn1 x')
+    .Mn1 y = Parameter(0, name='Mn1 y')
+    .Mn1 z = Parameter(0, name='Mn1 z')
+  .O1
+    .O1 B = Parameter(0, name='O1 B')
+    .O1 occ = Parameter(1, name='O1 occ')
+    .O1 x = Parameter(0.30542, name='O1 x')
+    .O1 y = Parameter(0, name='O1 y')
+    .O1 z = Parameter(0.17013, name='O1 z')
+  .O2
+    .O2 B = Parameter(0, name='O2 B')
+    .O2 occ = Parameter(1, name='O2 occ')
+    .O2 x = Parameter(0.63506, name='O2 x')
+    .O2 y = Parameter(0, name='O2 y')
+    .O2 z = Parameter(0.33957, name='O2 z')
+  .O3
+    .O3 B = Parameter(0, name='O3 B')
+    .O3 occ = Parameter(1.00002, name='O3 occ')
+    .O3 x = Parameter(0, name='O3 x')
+    .O3 y = Parameter(0, name='O3 y')
+    .O3 z = Parameter(0.47263, name='O3 z')
+  .O4
+    .O4 B = Parameter(0, name='O4 B')
+    .O4 occ = Parameter(0.9999, name='O4 occ')
+    .O4 x = Parameter(0.33333, name='O4 x')
+    .O4 y = Parameter(0.66667, name='O4 y')
+    .O4 z = Parameter(0.01764, name='O4 z')
+.cell
+  .a = Parameter(5.964, name='a')
+  .c = Parameter(11.534, name='c')
+.extinction = Parameter(3.00128, name='extinction', bounds=(0,10))
+.scale = Parameter(2.2198, name='scale', bounds=(0,100))
+
+[chisq=3.31(39), nllf=49.6354]
+                                  Fe1 C0 ......|...    4.12034 in (-20,20)
+                                  Fe1 C1 ...|......   -7.67789 in (-20,20)
+                                  Fe1 C2 .....|....    1.23264 in (-20,20)
+                              extinction ...|......    3.00128 in (0,10)
+                                   scale |.........     2.2198 in (0,100)
+/home/jel/pycrysfml/hklgen/sxtal_model.py:196: FutureWarning: comparison to `None` will result in an elementwise object comparison in the future.
+  if (obsIntensity != None):
+/home/jel/.local/lib/python2.7/site-packages/matplotlib/axes/_axes.py:2651: MatplotlibDeprecationWarning: Use of None object as fmt keyword argument to suppress plotting of data values is deprecated since 1.4; use the string "none" instead.
+  warnings.warn(msg, mplDeprecation, stacklevel=1)
+              Parameter       mean  median    best [   68% interval] [   95% interval]
+ 1               Fe1 C0   4.12(33)   4.120   4.120 [   3.78    4.46] [   3.50    4.75]
+ 2               Fe1 C1 0.000(12)e3    1.68   -7.68 [  -14.4    14.7] [  -19.1    19.2]
+ 3               Fe1 C2   -0.0(12)  -0.685   1.233 [  -1.29    1.29] [  -1.51    1.51]
+ 4           extinction   3.39(94)   3.263   3.001 [   2.50    4.28] [   1.91    5.63]
+ 5                scale   2.27(21)   2.256   2.220 [   2.07    2.49] [   1.90    2.73]
