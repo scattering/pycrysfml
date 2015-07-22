@@ -9,12 +9,14 @@ except(ImportError):
     pass
 # Class Objects
 class sXtalPeak(object):
-    def __init__(self, sfs2, svalue):
+    def __init__(self, sfs2, svalue, hkl):
         self.sfs2 = sfs2
         self.svalue = svalue
+        self.hkl = hkl
     def __eq__(self, other):
         #if self.svalue == other.svalue: print self.svalue, " != ", other.svalue
-        return approxEq(self.svalue, other.svalue, 0.00001)
+        #return approxEq(self.svalue, other.svalue, 0.00001)
+        return self.hkl == other.hkl
     def __str__(self):
         return "Single Crystal Peak at: "+ str(self.svalue) + " with intensity: " + str(self.sfs2)
 
@@ -57,18 +59,18 @@ def readIntFile(filename, skiplines=3, exclusions=None, kind="dat", cell=None):
     
 # Create a list of single crystal peak objects from a list 
 # of structure factors squared and sin(theta)/lambda values
-def makeXtalPeaks(sfs2, svalues, peaks=None):
+def makeXtalPeaks(sfs2, svalues, refList, peaks=None):
     if peaks == None:
         peaks = []
     for i in range(len(svalues)):
-        p = sXtalPeak(sfs2[i], svalues[i])
+        p = sXtalPeak(sfs2[i], svalues[i], refList[i].hkl)
         if p not in peaks:
             peaks.append(p)
         else:
             #print "Peak at: ", svalues[i], "adding: ", peaks[peaks.index(p)].sfs2, " to: ", sfs2[i], " = ", peaks[peaks.index(p)].sfs2+sfs2[i]
-            #peaks[peaks.index(p)].sfs2 += sfs2[i]
-            peaks.append(p)
-            #pass
+            peaks[peaks.index(p)].sfs2 += sfs2[i]
+            #peaks.append(p)
+            pass
     return peaks
 # Check if an intensity's sin(theta)/lambda value is approximately in a list of st/l values
 def checkInt(value, sCalc):
@@ -148,12 +150,12 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
         print "length of reflection list " + str(len(magRefList))
         sfs2, svalues = calcXtalIntensity(magRefList, magAtomList, basisSymmetry,
                                       wavelength, cell, True, extinctions=extinctions, scale=scale)
-        magpeaks = makeXtalPeaks(sfs2, svalues)
+        magpeaks = makeXtalPeaks(sfs2, svalues, magRefList)
         # add in structural peaks
         if (atomList == None): atomList = readInfo(infoFile)[2]
         if nuclear:
             sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, extinctions=extinctions, scale=scale)     
-            peaks = makeXtalPeaks(sfs2, svalues, peaks=magpeaks)
+            peaks = makeXtalPeaks(sfs2, svalues, refList, peaks=magpeaks)
             reflections = magRefList[:] + refList[:]
             intensities = getXtalIntensity(peaks, sList=[getS(value, wavelength) for value in tt], background=background, exclusions=exclusions, base=base, scale=scale)
         else:
@@ -168,7 +170,7 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (atomList == None): atomList = infofile[2]         
         reflections = refList[:]
         sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, extinctions=extinctions, scale=scale)
-        peaks = makeXtalPeaks(sfs2, svalues)
+        peaks = makeXtalPeaks(sfs2, svalues, refList)
         intensities = getXtalIntensity(peaks, sList=[getS(value, wavelength) for value in tt], background=background, exclusions=exclusions, base=base, scale=scale)
     if info:
         if magnetic:
@@ -178,15 +180,15 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
             printInfo(cell, spaceGroup, atomList, refList, wavelength)
     if plot:
         sObs = np.array([getS(value, wavelength) for value in tt])
-        plotXtalPattern(peaks, sObs, obsIntensity, background=background, error=error, base=base, residuals=residuals,labels=labels, scale=scale)
+        plotXtalPattern(peaks, sObs, obsIntensity, background=background, error=error, base=base, residuals=residuals,labels=labels, scale=scale, refList=refList)
         pylab.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
     return
 def plotXtalPattern(peaks, sList, obsIntensity, background=None, 
-                    exclusions=None, labels=None, residuals=False, base=0, scale=1, error=None):
+                    exclusions=None, labels=None, residuals=False, base=0, scale=1, error=None, refList=None):
     # plot single crystal intesities vs q as single points
-    obspeaks = makeXtalPeaks(obsIntensity, sList)
+    obspeaks = makeXtalPeaks(obsIntensity, sList, refList)
     sList = np.array([peak.svalue for peak in obspeaks])
     obsIntensity = np.array([peak.sfs2 for peak in obspeaks])
     calcIntensity, scalc = getXtalIntensity(peaks, sList=sList, exclusions=exclusions, scale=scale)
@@ -199,9 +201,18 @@ def plotXtalPattern(peaks, sList, obsIntensity, background=None,
     pylab.ylabel("Intensity")
     pylab.legend()
     if (residuals):
-        resid = obsIntensity - calcIntensity
+        calcPeaks = makeXtalPeaks(calcIntensity, scalc, peaks)
+        resid = []
+        resid_stl = []
+        for peak in obspeaks:
+            resid_stl.append(peak.svalue)
+            if peak in calcPeaks:
+                resid.append(peak.sfs2-calcPeaks[calcPeaks.index(peak)].sfs2)
+            else:
+                resid.append(peak.sfs2)
+        #resid = obsIntensity - calcIntensity
         pylab.subplot(212)
-        pylab.plot(sList*(4*np.pi), resid, '-bo', linestyle="None", label="Residuals")
+        pylab.plot(np.array(resid_stl)*(4*np.pi), np.array(resid), '-bo', linestyle="None", label="Residuals")
     return
 
 # printInfo: prints out information about the provided space group and atoms,
@@ -309,9 +320,9 @@ class Model(object):
         else:
             self.spaceGroup = SpaceGroup(spaceGroupName)
         self.tt = np.array(tt)
-        obspeaks = makeXtalPeaks(observed, [getS(ttval, wavelength) for ttval in self.tt])
-        self.sList = np.array([peak.svalue for peak in obspeaks])
-        self.observed = np.array([peak.sfs2 for peak in obspeaks])
+        self.obspeaks = makeXtalPeaks(observed, [getS(ttval, wavelength) for ttval in self.tt], refList=hkls)
+        self.sList = np.array([peak.svalue for peak in self.obspeaks])
+        self.observed = np.array([peak.sfs2 for peak in self.obspeaks])
         self.background = background
         self.scale = Parameter(scale, name='scale')
         self.extinction = Parameter(extinction, name='extinction')
@@ -381,10 +392,19 @@ class Model(object):
         return len(self.observed)
 
     def theory(self):
-        return getXtalIntensity(self.peaks, background=self.background, sList=self.sList, scale=self.scale.value)
+        return getXtalIntensity(self.peaks, background=self.background, sList=self.sList, scale=self.scale.value)[0]
 
     def residuals(self):
-        return (self.theory() - self.observed)/(np.sqrt(self.observed)+1)
+        calcPeaks = makeXtalPeaks(self.theory(), self.sList, self.peaks)
+        resid = []
+        resid_stl = []
+        for peak in self.obspeaks:
+            resid_stl.append(peak.svalue)
+            if peak in calcPeaks:
+                resid.append(peak.sfs2-calcPeaks[calcPeaks.index(peak)].sfs2)
+            else:
+                resid.append(peak.sfs2)
+        return np.array(resid)/(np.sqrt(self.observed)+1)
 
     def nllf(self):
         return np.sum(self.residuals()**2)
@@ -398,7 +418,7 @@ class Model(object):
         plotXtalPattern(self.peaks, self.sList, self.observed, 
                        background=self.background, 
                        exclusions=self.exclusions, 
-                       residuals=True,
+                       residuals=True, refList=self.reflections,
                        error=self.error, scale=self.scale.value)
     def update(self):  
         self.cell.update()
@@ -413,7 +433,7 @@ class Model(object):
             sfs2, svalues = calcXtalIntensity(self.magRefList, self.atomListModel.magAtomList, self.symmetry, self.wavelength, magnetic=True, cell=self.cell.cell, extinctions=[self.extinction.value], scale=self.scale.value)
             self.magIntensities = sfs2
             #print self.magIntensities
-            self.peaks = makeXtalPeaks(sfs2, svalues)
+            self.peaks = makeXtalPeaks(sfs2, svalues, self.magRefList)
             #self.sList = np.array([peak.svalue for peak in self.peaks])
             #self.peaks.extend(makeXtalPeaks(sfs2, svalues))        
         hkls = [reflection.hkl for reflection in self.reflections]
@@ -423,5 +443,5 @@ class Model(object):
         sfs2, svalues = calcXtalIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale.value)
         self.intensities = sfs2
         if not self.magnetic: self.peaks = None
-        self.peaks = makeXtalPeaks(sfs2, svalues, peaks=self.peaks)
+        self.peaks = makeXtalPeaks(sfs2, svalues, self.refList, peaks=self.peaks)
         #self.sList = svalues

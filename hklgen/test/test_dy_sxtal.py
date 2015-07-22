@@ -24,7 +24,7 @@ def main():
     print getMagStrFacts()
     S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=1, tt=tt, 
                       obsIntensity=np.zeros(len(magRefList)), wavelength=wavelength, basisSymmetry=symmetry, 
-                      magAtomList=magAtomList, plot=True, residuals=False, nuclear=False, error=None, magnetic=True, 
+                      magAtomList=magAtomList, plot=True, residuals=True, nuclear=False, error=None, magnetic=True, 
                       info=True, base=0, refList=refList, extinctions=None)    
 class TestMagStructureFactorsXtal(unittest.TestCase):
     def test_magstrFacts_dy_sxtal(self):

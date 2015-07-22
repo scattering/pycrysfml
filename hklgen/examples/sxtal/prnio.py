@@ -47,8 +47,8 @@ def fit():
 
 def main():
     cell = crystalCell
-    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=0.06298, tt=tt, 
-                      obsIntensity=sfs2, wavelength=wavelength, plot=True, residuals=False, error=None, magnetic=False, 
+    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=5.5*0.06298, tt=tt, 
+                      obsIntensity=sfs2, wavelength=wavelength, plot=True, residuals=True, error=None, magnetic=False, 
                       info=True, base=0, refList=refList, extinctions=[0.0001054])
 if __name__ == "__main__":
     # program run normally
