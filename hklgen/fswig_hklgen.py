@@ -462,6 +462,8 @@ class MagReflection(magh_type):
             self.hkl = reflection.hkl
             self.multip = reflection.multip
             self.set_magh_s(reflection.get_reflection_s())
+    def __eq__(self, other):
+        return self.s == other.s and self.sqMiV == other.sqMiV
     @property
     def multip(self):
         return self.get_magh_mult()
@@ -513,13 +515,29 @@ class MagReflection(magh_type):
 #   reflections     - list of Reflection objects
 #   magnetic        - True if this is a list of MagReflections
 class ReflectionList(reflection_list_type, magh_list_type):
-    def __init__(self, magnetic=False):
+    def __init__(self, cast_list=None, magnetic=None):
         self.index = -1
-        if not magnetic:
-            reflection_list_type.__init__(self)
+        if cast_list != None:
+            # copy constructor
+            if isinstance(cast_list[0], magh_type):
+                self.magnetic = True
+                magh_list_type.__init__(self)
+                self.set_magh_list_nref(len(cast_list))
+                funcs.alloc_mhlist_array(self)
+            elif isinstance(cast_list[0], reflection_type):
+                self.magnetic = False
+                reflection_list_type.__init__(self)
+                self.set_reflection_list_nref(len(cast_list))
+                funcs.alloc_refllist_array(self)
+            for i in range(len(cast_list)):
+                ref = cast_list[i]
+                self[i]=ref
         else:
-            magh_list_type.__init__(self)
-        self.magnetic = magnetic
+            if not magnetic:
+                reflection_list_type.__init__(self)
+            else:
+                magh_list_type.__init__(self)
+            self.magnetic = magnetic                
     def __len__(self):
         #    return int(self.numReflections)
         if self.magnetic:
@@ -817,7 +835,7 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=True, xtal=False):
 # satelliteGen: generates a list of magnetic satellite reflections below a
 #   maximum sin(theta)/lambda value
 def satelliteGen(cell, symmetry, sMax, hkls=None):
-    refList = ReflectionList(True)
+    refList = ReflectionList(magnetic=True)
     if hkls != None:
         funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), None, hkls)
     else:
@@ -827,7 +845,7 @@ def satelliteGen(cell, symmetry, sMax, hkls=None):
 def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
     kvec = [0,0.,0.]
     kvec = [0.,0,0.1651010]
-    refList = ReflectionList(True)#[0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
+    refList = ReflectionList(magnetic=True)#[0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
     hkls = []
     for x in range(-7,7):
         for y in range(-7,7):
@@ -986,7 +1004,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    return sfs2 #* lorentz
+    return sfs2 * lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
@@ -1068,6 +1086,11 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=True)
         magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#satelliteGen_python(cell, sMax, None)#
+        newList = []
+        for ref in magRefList:
+            if ref not in newList:
+                newList.append(ref)
+        magRefList = ReflectionList(newList)
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True)
@@ -1171,7 +1194,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         else: symmObject = spaceGroup
         h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in xrange(3))
         multip = [str(ref.multip) for ref in refList]
-        tt = ["%.3f" % ref.s for ref in refList]
+        tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
         intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject, wavelength, cell, magnetic)]
         #dtype = [('tt', float),('h', 'S10'), ('k', 'S10'), ('l','S10'), ('intensity', 'S10')]
         #array1 = np.array([(tt[i], str(float(h[i])+0.5),k[i],str(float(l[i])+0.5),intensity[i]) for i in range(len(tt))], dtype=dtype)

@@ -60,7 +60,7 @@ def main():
                       #obsIntensity=np.zeros(len(refList)), wavelength=wavelength, basisSymmetry=basisSymmetry, 
                       #magAtomList=magAtomList, plot=True, residuals=False, error=None, magnetic=True, 
                       #info=True, base=0, refList=refList, extinctions=None)    
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=94.5,
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=94.5/7.0,
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,

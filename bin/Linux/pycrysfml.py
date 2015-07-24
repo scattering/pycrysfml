@@ -1680,6 +1680,8 @@ class FortFuncs(_object):
     if _newclass:hkls_r = staticmethod(_pycrysfml.FortFuncs_hkls_r)
     __swig_getmethods__["hklgen_sxtal_reflection"] = lambda x: _pycrysfml.FortFuncs_hklgen_sxtal_reflection
     if _newclass:hklgen_sxtal_reflection = staticmethod(_pycrysfml.FortFuncs_hklgen_sxtal_reflection)
+    __swig_getmethods__["gen_powder_satellites"] = lambda x: _pycrysfml.FortFuncs_gen_powder_satellites
+    if _newclass:gen_powder_satellites = staticmethod(_pycrysfml.FortFuncs_gen_powder_satellites)
     __swig_getmethods__["hklgen_sxtal_list"] = lambda x: _pycrysfml.FortFuncs_hklgen_sxtal_list
     if _newclass:hklgen_sxtal_list = staticmethod(_pycrysfml.FortFuncs_hklgen_sxtal_list)
     __swig_getmethods__["hkluni_reflection"] = lambda x: _pycrysfml.FortFuncs_hkluni_reflection
@@ -3254,6 +3256,10 @@ FortFuncs_hkls_r = _pycrysfml.FortFuncs_hkls_r
 def FortFuncs_hklgen_sxtal_reflection(*args):
   return _pycrysfml.FortFuncs_hklgen_sxtal_reflection(*args)
 FortFuncs_hklgen_sxtal_reflection = _pycrysfml.FortFuncs_hklgen_sxtal_reflection
+
+def FortFuncs_gen_powder_satellites(*args):
+  return _pycrysfml.FortFuncs_gen_powder_satellites(*args)
+FortFuncs_gen_powder_satellites = _pycrysfml.FortFuncs_gen_powder_satellites
 
 def FortFuncs_hklgen_sxtal_list(*args):
   return _pycrysfml.FortFuncs_hklgen_sxtal_list(*args)

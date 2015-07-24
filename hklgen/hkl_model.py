@@ -228,6 +228,11 @@ class Model(object):
                 # use this space group to generate magnetic hkls      
                 hkls = hklGen(spg, self.cell.cell, self.sMin, np.sin(179.5/2)/self.wavelength, True, xtal=True)
                 self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)#satelliteGen_python(self.cell.cell, self.sMax, hkls)
+                newList = []
+                for ref in self.magRefList:
+                    if ref not in newList:
+                        newList.append(ref)
+                self.magRefList = ReflectionList(newList)                
                 self.magReflections = self.magRefList[:]                   
         else:
             self.reflections = self.refList[:]
