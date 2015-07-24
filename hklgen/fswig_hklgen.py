@@ -997,6 +997,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 = calcMagStructFact(refList, atomList, spaceGroup, cell)#np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
         multips = np.array([ref.get_magh_mult() for ref in refList])
         tt = np.radians(np.array([twoTheta(ref.get_magh_s(), wavelength) for ref in refList]))
+        #sfs2 *= multips
     else:
         sfs2 = np.array(calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=xtal))
         multips = np.array([ref.get_reflection_mult() for ref in refList])
@@ -1063,7 +1064,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 magnetic=False, info=False, plot=False, saveFile=None,
                 observedData=(None,None), labels=None, base=0, residuals=False, error=None):
     background = LinSpline(backgroundFile)
-    sMin, sMax = getS(ttMin, wavelength), getS(ttMax, wavelength)
+    sMin, sMax = getS(ttMin, wavelength), getS(122.0, wavelength)
     if magnetic:
         if (infoFile != None):
             infofile = readMagInfo(infoFile)
