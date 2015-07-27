@@ -146,6 +146,8 @@ proj.file-list = [loc('examples/Al2O3/Al2O3.py'),
                   loc('examples/dy/dy.cfl'),
                   loc('examples/dy/dy.py'),
                   loc('examples/dy/magref.py'),
+                  loc('examples/HCao/AF4_5k.cfl'),
+                  loc('examples/HCao/hcao.py'),
                   loc('examples/HOBK/HOBK.py'),
                   loc('examples/lamn_3t2/lamn_3t2.py'),
                   loc('examples/LFO_20K/LuFeO3_20K.py'),
@@ -158,7 +160,8 @@ proj.file-list = [loc('examples/Al2O3/Al2O3.py'),
                   loc('sxtal_model.py'),
                   loc('test/dy.cfl'),
                   loc('test/test_dy_sxtal.py'),
-                  loc('test/test_pycrysfml.py')]
+                  loc('test/test_pycrysfml.py'),
+                  loc('util/combine_sxtal_phases.py')]
 proj.file-type = 'shared'
 proj.launch-config = {loc('examples/CeO2/CeO2.py'): ('project',
         (u'',

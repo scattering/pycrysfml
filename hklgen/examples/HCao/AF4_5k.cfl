@@ -1,0 +1,9 @@
+!   FILE for FullProf Studio: generated automatically by FullProf 
+!Title:  MnWO4 Nuclear refinement, 17%-Co                                                                                                                                   
+SPACEG P 1 2/c 1
+CELL     4.770000    5.720000    4.920000  90.0000  90.9000  90.0000
+ATOM Mn1     MN      0.50000  0.68510  0.25000  0.63955  0.41600 
+ATOM Co      Co      0.50000  0.68510  0.25000  0.63955  0.08400
+ATOM W1      W       0.00000  0.18020  0.25000  0.79746  0.50000
+ATOM O1      O       0.21080  0.10374  0.94040  0.65534  1.00000
+ATOM O2      O       0.25070  0.37542  0.39410  0.71851  1.00000

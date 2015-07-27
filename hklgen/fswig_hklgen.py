@@ -1005,7 +1005,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    return sfs2 * lorentz
+    return sfs2 #* lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
@@ -1064,7 +1064,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 magnetic=False, info=False, plot=False, saveFile=None,
                 observedData=(None,None), labels=None, base=0, residuals=False, error=None):
     background = LinSpline(backgroundFile)
-    sMin, sMax = getS(ttMin, wavelength), getS(122.0, wavelength)
+    sMin, sMax = getS(ttMin, wavelength), getS(180.0, wavelength)
     if magnetic:
         if (infoFile != None):
             infofile = readMagInfo(infoFile)
