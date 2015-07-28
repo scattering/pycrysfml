@@ -98,10 +98,6 @@ def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0
             #if peak.svalue in sList:
                 #intensities.append(peak.sfs2)
         return np.array(icalc)*scale, np.array(scalc)
-# extinctionFactor: applies extinction coeffiecients to the structure factor squared
-#   currently implemented for only one extinction coefficient
-def extinctionFactor(sfs2, wavelength, tt, scale, coeffs):
-    return sfs2 * (scale*(1+(0.001*coeffs[0]*sfs2*wavelength**3)/np.sin(tt))**(1/4))**2
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
 def calcXtalIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
@@ -119,8 +115,10 @@ def calcXtalIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         extfs = []
         for i in range(len(sfs2)):
             #newsfs.append(extinctionFactor(sfs2[i], wavelength, tt[i], scale, extinctions))
+            while len(extinctions) < 6:
+                extinctions.append(0)
             extf = floatp()
-            funcs.shelx_extinction(3, 1, wavelength, svalues[i]**2, FloatVector(refList[i].hkl), sfs2[i], FloatVector([extinctions[0],0,0,0,0,0]), extf)
+            funcs.shelx_extinction(3, 1, wavelength, svalues[i]**2, FloatVector(refList[i].hkl), sfs2[i], FloatVector(extinctions), extf)
             extfs.append(extf.value())
         sfs2 *= np.array(extfs)
     return sfs2, svalues
@@ -314,7 +312,7 @@ class Model(object):
 
     def __init__(self, tt, observed, background,
                  wavelength, spaceGroupName, cell, atoms, exclusions=None,
-                 magnetic=False, symmetry=None, newSymmetry=None, scale=1, zero=None, error=None, hkls=None, extinction=None):
+                 magnetic=False, symmetry=None, newSymmetry=None, scale=1, zero=None, error=None, hkls=None, extinction=[0]):
         if (isinstance(spaceGroupName, SpaceGroup)):
             self.spaceGroup = spaceGroupName
         else:
@@ -325,7 +323,7 @@ class Model(object):
         self.observed = np.array([peak.sfs2 for peak in self.obspeaks])
         self.background = background
         self.scale = Parameter(scale, name='scale')
-        self.extinction = Parameter(extinction, name='extinction')
+        self.extinctions = [Parameter(extinction[i], name="Extinction"+str(i)) for i in range(len(extinction))]
         self.error = error
         self.refList = hkls
         self.base=0
@@ -375,18 +373,16 @@ class Model(object):
         if self.has_zero:
             return {
                     'scale': self.scale,
-                    'extinction': self.extinction,
                     'zero' : self.zero,
                     'cell': self.cell.parameters(),
                     'atoms': self.atomListModel.parameters()
-                    }
+                    }.update({p.name: p for p in self.extinctions})
         else:
             return {
                     'scale': self.scale,
-                    'extinction': self.extinction,
                     'cell': self.cell.parameters(),
                     'atoms': self.atomListModel.parameters()
-                    }
+                    }.update({p.name: p for p in self.extinctions})
         
     def numpoints(self):
         return len(self.observed)
@@ -430,7 +426,7 @@ class Model(object):
             sList = calcS(self.cell.cell, hkls)
             for i in xrange(len(self.magReflections)):
                 self.magReflections[i].set_magh_s(sList[i])
-            sfs2, svalues = calcXtalIntensity(self.magRefList, self.atomListModel.magAtomList, self.symmetry, self.wavelength, magnetic=True, cell=self.cell.cell, extinctions=[self.extinction.value], scale=self.scale.value)
+            sfs2, svalues = calcXtalIntensity(self.magRefList, self.atomListModel.magAtomList, self.symmetry, self.wavelength, magnetic=True, cell=self.cell.cell, extinctions=[ext.value for ext in self.extinctions], scale=self.scale.value)
             self.magIntensities = sfs2
             #print self.magIntensities
             self.peaks = makeXtalPeaks(sfs2, svalues, self.magRefList)
@@ -440,7 +436,7 @@ class Model(object):
         sList = calcS(self.cell.cell, hkls)
         for i in xrange(len(self.reflections)):
             self.reflections[i].set_reflection_s(sList[i])
-        sfs2, svalues = calcXtalIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[self.extinction.value], scale=self.scale.value)
+        sfs2, svalues = calcXtalIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength, extinctions=[ext.value for ext in self.extinctions], scale=self.scale.value)
         self.intensities = sfs2
         if not self.magnetic: self.peaks = None
         self.peaks = makeXtalPeaks(sfs2, svalues, self.refList, peaks=self.peaks)

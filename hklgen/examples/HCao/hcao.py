@@ -31,11 +31,12 @@ def fit():
     #cell.c.pm(5.0)
     m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell, 
                 (atomList, magAtomList), exclusions, magnetic=True, 
-                symmetry=symmetry, basisSymmetry=basisSymmetry, scale=1.00, 
+                symmetry=symmetry, newSymmetry=basisSymmetry, scale=1.00, 
                 error=error, hkls=refList)
-    m.scale.range(0,1000)
+    m.scale.range(0,2000)
     #m.base.pm(1000)
-    m.extinction.range(0,125.0)
+    for ext in m.extinctions:
+        ext.range(0,100.0)
     for atomModel in m.atomListModel.atomModels:
         #atomModel.x.range(0,1)
         #atomModel.y.range(0,1)
@@ -51,7 +52,7 @@ def fit():
 
 def main():
     cell = crystalCell
-    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=1.00, tt=tt, 
+    S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=947.8, tt=tt, 
                       obsIntensity=sfs2, wavelength=wavelength,
                       plot=True, residuals=True, error=error, 
                       info=True, base=0, refList=refList, extinctions=[0], magAtomList=magAtomList, magnetic=True)
