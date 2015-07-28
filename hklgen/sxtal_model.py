@@ -371,18 +371,24 @@ class Model(object):
 
     def parameters(self):
         if self.has_zero:
-            return {
+            params = {
                     'scale': self.scale,
                     'zero' : self.zero,
                     'cell': self.cell.parameters(),
                     'atoms': self.atomListModel.parameters()
-                    }.update({p.name: p for p in self.extinctions})
+                    }
+            for p in self.extinctions:
+                params[p.name] = p
+            return params            
         else:
-            return {
+            params = { 
                     'scale': self.scale,
                     'cell': self.cell.parameters(),
                     'atoms': self.atomListModel.parameters()
-                    }.update({p.name: p for p in self.extinctions})
+                    }
+            for p in self.extinctions:
+                params[p.name] = p
+            return params
         
     def numpoints(self):
         return len(self.observed)

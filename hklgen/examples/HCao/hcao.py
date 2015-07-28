@@ -32,7 +32,7 @@ def fit():
     m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell, 
                 (atomList, magAtomList), exclusions, magnetic=True, 
                 symmetry=symmetry, newSymmetry=basisSymmetry, scale=1.00, 
-                error=error, hkls=refList)
+                error=error, hkls=refList, extinction=[0,0,0,0])
     m.scale.range(0,2000)
     #m.base.pm(1000)
     for ext in m.extinctions:
