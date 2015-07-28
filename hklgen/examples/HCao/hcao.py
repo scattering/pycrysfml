@@ -12,27 +12,27 @@ import sxtal_model as S
 np.seterr(divide="ignore", invalid="ignore")
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
-#combinedAF4_5K.int
-observedFile = os.path.join(DATAPATH,r"MnWO4_nuclear_5K.int")
+observedFile = os.path.join(DATAPATH,r"combinedAF4_5K.int")
 infoFile = os.path.join(DATAPATH,r"AF4_5k.cfl")
 
 
-#(spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
+(spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 spaceGroup, crystalCell, atomList = H.readInfo(infoFile)
 exclusions = []
 # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
 wavelength, refList, sfs2, error = S.readIntFile(observedFile, kind="int", cell=crystalCell)
 tt = [H.twoTheta(H.calcS(crystalCell, ref.hkl), wavelength) for ref in refList]
 backg = None
-#basisSymmetry = copy(symmetry)
+basisSymmetry = copy(symmetry)
 
 def fit():
     cell = Mod.makeCell(crystalCell, spaceGroup.xtalSystem)
     #cell.a.pm(5.0)
     #cell.c.pm(5.0)
-    m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell,
-                [atomList], exclusions, magnetic=False,
-                 scale=1.00, error=error, hkls=refList)
+    m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell, 
+                (atomList, magAtomList), exclusions, magnetic=True, 
+                symmetry=symmetry, basisSymmetry=basisSymmetry, scale=1.00, 
+                error=error, hkls=refList)
     m.scale.range(0,1000)
     #m.base.pm(1000)
     m.extinction.range(0,125.0)
@@ -54,7 +54,7 @@ def main():
     S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=1.00, tt=tt, 
                       obsIntensity=sfs2, wavelength=wavelength,
                       plot=True, residuals=True, error=error, 
-                      info=True, base=0, refList=refList, extinctions=[0])
+                      info=True, base=0, refList=refList, extinctions=[0], magAtomList=magAtomList, magnetic=True)
 if __name__ == "__main__":
     # program run normally
     main()

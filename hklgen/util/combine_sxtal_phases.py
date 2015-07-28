@@ -27,17 +27,17 @@ if len(sys.argv) >= 4:
             elif j == 4:
                 kvec = np.array([float(phase2[j][1]), float(phase2[j][2]), float(phase2[j][3])])
             elif j > 4:
-                reflection = Reflection([int(phase2[j][0]), int(phase2[j][1]), int(phase2[j][2])], float(phase2[j][3]), float(phase2[j][4]))
+                reflection = Reflection([int(phase2[j][0]), int(phase2[j][1]), int(phase2[j][2])], float(phase2[j][4]), float(phase2[j][5]))
                 if reflection not in reflections:
                     reflections.append(reflection)
                 else:
                     reflections[reflections.index(reflection)].intensity += reflection.intensity
-                    reflections[reflections.index(reflection)].error = np.sqrt(reflection.intensity**2+reflections[reflections.index(reflection)].intensity**2)
+                    reflections[reflections.index(reflection)].error = np.sqrt(reflection.error**2+reflections[reflections.index(reflection)].error**2)
         outfile.write(" ".join(phase1[0]) + "\n")
         outfile.write(" ".join([str(n) for n in kvec]) + "\n")
         outfile.write(str(wavelength) + "\n")
         for ref in reflections:
-            outfile.write("   "+"   ".join([str(n) for n in ref.hkl])+"    1 " + str(ref.intensity) + "   " + str(ref.error) + "  1\n")
+            outfile.write("   "+"   ".join([str(n) for n in ref.hkl])+"   " + str(ref.intensity) + "   " + str(ref.error) + "  1\n")
         outfile.close()
 else:
     print "Usuage is ./combine_sxtal_phases.py nuclear_phase.int magnetic_phase.int combined_out.int"
