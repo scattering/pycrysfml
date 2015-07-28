@@ -54,7 +54,7 @@ def readIntFile(filename, skiplines=3, exclusions=None, kind="dat", cell=None):
             reflection.set_reflection_s(calcS(cell, hkl))
             reflection.set_reflection_mult(1)
             refList[i] = reflection
-        # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
+        # return wavelength, refList, sfs2, error
         return wavelength, refList, data[:,0], data[:,1]      
     
 # Create a list of single crystal peak objects from a list 

@@ -1,0 +1,45 @@
+.atoms
+  .Co
+    .Co B = Parameter(0.63955, name='Co B')
+    .Co occ = Parameter(0.168, name='Co occ')
+    .Co x = Parameter(0.5, name='Co x')
+    .Co y = Parameter(0.6851, name='Co y')
+    .Co z = Parameter(0.25, name='Co z')
+  .Mn1
+    .Mn1 B = Parameter(0.63955, name='Mn1 B')
+    .Mn1 occ = Parameter(0.832, name='Mn1 occ')
+    .Mn1 x = Parameter(0.5, name='Mn1 x')
+    .Mn1 y = Parameter(0.6851, name='Mn1 y')
+    .Mn1 z = Parameter(0.25, name='Mn1 z')
+  .O1
+    .O1 B = Parameter(0.65534, name='O1 B')
+    .O1 occ = Parameter(1, name='O1 occ')
+    .O1 x = Parameter(0.2108, name='O1 x')
+    .O1 y = Parameter(0.10374, name='O1 y')
+    .O1 z = Parameter(0.9404, name='O1 z')
+  .O2
+    .O2 B = Parameter(0.71851, name='O2 B')
+    .O2 occ = Parameter(1, name='O2 occ')
+    .O2 x = Parameter(0.2507, name='O2 x')
+    .O2 y = Parameter(0.37542, name='O2 y')
+    .O2 z = Parameter(0.3941, name='O2 z')
+  .W1
+    .W1 B = Parameter(0.79746, name='W1 B')
+    .W1 occ = Parameter(1, name='W1 occ')
+    .W1 x = Parameter(0, name='W1 x')
+    .W1 y = Parameter(0.1802, name='W1 y')
+    .W1 z = Parameter(0.25, name='W1 z')
+.cell
+  .a = Parameter(4.77, name='a')
+  .b = Parameter(5.72, name='b')
+  .beta = Parameter(90.9, name='beta')
+  .c = Parameter(4.92, name='c')
+.extinction = Parameter(80.6871, name='extinction', bounds=(0,125))
+.scale = Parameter(468.937, name='scale', bounds=(0,1000))
+
+[chisq=6.418(12), nllf=1206.59]
+                              extinction ......|...    80.6871 in (0,125)
+                                   scale ....|.....    468.937 in (0,1000)
+              Parameter       mean  median    best [   68% interval] [   95% interval]
+ 1           extinction   80.7(14)  80.692  80.687 [  79.37   82.15] [  78.12   83.50]
+ 2                scale  469.0(28)  468.98  468.94 [  466.2   472.0] [  463.7   474.6]

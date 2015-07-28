@@ -23,6 +23,7 @@ exclusions = []
 # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
 wavelength, refList, sfs2, error = S.readIntFile(observedFile, kind="int", cell=crystalCell)
 tt = [H.twoTheta(H.calcS(crystalCell, ref.hkl), wavelength) for ref in refList]
+
 backg = None
 #basisSymmetry = copy(symmetry)
 
