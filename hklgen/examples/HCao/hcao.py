@@ -12,16 +12,23 @@ import sxtal_model as S
 np.seterr(divide="ignore", invalid="ignore")
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
-observedFile = os.path.join(DATAPATH,r"combinedAF4_5K.int")
+observedFile = os.path.join(DATAPATH,r"MnWO4_nuclear_5K.int")
 infoFile = os.path.join(DATAPATH,r"AF4_5k.cfl")
-
+magfile = os.path.join(DATAPATH, r"MnWO4_magneticAF4_5K.int")
 
 (spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
 spaceGroup, crystalCell, atomList = H.readInfo(infoFile)
 exclusions = []
 # return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
 wavelength, refList, sfs2, error = S.readIntFile(observedFile, kind="int", cell=crystalCell)
+magrefList, magsfs2, magerror = S.readMagIntFile(magfile, cell=crystalCell)
 tt = [H.twoTheta(H.calcS(crystalCell, ref.hkl), wavelength) for ref in refList]
+sfs2 = list(sfs2)
+sfs2.extend(magsfs2)
+sfs2 = np.array(sfs2)
+tt.extend([H.twoTheta(H.calcS(crystalCell, ref.hkl), wavelength) for ref in magrefList])
+error = list(error)
+error.extend(magerror)
 backg = None
 basisSymmetry = copy(symmetry)
 

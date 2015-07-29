@@ -27,7 +27,20 @@ if len(sys.argv) >= 4:
             elif j == 4:
                 kvec = np.array([float(phase2[j][1]), float(phase2[j][2]), float(phase2[j][3])])
             elif j > 4:
-                reflection = Reflection([int(phase2[j][0]), int(phase2[j][1]), int(phase2[j][2])], float(phase2[j][4]), float(phase2[j][5]))
+                #sign = [0,0,0]
+                hkl = [phase2[j][0], phase2[j][1], phase2[j][2]]
+                #if h[0] == '-': sign[0] = -1 
+                #else: sign[0] = 1
+                #if k[0] == '-': sign[1] = -1
+                #else: sign[1] = 1
+                #if l[0] == '-': sign[2] = -1
+                #else: sign[2] = 1
+                hkl = np.array([float(hkl[0]), float(hkl[1]), float(hkl[2])])
+                #if sum(sign) == -1:
+                    ## assume -k
+                    #pass
+                hkl += kvec
+                reflection = Reflection(list(hkl), float(phase2[j][4]), float(phase2[j][5]))
                 if reflection not in reflections:
                     reflections.append(reflection)
                 else:

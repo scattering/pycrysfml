@@ -55,11 +55,11 @@ def fit():
 def main():
     uvw = [ 1.161020,  -0.658240,   0.29176 ]
     cell = crystalCell
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=9.6286/np.sqrt(2.0),
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=9.6286,
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,
-                  observedData=(tt,observed), base=base_line, error=error, residuals=True)
+                  observedData=(tt,observed), base=base_line, error=error, residuals=True, muR=0.15)
 if __name__ == "__main__":
     # program run normally
     main()

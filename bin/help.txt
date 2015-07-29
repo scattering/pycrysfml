@@ -498,8 +498,6 @@ CLASSES
      |  
      |  gausspeak = FortFuncs_gausspeak(...)
      |  
-     |  gen_powder_satellites = FortFuncs_gen_powder_satellites(...)
-     |  
      |  gen_satellites = FortFuncs_gen_satellites(...)
      |  
      |  genb = FortFuncs_genb(...)
@@ -5842,8 +5840,6 @@ FUNCTIONS
     FortFuncs_fractional_to_zmatrix(...)
     
     FortFuncs_gausspeak(...)
-    
-    FortFuncs_gen_powder_satellites(...)
     
     FortFuncs_gen_satellites(...)
     

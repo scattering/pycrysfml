@@ -844,7 +844,7 @@ def satelliteGen(cell, symmetry, sMax, hkls=None):
 # satelliteGen_python: python implementation used for debugging
 def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
     kvec = [0,0.,0.]
-    kvec = [0.,0,0.1651010]
+    kvec2 = [0.,0,0.1651010]
     refList = ReflectionList(magnetic=True)#[0 for i in range(len(hkls)*2+2)]#ReflectionList(True)
     hkls = []
     for x in range(-7,7):
@@ -864,11 +864,11 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
         hkm = list(np.add(hkl,np.negative(kvec)))
         sp = calcS(cell, hkp)
         sm = calcS(cell, hkm)
-        #hkp2 = list(np.add(hkl, kvec2))
-        #hkm2 = list(np.add(hkl, np.negative(kvec2)))
-        #sp2 = calcS(cell, hkp2)
-        #sm2 = calcS(cell, hkm2)
-        #if sum(hkl) in [2*n for n in range(-3,3)]:
+        hkp2 = list(np.add(hkl, kvec2))
+        hkm2 = list(np.add(hkl, np.negative(kvec2)))
+        sp2 = calcS(cell, hkp2)
+        sm2 = calcS(cell, hkm2)
+       # if sum(hkl) in [2*n for n in range(-3,3)]:
         if sp <= sMax:
             mref = MagReflection(reflection)
             mref.set_magh_h(FloatVector(hkp))
@@ -889,26 +889,26 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
             mref.set_magh_mult(2)
             refList[i] = mref
             i += 1            
-        #if sp2 <= sMax:
-            #mref = MagReflection(reflection)
-            #mref.set_magh_h(FloatVector(hkp2))
-            #mref.set_magh_s(sp2)
-            #mref.set_magh_num_k(1)
-            #mref.set_magh_signp(-1.0)
-            #mref.set_magh_keqv_minus(False)
-            #mref.set_magh_mult(1)
-            #refList[i] = mref
-            #i += 1
-        #if sm2 <= sMax:
-            #mref = MagReflection(reflection)
-            #mref.set_magh_h(FloatVector(hkm2))
-            #mref.set_magh_s(sm2)
-            #mref.set_magh_num_k(1)
-            #mref.set_magh_signp(1.0)
-            #mref.set_magh_keqv_minus(False)
-            #mref.set_magh_mult(1)
-            #refList[i] = mref
-            #i += 1        
+        if sp2 <= sMax:
+            mref = MagReflection(reflection)
+            mref.set_magh_h(FloatVector(hkp2))
+            mref.set_magh_s(sp2)
+            mref.set_magh_num_k(2)
+            mref.set_magh_signp(-1.0)
+            mref.set_magh_keqv_minus(False)
+            mref.set_magh_mult(1)
+            refList[i] = mref
+            i += 1
+        if sm2 <= sMax:
+            mref = MagReflection(reflection)
+            mref.set_magh_h(FloatVector(hkm2))
+            mref.set_magh_s(sm2)
+            mref.set_magh_num_k(2)
+            mref.set_magh_signp(1.0)
+            mref.set_magh_keqv_minus(False)
+            mref.set_magh_mult(1)
+            refList[i] = mref
+            i += 1        
                 #if hkl[2] == 0 and hkl[0] <= 1:
                     ## this part causes double counting
                     #ks = np.add([-hkl[0],-hkl[1],0.0],kvec)
@@ -1001,7 +1001,7 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
 def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
-                  magnetic=False, xtal=False, extinctions=None, scale=None, muR=1.2800):
+                  magnetic=False, xtal=False, extinctions=None, scale=None, muR=None):
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
         sfs2 = calcMagStructFact(refList, atomList, spaceGroup, cell)#np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
@@ -1073,7 +1073,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
                 symmetry=None, basisSymmetry=None, magAtomList=None,
                 uvw=[0,0,1], scale=1,
                 magnetic=False, info=False, plot=False, saveFile=None,
-                observedData=(None,None), labels=None, base=0, residuals=False, error=None):
+                observedData=(None,None), labels=None, base=0, residuals=False, error=None, muR=None):
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(180.0, wavelength)
     if magnetic:
@@ -1098,18 +1098,18 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=True)
         magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#satelliteGen_python(cell, sMax, None)#
-        newList = []
-        for ref in magRefList:
-            if ref not in newList:
-                newList.append(ref)
-        magRefList = ReflectionList(newList)
+        #newList = []
+        #for ref in magRefList:
+            #if ref not in newList:
+                #newList.append(ref)
+        #magRefList = ReflectionList(newList)
         print "length of reflection list " + str(len(magRefList))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
-                                       wavelength, cell, True)
+                                       wavelength, cell, True, muR=muR)
         # add in structural peaks
         if (atomList == None): atomList = readInfo(infoFile)[2]
         #refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
-        intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
+        intensities = calcIntensity(refList, atomList, spaceGroup, wavelength, muR=muR)
         reflections = magRefList[:] + refList[:]
         intensities = np.append(magIntensities, intensities)
     else:
@@ -1120,7 +1120,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (atomList == None): atomList = infofile[2]         
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         reflections = refList[:]
-        intensities = calcIntensity(refList, atomList, spaceGroup, wavelength)
+        intensities = calcIntensity(refList, atomList, spaceGroup, wavelength, muR=muR)
     peaks = makePeaks(reflections, uvw, intensities, scale, wavelength, base=base)
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     tt = np.linspace(ttMin, ttMax, numPoints)

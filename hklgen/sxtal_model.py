@@ -56,7 +56,28 @@ def readIntFile(filename, skiplines=3, exclusions=None, kind="dat", cell=None):
             refList[i] = reflection
         # return wavelength, refList, sfs2, error
         return wavelength, refList, data[:,0], data[:,1]      
-    
+def readMagIntFile(filename, cell=None):
+    f = [line.strip().split() for line in open(filename)]
+    hkls = []
+    sfs2 = []
+    error = []
+    kvec = []
+    reflist = []
+    for line in f:
+        if len(line) == 7:
+            hkls.append([float(line[0]), float(line[1]), float(line[2])])
+            sfs2.append(float(line[4]))
+            error.append(float(line[5]))
+        elif len(line) == 4:
+            kvec = np.array([float(line[1]), float(line[2]), float(line[3])])
+    for hkl in hkls:
+        hkl = hkl+kvec
+        reflection = MagReflection()
+        reflection.set_magh_h(FloatVector(hkl))
+        reflection.set_magh_s(calcS(cell, FloatVector(hkl)))
+        reflection.set_magh_mult(1)
+        reflist.append(reflection)
+    return ReflectionList(reflist), sfs2, error
 # Create a list of single crystal peak objects from a list 
 # of structure factors squared and sin(theta)/lambda values
 def makeXtalPeaks(sfs2, svalues, refList, peaks=None):
