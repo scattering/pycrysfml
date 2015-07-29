@@ -35,7 +35,7 @@ def fit():
     cell.c.pm(0.5)
     m = Mod.Model(tt, observed, backg,  1.808975,  -1.476480,   0.446286 , wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=base_line, scale=93.662/6.5, eta=0.0, zero=0.03994, error=error)
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=base_line, scale=94.5, eta=0.0, zero=0.03994, error=error)
     m.u.range(0,10)
     m.v.range(-10,0)
     m.w.range(0,10)
@@ -53,9 +53,9 @@ def fit():
     return M
 
 def main():
-    uvw = [1.814645,  -1.482013,   0.447611 ]
+    uvw = [1.814655,  -1.482037,  0.447617 ]
     cell = crystalCell
-    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=94.5/94.5,
+    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=94.5,
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
                   magnetic=True, info=True, plot=True,

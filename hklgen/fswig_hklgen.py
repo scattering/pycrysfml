@@ -947,6 +947,16 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
                 #print hkl
     refList.set_magh_list_nref(i)
     return refList
+def AbsorptionCorrection(tt, muR):
+    Sth2 = np.sin((tt/2.0)*np.pi/180.0)**2
+    T0 = 16.0/(3.*np.pi)
+    T1 = (25.99978-0.01911*Sth2**0.25)*np.exp(-0.024551*Sth2)+ \
+            0.109561*np.sqrt(Sth2)-26.04556
+    T2 = -0.02489-0.39499*Sth2+1.219077*Sth2**1.5- \
+            1.31268*Sth2**2+0.871081*Sth2**2.5-0.2327*Sth2**3
+    T3 = 0.003045+0.018167*Sth2-0.03305*Sth2**2
+    Trns = -T0*muR-T1*muR**2-T2*muR**3-T3*muR**4
+    return np.exp(Trns)
 # calcStructFact: calculates the structure factor squared for a list of planes
 #   using provided atomic positions
 def calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=False):
@@ -991,7 +1001,7 @@ def calcMagStructFact(refList, atomList, symmetry, cell):
 # calcIntensity: calculates the intensity for a given set of reflections,
 #   based on the structure factor
 def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
-                  magnetic=False, xtal=False, extinctions=None, scale=None):
+                  magnetic=False, xtal=False, extinctions=None, scale=None, muR=1.2800):
     # TODO: make sure magnetic phase factor is properly being taken into account
     if (refList.magnetic):
         sfs2 = calcMagStructFact(refList, atomList, spaceGroup, cell)#np.array([np.sum(np.array(sf)*np.conj(np.array(sf))) for sf in sfs])
@@ -1005,7 +1015,8 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    return sfs2 #* lorentz
+    if muR != None: return sfs2 *lorentz * AbsorptionCorrection(tt, muR)
+    return sfs2 * lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
 #   diffraction pattern
@@ -1255,6 +1266,7 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
         resid = observed - intensityCalc
         pylab.subplot(212)
         pylab.plot(ttObs, resid, label="Residuals")
+        pylab.yticks(range(0,int(max(intensity)), int(max(intensity))/10))
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
