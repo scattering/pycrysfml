@@ -9,10 +9,11 @@ except(ImportError):
     pass
 # Class Objects
 class sXtalPeak(object):
-    def __init__(self, sfs2, svalue, hkl):
+    def __init__(self, sfs2, svalue, hkl, error=None):
         self.sfs2 = sfs2
         self.svalue = svalue
         self.hkl = hkl
+        self.error = error
     def __eq__(self, other):
         #if self.svalue == other.svalue: print self.svalue, " != ", other.svalue
         #return approxEq(self.svalue, other.svalue, 0.00001)
@@ -80,16 +81,21 @@ def readMagIntFile(filename, cell=None):
     return ReflectionList(reflist), sfs2, error
 # Create a list of single crystal peak objects from a list 
 # of structure factors squared and sin(theta)/lambda values
-def makeXtalPeaks(sfs2, svalues, refList, peaks=None):
+def makeXtalPeaks(sfs2, svalues, refList, peaks=None, error=None):
     if peaks == None:
         peaks = []
     for i in range(len(svalues)):
-        p = sXtalPeak(sfs2[i], svalues[i], refList[i].hkl)
+        if error != None:
+            p = sXtalPeak(sfs2[i], svalues[i], refList[i].hkl, error[i])
+        else:
+            p = sXtalPeak(sfs2[i], svalues[i], refList[i].hkl)
         if p not in peaks:
             peaks.append(p)
         else:
             #print "Peak at: ", svalues[i], "adding: ", peaks[peaks.index(p)].sfs2, " to: ", sfs2[i], " = ", peaks[peaks.index(p)].sfs2+sfs2[i]
             peaks[peaks.index(p)].sfs2 += sfs2[i]
+            if peaks[peaks.index(p)].error != None:
+                peaks[peaks.index(p)].error = np.sqrt(peaks[peaks.index(p)].error**2+error[i]**2)
             #peaks.append(p)
             pass
     return peaks
@@ -189,7 +195,7 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
             if (atomList == None): atomList = infofile[2]         
         reflections = refList[:]
         sfs2, svalues = calcXtalIntensity(refList, atomList, spaceGroup, wavelength, extinctions=extinctions, scale=scale)
-        peaks = makeXtalPeaks(sfs2, svalues, refList)
+        peaks = makeXtalPeaks(sfs2, svalues, refList, error=error)
         intensities = getXtalIntensity(peaks, sList=[getS(value, wavelength) for value in tt], background=background, exclusions=exclusions, base=base, scale=scale)
     if info:
         if magnetic:
@@ -207,7 +213,7 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
 def plotXtalPattern(peaks, sList, obsIntensity, background=None, 
                     exclusions=None, labels=None, residuals=False, base=0, scale=1, error=None, refList=None):
     # plot single crystal intesities vs q as single points
-    obspeaks = makeXtalPeaks(obsIntensity, sList, refList)
+    obspeaks = makeXtalPeaks(obsIntensity, sList, refList, error=error)
     sList = np.array([peak.svalue for peak in obspeaks])
     obsIntensity = np.array([peak.sfs2 for peak in obspeaks])
     calcIntensity, scalc = getXtalIntensity(peaks, sList=sList, exclusions=exclusions, scale=scale)
@@ -215,6 +221,7 @@ def plotXtalPattern(peaks, sList, obsIntensity, background=None,
     if (obsIntensity != None):
         pylab.plot(sList*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
     pylab.plot(scalc*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
+    error = [peak.error for peak in obspeaks]
     pylab.errorbar(sList*(4*np.pi), obsIntensity, yerr=error, fmt=None, ecolor='g')
     pylab.xlabel("Q")
     pylab.ylabel("Intensity")
@@ -339,7 +346,7 @@ class Model(object):
         else:
             self.spaceGroup = SpaceGroup(spaceGroupName)
         self.tt = np.array(tt)
-        self.obspeaks = makeXtalPeaks(observed, [getS(ttval, wavelength) for ttval in self.tt], refList=hkls)
+        self.obspeaks = makeXtalPeaks(observed, [getS(ttval, wavelength) for ttval in self.tt], refList=hkls, error=error)
         self.sList = np.array([peak.svalue for peak in self.obspeaks])
         self.observed = np.array([peak.sfs2 for peak in self.obspeaks])
         self.background = background

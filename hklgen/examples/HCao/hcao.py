@@ -28,7 +28,8 @@ sfs2.extend(magsfs2)
 sfs2 = np.array(sfs2)
 tt.extend([H.twoTheta(H.calcS(crystalCell, ref.hkl), wavelength) for ref in magrefList])
 error = list(error)
-error.extend(magerror)
+error.extend(list(magerror))
+error2 = [item for item in error]
 backg = None
 basisSymmetry = copy(symmetry)
 
@@ -61,7 +62,7 @@ def main():
     cell = crystalCell
     S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=186.0, tt=tt, 
                       obsIntensity=sfs2, wavelength=wavelength,
-                      plot=True, residuals=True, error=error, 
+                      plot=True, residuals=True, error=error2, 
                       info=True, base=0, refList=refList, extinctions=[ 3.607,2.156,4.335,0.4110,0.2721,0.0], magAtomList=magAtomList, magnetic=True)
 if __name__ == "__main__":
     # program run normally
