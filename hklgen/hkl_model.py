@@ -505,8 +505,8 @@ class AtomModel(object):
 
     def update(self):
         self.atom.setBIso(self.B.value)
-        occ = self.occ.value * self.atom.multip() / self.sgmultip
-        self.atom.setOccupancy(occ)
+        #occ = self.occ.value * self.atom.multip() / self.sgmultip
+        #self.atom.setOccupancy(occ)
         self.atom.setCoords([float(self.x), float(self.y), float(self.z)])
         
         if self.magnetic:

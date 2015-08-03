@@ -51,7 +51,7 @@ def fit():
                 pass
             #atomModel.phase.range(-np.pi*2, np.pi*2)
     m.atomListModel["Mn1"].phase.range(0, np.pi*2)
-    #m.atomListModel["Mn2"].phase.range(-np.pi*2, 0)
+    m.atomListModel["Mn2"].phase.range(-np.pi*2, 0)
     M = bumps.FitProblem(m)
     M.model_update()
     return M
