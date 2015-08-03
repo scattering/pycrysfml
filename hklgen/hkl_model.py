@@ -493,14 +493,14 @@ class AtomModel(object):
         for i in xrange(self.numVectors):
             self.coeffs[i] = Parameter(self.magAtom.basis()[0][i],
                                        name=self.atom.label() + " C" + str(i))
-#        self.phase = Parameter(0, name=self.atom.label + " phase")
+        self.phase = Parameter(0, name=self.atom.label() + " phase")
     
     def parameters(self):
         params = {self.B.name: self.B, self.occ.name: self.occ,
                   self.x.name: self.x, self.y.name: self.y, self.z.name: self.z}
         if self.magnetic:
             params.update([(coeff.name, coeff) for coeff in self.coeffs])
-#            params.update([(self.phase.name, self.phase)])
+            params.update([(self.phase.name, self.phase)])
         return params
 
     def update(self):
@@ -519,5 +519,5 @@ class AtomModel(object):
                 #self.magAtom.basis[0][i] = self.coeffs[i].value
                 self.magAtom.setBasis_ind(0,i, self.coeffs[i].value)
 #            print >>sys.stderr, self.magAtom.label(), self.magAtom.basis()
-#            self.magAtom.phase[0] = self.phase.value
+            self.magAtom.set_phase(self.phase.value)
 

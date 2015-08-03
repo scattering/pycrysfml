@@ -333,6 +333,14 @@ class MagAtom(matom_type):
         return getMatom_lab(self)
     def setLabel(self, label):
         self.set_matom_lab(label)
+    @property
+    def phase(self):
+        ph = FloatVector([0 for i in range(12)])
+        self.get_matom_mphas(ph)
+        return list(ph)
+    def set_phase(self, value):
+        ph = FloatVector([value, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        self.set_matom_mphas(ph)
     def debug(self):
         funcs.printbasis(self)
 # AtomList attributes:
