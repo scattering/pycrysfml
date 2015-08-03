@@ -42,7 +42,7 @@ def fit():
     #m.scale.range(0,100)
     #m.eta.range(0,1)
     #m.base.pm(500)
-    #m.zero.pm(0.25)
+    m.zero.pm(0.25)
     for atomModel in m.atomListModel.atomModels:
         if atomModel.magnetic:
             for coeff in atomModel.coeffs:
@@ -51,7 +51,7 @@ def fit():
                 pass
             #atomModel.phase.range(-np.pi*2, np.pi*2)
     m.atomListModel["Mn1"].phase.range(0, np.pi*2)
-    m.atomListModel["Mn2"].phase.range(-np.pi*2, 0)
+    #m.atomListModel["Mn2"].phase.range(-np.pi*2, 0)
     M = bumps.FitProblem(m)
     M.model_update()
     return M
