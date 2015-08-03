@@ -161,7 +161,7 @@ class Model(object):
 
     def __init__(self, tt, observed, background, u, v, w,
                  wavelength, spaceGroupName, cell, atoms, exclusions=None,
-                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None, error=None, hkls=None):
+                 magnetic=False, symmetry=None, newSymmetry=None, base=None, scale=1, eta=0,zero=None, error=None, hkls=None, muR=None):
         if (isinstance(spaceGroupName, SpaceGroup)):
             self.spaceGroup = spaceGroupName
         else:
@@ -175,6 +175,7 @@ class Model(object):
         self.scale = Parameter(scale, name='scale')
         self.eta = Parameter(eta, name='eta')
         self.error = error
+        self.muR = muR
         # hkls for single crystal only
         if hkls != None:
             self.refList = hkls
@@ -330,7 +331,7 @@ class Model(object):
         ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
         for i in xrange(len(self.reflections)):
             self.reflections[i].set_reflection_s(getS(ttPos[i], self.wavelength))
-        self.intensities = calcIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength)
+        self.intensities = calcIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength, muR=self.muR)
         self.peaks = makePeaks(self.reflections,
                                        [self.u.value, self.v.value, self.w.value],
                                        self.intensities, self.scale.value,
@@ -349,7 +350,7 @@ class Model(object):
             self.magIntensities = calcIntensity(self.magRefList,
                                                 self.atomListModel.magAtomList, 
                                                 self.newSymmetry, self.wavelength,
-                                                self.cell.cell, True)
+                                                self.cell.cell, True, muR=self.muR)
             #print self.magIntensities
             self.peaks.extend(makePeaks(self.magReflections,
                                            [self.u.value, self.v.value, self.w.value],
@@ -505,8 +506,8 @@ class AtomModel(object):
 
     def update(self):
         self.atom.setBIso(self.B.value)
-        #occ = self.occ.value * self.atom.multip() / self.sgmultip
-        #self.atom.setOccupancy(occ)
+        occ = self.occ.value * self.atom.multip() / self.sgmultip
+        self.atom.setOccupancy(occ)
         self.atom.setCoords([float(self.x), float(self.y), float(self.z)])
         
         if self.magnetic:

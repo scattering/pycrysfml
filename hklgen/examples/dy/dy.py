@@ -35,7 +35,7 @@ def fit():
     #cell.c.pm(0.5)
     m = Mod.Model(tt, observed, backg,   1.814691,  -1.482098,   0.447632 , wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
-                symmetry=symmetry, newSymmetry=basisSymmetry, base=base_line, scale=94.508, eta=0.0, zero=0.04101, error=error)
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=base_line, scale=94.508, eta=0.0, zero=0.04101, error=error, muR=1.280)
     #m.u.range(0,10)
     #m.v.range(-10,0)
     #m.w.range(0,10)

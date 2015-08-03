@@ -1137,9 +1137,9 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
     if info:
         if magnetic:
             printInfo(cell, spaceGroup, (atomList, magAtomList), (refList, magRefList),
-                      wavelength, basisSymmetry)
+                      wavelength, basisSymmetry, muR=muR)
         else:
-            printInfo(cell, spaceGroup, atomList, refList, wavelength)
+            printInfo(cell, spaceGroup, atomList, refList, wavelength, muR=muR)
     if plot:
         plotPattern(peaks, background, observedData[0], observedData[1],
                     ttMin, ttMax, ttStep, exclusions, labels=labels, base=base, residuals=residuals, error=error)
@@ -1151,7 +1151,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
 
 # printInfo: prints out information about the provided space group and atoms,
 #   as well as the generated reflections
-def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
+def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, muR=None):
     print "Wavelength:", wavelength
     if (isinstance(refLists, ReflectionList)):
         atomLists = (atomLists,)
@@ -1215,7 +1215,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None):
         h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in xrange(3))
         multip = [str(ref.multip) for ref in refList]
         tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
-        intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject, wavelength, cell, magnetic)]
+        intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject, wavelength, cell, magnetic, muR=muR)]
         #dtype = [('tt', float),('h', 'S10'), ('k', 'S10'), ('l','S10'), ('intensity', 'S10')]
         #array1 = np.array([(tt[i], str(float(h[i])+0.5),k[i],str(float(l[i])+0.5),intensity[i]) for i in range(len(tt))], dtype=dtype)
         #array2 = np.sort(array1, order='tt')
