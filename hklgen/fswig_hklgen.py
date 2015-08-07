@@ -338,8 +338,14 @@ class MagAtom(matom_type):
         ph = FloatVector([0 for i in range(12)])
         self.get_matom_mphas(ph)
         return list(ph)
+    @property
+    def phase_multiplier(self):
+        phm = FloatVector([0 for i in range(12)])
+        self.get_matom_mmphas(phm)
+        return list(phm)
     def set_phase(self, value):
-        ph = FloatVector([value, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        #ph = FloatVector([value, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        ph = FloatVector([value for i in range(12)])
         self.set_matom_mphas(ph)
     def debug(self):
         funcs.printbasis(self)
@@ -1103,6 +1109,10 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         funcs.set_spacegroup(latt, spg)
         #funcs.write_spacegroup(spg)
         # use this space group to generate magnetic hkls (refList2)
+        #for i in range(len(magAtomList)):
+            #matom = magAtomList[i]
+            #matom.set_matom_mmphas(FloatVector([1.0 for j in range(12)]))
+            #magAtomList[i] = matom
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         refList2 = hklGen(spg, cell, sMin, np.sin(179.5/2)/wavelength, True, xtal=True)
         magRefList = satelliteGen(cell, symmetry, sMax, hkls=refList2)#satelliteGen_python(cell, sMax, None)#

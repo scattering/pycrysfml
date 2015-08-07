@@ -59,6 +59,10 @@ def fit():
 def main():
     uvw = [1.814655,  -1.482037,  0.447617 ]
     cell = crystalCell
+    for i in range(len(magAtomList)):
+        matom = magAtomList[i]
+        matom.set_phase(matom.phase[0])
+        magAtomList[i] = matom
     H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=94.5,
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
