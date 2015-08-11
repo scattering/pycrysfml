@@ -72,6 +72,7 @@ def readMagIntFile(filename, cell=None):
         elif len(line) == 4:
             kvec = np.array([float(line[1]), float(line[2]), float(line[3])])
     for hkl in hkls:
+        # add check for k == -k
         hkl = hkl+kvec
         reflection = MagReflection()
         reflection.set_magh_h(FloatVector(hkl))

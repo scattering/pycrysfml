@@ -11,7 +11,7 @@ ATOM O2      O       0.25070  0.37542  0.39410  0.71851  1.00000
 Mag_Structure
 lattice P -1
 kvect 0.50000 0.00000 0.00000
-!      n  nba1  nba2
+!      n  nba1
 IRREPS 1   2  
 icomp   0 0
 SYMM X, Y, Z
