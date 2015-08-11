@@ -30,28 +30,28 @@ basisSymmetry = copy(symmetry)
 
 def fit():
     cell = Mod.makeCell(crystalCell, xtalsys(spaceGroup))
-    #cell.a.pm(0.5)
-    #cell.b.pm(0.5)
-    #cell.c.pm(0.5)
+    cell.a.pm(0.5)
+    cell.b.pm(0.5)
+    cell.c.pm(0.5)
     m = Mod.Model(tt, observed, backg,   1.814691,  -1.482098,   0.447632 , wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
                 symmetry=symmetry, newSymmetry=basisSymmetry, base=base_line, scale=94.508, eta=0.0, zero=0.04101, error=error, muR=1.280)
-    #m.u.range(0,10)
-    #m.v.range(-10,0)
-    #m.w.range(0,10)
-    #m.scale.range(0,100)
-    #m.eta.range(0,1)
-    #m.base.pm(500)
+    m.u.range(0,10)
+    m.v.range(-10,0)
+    m.w.range(0,10)
+    m.scale.range(0,200)
+    m.eta.range(0,1)
+    m.base.pm(1000)
     m.zero.pm(0.25)
     for atomModel in m.atomListModel.atomModels:
         if atomModel.magnetic:
             for coeff in atomModel.coeffs:
                 #coeff.range(-10, 10)
-                #coeff.range(-20,20)
-                pass
+                coeff.range(-20,20)
+                #pass
             #atomModel.phase.range(-np.pi*2, np.pi*2)
-    m.atomListModel["Mn1"].phase.range(-4*np.pi, np.pi*4)
-    m.atomListModel["Mn2"].phase.range(-4*np.pi, np.pi*4)
+    m.atomListModel["Mn1"].phase.range(0, np.pi*2)
+    m.atomListModel["Mn2"].phase.range(-2*np.pi, 0)
     M = bumps.FitProblem(m)
     M.model_update()
     return M
