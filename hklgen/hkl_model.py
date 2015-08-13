@@ -400,9 +400,11 @@ class AtomListModel(object):
                 for model in self.atomModels:
                     if (magAtom.label().rstrip() == model.atom.label().rstrip() and \
                         magAtom.sameSite(model.atom)):
-                        model.addMagAtom(magAtom, self.symmetry)            
+                        model.addMagAtom(magAtom, self.symmetry)
+                        print magAtom.label()
             index = 0
             for magAtom in self.magAtoms:
+                print index, magAtom.label()
                 self.magAtomList[index] = magAtom
                 self.magAtoms[index] = magAtom
                 index += 1              
@@ -438,11 +440,12 @@ class AtomListModel(object):
             atomModel.update()
             self.atomList[I2] = atomModel.atom
             I2 += 1
-            if hasattr(atomModel, 'magAtom'):
-                self.magAtomList[index] = atomModel.magAtom
-                self.magAtoms[index] = atomModel.magAtom
-                #print atomModel.magAtom.basis()
-                index += 1
+            if hasattr(atomModel, 'magAtoms') and atomModel.magAtoms != None:
+                for matom in atomModel.magAtoms:
+                    self.magAtomList[index] = matom
+                    self.magAtoms[index] = matom
+                    #print atomModel.magAtom.basis()
+                    index += 1
         # update basis vectors instead of coefficients (only needed in special
         #   circumstances)
         #if self.magnetic:
@@ -474,6 +477,10 @@ class AtomModel(object):
 #        else:
         self.atom = atom
         self.magnetic = False
+        self.magAtoms = None
+        self.matom_index = -1
+        self.coeffs = None
+        self.phases = None
         self.sgmultip = sgmultip
         self.atom.set_atom_lab(rstrip(self.atom.label()))
         self.B = Parameter(self.atom.BIso(), name=self.atom.label() + " B")
@@ -485,23 +492,41 @@ class AtomModel(object):
     
     def addMagAtom(self, magAtom, symmetry):
         # add a secondary magnetic atom object to the model
-        self.magAtom = magAtom
-        self.magAtom.setLabel(rstrip(self.magAtom.label()))
+        if self.magAtoms != None:
+            self.magAtoms.append(magAtom)
+        else:
+            self.magAtoms = [magAtom]
+        self.matom_index += 1
+        matom = self.magAtoms[self.matom_index]
+        matom.setLabel(rstrip(matom.label()))
         self.symmetry = symmetry
         self.magnetic = True
-        self.numVectors = self.symmetry.numBasisFunc()[self.magAtom.irrepNum()[0]-1]
-        self.coeffs = [None] * self.numVectors
+        self.numVectors = self.symmetry.numBasisFunc()[self.magAtoms[self.matom_index].irrepNum()[0]-1]
+        if self.matom_index != 0:
+            param_label = " kvect: " + str(self.matom_index+1)
+        else:
+            param_label = ""        
+        if self.coeffs == None:
+            self.coeffs = [None] * self.numVectors
+            j = 0
+        else:
+            self.coeffs.extend([None] * self.numVectors)
+            j = len(self.coeffs)
         for i in xrange(self.numVectors):
-            self.coeffs[i] = Parameter(self.magAtom.basis()[0][i],
-                                       name=self.atom.label() + " C" + str(i))
-        self.phase = Parameter(0, name=self.atom.label() + " phase")
+            self.coeffs[i+j] = Parameter(matom.basis()[0][i], name=self.atom.label() + " C" + str(i) + param_label)
+        if self.phases == None:
+            self.phases = [Parameter(matom.phase[0], name=self.atom.label() + " phase"+param_label)]
+        else:
+            self.phases.append(Parameter(matom.phase[0], name=self.atom.label() + " phase"+param_label))
+        self.magAtoms[self.matom_index] = matom
     
     def parameters(self):
         params = {self.B.name: self.B, self.occ.name: self.occ,
                   self.x.name: self.x, self.y.name: self.y, self.z.name: self.z}
         if self.magnetic:
             params.update([(coeff.name, coeff) for coeff in self.coeffs])
-            params.update([(self.phase.name, self.phase)])
+            for phase in self.phases:
+                params.update([(phase.name, phase)])
         return params
 
     def update(self):
@@ -511,14 +536,15 @@ class AtomModel(object):
         self.atom.setCoords([float(self.x), float(self.y), float(self.z)])
         
         if self.magnetic:
-            self.magAtom.setBIso(self.B.value)
+            for i in range(len(self.magAtoms)):
+                matom = self.magAtoms[i]
+                matom.setBIso(self.B.value)
+                matom.setCoords([float(self.x), float(self.y), float(self.z)])
+                for j in xrange(self.numVectors):
+                    #self.magAtom.basis[0][i] = self.coeffs[i].value
+                    matom.setBasis_ind(0,j, self.coeffs[j+i].value)
+                matom.set_phase(self.phases[i].value)
+                self.magAtoms[i] = matom
             # following line breaks magnetism if magnetic occupancies are different from nuclear occupancies
             # It may however, be needed in order to fit the occupancy
-           # self.magAtom.setOccupancy(occ) 
-            self.magAtom.setCoords([float(self.x), float(self.y), float(self.z)])
-            for i in xrange(self.numVectors):
-                #self.magAtom.basis[0][i] = self.coeffs[i].value
-                self.magAtom.setBasis_ind(0,i, self.coeffs[i].value)
-#            print >>sys.stderr, self.magAtom.label(), self.magAtom.basis()
-            self.magAtom.set_phase(self.phase.value)
-
+           # self.magAtom.setOccupancy(occ)

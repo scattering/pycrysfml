@@ -31,7 +31,7 @@ basisSymmetry = copy(symmetry)
 def fit():
     cell = Mod.makeCell(crystalCell, xtalsys(spaceGroup))
     cell.a.pm(0.5)
-    cell.b.pm(0.5)
+#    cell.b.pm(0.5)
     cell.c.pm(0.5)
     m = Mod.Model(tt, observed, backg,   1.814691,  -1.482098,   0.447632 , wavelength, spaceGroup, cell,
                 (atomList, magAtomList), exclusions, magnetic=True,
@@ -50,8 +50,8 @@ def fit():
                 coeff.range(-20,20)
                 #pass
             #atomModel.phase.range(-np.pi*2, np.pi*2)
-    m.atomListModel["Mn1"].phase.range(0, np.pi*2)
-    m.atomListModel["Mn2"].phase.range(-2*np.pi, 0)
+    #m.atomListModel["Mn1"].phase.range(0, np.pi*2)
+    #m.atomListModel["Mn2"].phase.range(-2*np.pi, 0)
     M = bumps.FitProblem(m)
     M.model_update()
     return M
@@ -59,10 +59,6 @@ def fit():
 def main():
     uvw = [1.814655,  -1.482037,  0.447617 ]
     cell = crystalCell
-    for i in range(len(magAtomList)):
-        matom = magAtomList[i]
-        matom.set_phase(matom.phase[0])
-        magAtomList[i] = matom
     H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=94.5,
                   ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
                   basisSymmetry=basisSymmetry, magAtomList=magAtomList,
