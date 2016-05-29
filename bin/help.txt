@@ -92,6 +92,7 @@ CLASSES
         reflection_list_type
         reflection_type
         sbvs_par_type
+        scattering_species_type
         space_group_type
         spgr_info_type
         sxd_val_type
@@ -316,6 +317,8 @@ CLASSES
      |  ----------------------------------------------------------------------
      |  Static methods defined here:
      |  
+     |  additional_scattering_factors = FortFuncs_additional_scattering_factors(...)
+     |  
      |  ag_theta = FortFuncs_ag_theta(...)
      |  
      |  al_theta = FortFuncs_al_theta(...)
@@ -339,6 +342,8 @@ CLASSES
      |  allocate_matom_list = FortFuncs_allocate_matom_list(...)
      |  
      |  allocate_point_list = FortFuncs_allocate_point_list(...)
+     |  
+     |  allocate_scattering_species = FortFuncs_allocate_scattering_species(...)
      |  
      |  allocate_vparam = FortFuncs_allocate_vparam(...)
      |  
@@ -642,8 +647,6 @@ CLASSES
      |  
      |  hk_equiv = FortFuncs_hk_equiv(...)
      |  
-     |  hkl_lat_absent = FortFuncs_hkl_lat_absent(...)
-     |  
      |  hklgen_sxtal_list = FortFuncs_hklgen_sxtal_list(...)
      |  
      |  hklgen_sxtal_reflection = FortFuncs_hklgen_sxtal_reflection(...)
@@ -755,6 +758,8 @@ CLASSES
      |  matrix_diageigen = FortFuncs_matrix_diageigen(...)
      |  
      |  matrix_inverse = FortFuncs_matrix_inverse(...)
+     |  
+     |  mhkl_absent = FortFuncs_mhkl_absent(...)
      |  
      |  molcrys_to_atomlist = FortFuncs_molcrys_to_atomlist(...)
      |  
@@ -1080,6 +1085,8 @@ CLASSES
      |  
      |  write_mag_structure_factors = FortFuncs_write_mag_structure_factors(...)
      |  
+     |  write_magnetic_space_group = FortFuncs_write_magnetic_space_group(...)
+     |  
      |  write_magnetic_structure = FortFuncs_write_magnetic_structure(...)
      |  
      |  write_mcif = FortFuncs_write_mcif(...)
@@ -1163,7 +1170,7 @@ CLASSES
      |  __swig_destroy__ = <built-in function delete_FortFuncs>
      |  
      |  
-     |  __swig_getmethods__ = {'ag_theta': <function <lambda>>, 'al_theta': <f...
+     |  __swig_getmethods__ = {'additional_scattering_factors': <function <lam...
      |  
      |  __swig_setmethods__ = {}
     
@@ -1501,6 +1508,8 @@ CLASSES
      |  set_atom_list_element(self, *args)
      |  
      |  set_atom_list_natoms(self, *args)
+     |  
+     |  set_form_factors(self, *args)
      |  
      |  ----------------------------------------------------------------------
      |  Data descriptors defined here:
@@ -5002,6 +5011,40 @@ CLASSES
      |  
      |  __swig_setmethods__ = {'data_ptr': <built-in function sbvs_par_type_da...
     
+    class scattering_species_type(__builtin__.object)
+     |  Methods defined here:
+     |  
+     |  __del__ lambda self
+     |  
+     |  __getattr__ lambda self, name
+     |  
+     |  __init__(self)
+     |  
+     |  __repr__ = _swig_repr(self)
+     |  
+     |  __setattr__ lambda self, name, value
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  data_ptr
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __swig_destroy__ = <built-in function delete_scattering_species_type>
+     |  
+     |  
+     |  __swig_getmethods__ = {'data_ptr': <built-in function scattering_speci...
+     |  
+     |  __swig_setmethods__ = {'data_ptr': <built-in function scattering_speci...
+    
     class space_group_type(__builtin__.object)
      |  Methods defined here:
      |  
@@ -5659,6 +5702,8 @@ FUNCTIONS
     
     FloatVector_swigregister(...)
     
+    FortFuncs_additional_scattering_factors(...)
+    
     FortFuncs_ag_theta(...)
     
     FortFuncs_al_theta(...)
@@ -5682,6 +5727,8 @@ FUNCTIONS
     FortFuncs_allocate_matom_list(...)
     
     FortFuncs_allocate_point_list(...)
+    
+    FortFuncs_allocate_scattering_species(...)
     
     FortFuncs_allocate_vparam(...)
     
@@ -5985,8 +6032,6 @@ FUNCTIONS
     
     FortFuncs_hk_equiv(...)
     
-    FortFuncs_hkl_lat_absent(...)
-    
     FortFuncs_hklgen_sxtal_list(...)
     
     FortFuncs_hklgen_sxtal_reflection(...)
@@ -6098,6 +6143,8 @@ FUNCTIONS
     FortFuncs_matrix_diageigen(...)
     
     FortFuncs_matrix_inverse(...)
+    
+    FortFuncs_mhkl_absent(...)
     
     FortFuncs_molcrys_to_atomlist(...)
     
@@ -6424,6 +6471,8 @@ FUNCTIONS
     FortFuncs_write_info_refparams(...)
     
     FortFuncs_write_mag_structure_factors(...)
+    
+    FortFuncs_write_magnetic_space_group(...)
     
     FortFuncs_write_magnetic_structure(...)
     
@@ -6796,6 +6845,8 @@ FUNCTIONS
     reflection_type_swigregister(...)
     
     sbvs_par_type_swigregister(...)
+    
+    scattering_species_type_swigregister(...)
     
     space_group_type_swigregister(...)
     

@@ -421,6 +421,7 @@ class atom_list_type(_object):
         except: self.this = this
     __swig_destroy__ = _pycrysfml.delete_atom_list_type
     __del__ = lambda self : None;
+    def set_form_factors(self, *args): return _pycrysfml.atom_list_type_set_form_factors(self, *args)
     def get_atom_list_element(self, *args): return _pycrysfml.atom_list_type_get_atom_list_element(self, *args)
     def set_atom_list_element(self, *args): return _pycrysfml.atom_list_type_set_atom_list_element(self, *args)
     def get_atom_list_natoms(self): return _pycrysfml.atom_list_type_get_atom_list_natoms(self)
@@ -1426,8 +1427,8 @@ class FortFuncs(_object):
     if _newclass:write_restraints_obscalc = staticmethod(_pycrysfml.FortFuncs_write_restraints_obscalc)
     __swig_getmethods__["get_maxnumref"] = lambda x: _pycrysfml.FortFuncs_get_maxnumref
     if _newclass:get_maxnumref = staticmethod(_pycrysfml.FortFuncs_get_maxnumref)
-    __swig_getmethods__["hkl_lat_absent"] = lambda x: _pycrysfml.FortFuncs_hkl_lat_absent
-    if _newclass:hkl_lat_absent = staticmethod(_pycrysfml.FortFuncs_hkl_lat_absent)
+    __swig_getmethods__["mhkl_absent"] = lambda x: _pycrysfml.FortFuncs_mhkl_absent
+    if _newclass:mhkl_absent = staticmethod(_pycrysfml.FortFuncs_mhkl_absent)
     __swig_getmethods__["init_err_refl"] = lambda x: _pycrysfml.FortFuncs_init_err_refl
     if _newclass:init_err_refl = staticmethod(_pycrysfml.FortFuncs_init_err_refl)
     __swig_getmethods__["init_reflist"] = lambda x: _pycrysfml.FortFuncs_init_reflist
@@ -1518,6 +1519,10 @@ class FortFuncs(_object):
     if _newclass:z4frgn = staticmethod(_pycrysfml.FortFuncs_z4frgn)
     __swig_getmethods__["z4frz1"] = lambda x: _pycrysfml.FortFuncs_z4frz1
     if _newclass:z4frz1 = staticmethod(_pycrysfml.FortFuncs_z4frz1)
+    __swig_getmethods__["additional_scattering_factors"] = lambda x: _pycrysfml.FortFuncs_additional_scattering_factors
+    if _newclass:additional_scattering_factors = staticmethod(_pycrysfml.FortFuncs_additional_scattering_factors)
+    __swig_getmethods__["allocate_scattering_species"] = lambda x: _pycrysfml.FortFuncs_allocate_scattering_species
+    if _newclass:allocate_scattering_species = staticmethod(_pycrysfml.FortFuncs_allocate_scattering_species)
     __swig_getmethods__["calc_strfactor"] = lambda x: _pycrysfml.FortFuncs_calc_strfactor
     if _newclass:calc_strfactor = staticmethod(_pycrysfml.FortFuncs_calc_strfactor)
     __swig_getmethods__["calc_hkl_strfactor"] = lambda x: _pycrysfml.FortFuncs_calc_hkl_strfactor
@@ -1656,6 +1661,8 @@ class FortFuncs(_object):
     if _newclass:sym_prod_st = staticmethod(_pycrysfml.FortFuncs_sym_prod_st)
     __swig_getmethods__["write_bin_spacegroup"] = lambda x: _pycrysfml.FortFuncs_write_bin_spacegroup
     if _newclass:write_bin_spacegroup = staticmethod(_pycrysfml.FortFuncs_write_bin_spacegroup)
+    __swig_getmethods__["write_magnetic_space_group"] = lambda x: _pycrysfml.FortFuncs_write_magnetic_space_group
+    if _newclass:write_magnetic_space_group = staticmethod(_pycrysfml.FortFuncs_write_magnetic_space_group)
     __swig_getmethods__["write_spacegroup"] = lambda x: _pycrysfml.FortFuncs_write_spacegroup
     if _newclass:write_spacegroup = staticmethod(_pycrysfml.FortFuncs_write_spacegroup)
     __swig_getmethods__["write_sym"] = lambda x: _pycrysfml.FortFuncs_write_sym
@@ -2747,9 +2754,9 @@ def FortFuncs_get_maxnumref(*args):
   return _pycrysfml.FortFuncs_get_maxnumref(*args)
 FortFuncs_get_maxnumref = _pycrysfml.FortFuncs_get_maxnumref
 
-def FortFuncs_hkl_lat_absent(*args):
-  return _pycrysfml.FortFuncs_hkl_lat_absent(*args)
-FortFuncs_hkl_lat_absent = _pycrysfml.FortFuncs_hkl_lat_absent
+def FortFuncs_mhkl_absent(*args):
+  return _pycrysfml.FortFuncs_mhkl_absent(*args)
+FortFuncs_mhkl_absent = _pycrysfml.FortFuncs_mhkl_absent
 
 def FortFuncs_init_err_refl():
   return _pycrysfml.FortFuncs_init_err_refl()
@@ -2930,6 +2937,14 @@ FortFuncs_z4frgn = _pycrysfml.FortFuncs_z4frgn
 def FortFuncs_z4frz1(*args):
   return _pycrysfml.FortFuncs_z4frz1(*args)
 FortFuncs_z4frz1 = _pycrysfml.FortFuncs_z4frz1
+
+def FortFuncs_additional_scattering_factors(*args):
+  return _pycrysfml.FortFuncs_additional_scattering_factors(*args)
+FortFuncs_additional_scattering_factors = _pycrysfml.FortFuncs_additional_scattering_factors
+
+def FortFuncs_allocate_scattering_species(*args):
+  return _pycrysfml.FortFuncs_allocate_scattering_species(*args)
+FortFuncs_allocate_scattering_species = _pycrysfml.FortFuncs_allocate_scattering_species
 
 def FortFuncs_calc_strfactor(*args):
   return _pycrysfml.FortFuncs_calc_strfactor(*args)
@@ -3206,6 +3221,10 @@ FortFuncs_sym_prod_st = _pycrysfml.FortFuncs_sym_prod_st
 def FortFuncs_write_bin_spacegroup(*args):
   return _pycrysfml.FortFuncs_write_bin_spacegroup(*args)
 FortFuncs_write_bin_spacegroup = _pycrysfml.FortFuncs_write_bin_spacegroup
+
+def FortFuncs_write_magnetic_space_group(*args):
+  return _pycrysfml.FortFuncs_write_magnetic_space_group(*args)
+FortFuncs_write_magnetic_space_group = _pycrysfml.FortFuncs_write_magnetic_space_group
 
 def FortFuncs_write_spacegroup(*args):
   return _pycrysfml.FortFuncs_write_spacegroup(*args)
@@ -4662,6 +4681,24 @@ class sbvs_par_type(_object):
     if _newclass:data_ptr = _swig_property(_pycrysfml.sbvs_par_type_data_ptr_get, _pycrysfml.sbvs_par_type_data_ptr_set)
 sbvs_par_type_swigregister = _pycrysfml.sbvs_par_type_swigregister
 sbvs_par_type_swigregister(sbvs_par_type)
+
+class scattering_species_type(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, scattering_species_type, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, scattering_species_type, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        this = _pycrysfml.new_scattering_species_type()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _pycrysfml.delete_scattering_species_type
+    __del__ = lambda self : None;
+    __swig_setmethods__["data_ptr"] = _pycrysfml.scattering_species_type_data_ptr_set
+    __swig_getmethods__["data_ptr"] = _pycrysfml.scattering_species_type_data_ptr_get
+    if _newclass:data_ptr = _swig_property(_pycrysfml.scattering_species_type_data_ptr_get, _pycrysfml.scattering_species_type_data_ptr_set)
+scattering_species_type_swigregister = _pycrysfml.scattering_species_type_swigregister
+scattering_species_type_swigregister(scattering_species_type)
 
 class space_group_type(_object):
     __swig_setmethods__ = {}
