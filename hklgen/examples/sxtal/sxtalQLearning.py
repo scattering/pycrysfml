@@ -2,15 +2,12 @@ import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os
 import os
 from copy import copy
 import numpy as np
-import random as rand
-
 import fswig_hklgen as H
 import hkl_model as Mod
-import sxtal_model as S
-
 import  bumps.names  as bumps
 import bumps.fitters as fitter
 from bumps.formatnum import format_uncertainty_pm
+import random as rand
 
 #Simple Q learning algorithm to optimize a single parameter
 #Will determine the optimal order of measurements to make
@@ -20,17 +17,23 @@ np.seterr(divide="ignore",invalid="ignore")
 
 #Set data files
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
-backgFile = None
-observedFile = os.path.join(DATAPATH,r"prnio.int")
-infoFile = os.path.join(DATAPATH,r"prnio.cfl")
+backgFile = os.path.join(DATAPATH,r"hobk_bas.bac")
+observedFile = os.path.join(DATAPATH,r"hobk.dat")
+infoFile = os.path.join(DATAPATH,r"hobk1.cfl")
 
-#Read data
-spaceGroup, crystalCell, atomList = H.readInfo(infoFile)
-# return wavelength, refList, sfs2, error, two-theta, and four-circle parameters
-wavelength, refList, sfs2, error = S.readIntFile(observedFile, kind="int", cell=crystalCell)
-tt = [H.twoTheta(H.calcS(crystalCell, ref.hkl), wavelength) for ref in refList]
-backg = None
+#Read collected data
+(spaceGroup, crystalCell, magAtomList, symmetry) = H.readMagInfo(infoFile)
+atomList = H.readInfo(infoFile)[2]
+wavelength = 2.524000
+ttMin = 10.010000228881836
+ttMax = 89.81000518798828
+ttStep = 0.20000000298
 exclusions = []
+tt, observed, error = H.readIllData(observedFile, "D1B", backgFile)
+observedByAlg = [] #currently, the algorithm hasn't measured any datapoints
+backg = H.LinSpline(None)
+basisSymmetry = copy(symmetry)
+
 
 def setInitParams():
 
@@ -39,21 +42,24 @@ def setInitParams():
     #Make a cell
     cell = Mod.makeCell(crystalCell, spaceGroup.xtalSystem)
 
-    print(error)
-
     #Define a model
-    m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell,
-                [atomList], exclusions,
-                scale=0.06298, error=error, hkls=refList, extinction=[0.0001054])
+    m = Mod.Model(tt, observedByAlg, backg, 1.548048,-0.988016,0.338780, wavelength, spaceGroup, cell,
+                (atomList, magAtomList), exclusions, magnetic=True,
+                symmetry=symmetry, newSymmetry=basisSymmetry, base=6512, scale=59.08, eta=0.0382, zero=0.08416, error=error)
+
 
     #Set a range on the x value of the first atom in the model
-    m.atomListModel.atomModels[0].z.range(0,1)
+    m.atomListModel.atomModels[0].x.range(0,1)
 
     #Generate list of hkls
     hkls = []
     for r in m.reflections:
         hkls.append(r.hkl)
 
+
+#    m.observed.append(m.reflections[0])
+#    m.observed.append(m.reflections[1])
+#    m.observed.append(m.reflections[2])
     return m, hkls
 
 
@@ -68,12 +74,27 @@ def fit(model):
     fitted = fitter.MPFit(problem)
     x, dx = fitted.solve()
 
+
     print(problem.nllf())
     problem.model_update()
     model.update()
 
     print(problem.nllf())
     return x, dx
+
+#def main():
+#    uvw = [1.548048,-0.988016,0.338780]
+#    cell = crystalCell
+#    H.diffPattern(infoFile=infoFile, uvw=uvw, cell=cell, scale=59.08,
+#                  ttMin=ttMin, ttMax=ttMax, ttStep=ttStep, wavelength = wavelength,
+#                  basisSymmetry=basisSymmetry, magAtomList=magAtomList,
+#                  magnetic=True, info=True, plot=False,
+#                  observedData=(tt,observed), base=6512, residuals=True, error=error)
+#    print("calling fit")
+#    problem = fit()
+#    setInitParams()
+
+
 
 #---------------------------------------
 #Q learning methods
@@ -101,8 +122,6 @@ def learn():
     for episode in range(maxEpisodes):
 
         model, remainingHkls = setInitParams()
-        refs = model.reflections
-        model.reflections = []
         state = 0
 
         for step in range(maxSteps):
@@ -126,11 +145,11 @@ def learn():
             remainingHkls.remove(action)
 
             #Find the data for this hkl value and add it to the model
-            for reflection in refs:        #TODO, should this be adding hkls not refs?
+            for reflection in model.reflections:
                 if (reflection.hkl == action):
-                    model.reflections.append(reflection)
+                    observedByAlg.append(reflection)
+                    #model.observed.append()
                     model.update()     #may not be necessary
-                    break
 
             print("s, a", state, action)
 
@@ -146,7 +165,7 @@ def learn():
                 qtable[referenceHkls.index(state), referenceHkls.index(action)] =  qtable[referenceHkls.index(state), referenceHkls.index(action)] + \
                                                                                    alpha*(reward + gamma*(np.max(qtable[referenceHkls.index(state),:])) - \
                                                                                    qtable[referenceHkls.index(state), referenceHkls.index(action)])
-            prevDx = dx
+                prevDx = dx
 
             state = action
 
