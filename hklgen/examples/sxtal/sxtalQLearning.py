@@ -104,7 +104,6 @@ def learn():
         refs = model.reflections
         model.reflections = []
         state = 0
-        prevDx = None
 
         for step in range(maxSteps):
 
@@ -134,12 +133,12 @@ def learn():
                     break
 
             print("s, a", state, action)
-            print (len(model.reflections))
-	    if (step > 1):        #TODO not necessary
+
+	    if (step > 1):
                 x, dx = fit(model)
-                print(model.reflections)
-   	        reward -= 1
-                if (prevDx != None and dx < prevDx):
+                print("dx", dx)
+    	        reward -= 1
+                if (dx < prevDx):
                     reward += 1
 
                 print("reward", reward)
@@ -147,7 +146,7 @@ def learn():
                 qtable[referenceHkls.index(state), referenceHkls.index(action)] =  qtable[referenceHkls.index(state), referenceHkls.index(action)] + \
                                                                                    alpha*(reward + gamma*(np.max(qtable[referenceHkls.index(state),:])) - \
                                                                                    qtable[referenceHkls.index(state), referenceHkls.index(action)])
-                prevDx = dx
+            prevDx = dx
 
             state = action
 
