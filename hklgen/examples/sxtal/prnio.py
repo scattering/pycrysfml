@@ -1,4 +1,4 @@
-import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import os
 from copy import copy
 import numpy as np
@@ -28,10 +28,9 @@ def fit():
     #cell.c.pm(5.0)
     m = S.Model(tt, sfs2, backg, wavelength, spaceGroup, cell,
                 [atomList], exclusions,
-                 scale=0.06298, error=error, hkls=refList, extinction=0.0001054)
+                 scale=0.06298, error=error, hkls=refList, extinction=[0.0001054])
     m.scale.range(0,100)
     #m.base.pm(1000)
-    m.extinction.range(0,10.0)
     for atomModel in m.atomListModel.atomModels:
         #atomModel.x.range(0,1)
         #atomModel.y.range(0,1)

@@ -159,14 +159,14 @@ make clean
 # install to hklgen directory
 cp Src/wrap/pycrysfml.py hklgen/
 cp Src/wrap/_pycrysfml$SOLIB_EXT hklgen/
-rm hklgen/pycrysfml.pyc
+#rm hklgen/pycrysfml.pyc
 # update binary release
-cp Src/wrap/pycrysfml.py $wd/bin/$BIN_DIR/
-cp Src/wrap/_pycrysfml$SOLIB_EXT $wd/bin/$BIN_DIR/
+#cp Src/wrap/pycrysfml.py $wd/bin/$BIN_DIR/
+#cp Src/wrap/_pycrysfml$SOLIB_EXT $wd/bin/$BIN_DIR/
 # update help file
-cd $wd/bin/$BIN_DIR/
-cp $wd/gen_help_file.py .
-./gen_help_file.py
-rm ./gen_help_file.py
-cd $wd
-$wd/clean.sh
+#cd $wd/bin/$BIN_DIR/
+#cp $wd/gen_help_file.py .
+#./gen_help_file.py
+#rm ./gen_help_file.py
+#cd $wd
+#$wd/clean.sh

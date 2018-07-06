@@ -86,7 +86,7 @@ def makeXtalPeaks(sfs2, svalues, refList, peaks=None, error=None):
     if peaks == None:
         peaks = []
     for i in range(len(svalues)):
-        if error != None:
+        if not error is None:
             p = sXtalPeak(sfs2[i], svalues[i], refList[i].hkl, error[i])
         else:
             p = sXtalPeak(sfs2[i], svalues[i], refList[i].hkl)
@@ -111,7 +111,7 @@ def checkInt(value, sCalc):
 def getXtalIntensity(peaks, sList=None, background=None, exclusions=None, base=0, scale=1):
     if background == None:
         background = np.zeros(len(sList))
-    if sList == None:
+    if sList is None:
         return (np.array([peak.sfs2 for peak in peaks])*scale)
     else:
         intensities = []
@@ -387,7 +387,6 @@ class Model(object):
             self.magRefList = satelliteGen(self.cell.cell, self.symmetry, np.sin(179.5/2)/self.wavelength, hkls=self.refList)
             self.magReflections = self.magRefList[:]
         self.reflections = self.refList
-            
     def __getstate__(self):
         state = self.__dict__.copy()
         del state["refList"]
@@ -467,6 +466,7 @@ class Model(object):
             self.peaks = makeXtalPeaks(sfs2, svalues, self.magRefList)
             #self.sList = np.array([peak.svalue for peak in self.peaks])
             #self.peaks.extend(makeXtalPeaks(sfs2, svalues))        
+
         hkls = [reflection.hkl for reflection in self.reflections]
         sList = calcS(self.cell.cell, hkls)
         for i in xrange(len(self.reflections)):
