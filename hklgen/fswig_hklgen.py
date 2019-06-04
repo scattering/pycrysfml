@@ -1056,19 +1056,19 @@ def getIntensity(peaks, background, tt, base=0):
 #   corresponding intensities as well
 def removeRange(tt, remove, intensity=None):
     if (remove == None or len(remove) < 1):
-        if (intensity != None): return (tt, intensity)
+        if (intensity is not None): return (tt, intensity)
         else: return tt
     if (not isSequence(remove[0]) or len(remove[0]) == 1):
         # single interval
         keepEntries = (tt < remove[0]) | (tt > remove[1])
         tt = tt[keepEntries]
-        if (intensity != None):
+        if (intensity is not None):
             intensity = np.array(intensity)[keepEntries]
             return (tt, intensity)
         else: return tt
     else:
         # array of intervals
-        if (intensity != None):
+        if (intensity is not None):
             for interval in remove:
                 tt, intensity = removeRange(tt, interval, intensity)
             return (tt, intensity)

@@ -2,9 +2,17 @@ FORTCOMP=gfortran
 ifeq ("$HOSTNAME", "darter"*)
 FORTCOMP=ftn
 endif
+CC=gcc
+CXX=g++
 # Fortran 90 compilation.  This will vary depending on compiler.
 # The -J Src option puts the mod files in the Src directory
-Src/%.o: Src/%.f90; $(FORTCOMP) -c -g -Wall -fPIC -ffree-line-length-0 $< -o $@ -J Src
+Src/%.o: SrcCpp/%.c; $(CC) -ISrcCpp -DUSE_HDF -c -g -Wall -fPIC $< -o $@
+Src/%.o: SrcCpp/%.cpp; $(CXX) -ISrcCpp -DUSE_HDF -c -g -Wall -fPIC $< -o $@
+Src/%.o: Src/%.f90; $(FORTCOMP) -DUSE_HDF -c -g -Wall -fPIC -ffree-line-length-0 $< -o $@ -J Src
+
+# Note: ignroed for now; instead don't load the ILL nexus files need to modify Src/CFML_ILL_Data_Nexus.f90
+# Copyied from SrcCpp/CMakeLists.txt
+CDEPS=Src/NexusToCFML.o Src/DataNexusLib.o Src/blosc_filter.o Src/HeaderBloc.o Src/IntegerBloc.o Src/FloatBloc.o Src/DataBloc.o Src/ArgumentHandler.o
 
 # Editting is currently happening on a different machine from compiling and running,
 # hence the "copy" target
@@ -30,8 +38,8 @@ copy:
 	scp -pq sparkle:~/crysfml/Src/*.f90 Src
 
 # Build the shared object file from the list of objects
-libcrysfml.so: $(OBJECTS)
-	$(FORTCOMP) -o libcrysfml.so -g -shared $(OBJECTS)
+libcrysfml.so: $(OBJECTS) Makefile
+	$(FORTCOMP) -o libcrysfml.so -g -shared $(OBJECTS) #-lNeXusCPP
 
 # Generate dependencies.  This needs to be rerun whenever a new module is added
 # or a Use statement is updated.

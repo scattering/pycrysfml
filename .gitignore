@@ -34,3 +34,11 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+#shared object libraries
+*.pyd
+*.so
+*.dyld
+*.pyc
+__pycache_
+_
