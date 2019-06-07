@@ -20,6 +20,11 @@ from collections import OrderedDict
 import builtins
 funcs = FortFuncs()
 
+def rstrip(s, *args, **kw): return s.rstrip(*args, **kw)
+def ljust(s, *args, **kw): return s.ljust(*args, **kw)
+def rjust(s, *args, **kw): return s.rjust(*args, **kw)
+def center(s, *args, **kw): return s.center(*args, **kw)
+
 # class definitions:
 # SymmetryOp Attributes:
 #   rot     - rotational part of symmetry operator (3 by 3 matrix)
@@ -82,7 +87,7 @@ class Wyckoff(wyckoff_type):
 class SpaceGroup(space_group_type):
     def __init__(self, groupName=None):
         space_group_type.__init__(self)
-        if (groupName != None):
+        if (groupName is not None):
             groupName = str(groupName)
             funcs.set_spacegroup(groupName, self, None, None, None, None)
     @property
@@ -115,7 +120,7 @@ class SpaceGroup(space_group_type):
 class CrystalCell(crystal_cell_type):
     def __init__(self, length=None, angle=None):
         crystal_cell_type.__init__(self)
-        if (length != None):
+        if (length is not None):
             self.setCell(length, angle)
     def length(self):
         LVec = FloatVector([0 for i in range(3)])
@@ -368,7 +373,7 @@ class AtomList(atom_list_type, matom_list_type):
             matom_list_type.__init__(self)
         else:
             atom_list_type.__init__(self)
-        if (atoms != None):
+        if (atoms is not None):
             a_methods=[method_name for method_name in dir(atoms) if callable(getattr(atoms,method_name))]
             print(a_methods)
             self.numAtoms = len(atoms)
@@ -475,7 +480,7 @@ class MagReflection(magh_type):
     # can initialize this from a regular (non-magnetic) reflection
     def __init__(self, reflection=None):
         magh_type.__init__(self)
-        if (reflection != None):
+        if (reflection is not None):
             self.hkl = reflection.hkl
             self.multip = reflection.multip
             self.set_magh_s(reflection.get_reflection_s())
@@ -534,7 +539,7 @@ class MagReflection(magh_type):
 class ReflectionList(reflection_list_type, magh_list_type):
     def __init__(self, cast_list=None, magnetic=None):
         self.index = -1
-        if cast_list != None:
+        if cast_list is not None:
             # copy constructor
             if isinstance(cast_list[0], magh_type):
                 self.magnetic = True
@@ -679,17 +684,17 @@ class Peak(object):
 class LinSpline(object):
     def __init__(self, arg1=None, arg2=None, fn="LinSpline"):
         self.fn = fn
-        if (arg1 == None):
+        if (arg1 is None):
             # create default uniform 0 background
             self.x = [0,1]
             self.y = [0,0]
+        elif (type(arg1) == str):
+            # read in x and y coordinates from a file
+            self.x, self.y = np.loadtxt(arg1, dtype=float, skiprows=5, unpack=True)
         elif isSequence(arg1):
             # read in x and y coordinates from lists
             self.x = np.copy(arg1)
             self.y = np.copy(arg2)
-        elif (type(arg1) == str):
-            # read in x and y coordinates from a file
-            self.x, self.y = np.loadtxt(arg1, dtype=float, skiprows=5, unpack=True)
         else:
             # create a uniform background with the numeric value of arg1
             self.x = [0,1]
@@ -856,7 +861,7 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=True, xtal=False):
 #   maximum sin(theta)/lambda value
 def satelliteGen(cell, symmetry, sMax, hkls=None):
     refList = ReflectionList(magnetic=True)
-    if hkls != None:
+    if hkls is not None:
         funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1), None, hkls)
     else:
         funcs.gen_satellites(cell, symmetry, sMax, refList, int_to_p(1))
@@ -1035,7 +1040,7 @@ def calcIntensity(refList, atomList, spaceGroup, wavelength, cell=None,
         sfs2 *= multips
 #    lorentz = (1+np.cos(tt)**2) / (np.sin(tt)*np.sin(tt/2))
     lorentz = (np.sin(tt)*np.sin(tt/2)) ** -1
-    if muR != None: return sfs2 *lorentz * AbsorptionCorrection(tt, muR)
+    if muR is not None: return sfs2 *lorentz * AbsorptionCorrection(tt, muR)
     return sfs2 * lorentz
 
 # makePeaks() creates a series of Peaks to represent the powder
@@ -1061,7 +1066,7 @@ def getIntensity(peaks, background, tt, base=0):
 #   consideration for data analysis, with an optional argument for removing the
 #   corresponding intensities as well
 def removeRange(tt, remove, intensity=None):
-    if (remove == None or len(remove) < 1):
+    if (remove is None or len(remove) < 1):
         if (intensity is not None): return (tt, intensity)
         else: return tt
     if (not isSequence(remove[0]) or len(remove[0]) == 1):
@@ -1097,13 +1102,13 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
     background = LinSpline(backgroundFile)
     sMin, sMax = getS(ttMin, wavelength), getS(180.0, wavelength)
     if magnetic:
-        if (infoFile != None):
+        if (infoFile is not None):
             infofile = readMagInfo(infoFile)
-            if (spaceGroup == None): spaceGroup = infofile[0]
-            if (cell == None): cell = infofile[1]
-            if (magAtomList == None): magAtomList = infofile[2]
-            if (symmetry == None): symmetry = infofile[3]
-        if (basisSymmetry == None): basisSymmetry = symmetry
+            if (spaceGroup is None): spaceGroup = infofile[0]
+            if (cell is None): cell = infofile[1]
+            if (magAtomList is None): magAtomList = infofile[2]
+            if (symmetry is None): symmetry = infofile[3]
+        if (basisSymmetry is None): basisSymmetry = symmetry
         ## magnetic peaks
         # convert magnetic symmetry to space group
         latt = getMagsymmK_latt(basisSymmetry)
@@ -1131,17 +1136,17 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True, muR=muR)
         # add in structural peaks
-        if (atomList == None): atomList = readInfo(infoFile)[2]
+        if (atomList is None): atomList = readInfo(infoFile)[2]
         #refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=xtal)
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength, muR=muR)
         reflections = magRefList[:] + refList[:]
         intensities = np.append(magIntensities, intensities)
     else:
-        if (infoFile != None):
+        if (infoFile is not None):
             infofile = readInfo(infoFile)
-            if (spaceGroup == None): spaceGroup = infofile[0]
-            if (cell == None): cell = infofile[1]
-            if (atomList == None): atomList = infofile[2]         
+            if (spaceGroup is None): spaceGroup = infofile[0]
+            if (cell is None): cell = infofile[1]
+            if (atomList is None): atomList = infofile[2]         
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         reflections = refList[:]
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength, muR=muR)
@@ -1270,16 +1275,16 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
     # TODO: scale residual plot
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     ttCalc = np.linspace(ttMin, ttMax, numPoints)
-    if(exclusions != None): ttCalc = removeRange(ttCalc, exclusions)
+    if(exclusions is not None): ttCalc = removeRange(ttCalc, exclusions)
     intensity = np.array(getIntensity(peaks, background, ttCalc, base=base))
     pylab.subplot(211)
-    if (observed != None):
+    if (observed is not None):
         if exclusions:
             ttObs, observed = removeRange(ttObs, exclusions, observed)
         pylab.plot(ttObs, observed, '-go', linestyle="None", label="Observed",lw=1)
     pylab.plot(ttCalc, np.array(intensity), '-b', label="Calculated", lw=1)
     intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
-    pylab.errorbar(ttObs, np.array(observed), yerr=error, fmt=None, ecolor='g')
+    pylab.errorbar(ttObs, np.array(observed), yerr=error, fmt='none', ecolor='g')
 #    pylab.fill_between(ttObs, observed, intensity, color="lightblue")
     pylab.xlabel(r"$2 \theta$")
     pylab.ylabel("Intensity")
@@ -1294,7 +1299,7 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
         resid = observed - intensityCalc
         pylab.subplot(212)
         pylab.plot(ttObs, resid, label="Residuals")
-        pylab.yticks(list(range(0,int(max(intensity)), int(max(intensity))/10)))
+        pylab.yticks(list(range(0,int(max(intensity)), int(max(intensity)/10))))
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))

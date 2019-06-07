@@ -3,7 +3,7 @@
 #
 # Do not make changes to this file unless you know what you are doing--modify
 # the SWIG interface file instead.
-import builtins
+
 from sys import version_info as _swig_python_version_info
 if _swig_python_version_info >= (2, 7, 0):
     def swig_import_helper():
@@ -24,7 +24,7 @@ elif _swig_python_version_info >= (2, 6, 0):
         try:
             fp, pathname, description = imp.find_module('_pycrysfml', [dirname(__file__)])
         except ImportError:
-            from . import _pycrysfml
+            import _pycrysfml
             return _pycrysfml
         try:
             _mod = imp.load_module('_pycrysfml', fp, pathname, description)
@@ -35,7 +35,7 @@ elif _swig_python_version_info >= (2, 6, 0):
     _pycrysfml = swig_import_helper()
     del swig_import_helper
 else:
-    from . import _pycrysfml
+    import _pycrysfml
 del _swig_python_version_info
 
 try:
@@ -46,7 +46,7 @@ except NameError:
 try:
     import builtins as __builtin__
 except ImportError:
-    import builtins
+    import __builtin__
 
 def _swig_setattr_nondynamic(self, class_type, name, value, static=1):
     if (name == "thisown"):
@@ -83,14 +83,14 @@ def _swig_getattr(self, class_type, name):
 def _swig_repr(self):
     try:
         strthis = "proxy of " + self.this.__repr__()
-    except builtins.Exception:
+    except __builtin__.Exception:
         strthis = ""
     return "<%s.%s; %s >" % (self.__class__.__module__, self.__class__.__name__, strthis,)
 
 try:
     _object = object
     _newclass = 1
-except builtins.Exception:
+except __builtin__.Exception:
     class _object:
         pass
     _newclass = 0
@@ -106,7 +106,7 @@ class intp(_object):
         this = _pycrysfml.new_intp()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_intp
     __del__ = lambda self: None
@@ -141,7 +141,7 @@ class doublep(_object):
         this = _pycrysfml.new_doublep()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_doublep
     __del__ = lambda self: None
@@ -176,7 +176,7 @@ class floatp(_object):
         this = _pycrysfml.new_floatp()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_floatp
     __del__ = lambda self: None
@@ -230,7 +230,7 @@ class SwigPyIterator(_object):
     def copy(self):
         return _pycrysfml.SwigPyIterator_copy(self)
 
-    def __next__(self):
+    def next(self):
         return _pycrysfml.SwigPyIterator_next(self)
 
     def __next__(self):
@@ -276,7 +276,7 @@ class FloatVector(_object):
     def __iter__(self):
         return self.iterator()
 
-    def __bool__(self):
+    def __nonzero__(self):
         return _pycrysfml.FloatVector___nonzero__(self)
 
     def __bool__(self):
@@ -346,7 +346,7 @@ class FloatVector(_object):
         this = _pycrysfml.new_FloatVector(*args)
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
 
     def push_back(self, x):
@@ -389,7 +389,7 @@ class FloatMatrix(_object):
     def __iter__(self):
         return self.iterator()
 
-    def __bool__(self):
+    def __nonzero__(self):
         return _pycrysfml.FloatMatrix___nonzero__(self)
 
     def __bool__(self):
@@ -459,7 +459,7 @@ class FloatMatrix(_object):
         this = _pycrysfml.new_FloatMatrix(*args)
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
 
     def push_back(self, x):
@@ -502,7 +502,7 @@ class IntVector(_object):
     def __iter__(self):
         return self.iterator()
 
-    def __bool__(self):
+    def __nonzero__(self):
         return _pycrysfml.IntVector___nonzero__(self)
 
     def __bool__(self):
@@ -572,7 +572,7 @@ class IntVector(_object):
         this = _pycrysfml.new_IntVector(*args)
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
 
     def push_back(self, x):
@@ -2314,7 +2314,7 @@ class FortFuncs(_object):
         this = _pycrysfml.new_FortFuncs()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_FortFuncs
     __del__ = lambda self: None
@@ -4032,7 +4032,7 @@ class angle_restraint_type(_object):
         this = _pycrysfml.new_angle_restraint_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_angle_restraint_type
     __del__ = lambda self: None
@@ -4054,7 +4054,7 @@ class anomalous_sc_type(_object):
         this = _pycrysfml.new_anomalous_sc_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_anomalous_sc_type
     __del__ = lambda self: None
@@ -4076,7 +4076,7 @@ class atom_equiv_list_type(_object):
         this = _pycrysfml.new_atom_equiv_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_atom_equiv_list_type
     __del__ = lambda self: None
@@ -4110,7 +4110,7 @@ class atom_equiv_type(_object):
         this = _pycrysfml.new_atom_equiv_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_atom_equiv_type
     __del__ = lambda self: None
@@ -4144,7 +4144,7 @@ class atom_list_type(_object):
         this = _pycrysfml.new_atom_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_atom_list_type
     __del__ = lambda self: None
@@ -4181,7 +4181,7 @@ class atom_type(_object):
         this = _pycrysfml.new_atom_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_atom_type
     __del__ = lambda self: None
@@ -4407,7 +4407,7 @@ class atomic_properties_type(_object):
         this = _pycrysfml.new_atomic_properties_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_atomic_properties_type
     __del__ = lambda self: None
@@ -4429,7 +4429,7 @@ class atoms_cell_type(_object):
         this = _pycrysfml.new_atoms_cell_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_atoms_cell_type
     __del__ = lambda self: None
@@ -4463,7 +4463,7 @@ class atoms_conf_list_type(_object):
         this = _pycrysfml.new_atoms_conf_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_atoms_conf_list_type
     __del__ = lambda self: None
@@ -4491,7 +4491,7 @@ class basic_numc_type(_object):
         this = _pycrysfml.new_basic_numc_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_basic_numc_type
     __del__ = lambda self: None
@@ -4513,7 +4513,7 @@ class basic_numi_type(_object):
         this = _pycrysfml.new_basic_numi_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_basic_numi_type
     __del__ = lambda self: None
@@ -4535,7 +4535,7 @@ class basic_numr_type(_object):
         this = _pycrysfml.new_basic_numr_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_basic_numr_type
     __del__ = lambda self: None
@@ -4557,7 +4557,7 @@ class bvel_par_type(_object):
         this = _pycrysfml.new_bvel_par_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_bvel_par_type
     __del__ = lambda self: None
@@ -4579,7 +4579,7 @@ class bvs_par_type(_object):
         this = _pycrysfml.new_bvs_par_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_bvs_par_type
     __del__ = lambda self: None
@@ -4601,7 +4601,7 @@ class calibration_detector_type(_object):
         this = _pycrysfml.new_calibration_detector_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_calibration_detector_type
     __del__ = lambda self: None
@@ -4623,7 +4623,7 @@ class chem_info_type(_object):
         this = _pycrysfml.new_chem_info_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_chem_info_type
     __del__ = lambda self: None
@@ -4645,7 +4645,7 @@ class coordination_type(_object):
         this = _pycrysfml.new_coordination_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_coordination_type
     __del__ = lambda self: None
@@ -4667,7 +4667,7 @@ class crystal_cell_type(_object):
         this = _pycrysfml.new_crystal_cell_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_crystal_cell_type
     __del__ = lambda self: None
@@ -4806,7 +4806,7 @@ class cube_info_type(_object):
         this = _pycrysfml.new_cube_info_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_cube_info_type
     __del__ = lambda self: None
@@ -4828,7 +4828,7 @@ class deriv_tof_type(_object):
         this = _pycrysfml.new_deriv_tof_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_deriv_tof_type
     __del__ = lambda self: None
@@ -4850,7 +4850,7 @@ class diffraction_pattern_type(_object):
         this = _pycrysfml.new_diffraction_pattern_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_diffraction_pattern_type
     __del__ = lambda self: None
@@ -5028,7 +5028,7 @@ class diffractometer_type(_object):
         this = _pycrysfml.new_diffractometer_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_diffractometer_type
     __del__ = lambda self: None
@@ -5050,7 +5050,7 @@ class distance_restraint_type(_object):
         this = _pycrysfml.new_distance_restraint_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_distance_restraint_type
     __del__ = lambda self: None
@@ -5072,7 +5072,7 @@ class file_list_type(_object):
         this = _pycrysfml.new_file_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_file_list_type
     __del__ = lambda self: None
@@ -5100,7 +5100,7 @@ class generic_numor_type(_object):
         this = _pycrysfml.new_generic_numor_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_generic_numor_type
     __del__ = lambda self: None
@@ -5122,7 +5122,7 @@ class group_k_type(_object):
         this = _pycrysfml.new_group_k_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_group_k_type
     __del__ = lambda self: None
@@ -5147,7 +5147,7 @@ class ill_data_record_type(_object):
         this = _pycrysfml.new_ill_data_record_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_ill_data_record_type
     __del__ = lambda self: None
@@ -5169,7 +5169,7 @@ class interval_type(_object):
         this = _pycrysfml.new_interval_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_interval_type
     __del__ = lambda self: None
@@ -5203,7 +5203,7 @@ class job_info_type(_object):
         this = _pycrysfml.new_job_info_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_job_info_type
     __del__ = lambda self: None
@@ -5249,7 +5249,7 @@ class lattice_centring_type(_object):
         this = _pycrysfml.new_lattice_centring_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_lattice_centring_type
     __del__ = lambda self: None
@@ -5271,7 +5271,7 @@ class magh_list_type(_object):
         this = _pycrysfml.new_magh_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_magh_list_type
     __del__ = lambda self: None
@@ -5305,7 +5305,7 @@ class magh_type(_object):
         this = _pycrysfml.new_magh_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_magh_type
     __del__ = lambda self: None
@@ -5381,7 +5381,7 @@ class maghd_list_type(_object):
         this = _pycrysfml.new_maghd_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_maghd_list_type
     __del__ = lambda self: None
@@ -5415,7 +5415,7 @@ class maghd_type(_object):
         this = _pycrysfml.new_maghd_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_maghd_type
     __del__ = lambda self: None
@@ -5479,7 +5479,7 @@ class magnetic_domain_type(_object):
         this = _pycrysfml.new_magnetic_domain_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_magnetic_domain_type
     __del__ = lambda self: None
@@ -5561,7 +5561,7 @@ class magnetic_form_type(_object):
         this = _pycrysfml.new_magnetic_form_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_magnetic_form_type
     __del__ = lambda self: None
@@ -5583,7 +5583,7 @@ class magnetic_group_type(_object):
         this = _pycrysfml.new_magnetic_group_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_magnetic_group_type
     __del__ = lambda self: None
@@ -5623,7 +5623,7 @@ class magnetic_space_group_type(_object):
         this = _pycrysfml.new_magnetic_space_group_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_magnetic_space_group_type
     __del__ = lambda self: None
@@ -5813,7 +5813,7 @@ class magsymm_k_type(_object):
         this = _pycrysfml.new_magsymm_k_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_magsymm_k_type
     __del__ = lambda self: None
@@ -5994,7 +5994,7 @@ class matom_list_type(_object):
         this = _pycrysfml.new_matom_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_matom_list_type
     __del__ = lambda self: None
@@ -6028,7 +6028,7 @@ class matom_type(_object):
         this = _pycrysfml.new_matom_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_matom_type
     __del__ = lambda self: None
@@ -6392,7 +6392,7 @@ class molecular_crystal_type(_object):
         this = _pycrysfml.new_molecular_crystal_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_molecular_crystal_type
     __del__ = lambda self: None
@@ -6414,7 +6414,7 @@ class molecule_type(_object):
         this = _pycrysfml.new_molecule_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_molecule_type
     __del__ = lambda self: None
@@ -6436,7 +6436,7 @@ class msym_oper_type(_object):
         this = _pycrysfml.new_msym_oper_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_msym_oper_type
     __del__ = lambda self: None
@@ -6470,7 +6470,7 @@ class nonatomic_parameter_list_type(_object):
         this = _pycrysfml.new_nonatomic_parameter_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_nonatomic_parameter_list_type
     __del__ = lambda self: None
@@ -6492,7 +6492,7 @@ class nonatomic_parameter_type(_object):
         this = _pycrysfml.new_nonatomic_parameter_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_nonatomic_parameter_type
     __del__ = lambda self: None
@@ -6514,7 +6514,7 @@ class ns_space_group_type(_object):
         this = _pycrysfml.new_ns_space_group_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_ns_space_group_type
     __del__ = lambda self: None
@@ -6650,7 +6650,7 @@ class ns_sym_oper_type(_object):
         this = _pycrysfml.new_ns_sym_oper_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_ns_sym_oper_type
     __del__ = lambda self: None
@@ -6684,7 +6684,7 @@ class opt_conditions_type(_object):
         this = _pycrysfml.new_opt_conditions_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_opt_conditions_type
     __del__ = lambda self: None
@@ -6706,7 +6706,7 @@ class point_list_type(_object):
         this = _pycrysfml.new_point_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_point_list_type
     __del__ = lambda self: None
@@ -6728,7 +6728,7 @@ class points_interval_type(_object):
         this = _pycrysfml.new_points_interval_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_points_interval_type
     __del__ = lambda self: None
@@ -6750,7 +6750,7 @@ class polar_calc_list_type(_object):
         this = _pycrysfml.new_polar_calc_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_calc_list_type
     __del__ = lambda self: None
@@ -6772,7 +6772,7 @@ class polar_calc_svs_list_type(_object):
         this = _pycrysfml.new_polar_calc_svs_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_calc_svs_list_type
     __del__ = lambda self: None
@@ -6794,7 +6794,7 @@ class polar_calc_svs_type(_object):
         this = _pycrysfml.new_polar_calc_svs_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_calc_svs_type
     __del__ = lambda self: None
@@ -6816,7 +6816,7 @@ class polar_calc_type(_object):
         this = _pycrysfml.new_polar_calc_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_calc_type
     __del__ = lambda self: None
@@ -6838,7 +6838,7 @@ class polar_calcmulti_list_type(_object):
         this = _pycrysfml.new_polar_calcmulti_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_calcmulti_list_type
     __del__ = lambda self: None
@@ -6860,7 +6860,7 @@ class polar_calcmulti_svs_list_type(_object):
         this = _pycrysfml.new_polar_calcmulti_svs_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_calcmulti_svs_list_type
     __del__ = lambda self: None
@@ -6882,7 +6882,7 @@ class polar_info_type(_object):
         this = _pycrysfml.new_polar_info_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_info_type
     __del__ = lambda self: None
@@ -6904,7 +6904,7 @@ class polar_obs_list_type(_object):
         this = _pycrysfml.new_polar_obs_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_obs_list_type
     __del__ = lambda self: None
@@ -6926,7 +6926,7 @@ class polar_obs_type(_object):
         this = _pycrysfml.new_polar_obs_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_obs_type
     __del__ = lambda self: None
@@ -6948,7 +6948,7 @@ class polar_obsmulti_list_type(_object):
         this = _pycrysfml.new_polar_obsmulti_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_polar_obsmulti_list_type
     __del__ = lambda self: None
@@ -6970,7 +6970,7 @@ class powder_numor_type(_object):
         this = _pycrysfml.new_powder_numor_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_powder_numor_type
     __del__ = lambda self: None
@@ -7094,7 +7094,7 @@ class psd_val_type(_object):
         this = _pycrysfml.new_psd_val_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_psd_val_type
     __del__ = lambda self: None
@@ -7116,7 +7116,7 @@ class reflct_array_list(_object):
         this = _pycrysfml.new_reflct_array_list()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_reflct_array_list
     __del__ = lambda self: None
@@ -7138,7 +7138,7 @@ class reflect_type(_object):
         this = _pycrysfml.new_reflect_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_reflect_type
     __del__ = lambda self: None
@@ -7178,7 +7178,7 @@ class reflection_list_type(_object):
         this = _pycrysfml.new_reflection_list_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_reflection_list_type
     __del__ = lambda self: None
@@ -7212,7 +7212,7 @@ class reflection_type(_object):
         this = _pycrysfml.new_reflection_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_reflection_type
     __del__ = lambda self: None
@@ -7306,7 +7306,7 @@ class sbvs_par_type(_object):
         this = _pycrysfml.new_sbvs_par_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_sbvs_par_type
     __del__ = lambda self: None
@@ -7328,7 +7328,7 @@ class scattering_species_type(_object):
         this = _pycrysfml.new_scattering_species_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_scattering_species_type
     __del__ = lambda self: None
@@ -7350,7 +7350,7 @@ class space_group_type(_object):
         this = _pycrysfml.new_space_group_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_space_group_type
     __del__ = lambda self: None
@@ -7522,7 +7522,7 @@ class spgr_info_type(_object):
         this = _pycrysfml.new_spgr_info_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_spgr_info_type
     __del__ = lambda self: None
@@ -7844,7 +7844,7 @@ class sxd_val_type(_object):
         this = _pycrysfml.new_sxd_val_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_sxd_val_type
     __del__ = lambda self: None
@@ -7866,7 +7866,7 @@ class sxtal_numor_type(_object):
         this = _pycrysfml.new_sxtal_numor_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_sxtal_numor_type
     __del__ = lambda self: None
@@ -7888,7 +7888,7 @@ class sxtal_orient_type(_object):
         this = _pycrysfml.new_sxtal_orient_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_sxtal_orient_type
     __del__ = lambda self: None
@@ -7910,7 +7910,7 @@ class sym_oper_type(_object):
         this = _pycrysfml.new_sym_oper_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_sym_oper_type
     __del__ = lambda self: None
@@ -7944,7 +7944,7 @@ class table_equiv_type(_object):
         this = _pycrysfml.new_table_equiv_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_table_equiv_type
     __del__ = lambda self: None
@@ -7966,7 +7966,7 @@ class torsion_restraint_type(_object):
         this = _pycrysfml.new_torsion_restraint_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_torsion_restraint_type
     __del__ = lambda self: None
@@ -7988,7 +7988,7 @@ class twin_type(_object):
         this = _pycrysfml.new_twin_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_twin_type
     __del__ = lambda self: None
@@ -8010,7 +8010,7 @@ class twofold_axes_type(_object):
         this = _pycrysfml.new_twofold_axes_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_twofold_axes_type
     __del__ = lambda self: None
@@ -8032,7 +8032,7 @@ class wyck_info_type(_object):
         this = _pycrysfml.new_wyck_info_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_wyck_info_type
     __del__ = lambda self: None
@@ -8054,7 +8054,7 @@ class wyck_pos_type(_object):
         this = _pycrysfml.new_wyck_pos_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_wyck_pos_type
     __del__ = lambda self: None
@@ -8100,7 +8100,7 @@ class wyckoff_type(_object):
         this = _pycrysfml.new_wyckoff_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_wyckoff_type
     __del__ = lambda self: None
@@ -8128,7 +8128,7 @@ class xray_form_type(_object):
         this = _pycrysfml.new_xray_form_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_xray_form_type
     __del__ = lambda self: None
@@ -8150,7 +8150,7 @@ class xray_wavelength_type(_object):
         this = _pycrysfml.new_xray_wavelength_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_xray_wavelength_type
     __del__ = lambda self: None
@@ -8172,7 +8172,7 @@ class zone_axis_type(_object):
         this = _pycrysfml.new_zone_axis_type()
         try:
             self.this.append(this)
-        except builtins.Exception:
+        except __builtin__.Exception:
             self.this = this
     __swig_destroy__ = _pycrysfml.delete_zone_axis_type
     __del__ = lambda self: None
