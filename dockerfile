@@ -23,6 +23,7 @@ RUN git clone https://github.com/bumps/bumps.git
 RUN pip install ./bumps
 
 RUN git clone https://github.com/scattering/pycrysfml.git
+RUN git checkout origin/python3
 
 WORKDIR "/pycrysfml"
 
