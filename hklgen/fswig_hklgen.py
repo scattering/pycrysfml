@@ -15,8 +15,9 @@ try:
 except:
     import pylab
 from math import floor, sqrt, log, tan, radians
-from string import rstrip, ljust, rjust, center
+#from string import rstrip, ljust, rjust, center
 from collections import OrderedDict
+import builtins
 funcs = FortFuncs()
 
 # class definitions:
@@ -268,7 +269,7 @@ class Atom(atom_type):
         # Warning: they must be specified with identical starting coordinates
         eps = 0.001
         return all([approxEq(self.coords()[i], other.coords()[i], eps)
-                    for i in xrange(3)])
+                    for i in range(3)])
 
 # MagAtom attributes: same as atom, plus:
 #   numkVectors     - number of propagation vectors (excluding -k)
@@ -291,7 +292,7 @@ class MagAtom(matom_type):
         # Warning: they must be specified with identical starting coordinates
         eps = 0.001
         return all([approxEq(self.coords()[i], other.coords()[i], eps)
-                    for i in xrange(3)])
+                    for i in range(3)])
     def setCoords(self, value):
         self.set_matom_x(FloatVector(value))    
     def multip(self):
@@ -368,6 +369,8 @@ class AtomList(atom_list_type, matom_list_type):
         else:
             atom_list_type.__init__(self)
         if (atoms != None):
+            a_methods=[method_name for method_name in dir(atoms) if callable(getattr(atoms,method_name))]
+            print(a_methods)
             self.numAtoms = len(atoms)
             funcs.allocate_atom_list(len(atoms), self, None)
             #self.numAtoms = numAtoms
@@ -385,7 +388,7 @@ class AtomList(atom_list_type, matom_list_type):
             return self.get_atom_list_natoms()
     def __iter__(self):
         return self
-    def next(self):
+    def __next__(self):
         self.index += 1
         if self.index == len(self):
             self.index = -1
@@ -560,7 +563,7 @@ class ReflectionList(reflection_list_type, magh_list_type):
             return self.get_reflection_list_nref()
     def __iter__(self):
         return self
-    def next(self):
+    def __next__(self):
         self.index += 1
         if self.index == len(self):
             self.index = -1
@@ -663,7 +666,7 @@ class Peak(object):
         elif self.shape.lower() == 'lorentzian':
             return [self.scale * funcs.calclorentzian(value-self.center, self.H) for value in x]
         else:
-            print "Unsupported Peak-shape: "+shape+"\n"
+            print("Unsupported Peak-shape: "+shape+"\n")
             quit()
     def add(self, v, x):
         # only add to nearby 2*theta positions
@@ -696,6 +699,9 @@ class LinSpline(object):
     def __call__(self, x):
         if self.fn.lower() == 'linspline':
             # locate the two points to interpolate between
+            print('interpolating ',x)
+            print(self.x)
+            print(self.y)
             return np.interp(x, self.x, self.y)
         elif self.fn.lower() == 'polynomial':
             pass
@@ -868,7 +874,7 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
                 refl = Reflection()
                 refl.set_reflection_h(IntVector([x,y,z]))
                 hkls.append(refl)
-    print(len(hkls)), "python hkls"
+    print((len(hkls)), "python hkls")
     refList.set_magh_list_nref(len(hkls)*2+2)
     funcs.alloc_mhlist_array(refList)
     i = 0
@@ -977,7 +983,7 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=False):
     wavelength_p = floatp()
     wavelength_p.assign(wavelength)
     funcs.init_calc_strfactors(refList, atomList, spaceGroup, 'NUC', wavelength_p)
-    structFacts = [float() for i in xrange(refList.get_reflection_list_nref())]
+    structFacts = [float() for i in range(refList.get_reflection_list_nref())]
     reflections = refList[:]
     if xtal: code = 'S' 
     else: code = 'P'
@@ -1121,7 +1127,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             #if ref not in newList:
                 #newList.append(ref)
         #magRefList = ReflectionList(newList)
-        print "length of reflection list " + str(len(magRefList))
+        print("length of reflection list " + str(len(magRefList)))
         magIntensities = calcIntensity(magRefList, magAtomList, basisSymmetry,
                                        wavelength, cell, True, muR=muR)
         # add in structural peaks
@@ -1142,6 +1148,10 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
     peaks = makePeaks(reflections, uvw, intensities, scale, wavelength, base=base)
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     tt = np.linspace(ttMin, ttMax, numPoints)
+    print('peaks',peaks)
+    print('background', background)
+    print('tt', tt)
+    print('base',base)
     intensity = getIntensity(peaks, background, tt, base=base)
 
     if info:
@@ -1162,37 +1172,37 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
 # printInfo: prints out information about the provided space group and atoms,
 #   as well as the generated reflections
 def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, muR=None):
-    print "Wavelength:", wavelength
+    print("Wavelength:", wavelength)
     if (isinstance(refLists, ReflectionList)):
         atomLists = (atomLists,)
         refLists = (refLists,)
     
     divider = "-" * 40
-    print "Cell information (%s cell)" % rstrip(getSpaceGroup_crystalsys(spaceGroup))
-    print divider
-    print " a = %.3f   alpha = %.3f" % (cell.length()[0], cell.angle()[0])
-    print " b = %.3f   beta  = %.3f" % (cell.length()[1], cell.angle()[1])
-    print " c = %.3f   gamma = %.3f" % (cell.length()[2], cell.angle()[2])
-    print divider
-    print
-    print "Space group information"
-    print divider
-    print "               Number: ", spaceGroup.get_space_group_numspg()
-    print "           H-M Symbol: ", getSpaceGroup_spg_symb(spaceGroup)
-    print "          Hall Symbol: ", getSpaceGroup_hall(spaceGroup)
-    print "       Crystal System: ", getSpaceGroup_crystalsys(spaceGroup)
-    print "           Laue Class: ", getSpaceGroup_laue(spaceGroup)
-    print "          Point Group: ", getSpaceGroup_pg(spaceGroup)
-    print " General Multiplicity: ", spaceGroup.get_space_group_multip()
-    print divider
-    print
-    print "Atom information (%d atoms)" % len(atomLists[0])
-    print divider
+    print("Cell information (%s cell)" % rstrip(getSpaceGroup_crystalsys(spaceGroup)))
+    print(divider)
+    print(" a = %.3f   alpha = %.3f" % (cell.length()[0], cell.angle()[0]))
+    print(" b = %.3f   beta  = %.3f" % (cell.length()[1], cell.angle()[1]))
+    print(" c = %.3f   gamma = %.3f" % (cell.length()[2], cell.angle()[2]))
+    print(divider)
+    print()
+    print("Space group information")
+    print(divider)
+    print("               Number: ", spaceGroup.get_space_group_numspg())
+    print("           H-M Symbol: ", getSpaceGroup_spg_symb(spaceGroup))
+    print("          Hall Symbol: ", getSpaceGroup_hall(spaceGroup))
+    print("       Crystal System: ", getSpaceGroup_crystalsys(spaceGroup))
+    print("           Laue Class: ", getSpaceGroup_laue(spaceGroup))
+    print("          Point Group: ", getSpaceGroup_pg(spaceGroup))
+    print(" General Multiplicity: ", spaceGroup.get_space_group_multip())
+    print(divider)
+    print()
+    print("Atom information (%d atoms)" % len(atomLists[0]))
+    print(divider)
     atomList = atomLists[0]
     magnetic = atomList.magnetic
     label = [rstrip(getAtom_lab(atom)) for atom in atomList]
     x, y, z = tuple(["%.3f" % atom.coords()[i] for atom in atomList]
-                    for i in xrange(3))
+                    for i in range(3))
     multip = [str(atom.get_atom_mult()) for atom in atomList]
     occupancy = ["%.3f" % (atom.get_atom_occ()*spaceGroup.get_space_group_multip()/atom.get_atom_mult())
                  for atom in atomList]
@@ -1204,25 +1214,25 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
                          ('mult', max(len(max(multip, key=len)), 4)),
                          ('occ', max(len(max(occupancy, key=len)), 3)),
                          ])
-    print "%s   %s %s %s   %s  %s" % tuple([center(key, v) for key, v 
-                                             in width.iteritems()])
-    for i in xrange(len(atomList)):
-        print "%s  (%s %s %s)  %s  %s" % (center(label[i], width["label"]),
+    print("%s   %s %s %s   %s  %s" % tuple([center(key, v) for key, v 
+                                             in width.items()]))
+    for i in range(len(atomList)):
+        print("%s  (%s %s %s)  %s  %s" % (center(label[i], width["label"]),
                                           rjust(x[i], width["x"]),
                                           rjust(y[i], width["y"]),
                                           rjust(z[i], width["z"]),
                                           center(multip[i], width["mult"]),
-                                          rjust(occupancy[i], width["occ"]))
-    print divider
-    print
-    print "Reflection information (%d reflections)" % \
-          sum([len(refList) for refList in refLists])
-    print divider
+                                          rjust(occupancy[i], width["occ"])))
+    print(divider)
+    print()
+    print("Reflection information (%d reflections)" % \
+          sum([len(refList) for refList in refLists]))
+    print(divider)
     for atomList, refList in zip(atomLists, refLists):
         magnetic = refList.magnetic
         if magnetic: symmObject = symmetry
         else: symmObject = spaceGroup
-        h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in xrange(3))
+        h, k, l = tuple([str(ref.hkl[i]) for ref in refList] for i in range(3))
         multip = [str(ref.multip) for ref in refList]
         tt = ["%.3f" % twoTheta(ref.s, wavelength) for ref in refList]
         intensity = ["%.3f" % I for I in calcIntensity(refList, atomList, symmObject, wavelength, cell, magnetic, muR=muR)]
@@ -1238,18 +1248,18 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
                              ('2*theta', max(len(max(tt, key=len)), 7)),
                              ('intensity', max(len(max(intensity, key=len)), 9))
                             ])
-        print "  %s %s %s   %s  %s  %s" % tuple([center(key, v) for key, v 
-                                                 in width.iteritems()])
-        for i in xrange(len(refList)):
-            print " (%s %s %s)  %s  %s  %s" % (rjust(h[i], width["h"]),
+        print("  %s %s %s   %s  %s  %s" % tuple([center(key, v) for key, v 
+                                                 in width.items()]))
+        for i in range(len(refList)):
+            print(" (%s %s %s)  %s  %s  %s" % (rjust(h[i], width["h"]),
                                                rjust(k[i], width["k"]),
                                                rjust(l[i], width["l"]),
                                                center(multip[i], width["mult"]),
                                                rjust(tt[i], width["2*theta"]),
-                                               rjust(intensity[i], width["intensity"]))
-        print
-    print divider
-    print
+                                               rjust(intensity[i], width["intensity"])))
+        print()
+    print(divider)
+    print()
 
 # plotPattern: given a series of Peaks and a background, plots the predicted
 #   intensity at every 2*theta position in a specified range, as well as the
@@ -1284,14 +1294,14 @@ def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
         resid = observed - intensityCalc
         pylab.subplot(212)
         pylab.plot(ttObs, resid, label="Residuals")
-        pylab.yticks(range(0,int(max(intensity)), int(max(intensity))/10))
+        pylab.yticks(list(range(0,int(max(intensity)), int(max(intensity))/10)))
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
     dataFile = os.path.join(DATAPATH,r"HOBK/hobk.dat")
     bkgFile = os.path.join(DATAPATH,r"HOBK/hobk_bas.bac")
     tt, observed = readIllData(dataFile, "D1B", bkgFile)
-    print tt
-    print observed
+    print(tt)
+    print(observed)
     #pylab.plot(tt,observed,marker='s',linestyle='None')
     #pylab.show()

@@ -1,6 +1,6 @@
 from pycrysfml import *
 from fswig_hklgen import *
-from string import rstrip, ljust, rjust, center
+#from string import rstrip, ljust, rjust, center
 import sys
 try:
     from bumps.names import Parameter, FitProblem
@@ -329,7 +329,7 @@ class Model(object):
         ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
         # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
         ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
-        for i in xrange(len(self.reflections)):
+        for i in range(len(self.reflections)):
             self.reflections[i].set_reflection_s(getS(ttPos[i], self.wavelength))
         self.intensities = calcIntensity(self.refList, self.atomListModel.atomList, self.spaceGroup, self.wavelength, muR=self.muR)
         self.peaks = makePeaks(self.reflections,
@@ -344,7 +344,7 @@ class Model(object):
             ttPos = np.array([twoTheta(s, self.wavelength) for s in sList])
             # move nonexistent peaks (placed at 180) out of the way to 2*theta = -20
             ttPos[np.abs(ttPos - 180*np.ones_like(ttPos)) < 0.0001] = -20
-            for i in xrange(len(self.magReflections)):
+            for i in range(len(self.magReflections)):
                 self.magReflections[i].set_magh_s(getS(ttPos[i], self.wavelength))            
             #printInfo(self.cell.cell, self.spaceGroup, [self.atomListModel.atomList, self.atomListModel.magAtomList], [self.refList,self.magRefList], self.wavelength, symmetry=self.newSymmetry)
             self.magIntensities = calcIntensity(self.magRefList,
@@ -374,13 +374,15 @@ class AtomListModel(object):
     def _rebuild_object(self, atoms):
         if (not self.magnetic):
             # one list of atoms
-            if (isinstance(atoms[0], AtomList)):
-                self.atomList = atoms[0]
-                self.atoms = atoms[0][:]
+            if (isinstance(atoms, AtomList)):
+                self.atomList = atoms
+                self.atoms = atoms[:]
             else:
-                self.atomList = AtomList(atoms[0])
+                print("typing")
+                print(type(atoms))
+                self.atomList = AtomList(atoms)
                 self.atoms = atoms
-            self.atomModels = [AtomModel(atom, self.sgmultip) for atom in atoms[0]]
+            self.atomModels = [AtomModel(atom, self.sgmultip) for atom in atoms]
         else:
             # a tuple containing a list of atoms and a list of magnetic atoms
             if (isinstance(atoms[0], AtomList)):
@@ -401,10 +403,10 @@ class AtomListModel(object):
                     if (magAtom.label().rstrip() == model.atom.label().rstrip() and \
                         magAtom.sameSite(model.atom)):
                         model.addMagAtom(magAtom, self.symmetry)
-                        print magAtom.label()
+                        print(magAtom.label())
             index = 0
             for magAtom in self.magAtoms:
-                print index, magAtom.label()
+                print(index, magAtom.label())
                 self.magAtomList[index] = magAtom
                 self.magAtoms[index] = magAtom
                 index += 1              
@@ -421,8 +423,8 @@ class AtomListModel(object):
         self._rebuild_object(self.atoms)
         
     def parameters(self):
-        params = dict(zip([atom.label() for atom in self.atoms],
-                          [am.parameters() for am in self.atomModels]))
+        params = dict(list(zip([atom.label() for atom in self.atoms],
+                          [am.parameters() for am in self.atomModels])))
         # special parameters for changing basis
         #params.update(zip([angle.name for angle in self.angle],
                           #[angle for angle in self.angle]))
@@ -482,7 +484,7 @@ class AtomModel(object):
         self.coeffs = None
         self.phases = None
         self.sgmultip = sgmultip
-        self.atom.set_atom_lab(rstrip(self.atom.label()))
+        self.atom.set_atom_lab(self.atom.label().rstrip())
         self.B = Parameter(self.atom.BIso(), name=self.atom.label() + " B")
         occ = self.atom.occupancy() / self.atom.multip() * self.sgmultip
         self.occ = Parameter(occ, name=getAtom_lab(self.atom) + " occ")
@@ -512,7 +514,7 @@ class AtomModel(object):
         else:
             self.coeffs.extend([None] * self.numVectors)
             j = len(self.coeffs)
-        for i in xrange(self.numVectors):
+        for i in range(self.numVectors):
             self.coeffs[i+j] = Parameter(matom.basis()[0][i], name=self.atom.label() + " C" + str(i) + param_label)
         if self.phases == None:
             self.phases = [Parameter(matom.phase[0], name=self.atom.label() + " phase"+param_label)]
@@ -540,7 +542,7 @@ class AtomModel(object):
                 matom = self.magAtoms[i]
                 matom.setBIso(self.B.value)
                 matom.setCoords([float(self.x), float(self.y), float(self.z)])
-                for j in xrange(self.numVectors):
+                for j in range(self.numVectors):
                     #self.magAtom.basis[0][i] = self.coeffs[i].value
                     matom.setBasis_ind(0,j, self.coeffs[j+i].value)
                 matom.set_phase(self.phases[i].value)

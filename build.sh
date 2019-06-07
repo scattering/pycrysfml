@@ -16,7 +16,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	LIBFLAGS='-lpython -lgfortran'
 	SOFLAGS='-shared -fPIC'
 	BIN_DIR='MacOS'
-	PY_HEADERS='/usr/include/python2.7'
+	PY_HEADERS='/usr/include/python3.6'
 	STR_MOD='gf'
 	FORTCOMP=gfortran
 	SOLIB_EXT='.so'
@@ -24,10 +24,10 @@ fi
 if [[ "$OSTYPE" == "linux"* ]]; then
 	CPPCOMP=g++
 	SEDCOM=sed
-	LIBFLAGS='-lpython2.7 -lgfortran'
+	LIBFLAGS='-lpython3.6m -lgfortran'
 	SOFLAGS='-shared -fPIC -rdynamic'
 	BIN_DIR='Linux'
-	PY_HEADERS='/usr/include/python2.7'
+	PY_HEADERS='/usr/include/python3.6'
 	STR_MOD='gf'
 	FORTCOMP=gfortran
 	SOLIB_EXT='.so'
@@ -58,18 +58,18 @@ if [[ "$HOSTNAME" == "darter"* ]]; then
 	module swap PrgEnv-cray PrgEnv-gnu
 	CPPCOMP=CC
 	BIN_DIR='Cray_XC30'
-	LIBFLAGS='-lgfortran -L/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/lib/ -lpython2.7'
+	LIBFLAGS='-lgfortran -L/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/lib/ -lpython3.6'
 	STR_MOD='LF'
-	PY_HEADERS='/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/include/python2.7'
+	PY_HEADERS='/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/include/python3.6'
 	FORTCOMP=ftn
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/lib
 fi
 if [[ "$HOSTNAME" == "rocks"* ]]; then
 	#running on rocks cluster
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/python/lib
-	LIBFLAGS='-lgfortran -L/opt/python/lib -lpython2.7'
-	PY_HEADERS='/opt/python/include/python2.7'
-	alias python=/opt/python/bin/python2.7
+	LIBFLAGS='-lgfortran -L/opt/python/lib -lpython3.6'
+	PY_HEADERS='/opt/python/include/python3.6'
+	alias python=/opt/python/bin/python3.6
 	STR_MOD='LF'
 fi
 if [ $# -lt 1 ]; then
