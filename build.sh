@@ -26,7 +26,8 @@ fi
 if [[ "$OSTYPE" == "linux"* ]]; then
 	CPPCOMP=g++
 	SEDCOM=sed
-	LIBFLAGS='-lpython3.6m -lgfortran'
+	#LIBFLAGS="-lpython3.6m -lgfortran"
+	LIBFLAGS="-lgfortran `python3-config --libs`"
 	SOFLAGS='-shared -fPIC -rdynamic'
 	BIN_DIR='Linux'
 	#PY_HEADERS='/usr/include/python3.6'
@@ -150,6 +151,7 @@ cp $wd/cpp_modules/* $wd/Src/wrap/
 cd wrap
 a="%module pycrysfml\n%{\n"
 b="#include \""
+set +x
 for f in *.h; do
 	a=$a$b$f"\"\n"
 done
@@ -158,6 +160,7 @@ b="%include \""
 for f in *.h; do
 	a=$a$b$f"\"\n"
 done
+set -x
 echo -e $a > pycrysfml.i
 swig -python -c++ pycrysfml.i
 # compile Fortran wrapper
