@@ -1,0 +1,32 @@
+Index: CFML_String_Util.f90
+===================================================================
+--- CFML_String_Util.f90	(revision 1914)
++++ CFML_String_Util.f90	(working copy)
+@@ -583,7 +583,7 @@
+     !!----
+     Function RFormat(Val,W) Result(String)
+        !---- Use ----!
+-       use ieee_arithmetic, only : ieee_is_nan,ieee_is_finite
++       !PAK use ieee_arithmetic, only : ieee_is_nan,ieee_is_finite
+ 
+        !---- Arguments ----!
+        real,    intent(in) :: val        ! value to be output
+@@ -605,14 +605,16 @@
+ 
+        !> Alternative: if (val /= val) then
+        !> if (isnan(val))then
+-       if (ieee_is_nan(val)) then
++       !PAK if (ieee_is_nan(val)) then
++       if (val /= val) then
+           string(1:w-3)=' '
+           string(w-2:w)='NaN'
+           return
+        end if
+ 
+        !> Test for INF
+-       if (.not. ieee_is_finite(val)) then
++       !PAK if (.not. ieee_is_finite(val)) then
++       if (abs(val) > 1.0E38) then
+           string(1:w-3)=' '
+           string(w-2:w)='INF'
+           return
