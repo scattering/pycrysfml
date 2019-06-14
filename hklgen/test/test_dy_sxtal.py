@@ -21,7 +21,7 @@ def getMagStrFacts():
     return [float("%.3f" % I) for I in S.calcXtalIntensity(magRefList, magAtomList, symmetry, wavelength, cell, True)[0]]
 def main():
     tt = [H.twoTheta(H.calcS(cell, ref.hkl),wavelength) for ref in magRefList]
-    print getMagStrFacts()
+    print(getMagStrFacts())
     S.diffPatternXtal(infoFile=infoFile, cell=cell, scale=1, tt=tt, 
                       obsIntensity=np.zeros(len(magRefList)), wavelength=wavelength, basisSymmetry=symmetry, 
                       magAtomList=magAtomList, plot=True, residuals=True, nuclear=False, error=None, magnetic=True, 
