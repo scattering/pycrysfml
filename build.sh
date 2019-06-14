@@ -7,7 +7,9 @@
 # Compiles everything and installs pycrysfml binaries in
 # bin/<Platform> and hklgen/
 # Updated Jan 2017 to account for changes in CrysFML
-# Now requires gfortran 5 or higher on all platforms due to use of IEEE library functions from F2003 
+# Upstream requires gfortran 5 or higher on all platforms due to use of IEEE library
+# functions from F2003, but we patch it so that it compiles on gfortran 4.8.
+set -x
 wd=$(pwd)
 # Mac OS Support
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -27,7 +29,8 @@ if [[ "$OSTYPE" == "linux"* ]]; then
 	LIBFLAGS='-lpython3.6m -lgfortran'
 	SOFLAGS='-shared -fPIC -rdynamic'
 	BIN_DIR='Linux'
-	PY_HEADERS='/usr/include/python3.6'
+	#PY_HEADERS='/usr/include/python3.6'
+	PY_HEADERS=`python3-config --includes`
 	STR_MOD='gf'
 	FORTCOMP=gfortran
 	SOLIB_EXT='.so'
@@ -45,7 +48,7 @@ if [[ "$OSTYPE" == "msys"* ]]; then
 	LIBFLAGS='-L/c/Python27/libs -lgfortran -lpython27'
 	SOFLAGS='-shared -fPIC'
 	BIN_DIR='Windows'
-	PY_HEADERS='/c/Python27/include'
+	PY_HEADERS='-I/c/Python27/include'
 	STR_MOD='gf'
 	FORTCOMP=gfortran
 	SOLIB_EXT='.pyd'
@@ -60,7 +63,7 @@ if [[ "$HOSTNAME" == "darter"* ]]; then
 	BIN_DIR='Cray_XC30'
 	LIBFLAGS='-lgfortran -L/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/lib/ -lpython3.6'
 	STR_MOD='LF'
-	PY_HEADERS='/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/include/python3.6'
+	PY_HEADERS='-I/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/include/python3.6'
 	FORTCOMP=ftn
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/sw/xc30_cle5.2_pe2014-09/python/2.7.6/cle5.2_gnu4.9.1/lib
 fi
@@ -68,7 +71,7 @@ if [[ "$HOSTNAME" == "rocks"* ]]; then
 	#running on rocks cluster
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/python/lib
 	LIBFLAGS='-lgfortran -L/opt/python/lib -lpython3.6'
-	PY_HEADERS='/opt/python/include/python3.6'
+	PY_HEADERS='-I/opt/python/include/python3.6'
 	alias python=/opt/python/bin/python3.6
 	STR_MOD='LF'
 fi
@@ -78,9 +81,11 @@ if [ $# -lt 1 ]; then
 	# remove stale versions of String_Utilities Module
 	rm Src/*_gf.f90 Src/*_LF.f90
 	# Add patch to CrysFML to fix MsFac bugs
-	cp CFML_Msfac.patch Src/
+	cp *.patch Src/
 	cd Src
 	patch -f < CFML_Msfac.patch
+        # Use the following with gfortran<5.0
+	patch -f < CFML_String_Util.patch
 	# Stripping out the calls to the nexus wrapper library for ILL data becaause we do not need them.
 	# The original code refers to the SrcCpp package in the crysfml directory, which depends on the
 	# nexus libraries and a "bosc.h" header that isn't included in the SrcCpp, so we aren't trying
@@ -103,15 +108,17 @@ $SEDCOM -i 's/.*/\L&/' *.f90
 $wd/fix_deps.py
 $wd/fix_type_decl.py
 # wrap library
-$wd/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log
+$wd/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log || (echo "fortwrap failed" && cat $wd/FortWrap_log && exit 1)
 if [ $# -lt 1 ]; then
 	svn co http://forge.epn-campus.eu/svn/crysfml/Src
 	# remove stale versions of String_Utilities Module
 	rm Src/*_gf.f90 Src/*_LF.f90
 	# Add patch to CrysFML to fix MsFac bugs
-	cp CFML_Msfac.patch Src/
+	cp *.patch Src/
 	cd Src
 	patch -f < CFML_Msfac.patch
+        # Use the following with gfortran<5.0
+	patch -f < CFML_String_Util.patch
 	# Stripping out the calls to the nexus wrapper library for ILL data becaause we do not need them.
 	# The original code refers to the SrcCpp package in the crysfml directory, which depends on the
 	# nexus libraries and a "bosc.h" header that isn't included in the SrcCpp, so we aren't trying
@@ -155,11 +162,9 @@ echo -e $a > pycrysfml.i
 swig -python -c++ pycrysfml.i
 # compile Fortran wrapper
 echo "compiling wrapper"
-#set -x
-set -x
 $FORTCOMP -fPIC -o CppWrappers.o -c CppWrappers.f90 ../crysfml.so -lstdc++ -Xlinker -rpath . -I..
 #compile C++
-$CPPCOMP -O2 -fPIC -c *.cpp *.cxx -I$PY_HEADERS  ../crysfml.so $LIBFLAGS -Xlinker -rpath .
+$CPPCOMP -O2 -fPIC -c *.cpp *.cxx $PY_HEADERS  ../crysfml.so $LIBFLAGS -Xlinker -rpath .
 #build shared-object library
 echo "making shared-object library"
 ##$CPPCOMP $SOFLAGS -o _pycrysfml.so -g -Wall ./*.o ../CFML_GlobalDeps_Linux.o ../CFML_Math_Gen.o ../CFML_LSQ_TypeDef.o ../CFML_Spher_Harm.o ../CFML_Random.o ../CFML_FFTs.o ../CFML_String_Util.o ../CFML_IO_Mess.o ../CFML_Profile_TOF.o ../CFML_Profile_Finger.o ../CFML_Profile_Functs.o ../CFML_Math_3D.o ../CFML_Optimization.o ../CFML_Optimization_LSQ.o ../CFML_Sym_Table.o ../CFML_Chem_Scatt.o ../CFML_Diffpatt.o ../CFML_Bonds_Table.o ../CFML_Cryst_Types.o ../CFML_Symmetry.o ../CFML_ILL_Instrm_Data.o ../CFML_Reflct_Util.o ../CFML_Atom_Mod.o ../CFML_Export_Vtk.o ../CFML_Sfac.o ../CFML_Geom_Calc.o ../CFML_Propagk.o ../CFML_Maps.o ../CFML_Molecules.o ../CFML_SXTAL_Geom.o ../CFML_Conf_Calc.o ../CFML_Form_CIF.o ../CFML_MagSymm.o ../CFML_Msfac.o ../CFML_Polar.o ../CFML_Refcodes.o ../cfml_python.o $LIBFLAGS
@@ -224,7 +229,6 @@ $CPPCOMP $SOFLAGS -o _pycrysfml$SOLIB_EXT -g -Wall ./*.o  \
 	#../CFML_GlobalDeps_Windows.o 
 	#../CFML_GlobalDeps_Windows_intel.o 
 	#../CFML_GlobalDeps_Windows_intel64.o 
-set +x
 
 #$CPPCOMP -shared -fPIC -o _pycrysfml.so -g -Wall ./*.o ../crysfml.so $LIBFLAGS -L.. -I.. -Xlinker -rpath .
 cd $wd

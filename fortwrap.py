@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 # Copyright (c) 2010 John McFarland
 
@@ -1789,4 +1789,5 @@ if __name__ == "__main__":
         raise
 
     except:
+        raise
         internal_error()
