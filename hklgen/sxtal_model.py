@@ -6,9 +6,9 @@ try:
 except(ImportError):
     pass
 
-from pycrysfml import *
-from fswig_hklgen import *
-from hkl_model import TriclinicCell, MonoclinicCell, OrthorhombicCell, TetragonalCell, HexagonalCell, CubicCell, makeCell, AtomListModel, AtomModel
+from hklgen.pycrysfml import *
+from hklgen.fswig_hklgen import *
+from hklgen.hkl_model import TriclinicCell, MonoclinicCell, OrthorhombicCell, TetragonalCell, HexagonalCell, CubicCell, makeCell, AtomListModel, AtomModel
 
 # Class Objects
 class sXtalPeak(object):

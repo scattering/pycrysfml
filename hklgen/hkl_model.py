@@ -1,12 +1,14 @@
-from pycrysfml import *
-from fswig_hklgen import *
-#from string import rstrip, ljust, rjust, center
 import sys
+#from string import rstrip, ljust, rjust, center
+# TODO: Fix imports
+
 try:
     from bumps.names import Parameter, FitProblem
 except(ImportError):
     pass
-# TODO: Fix imports
+
+from .pycrysfml import *
+from .fswig_hklgen import *
 
 # Triclinic/Monoclinic/Orthorhombic/Tetragonal/Hexagonal/CubicCell: classes
 #   that contain lattice information with refinable parameters to interface

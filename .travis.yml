@@ -19,5 +19,4 @@ install:
   - "./build.sh"
 # command to run tests
 script:
-  - cd hklgen
   - PYTHONPATH=. nosetests

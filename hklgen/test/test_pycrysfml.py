@@ -1,8 +1,10 @@
 import unittest
-import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import os
+
 import numpy as np
-from pycrysfml import *
-from fswig_hklgen import readInfo, SpaceGroup, AtomList, CrystalCell, Atom
+
+from hklgen.pycrysfml import *
+from hklgen.fswig_hklgen import readInfo, SpaceGroup, AtomList, CrystalCell, Atom
 # TODO: populate tests
 class TestCrysFMLIO(unittest.TestCase):
     """Test of CrysFML I/O functions, crystal cell, atom, spacegroup, magnetic symmetry, and atomList types"""

@@ -1,12 +1,14 @@
-import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import os
 from copy import copy
-import numpy as np
-import fswig_hklgen as H
-import hkl_model as Mod
-import sxtal_model as S
-from pycrysfml import getSpaceGroup_crystalsys as xtalsys
 import unittest
+
+import numpy as np
+
+from hklgen import fswig_hklgen as H
+from hklgen import hkl_model as Mod
+from hklgen import sxtal_model as S
+from hklgen.pycrysfml import getSpaceGroup_crystalsys as xtalsys
+
 np.seterr(divide="ignore", invalid="ignore")
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
