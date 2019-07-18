@@ -28,6 +28,8 @@ Otherwise the latest version of the library will be pulled from the ILL subversi
 
 can be used to clean the working directory.
 
+After running the build, you can put the current directory on the python path, or run python setup.py install.
+
 Programming API
 =========
 

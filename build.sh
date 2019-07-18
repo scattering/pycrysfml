@@ -11,6 +11,7 @@
 # functions from F2003, but we patch it so that it compiles on gfortran 4.8.
 set -x
 wd=$(pwd)
+tools=$wd/build_tools
 # Mac OS Support
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	CPPCOMP=g++-6
@@ -102,14 +103,14 @@ fi
 cp $wd/fort_methods/cfml_python/cfml_python.f90 $wd/Src/cfml_python.f90
 # end injection
 cd $wd
-$wd/gen_list.py > $wd/list
+$tools/gen_list.py > $wd/list
 cd $wd/Src/
 mkdir $wd/Src/wrap
 $SEDCOM -i 's/.*/\L&/' *.f90
-$wd/fix_deps.py
-$wd/fix_type_decl.py
+$tools/fix_deps.py
+$tools/fix_type_decl.py
 # wrap library
-$wd/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log || (echo "fortwrap failed" && cat $wd/FortWrap_log && exit 1)
+$tools/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log || (echo "fortwrap failed" && cat $wd/FortWrap_log && exit 1)
 if [ $# -lt 1 ]; then
 	svn co http://forge.epn-campus.eu/svn/crysfml/Src
 	# remove stale versions of String_Utilities Module
@@ -140,11 +141,11 @@ $wd/fort_methods/fix_line_width.py $wd/Src/cfml_python.f90
 # Build library with Makefile
 cd $wd
 make deps
-$wd/fix_makefile_deps.py
+$tools/fix_makefile_deps.py
 make
 make install
 cd $wd/Src
-$wd/add_cmplx.py
+$tools/add_cmplx.py
 # copy C++ wrapper files
 cp $wd/cpp_modules/* $wd/Src/wrap/
 # auto-generate swig interface file
