@@ -7,17 +7,19 @@
 #   FortWrap/Swig Version based on original from 2013
 #
 
-from pycrysfml import *
 import os
+from math import floor, sqrt, log, tan, radians
+#from string import rstrip, ljust, rjust, center
+from collections import OrderedDict
+
 import numpy as np
 try:
     import matplotlib.pylab as pylab
 except:
     import pylab
-from math import floor, sqrt, log, tan, radians
-#from string import rstrip, ljust, rjust, center
-from collections import OrderedDict
-import builtins
+
+from .pycrysfml import *
+
 funcs = FortFuncs()
 
 def rstrip(s, *args, **kw): return s.rstrip(*args, **kw)
