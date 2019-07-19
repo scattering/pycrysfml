@@ -3,13 +3,12 @@
 #   group, using the Fortran CFML library.
 #   Also uses the program "bumps" to perform fitting of calculated diffraction
 #   patterns to observed data.
-#   
+#
 #   FortWrap/Swig Version based on original from 2013
 #
 
 import os
 from math import floor, sqrt, log, tan, radians
-#from string import rstrip, ljust, rjust, center
 from collections import OrderedDict
 
 import numpy as np
@@ -22,6 +21,7 @@ from .pycrysfml import *
 
 funcs = FortFuncs()
 
+#from string import rstrip, ljust, rjust, center
 def rstrip(s, *args, **kw): return s.rstrip(*args, **kw)
 def ljust(s, *args, **kw): return s.ljust(*args, **kw)
 def rjust(s, *args, **kw): return s.rjust(*args, **kw)
@@ -34,7 +34,7 @@ def center(s, *args, **kw): return s.center(*args, **kw)
 class SymmetryOp(sym_oper_type):
     def __init__(self):
         sym_oper_type.__init__(self)
-    
+
 # MagSymmetryOp attributes:
 #   rot     - roatational part of symmetry operator
 #   phase   - phase as a fraction of 2*pi
@@ -51,14 +51,14 @@ class MagSymmetryOp(msym_oper_type):
 class WyckoffPos(wyck_pos_type):
     def __init__(self):
         wyck_pos_type.__init__(self)
-        
+
 # Wyckoff attributes:
 #   numOrbits   - number of orbits
 #   orbits      - list of Wyckoff position objects
 class Wyckoff(wyckoff_type):
     def __init__(self):
         wyckoff_type.__init__(self)
-    
+
 # SpaceGroup attributes:
 #   number          - space group number
 #   symbol          - Hermann-Mauguin symbol
@@ -94,7 +94,7 @@ class SpaceGroup(space_group_type):
             funcs.set_spacegroup(groupName, self, None, None, None, None)
     @property
     def number(self):
-        return self.get_space_group_numspg()    
+        return self.get_space_group_numspg()
     @property
     def multip(self):
         return self.get_space_group_multip()
@@ -139,7 +139,7 @@ class CrystalCell(crystal_cell_type):
     def volume(self, value):
         self.set_crystal_cell_cellvol(value)
     def setCell(self, length, angle):
-        funcs.set_crystal_cell(FloatVector(length), FloatVector(angle), self, None, None)     
+        funcs.set_crystal_cell(FloatVector(length), FloatVector(angle), self, None, None)
 
 # MagSymmetry attributes:
 # [corresponds to CFML MagSymm_k_type]
@@ -215,7 +215,7 @@ class MagSymmetry(magsymm_k_type):
         return getMagsymmK_latt(self)
 # Atom attributes:
 #   lab --> label       - label for the atom
-#   element     - chemical symbol of the element 
+#   element     - chemical symbol of the element
 #   strFactSymb - chemical symbol used in the structure factor
 #   active      - used for program control
 #   atomicNum   - atomic number
@@ -293,7 +293,7 @@ class MagAtom(matom_type):
     def coords(self):
             CVec = FloatVector([0 for i in range(3)])
             self.get_matom_x(CVec)
-            return list(CVec)    
+            return list(CVec)
     def sameSite(self, other):
         # returns true if two atoms occupy the same position
         # Warning: they must be specified with identical starting coordinates
@@ -301,13 +301,13 @@ class MagAtom(matom_type):
         return all([approxEq(self.coords()[i], other.coords()[i], eps)
                     for i in range(3)])
     def setCoords(self, value):
-        self.set_matom_x(FloatVector(value))    
+        self.set_matom_x(FloatVector(value))
     def multip(self):
         return self.get_matom_mult()
     def occupancy(self):
         return self.get_matom_occ()
     def setOccupancy(self, value):
-        self.set_matom_occ(value)    
+        self.set_matom_occ(value)
     def BIso(self):
         return self.get_matom_biso()
     def setBIso(self, value):
@@ -332,7 +332,7 @@ class MagAtom(matom_type):
     def setIrrepNum_ind(self, i, k):
         value = self.irrepNum()
         value[i] = k
-        self.setIrrepNum(IntVector(value))        
+        self.setIrrepNum(IntVector(value))
     def numkVectors(self):
         return self.get_matom_nvk()
     def setNumkVectors(self, value):
@@ -382,7 +382,7 @@ class AtomList(atom_list_type, matom_list_type):
             funcs.allocate_atom_list(len(atoms), self, None)
             #self.numAtoms = numAtoms
             self.set_atom_list_natoms(len(atoms))
-            
+
             # TODO: replace following with pycrysfml equivalent
             ## copy information from provided atom list
             #for i, atom in enumerate(self):
@@ -419,7 +419,7 @@ class AtomList(atom_list_type, matom_list_type):
                 L.append(self.__getitem__(i))
             return L
         else:
-            raise TypeError("index must be int or slice")        
+            raise TypeError("index must be int or slice")
     def __setitem__(self, index, value):
         if self.magnetic:
             self.set_matom_list_element(value, index)
@@ -463,7 +463,7 @@ class Reflection(reflection_type):
     @multip.setter
     def multip(self, value):
         self.set_reflection_mult(value)
-    
+
 
 # MagReflection attributes:
 # [corresponds to CFML MagH_type]
@@ -533,7 +533,7 @@ class MagReflection(magh_type):
     @property
     def sqMiV(self):
         return self.get_magh_sqmiv()
-    
+
 # ReflectionList attributes
 #   numReflections  - the number of reflections
 #   reflections     - list of Reflection objects
@@ -561,7 +561,7 @@ class ReflectionList(reflection_list_type, magh_list_type):
                 reflection_list_type.__init__(self)
             else:
                 magh_list_type.__init__(self)
-            self.magnetic = magnetic                
+            self.magnetic = magnetic
     def __len__(self):
         #    return int(self.numReflections)
         if self.magnetic:
@@ -575,7 +575,7 @@ class ReflectionList(reflection_list_type, magh_list_type):
         if self.index == len(self):
             self.index = -1
             raise StopIteration
-        return self[self.index]    
+        return self[self.index]
     def __getitem__(self, index):
         if isinstance(index, int):
             if (index < 0): index += len(self)
@@ -593,7 +593,7 @@ class ReflectionList(reflection_list_type, magh_list_type):
             for i in range(start, stop, step):
                 L.append(self.__getitem__(i))
             return L
-            
+
         else:
             raise TypeError("index must be int or slice")
     def __setitem__(self, index, value):
@@ -617,7 +617,7 @@ class ReflectionList(reflection_list_type, magh_list_type):
             self.set_reflection_list_nref(value)
 
 # FileList: represents a Fortran file object
-class FileList(file_list_type):    
+class FileList(file_list_type):
     def __init__(self, filename):
         file_list_type.__init__(self)
         funcs.file_to_filelist(filename, self)
@@ -646,7 +646,7 @@ def readInfo(filename):
 # Peak: represents a Peak shape function that can be evaluated at any
 #   2*theta value. u, v, and w are fitting parameters.
 class Peak(object):
-    scaleFactor = 1    
+    scaleFactor = 1
     def __init__(self, center, u, v, w, I, hkl=[None, None, None], shape="Gaussian", eta=0):
         self.center = center    # 2*theta position
         self.u = u
@@ -773,7 +773,7 @@ def readIllData(filename, instrument, bacfile):
 def approxEq(num1, num2, eps):
     return abs(num1-num2) <= eps
 
-# isSequence: returns True if a value is a list, tuple, numpy array, etc. and 
+# isSequence: returns True if a value is a list, tuple, numpy array, etc. and
 #   False if it is a string or a non-sequence
 def isSequence(x):
     return ((not hasattr(x, "strip") and hasattr(x, "__getslice__")) or
@@ -857,7 +857,7 @@ def hklGen(spaceGroup, cell, sMin, sMax, getList=True, xtal=False):
             reflections = ReflectionList()
             funcs.hkluni_refllist(cell, spaceGroup, True, np.asscalar(sMin), np.asscalar(sMax), 's', reflectionCount, reflections)
     if (not isinstance(reflections, ReflectionList)):
-        reflections = reflections[:reflectionCount]    
+        reflections = reflections[:reflectionCount]
     return reflections
 # satelliteGen: generates a list of magnetic satellite reflections below a
 #   maximum sin(theta)/lambda value
@@ -915,7 +915,7 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
             mref.set_magh_keqv_minus(False)
             mref.set_magh_mult(2)
             refList[i] = mref
-            i += 1            
+            i += 1
         if sp2 <= sMax:
             mref = MagReflection(reflection)
             mref.set_magh_h(FloatVector(hkp2))
@@ -935,7 +935,7 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
             mref.set_magh_keqv_minus(False)
             mref.set_magh_mult(1)
             refList[i] = mref
-            i += 1        
+            i += 1
                 #if hkl[2] == 0 and hkl[0] <= 1:
                     ## this part causes double counting
                     #ks = np.add([-hkl[0],-hkl[1],0.0],kvec)
@@ -947,7 +947,7 @@ def satelliteGen_python(cell, sMax, hkls, kvec=[0.5,0,0.5]):
                     #mref.set_magh_keqv_minus(True)
                     #mref.set_magh_mult(2)
                     #refList[i] = mref
-                    #i += 1                    
+                    #i += 1
             #if sm <= sMax:
                 ## minus k reflections
                 #mref = MagReflection()
@@ -992,7 +992,7 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=False):
     funcs.init_calc_strfactors(refList, atomList, spaceGroup, 'NUC', wavelength_p)
     structFacts = [float() for i in range(refList.get_reflection_list_nref())]
     reflections = refList[:]
-    if xtal: code = 'S' 
+    if xtal: code = 'S'
     else: code = 'P'
     for i, reflection in enumerate(reflections):
         # calculates the square of the structure factor
@@ -1004,12 +1004,12 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=False):
 
 ## calcMagStructFact: calculates the magnetic structure factors around a list
 ##   of lattice reflections
-#def calcMagStructFact(refList, atomList, symmetry, cell): 
+#def calcMagStructFact(refList, atomList, symmetry, cell):
     ##funcs.print_strfac_stuff(cell, atomList, symmetry, refList)
     #funcs.init_mag_structure_factors(refList, atomList, symmetry)
     #funcs.mag_structure_factors(cell, atomList, symmetry, refList)
     ## calculate the "magnetic interaction vector" (the square of which is
-    ##   proportional to the intensity)    
+    ##   proportional to the intensity)
     #funcs.calc_mag_interaction_vector(refList, cell)
     ##for atom in atomList:
         ##print atom.basis()
@@ -1017,9 +1017,9 @@ def calcStructFact(refList, atomList, spaceGroup, wavelength, xtal=False):
     #return mivs
 # calcMagStructFact: calculates the magnetic structure factors around a list
 #   of lattice reflections
-def calcMagStructFact(refList, atomList, symmetry, cell): 
+def calcMagStructFact(refList, atomList, symmetry, cell):
     # calculate the "magnetic interaction vectors" (the square of which is
-    #   proportional to the intensity)    
+    #   proportional to the intensity)
     sqMivs = []
     for ref in refList:
         funcs.calc_magnetic_strf_miv(cell, symmetry, atomList, ref)
@@ -1114,8 +1114,8 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
         ## magnetic peaks
         # convert magnetic symmetry to space group
         latt = getMagsymmK_latt(basisSymmetry)
-        if basisSymmetry.get_magsymm_k_mcentred() == 1: 
-            latt+= " -1" 
+        if basisSymmetry.get_magsymm_k_mcentred() == 1:
+            latt+= " -1"
         else:
             latt += " 1"
         spg = SpaceGroup()
@@ -1148,7 +1148,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
             infofile = readInfo(infoFile)
             if (spaceGroup is None): spaceGroup = infofile[0]
             if (cell is None): cell = infofile[1]
-            if (atomList is None): atomList = infofile[2]         
+            if (atomList is None): atomList = infofile[2]
         refList = hklGen(spaceGroup, cell, sMin, sMax, True, xtal=False)
         reflections = refList[:]
         intensities = calcIntensity(refList, atomList, spaceGroup, wavelength, muR=muR)
@@ -1183,7 +1183,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
     if (isinstance(refLists, ReflectionList)):
         atomLists = (atomLists,)
         refLists = (refLists,)
-    
+
     divider = "-" * 40
     print("Cell information (%s cell)" % rstrip(getSpaceGroup_crystalsys(spaceGroup)))
     print(divider)
@@ -1221,7 +1221,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
                          ('mult', max(len(max(multip, key=len)), 4)),
                          ('occ', max(len(max(occupancy, key=len)), 3)),
                          ])
-    print("%s   %s %s %s   %s  %s" % tuple([center(key, v) for key, v 
+    print("%s   %s %s %s   %s  %s" % tuple([center(key, v) for key, v
                                              in width.items()]))
     for i in range(len(atomList)):
         print("%s  (%s %s %s)  %s  %s" % (center(label[i], width["label"]),
@@ -1255,7 +1255,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
                              ('2*theta', max(len(max(tt, key=len)), 7)),
                              ('intensity', max(len(max(intensity, key=len)), 9))
                             ])
-        print("  %s %s %s   %s  %s  %s" % tuple([center(key, v) for key, v 
+        print("  %s %s %s   %s  %s  %s" % tuple([center(key, v) for key, v
                                                  in width.items()]))
         for i in range(len(refList)):
             print(" (%s %s %s)  %s  %s  %s" % (rjust(h[i], width["h"]),
