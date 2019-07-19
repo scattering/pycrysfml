@@ -1,5 +1,6 @@
 # Compiled source #
 ###################
+*.egg-info
 *.com
 *.class
 *.dll
