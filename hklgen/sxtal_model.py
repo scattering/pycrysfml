@@ -349,8 +349,7 @@ class Model(object):
             self.spaceGroup = spaceGroupName
         else:
             self.spaceGroup = SpaceGroup(spaceGroupName)
-        self.tt = np.array(tt)
-        print("tt is", self.tt)
+        self.tt = np.asarray(tt)
         self.obspeaks = makeXtalPeaks(observed, [getS(ttval, wavelength) for ttval in self.tt], refList=hkls, error=error)
         self.sList = np.array([peak.svalue for peak in self.obspeaks])
         self.observed = np.array([peak.sfs2 for peak in self.obspeaks])
@@ -383,6 +382,7 @@ class Model(object):
         else:
             self.atomListModel = AtomListModel(atoms, self.spaceGroup.get_space_group_multip(), False)
         self._set_reflections()
+        self._set_observations(observed)
         self.update()
     def _set_reflections(self):
         maxLattice = self.cell.getMaxLattice()
