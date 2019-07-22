@@ -387,6 +387,8 @@ class Model(object):
         self.update()
     def _set_reflections(self):
         maxLattice = self.cell.getMaxLattice()
+        # TODO: why is FloatVector failing on inf?  Why is maxLattice inf?
+        maxLattice = [1e38 if v > 1e38 else v for v in maxLattice]
         maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
         if self.magnetic:
             self.magRefList = satelliteGen(self.cell.cell, self.symmetry, np.sin(179.5/2)/self.wavelength, hkls=self.refList)
