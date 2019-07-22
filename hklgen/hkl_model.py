@@ -167,7 +167,7 @@ class Model(object):
             self.spaceGroup = spaceGroupName
         else:
             self.spaceGroup = SpaceGroup(spaceGroupName)
-        self.tt = np.array(tt)
+        self.tt = np.asarray(tt)
         self.observed = observed
         self.background = background
         self.u = Parameter(u, name='u')
@@ -195,10 +195,11 @@ class Model(object):
         self.wavelength = wavelength
         self.cell = cell
         self.exclusions = exclusions
-        self.ttMin = min(self.tt)
-        self.ttMax = max(self.tt)
-        self.sMin = getS(self.ttMin, self.wavelength)
-        self.sMax = getS(self.ttMax, self.wavelength)
+        if len(self.tt):
+            self.ttMin = min(self.tt)
+            self.ttMax = max(self.tt)
+            self.sMin = getS(self.ttMin, self.wavelength)
+            self.sMax = getS(self.ttMax, self.wavelength)
         self.magnetic = magnetic
         if magnetic:
             self.symmetry = symmetry

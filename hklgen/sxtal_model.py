@@ -368,10 +368,11 @@ class Model(object):
         self.wavelength = wavelength
         self.cell = cell
         self.exclusions = exclusions
-        self.ttMin = min(self.tt)
-        self.ttMax = max(self.tt)
-        self.sMin = getS(self.ttMin, self.wavelength)
-        self.sMax = getS(self.ttMax, self.wavelength)
+        if len(self.tt):
+            self.ttMin = min(self.tt)
+            self.ttMax = max(self.tt)
+            self.sMin = getS(self.ttMin, self.wavelength)
+            self.sMax = getS(self.ttMax, self.wavelength)
         self.magnetic = magnetic
         if magnetic:
             self.symmetry = symmetry
