@@ -21,12 +21,6 @@ from .pycrysfml import *
 
 funcs = FortFuncs()
 
-#from string import rstrip, ljust, rjust, center
-def rstrip(s, *args, **kw): return s.rstrip(*args, **kw)
-def ljust(s, *args, **kw): return s.ljust(*args, **kw)
-def rjust(s, *args, **kw): return s.rjust(*args, **kw)
-def center(s, *args, **kw): return s.center(*args, **kw)
-
 # class definitions:
 # SymmetryOp Attributes:
 #   rot     - rotational part of symmetry operator (3 by 3 matrix)
@@ -107,6 +101,8 @@ class SpaceGroup(space_group_type):
     @xtalSystem.setter
     def xtalSystem(self, value):
         self.set_space_group_crystalsys(value)
+    def __str__(self):
+        return "SpaceGroup(%r, %s)"%(self.xtalSystem, self.number)
 
 # CrystalCell attributes:
 #   length, angle           - arrays of unit cell parameters
@@ -140,6 +136,8 @@ class CrystalCell(crystal_cell_type):
         self.set_crystal_cell_cellvol(value)
     def setCell(self, length, angle):
         funcs.set_crystal_cell(FloatVector(length), FloatVector(angle), self, None, None)
+    def __str__(self):
+        return "CrystalCell(%s, %s)"%(list(self.length()), list(self.angle()))
 
 # MagSymmetry attributes:
 # [corresponds to CFML MagSymm_k_type]
@@ -241,15 +239,19 @@ class Atom(atom_type):
     def __init__(self, *args):
         # construct an atom from a list of attributes
         atom_type.__init__(self)
-        if (len(args) == 6):
-            funcs.init_atom_type(self)
-            self.set_atom_lab(ljust(args[0],20)) # set atom label
-            self.set_atom_chemsymb(ljust(args[1], 2)) # set element
-            self.set_atom_sfacsymb(ljust(self.element, 4))
-            self.set_atom_x(FloatVector(args[2]))
-            self.set_atom_mult(args[3])
-            self.set_atom_occ(float(args[4]))
-            self.set_atom_biso(float(args[5]))
+        if not args:
+            # uninitialized atom definition
+            return
+        if len(args) != 6:
+            raise TypeError("expected label, symbol, coords, multiplicity, occupancy, Debye-Waller factor")
+        funcs.init_atom_type(self)
+        self.set_atom_lab(args[0].ljust(20)) # set atom label
+        self.set_atom_chemsymb(args[1].ljust(2)) # set element
+        self.set_atom_sfacsymb(self.element.ljust(4))
+        self.set_atom_x(FloatVector(args[2]))
+        self.set_atom_mult(args[3])
+        self.set_atom_occ(float(args[4]))
+        self.set_atom_biso(float(args[5]))
     def coords(self):
         CVec = FloatVector([0 for i in range(3)])
         self.get_atom_x(CVec)
@@ -277,6 +279,8 @@ class Atom(atom_type):
         eps = 0.001
         return all([approxEq(self.coords()[i], other.coords()[i], eps)
                     for i in range(3)])
+    def __str__(self):
+        return "%s%s"%(self.label(), self.coords())
 
 # MagAtom attributes: same as atom, plus:
 #   numkVectors     - number of propagation vectors (excluding -k)
@@ -357,6 +361,9 @@ class MagAtom(matom_type):
         self.set_matom_mphas(ph)
     def debug(self):
         funcs.printbasis(self)
+    def __str__(self):
+        return "m%s%s"%(self.label(), self.coords())
+
 # AtomList attributes:
 #   numAtoms    - the number of atoms
 #   atoms       - a list of Atom objects
@@ -370,7 +377,6 @@ class MagAtom(matom_type):
 class AtomList(atom_list_type, matom_list_type):
     def __init__(self, atoms=None, magnetic=False):
         self.magnetic = magnetic
-        self.index = -1
         if magnetic:
             matom_list_type.__init__(self)
         else:
@@ -394,13 +400,8 @@ class AtomList(atom_list_type, matom_list_type):
         else:
             return self.get_atom_list_natoms()
     def __iter__(self):
-        return self
-    def __next__(self):
-        self.index += 1
-        if self.index == len(self):
-            self.index = -1
-            raise StopIteration
-        return self[self.index]
+        for index in range(len(self)):
+            yield self[index]
     def __getitem__(self, index):
         if isinstance(index, int):
             if (index < 0): index += len(self)
@@ -426,6 +427,9 @@ class AtomList(atom_list_type, matom_list_type):
             #print 'setting index', index, 'to', value
         else:
             self.set_atom_list_element(value, index)
+    def __str__(self):
+        atoms = [str(v) for v in self]
+        return "AtomList(%s)" % (", ".join(atoms))
 
 # Reflection attributes:
 #   hkl         - list containing hkl indices for the reflection
@@ -463,6 +467,8 @@ class Reflection(reflection_type):
     @multip.setter
     def multip(self, value):
         self.set_reflection_mult(value)
+    def __str__(self):
+        return ascii_hkl(self.hkl)
 
 
 # MagReflection attributes:
@@ -533,6 +539,18 @@ class MagReflection(magh_type):
     @property
     def sqMiV(self):
         return self.get_magh_sqmiv()
+    def __str__(self):
+        return ascii_hkl(self.hkl)
+
+def _macron(v):
+    if abs(v) < 10:
+        return "%su\0305"%str(v) if v < 0 else str(v)
+    else:
+        s = u"".join(u"%su\0305"%d for d in str(abs(v))) if v < 0 else str(v)
+        return "(%s)"%s
+
+def ascii_hkl(hkl):
+    return "".join(_macron(v) for v in hkl)
 
 # ReflectionList attributes
 #   numReflections  - the number of reflections
@@ -540,7 +558,6 @@ class MagReflection(magh_type):
 #   magnetic        - True if this is a list of MagReflections
 class ReflectionList(reflection_list_type, magh_list_type):
     def __init__(self, cast_list=None, magnetic=None):
-        self.index = -1
         if cast_list is not None:
             # copy constructor
             if isinstance(cast_list[0], magh_type):
@@ -569,13 +586,8 @@ class ReflectionList(reflection_list_type, magh_list_type):
         else:
             return self.get_reflection_list_nref()
     def __iter__(self):
-        return self
-    def __next__(self):
-        self.index += 1
-        if self.index == len(self):
-            self.index = -1
-            raise StopIteration
-        return self[self.index]
+        for index in range(len(self)):
+            yield self[index]
     def __getitem__(self, index):
         if isinstance(index, int):
             if (index < 0): index += len(self)
@@ -615,6 +627,9 @@ class ReflectionList(reflection_list_type, magh_list_type):
             self.set_magh_list_nref(value)
         else:
             self.set_reflection_list_nref(value)
+    def __str__(self):
+        reflections = [str(v) for v in self]
+        return "ReflectionList(%s)" % (", ".join(reflections))
 
 # FileList: represents a Fortran file object
 class FileList(file_list_type):
@@ -1185,7 +1200,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
         refLists = (refLists,)
 
     divider = "-" * 40
-    print("Cell information (%s cell)" % rstrip(getSpaceGroup_crystalsys(spaceGroup)))
+    print("Cell information (%s cell)" % getSpaceGroup_crystalsys(spaceGroup).rstrip())
     print(divider)
     print(" a = %.3f   alpha = %.3f" % (cell.length()[0], cell.angle()[0]))
     print(" b = %.3f   beta  = %.3f" % (cell.length()[1], cell.angle()[1]))
@@ -1207,7 +1222,7 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
     print(divider)
     atomList = atomLists[0]
     magnetic = atomList.magnetic
-    label = [rstrip(getAtom_lab(atom)) for atom in atomList]
+    label = [getAtom_lab(atom).rstrip() for atom in atomList]
     x, y, z = tuple(["%.3f" % atom.coords()[i] for atom in atomList]
                     for i in range(3))
     multip = [str(atom.get_atom_mult()) for atom in atomList]
@@ -1221,15 +1236,15 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
                          ('mult', max(len(max(multip, key=len)), 4)),
                          ('occ', max(len(max(occupancy, key=len)), 3)),
                          ])
-    print("%s   %s %s %s   %s  %s" % tuple([center(key, v) for key, v
+    print("%s   %s %s %s   %s  %s" % tuple([key.center(v) for key, v
                                              in width.items()]))
     for i in range(len(atomList)):
-        print("%s  (%s %s %s)  %s  %s" % (center(label[i], width["label"]),
-                                          rjust(x[i], width["x"]),
-                                          rjust(y[i], width["y"]),
-                                          rjust(z[i], width["z"]),
-                                          center(multip[i], width["mult"]),
-                                          rjust(occupancy[i], width["occ"])))
+        print("%s  (%s %s %s)  %s  %s" % (label[i].center(width["label"]),
+                                          x[i].rjust(width["x"]),
+                                          y[i].rjust(width["y"]),
+                                          z[i].rjust(width["z"]),
+                                          multip[i].center(width["mult"]),
+                                          occupancy[i].rjust(width["occ"])))
     print(divider)
     print()
     print("Reflection information (%d reflections)" % \
@@ -1255,15 +1270,15 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
                              ('2*theta', max(len(max(tt, key=len)), 7)),
                              ('intensity', max(len(max(intensity, key=len)), 9))
                             ])
-        print("  %s %s %s   %s  %s  %s" % tuple([center(key, v) for key, v
+        print("  %s %s %s   %s  %s  %s" % tuple([key.center(v) for key, v
                                                  in width.items()]))
         for i in range(len(refList)):
-            print(" (%s %s %s)  %s  %s  %s" % (rjust(h[i], width["h"]),
-                                               rjust(k[i], width["k"]),
-                                               rjust(l[i], width["l"]),
-                                               center(multip[i], width["mult"]),
-                                               rjust(tt[i], width["2*theta"]),
-                                               rjust(intensity[i], width["intensity"])))
+            print(" (%s %s %s)  %s  %s  %s" % (h[i].rjust(width["h"]),
+                                               k[i].rjust(width["k"]),
+                                               l[i].rjust(width["l"]),
+                                               multip[i].center(width["mult"]),
+                                               tt[i].rjust(width["2*theta"]),
+                                               intensity[i].rjust(width["intensity"])))
         print()
     print(divider)
     print()
