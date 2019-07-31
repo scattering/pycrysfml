@@ -28,7 +28,7 @@ if [[ "$OSTYPE" == "linux"* ]]; then
 	CPPCOMP=g++
 	SEDCOM=sed
 	#LIBFLAGS="-lpython3.6m -lgfortran"
-	LIBFLAGS="-lgfortran `python3-config --libs`"
+	LIBFLAGS="-lgfortran -fno-lto `python3-config --ldflags`"
 	SOFLAGS='-shared -fPIC -rdynamic'
 	BIN_DIR='Linux'
 	#PY_HEADERS='/usr/include/python3.6'
