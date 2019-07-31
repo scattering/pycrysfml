@@ -210,26 +210,28 @@ def diffPatternXtal(infoFile=None, backgroundFile=None, wavelength=1.5403,
     if plot:
         sObs = np.array([getS(value, wavelength) for value in tt])
         plotXtalPattern(peaks, sObs, obsIntensity, background=background, error=error, base=base, residuals=residuals,labels=labels, scale=scale, refList=refList)
-        pylab.show()
+        from matplotlib import pyplot as plt; plt.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
     return
 def plotXtalPattern(peaks, sList, obsIntensity, background=None,
                     exclusions=None, labels=None, residuals=False, base=0, scale=1, error=None, refList=None):
+    from matplotlib import pyplot as plt
+
     # plot single crystal intesities vs q as single points
     obspeaks = makeXtalPeaks(obsIntensity, sList, refList, error=error)
     sList = np.array([peak.svalue for peak in obspeaks])
     obsIntensity = np.array([peak.sfs2 for peak in obspeaks])
     calcIntensity, scalc = getXtalIntensity(peaks, sList=sList, exclusions=exclusions, scale=scale)
-    pylab.subplot(211)
+    plt.subplot(211)
     if obsIntensity is not None:
-        pylab.plot(sList*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
-    pylab.plot(scalc*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
+        plt.plot(sList*(4*np.pi), obsIntensity, '-go', linestyle="None", label="Observed",lw=1)
+    plt.plot(scalc*(4*np.pi), calcIntensity, '-bo', linestyle="None", label="Calculated", lw=1)
     error = [peak.error for peak in obspeaks]
-    pylab.errorbar(sList*(4*np.pi), obsIntensity, yerr=error, fmt=None, ecolor='g')
-    pylab.xlabel("Q")
-    pylab.ylabel("Intensity")
-    pylab.legend()
+    plt.errorbar(sList*(4*np.pi), obsIntensity, yerr=error, fmt=None, ecolor='g')
+    plt.xlabel("Q")
+    plt.ylabel("Intensity")
+    plt.legend()
     if residuals:
         calcPeaks = makeXtalPeaks(calcIntensity, scalc, peaks)
         resid = []
@@ -241,8 +243,8 @@ def plotXtalPattern(peaks, sList, obsIntensity, background=None,
             else:
                 resid.append(peak.sfs2)
         #resid = obsIntensity - calcIntensity
-        pylab.subplot(212)
-        pylab.plot(np.array(resid_stl)*(4*np.pi), np.array(resid), '-bo', linestyle="None", label="Residuals")
+        plt.subplot(212)
+        plt.plot(np.array(resid_stl)*(4*np.pi), np.array(resid), '-bo', linestyle="None", label="Residuals")
     return
 
 # printInfo: prints out information about the provided space group and atoms,
@@ -457,7 +459,6 @@ class Model(object):
         return np.sum(self.residuals()**2)
 
     def plot(self, view="linear"):
-        import pylab
         if self.has_zero:
             zero = self.zero.value
         else:

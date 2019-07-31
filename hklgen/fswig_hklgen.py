@@ -12,10 +12,6 @@ from math import floor, sqrt, log, tan, radians
 from collections import OrderedDict
 
 import numpy as np
-try:
-    import matplotlib.pylab as pylab
-except:
-    import pylab
 
 from .pycrysfml import *
 
@@ -1185,7 +1181,7 @@ def diffPattern(infoFile=None, backgroundFile=None, wavelength=1.5403,
     if plot:
         plotPattern(peaks, background, observedData[0], observedData[1],
                     ttMin, ttMax, ttStep, exclusions, labels=labels, base=base, residuals=residuals, error=error)
-        pylab.show()
+        from matplotlib import pyplot as plt; plt.show()
     if saveFile:
         np.savetxt(saveFile, (tt, intensity), delimiter=" ")
     return (tt, intensity)
@@ -1289,34 +1285,36 @@ def printInfo(cell, spaceGroup, atomLists, refLists, wavelength, symmetry=None, 
 #   used for powder patterns
 def plotPattern(peaks, background, ttObs, observed, ttMin, ttMax, ttStep,
                 exclusions=None, labels=None, residuals=False, base=0, error=None):
+    from matplotlib import pyplot as plt
+
     # TODO: scale residual plot
     numPoints = int(floor((ttMax-ttMin)/ttStep)) + 1
     ttCalc = np.linspace(ttMin, ttMax, numPoints)
     if(exclusions is not None): ttCalc = removeRange(ttCalc, exclusions)
     intensity = np.array(getIntensity(peaks, background, ttCalc, base=base))
-    pylab.subplot(211)
+    plt.subplot(211)
     if (observed is not None):
         if exclusions:
             ttObs, observed = removeRange(ttObs, exclusions, observed)
-        pylab.plot(ttObs, observed, '-go', linestyle="None", label="Observed",lw=1)
-    pylab.plot(ttCalc, np.array(intensity), '-b', label="Calculated", lw=1)
+        plt.plot(ttObs, observed, '-go', linestyle="None", label="Observed",lw=1)
+    plt.plot(ttCalc, np.array(intensity), '-b', label="Calculated", lw=1)
     intensityCalc = np.array(getIntensity(peaks, background, ttObs, base=base))
-    pylab.errorbar(ttObs, np.array(observed), yerr=error, fmt='none', ecolor='g')
-#    pylab.fill_between(ttObs, observed, intensity, color="lightblue")
-    pylab.xlabel(r"$2 \theta$")
-    pylab.ylabel("Intensity")
-    pylab.legend()
+    plt.errorbar(ttObs, np.array(observed), yerr=error, fmt='none', ecolor='g')
+    #plt.fill_between(ttObs, observed, intensity, color="lightblue")
+    plt.xlabel(r"$2 \theta$")
+    plt.ylabel("Intensity")
+    plt.legend()
     if labels:
         for g in peaks:
             if (g.center <= ttMax):
-                pylab.text(g.center, np.interp(g.center, ttCalc, intensity),
+                plt.text(g.center, np.interp(g.center, ttCalc, intensity),
                            hklString(g.hkl),
                            ha="center", va="bottom", rotation="vertical")
     if (residuals):
         resid = observed - intensityCalc
-        pylab.subplot(212)
-        pylab.plot(ttObs, resid, label="Residuals")
-        pylab.yticks(list(range(0,int(max(intensity)), int(max(intensity)/10))))
+        plt.subplot(212)
+        plt.plot(ttObs, resid, label="Residuals")
+        plt.yticks(list(range(0,int(max(intensity)), int(max(intensity)/10))))
     return
 if __name__ == '__main__':
     DATAPATH = os.path.dirname(os.path.abspath(__file__))
@@ -1325,5 +1323,6 @@ if __name__ == '__main__':
     tt, observed = readIllData(dataFile, "D1B", bkgFile)
     print(tt)
     print(observed)
-    #pylab.plot(tt,observed,marker='s',linestyle='None')
-    #pylab.show()
+    #from matplotlib import pyplot as plt
+    #plt.plot(tt,observed,marker='s',linestyle='None')
+    #plt.show()

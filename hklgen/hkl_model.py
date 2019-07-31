@@ -309,7 +309,6 @@ class Model(object):
         return np.sum(self.residuals()**2)
 
     def plot(self, view="linear"):
-        import pylab
         if self.has_base and self.has_zero:
             base, zero = self.base.value, self.zero.value
         elif self.has_base:
