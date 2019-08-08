@@ -37,7 +37,7 @@ if [[ "$OSTYPE" == "linux"* ]]; then
         ##    At line 1523 of file Src/CFML_String_Util.f90
         ##    Internal Error: get_unit(): Bad internal unit KIND
         ##
-	LIBFLAGS="-lgfortran -fno-lto `python3-config --ldflags | sed -e's,-L[^ ]*/lib ,,'`"
+	LIBFLAGS="-lgfortran -fno-lto `python3-config --ldflags | sed -e's,-L[^ ]*/lib ,,'g`"
 	SOFLAGS='-shared -fPIC -rdynamic'
 	BIN_DIR='Linux'
 	#PY_HEADERS='/usr/include/python3.6'
