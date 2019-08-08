@@ -27,8 +27,17 @@ fi
 if [[ "$OSTYPE" == "linux"* ]]; then
 	CPPCOMP=g++
 	SEDCOM=sed
+        ## Simplest option is to hardcode the python link library.
 	#LIBFLAGS="-lpython3.6m -lgfortran"
-	LIBFLAGS="-lgfortran -fno-lto `python3-config --ldflags`"
+        ## The -fno-lto flag was needed for the ubuntu compile. 
+	#LIBFLAGS="-lgfortran -fno-lto `python3-config --ldflags`"
+        ## Remove $CONDA_PREFIX/lib; it probably has a conflicting libgfortran.
+        ## The symptom of this was the error:
+        ##
+        ##    At line 1523 of file Src/CFML_String_Util.f90
+        ##    Internal Error: get_unit(): Bad internal unit KIND
+        ##
+	LIBFLAGS="-lgfortran -fno-lto `python3-config --ldflags | sed -e's,-L[^ ]*/lib ,,'`"
 	SOFLAGS='-shared -fPIC -rdynamic'
 	BIN_DIR='Linux'
 	#PY_HEADERS='/usr/include/python3.6'
