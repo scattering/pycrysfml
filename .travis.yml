@@ -4,12 +4,11 @@ python:
 # command to install dependencies
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -y build-essential gfortran subversion git swig
+  - sudo apt-get install -y build-essential gfortran subversion git swig python3-numpy python3-scipy python3-matplotlib
   # gcc-5 g++-5 gfortran-5
   #- git clone https://github.com/bumps/bumps.git
   #- pip install ./bumps
-  - pip install bumps
-  - pip install nose numpy scipy matplotlib
+  - pip install bumps nose
 install:
   #- alias gcc="gcc-5"
   #- alias g++="g++-5"

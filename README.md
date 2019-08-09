@@ -1,3 +1,5 @@
+[![Build status](https://travis-ci.org/scattering/pycrysfml.svg?branch=master)](https://travis-ci.org/scattering/pycrysfml)
+
 pycrysfml
 =========
 
