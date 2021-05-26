@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # Joseph Lesniewski - NIST Center for Neutron Research
 # Summer 2014
 # global deps modifications for use with modified FortWrap

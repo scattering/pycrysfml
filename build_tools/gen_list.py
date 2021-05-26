@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # Joseph Lesniewski - NIST Center for Neutron Research
 # Summer 2014
 # Generate file list for use with modified FortWrap based on bfiles.txt
@@ -12,6 +12,6 @@ for line in lines:
 		#print("$COMP", s[2], "$OPT1", s1[0]+".o", sep=" ")
 		#fortwrap list
 		#print("/home/jel/TestEnv/crysfml/Src/"+s[2])
-		print getcwd()+"/Src/"+s[2]
+		print(getcwd()+"/Src/"+s[2])
 		#print("../"+s1[0]+".o", end=" ")
 		#print(s[2])

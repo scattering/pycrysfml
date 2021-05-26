@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 # Copyright (c) 2010 John McFarland
 
@@ -404,17 +404,17 @@ class Procedure:
             elif dtor_def.match(name) and self.valid_dtor():
                 self.dtor = True
         # Check for exclusion:
-        for arg in args.itervalues():
+        for arg in args.values():
             if (name.lower(),arg.name.lower()) in proc_arg_exclusions:
                 if arg.optional:
                     arg.exclude = True
                 else:
                     warning("Argument exclusions only valid for optional arguments: " + name + ', ' + arg.name)
         # Make position map
-        for arg in self.args.itervalues():
+        for arg in self.args.values():
             self.args_by_pos[arg.pos] = arg
         # Check for arguments that can have default values of NULL in C++
-        for arg in reversed(self.args_by_pos.values()):
+        for arg in reversed(list(self.args_by_pos.values())):
             # (Assumes the dictionary iteration order is sorted by key)
             if arg.optional:
                 arg.cpp_optional = True
@@ -422,7 +422,7 @@ class Procedure:
                 break
         self.add_hidden_strlen_args()
         # Check for integer arguments that define array sizes:
-        for arg in self.args.itervalues():
+        for arg in self.args.values():
             if arg.type.type.upper()=='INTEGER' and arg.intent=='in':
                 if not opts.no_vector and self.get_vec_size_parent(arg.name):
                     # The check on opts.no_vector prevents writing
@@ -436,7 +436,7 @@ class Procedure:
         """Query whether or not the argument list continues past pos,
         accounting for c++ optional args"""
         has = False
-        for p,arg in self.args_by_pos.iteritems():
+        for p,arg in self.args_by_pos.items():
             if p > pos:
                 if not arg.fort_only():
                     has = True
@@ -448,19 +448,19 @@ class Procedure:
         """Add Fortran-only string length arguments to end of argument list"""
         nargs = len(self.args)
         pos = nargs + 1
-        for arg in self.args_by_pos.itervalues():
+        for arg in self.args_by_pos.values():
             if arg.type.type=='CHARACTER' and not arg.fort_only():
                 str_length_arg = Argument(arg.name + '_len__', pos, DataType('INT', str_len=arg.type.str_len ,hidden=True))
                 self.args[ str_length_arg.name ] = str_length_arg
                 pos = pos + 1
-        for arg in self.args.itervalues():
+        for arg in self.args.values():
             if arg.pos > nargs:
                 self.args_by_pos[arg.pos] = arg
 
     def get_vec_size_parent(self,argname):
         """Get the first 1d array argument that uses the argument argname to
         define its size"""
-        for arg in self.args_by_pos.itervalues():
+        for arg in self.args_by_pos.values():
             if arg.type.vec and not arg.optional and arg.type.array.size_var==argname:
                 return arg.name
         return None
@@ -469,7 +469,7 @@ class Procedure:
         """Similar to get_vec_size_parent.  Returns (matname,0) if argname
         is the number of rows and (matname,1) if argname is the number of
         columns"""
-        for arg in self.args_by_pos.itervalues():
+        for arg in self.args_by_pos.values():
             if arg.type.matrix and not arg.optional and argname in arg.type.array.size_var:
                 if argname == arg.type.array.size_var[0]:
                     return arg.name,0
@@ -480,7 +480,7 @@ class Procedure:
     def has_post_call_wrapper_code(self):
         """Whether or not wrapper code will be needed for after the call to
         the Fortran procedure"""
-        for arg in self.args.itervalues():
+        for arg in self.args.values():
             # Special string handling for after the call needed
             if arg.type.type=='CHARACTER' and not arg.fort_only() and arg.intent=='out':
                 return True
@@ -489,7 +489,7 @@ class Procedure:
     def valid_dtor(self):
         """Whether the procedure is a valid dtor.  Mainly this just
         checks that there are no required arguments"""
-        for arg in self.args.itervalues():
+        for arg in self.args.values():
             if arg.pos > 1 and not arg.optional:
                 return False
         return True
@@ -582,7 +582,7 @@ def is_public(name):
 # TODO: delete if not being used
 def args_have_comment(args):
     """Whether or not there are any comments in a set of arguments"""
-    for arg in args.itervalues():
+    for arg in args.values():
         if arg.comment:
             return True
     return False
@@ -729,7 +729,7 @@ def parse_proc(file,line,abstract=False):
         missing_args = set(arg_list).difference(set(args.keys()))
         error("Missing argument definitions in procedure %s: %s" % (proc_name, ', '.join(missing_args)))
         invalid = True
-    for arg in args.itervalues():
+    for arg in args.values():
         if arg.fort_only() and not arg.optional:
             # Note: the above fort_only() call depends on the
             # appropriate abstract interfaces already having been
@@ -766,7 +766,7 @@ def parse_abstract_interface(file,line):
     while True:
         line = readline(file)
         if line=='':
-            print "Unexpected end of file in abstract interface"
+            print("Unexpected end of file in abstract interface")
             return
         elif fort_dox_comments.match(line):
             # Grab comments and ignore them
@@ -818,7 +818,7 @@ def parse_comments(file,line):
             # Back up a line, or all the way back to the comment start
             # if it is inline
             if fort_dox_inline.match(line):
-                    for i in xrange(read_count):
+                    for i in range(read_count):
                         file_pointer -= 1
             file_pointer -= 1
             break
@@ -832,7 +832,7 @@ def parse_enum(file,line):
     while True:
         line = readline(file)
         if line == '':
-            print "Unexpected end of file in ENUM"
+            print("Unexpected end of file in ENUM")
             return
         if line.strip().upper().startswith('END'):
             break
@@ -842,14 +842,14 @@ def parse_enum(file,line):
                 try:
                     s = line.split('::')[1].split('!')[0]
                     if s.find('=')>=0:
-                        print "Non-default enum values not supported"
+                        print("Non-default enum values not supported")
                         enums = []
                         break
                     for enum in s.split(','):
                         if is_public(enum.strip()):
                             enums.append(enum.strip())
                 except:
-                    print "Problem parsing ENUMERATOR:", line
+                    print("Problem parsing ENUMERATOR:", line)
     if len(enums) > 0:
         #print "Adding enum:", enums
         enumerations.append(enums)
@@ -932,7 +932,7 @@ def associate_procedures():
     """
     def flag_native_args(proc):
         # Check for arguments to pass as native classes:
-        for pos,arg in proc.args_by_pos.iteritems():
+        for pos,arg in proc.args_by_pos.items():
             if arg.type.dt and not arg.type.array and arg.type.type in objects:
                 arg.native = True
 
@@ -941,7 +941,7 @@ def associate_procedures():
         if proc.method:
             typename = proc.args_by_pos[1].type.type
             if typename in objects:
-                print "Associating procedure:", typename +'.'+proc.name
+                print("Associating procedure:", typename +'.'+proc.name)
                 objects[typename].procs.append(proc)
                 flag_native_args(proc)
             elif typename.lower() not in name_exclusions:
@@ -954,8 +954,8 @@ def associate_procedures():
             flag_native_args(proc)
             proc.in_orphan_class = True
     # Tag procedure arguments as being inside abstract interface
-    for proc in abstract_interfaces.itervalues():
-        for arg in proc.args.itervalues():
+    for proc in abstract_interfaces.values():
+        for arg in proc.args.values():
             arg.in_abstract = True
             
 
@@ -973,7 +973,7 @@ def write_cpp_dox_comments(file,comments,args_by_pos=None,prefix=0):
             file.write(prefix*' ' + ' *  ' + c + '\n')
     # Write parameter argument comments if provided
     if args_by_pos:
-        for pos in xrange(1,len(args_by_pos)+1):
+        for pos in range(1,len(args_by_pos)+1):
             arg = args_by_pos[pos]
             if arg.fort_only():
                 continue
@@ -1018,7 +1018,7 @@ def c_arg_list(proc,bind=False,call=False,definition=True):
         else:
             string = 'data_ptr, '
     # Add argument names and possibly types
-    for pos,arg in proc.args_by_pos.iteritems():
+    for pos,arg in proc.args_by_pos.items():
         if (call or not bind) and pos == 1 and proc.args_by_pos[1].type.dt and any(s in proc.name for s in ['get', 'set']) and 'twofold' not in proc.args_by_pos[1].type.type:
             # dt check above excludes the cases where this is an
             # orphan function in the dummy class
@@ -1146,7 +1146,7 @@ def function_def_str(proc,bind=False,obj=None,call=False,prefix='  '):
     # Add wrapper code for function pointers
     if call:
         declared_c_pointer = False
-        for arg in proc.args.itervalues():
+        for arg in proc.args.values():
             if arg.type.proc_pointer and not arg.fort_only():
                 if not declared_c_pointer:
                     s = s + prefix + 'generic_fpointer c_pointer;\n'
@@ -1156,7 +1156,7 @@ def function_def_str(proc,bind=False,obj=None,call=False,prefix='  '):
                 s = s + prefix + 'if (' + arg.name + ') ' + mangle_name(fort_wrap_file,func_pointer_converter) + '(c_pointer' + ', &FORT_' + arg.name + ');\n'
     # Add wrapper code for strings
     if call:
-        for arg in proc.args.itervalues():
+        for arg in proc.args.values():
             if arg.type.type=='CHARACTER' and not arg.fort_only():
                 if arg.type.str_len.assumed:
                     str_len = arg.name+'_len__'
@@ -1191,7 +1191,7 @@ def function_def_str(proc,bind=False,obj=None,call=False,prefix='  '):
                     s = s + prefix + '}\n'
     # Add wrapper code for array size values
     if call:
-        for arg in proc.args.itervalues():
+        for arg in proc.args.values():
             if arg.type.is_array_size:
                 s = s + prefix + 'int ' + arg.name + ' = ' + proc.get_vec_size_parent(arg.name) + '->size();\n'
             elif arg.type.is_matrix_size:
@@ -1226,7 +1226,7 @@ def function_def_str(proc,bind=False,obj=None,call=False,prefix='  '):
     if not obj:
         s = s + ';'
     if call:
-        for arg in proc.args.itervalues():
+        for arg in proc.args.values():
             # Special string handling for after the call
             if arg.type.type=='CHARACTER' and not arg.fort_only() and arg.intent=='out':
                 s = s + '\n'
@@ -1275,7 +1275,7 @@ def write_destructor(file,object):
             file.write('  ' + 'if (initialized) ' + mangle_name(proc.mod,proc.name) + '(data_ptr')
             # Add NULL for any optional arguments (only optional
             # arguments are allowed in the destructor call)
-            for i in xrange(proc.nargs-1):
+            for i in range(proc.nargs-1):
                 file.write(', NULL')
             file.write('); // Fortran Destructor\n')
     # Deallocate Fortran derived type
@@ -1407,7 +1407,7 @@ def get_native_includes(object):
     """
     includes = set()
     for proc in object.procs:
-        for argname,arg in proc.args.iteritems():
+        for argname,arg in proc.args.items():
             if arg.native:
                 includes.add(arg.type.type)
             if arg.type.matrix and not opts.no_fmat:
@@ -1417,7 +1417,7 @@ def get_native_includes(object):
 def write_global_header_file():
     f = open(include_output_dir+'/' + opts.main_header + '.h','w')
     f.write(HEADER_STRING + '\n')
-    for objname,obj in objects.iteritems():
+    for objname,obj in objects.items():
         f.write('#include "' + objname + '.h"\n')
     if matrix_used:
         f.write('#include "' + matrix_classname + '.h"\n')
@@ -1489,14 +1489,14 @@ def write_fortran_wrapper():
     # TODO: fix hack for testing whether we need to write this file
     # Hack: check for real (non-orphan) methods
     count = 0
-    for obj in objects.itervalues():
+    for obj in objects.values():
         if obj.name != orphan_classname:
             count += 1
     if count == 0 and not proc_pointer_used:
         return
     # Build list of modules we need to USE
     use_mods = set()
-    for obj in objects.itervalues():
+    for obj in objects.values():
         if obj.name != orphan_classname:
             use_mods.add(obj.mod)
     f = open(fort_output_dir+'/' + fort_wrap_file + '.f90', "w")
@@ -1513,7 +1513,7 @@ def write_fortran_wrapper():
         f.write('    PROCEDURE(), POINTER :: fpointer\n')
         f.write('    CALL C_F_PROCPOINTER(cpointer,fpointer)\n')
         f.write('  END SUBROUTINE '+func_pointer_converter+'\n\n')
-    for obj in objects.itervalues():
+    for obj in objects.values():
         if obj.name == orphan_classname:
             continue
         cptr = obj.name + '_cptr'
@@ -1619,25 +1619,25 @@ class Options:
         self.parse_args()
 
     def usage(self,exit_val=2):
-        print "Usage:", sys.argv[0], "[options] [filenames]\n"
-        print "Source files to be wrapped can be specified on the command line ([filenames]),\nby globbing the current directory (-g), or listed in a file (--file-list)\n"
-        print "-v, --version\t: Print version information and exit"
-        print "-h, --help\t: Print this usage information"
-        print "-n\t\t: Run parser but do not generate any wrapper code (dry run)"
-        print "-c <FC>\t\t: Use name mangling for Fortran compiler <FC>.  Only supports\n\t\t  g95 and gfortran.  Default: FC="+compiler
-        print "-g\t\t: Wrap source files found in current directory (glob)"
-        print "-d <dir>\t: Output generated wrapper code to <dir>"
-        print "--file-list=<f>\t: Read list of Fortran source files to parse from file <f>.\n\t\t  The format is a newline-separated list of filenames with full\n\t\t  or relative paths"
-        print "-i <f>\t\t: Read interface configuration file <f>"
-        print "--no-vector\t: Wrap 1-D array arguments as C-style arrays ('[]') instead of\n\t\t  C++ std::vector containers"
-        print "--no-fmat\t: Do not wrap 2-D array arguments with the FortranMatrix type"
-        print "--array-as-ptr\t: Wrap 1-D arrays with '*' instead of '[]'. Implies --no-vector"
-        print "--dummy-class=<n>: Use <n> as the name of the dummy class used to wrap\n\t\t  non-method procedures"
-        print "--global\t: Wrap non-method procedures as global functions instead of\n\t\t  static methods of a dummy class"
-        print "--no-orphans\t: Do not by default wrap non-method procedures.  They can still\n\t\t  be wrapped by using %include directives"
-        print "--no-W-not-wrapped: Do not warn about procedures that were not wrapped"
-        print "--main-header=<n>: Use <n> as name of the main header file (default FortWrap.h)"
-        print "--constants-class=<n>: Use <n> as name of the class for wrapping enumerations\n\t\t  (default: {0})".format(constants_classname)
+        print("Usage:", sys.argv[0], "[options] [filenames]\n")
+        print("Source files to be wrapped can be specified on the command line ([filenames]),\nby globbing the current directory (-g), or listed in a file (--file-list)\n")
+        print("-v, --version\t: Print version information and exit")
+        print("-h, --help\t: Print this usage information")
+        print("-n\t\t: Run parser but do not generate any wrapper code (dry run)")
+        print("-c <FC>\t\t: Use name mangling for Fortran compiler <FC>.  Only supports\n\t\t  g95 and gfortran.  Default: FC="+compiler)
+        print("-g\t\t: Wrap source files found in current directory (glob)")
+        print("-d <dir>\t: Output generated wrapper code to <dir>")
+        print("--file-list=<f>\t: Read list of Fortran source files to parse from file <f>.\n\t\t  The format is a newline-separated list of filenames with full\n\t\t  or relative paths")
+        print("-i <f>\t\t: Read interface configuration file <f>")
+        print("--no-vector\t: Wrap 1-D array arguments as C-style arrays ('[]') instead of\n\t\t  C++ std::vector containers")
+        print("--no-fmat\t: Do not wrap 2-D array arguments with the FortranMatrix type")
+        print("--array-as-ptr\t: Wrap 1-D arrays with '*' instead of '[]'. Implies --no-vector")
+        print("--dummy-class=<n>: Use <n> as the name of the dummy class used to wrap\n\t\t  non-method procedures")
+        print("--global\t: Wrap non-method procedures as global functions instead of\n\t\t  static methods of a dummy class")
+        print("--no-orphans\t: Do not by default wrap non-method procedures.  They can still\n\t\t  be wrapped by using %include directives")
+        print("--no-W-not-wrapped: Do not warn about procedures that were not wrapped")
+        print("--main-header=<n>: Use <n> as name of the main header file (default FortWrap.h)")
+        print("--constants-class=<n>: Use <n> as name of the class for wrapping enumerations\n\t\t  (default: {0})".format(constants_classname))
         # Not documenting, as this option could be dangerous, although
         # it is protected from "-d .":
         #print "--clean\t\t: Remove all wrapper-related files from wrapper code directory\n\t\t  before generating new code.  Requires -d.  Warning: this\n\t\t  deletes files.  Use with caution and assume it will delete\n\t\t  everything in the wrapper directory"
@@ -1647,8 +1647,8 @@ class Options:
         global code_output_dir, include_output_dir, fort_output_dir, compiler, orphan_classname, file_list, constants_classname
         try:
             opts, args = getopt.getopt(sys.argv[1:], 'hvc:gnd:i:', ['file-list=','clean','help','version','no-vector','no-fmat','array-as-ptr','dummy-class=','global','no-orphans','no-W-not-wrapped','main-header=','constants-class='])
-        except getopt.GetoptError, err:
-            print str(err)
+        except getopt.GetoptError as err:
+            print(str(err))
             self.usage()
 
         for f in args:
@@ -1670,7 +1670,7 @@ class Options:
         if ('-h','') in opts or ('--help','') in opts:
             self.usage(0)
         elif ('-v','') in opts or ('--version','') in opts:
-            print "FortWrap version", VERSION
+            print("FortWrap version", VERSION)
             sys.exit(0)
         elif ('-g','') in opts:
             self.glob_files = True
@@ -1745,7 +1745,7 @@ if __name__ == "__main__":
                 if not line.strip().startswith('#') and re.search('\w', line):
                     file_list.append( line.strip() )
             f.close()
-            print "LOADED", len(file_list), 'FILES FROM LIST'
+            print("LOADED", len(file_list), 'FILES FROM LIST')
 
         if opts.glob_files:
             file_list += glob.glob('*.[fF]90')
@@ -1774,7 +1774,7 @@ if __name__ == "__main__":
         if opts.dry_run:
             sys.exit(0)
 
-        for obj in objects.itervalues():
+        for obj in objects.values():
             write_class(obj)
 
         write_global_header_file()

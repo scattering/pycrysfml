@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # gen_fort_methods.py
 # Script to facilite the manual generation of get and set methods
 # as well as constructors in Fortran

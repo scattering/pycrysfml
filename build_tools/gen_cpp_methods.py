@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # gen_cpp_methods.py
 # Script to facilite the manual generation of string get methods 
 # for SWIG
