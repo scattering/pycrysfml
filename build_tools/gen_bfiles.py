@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+import sys; print(">>", sys.argv, file=sys.stderr)
 lines = [line.strip() for line in open("./Makefile.deps")]
 line = lines[0].replace("SOURCES= ", "").replace("Src/", "").split()
 outfile = open("./bfiles.txt", "w")

@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+import sys; print(">>", sys.argv, file=sys.stderr)
 # Joseph Lesniewski
 # NIST Center for Neutron Research
 # Summer 2014

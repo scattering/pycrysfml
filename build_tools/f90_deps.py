@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+import sys; print(">>", sys.argv, file=sys.stderr)
 
 import re, sys, os
 
@@ -8,7 +9,7 @@ mod_line_re = re.compile("^\s*module\s+([a-z0-9_]+)\s*(!|$)", re.IGNORECASE)
 def get_deps(filename):
     mod = ""
     deps = []
-    with open(filename) as fid:
+    with open(filename, encoding='latin_1') as fid:
         for line in fid:
             match = use_line_re.search(line)
             if match:
@@ -29,17 +30,17 @@ def process_files(files, target_ext=".o"):
     for f in files:
         mod, deps = get_deps(f)
         if mod in mod_file: 
-            print >>sys.stderr, "replacing",mod_file[mod],"with",f
+            print("replacing",mod_file[mod],"with",f, file=sys.stderr)
         if mod: mod_file[mod] = f
         if mod and deps: mod_deps[mod] = deps
 
-    print "SOURCES="," ".join(sorted(mod_file.values()))
-    print
+    print("SOURCES="," ".join(sorted(mod_file.values())))
+    print()
     #print "\n".join(k+": "+v for k,v in sorted(mod_file.items()))
     for mod, deps in sorted(mod_deps.items()):
         target = new_ext(mod_file[mod], target_ext)
-        print target, ":", " ".join(new_ext(mod_file[m],target_ext) 
-                                    for m in deps if m in mod_file)
+        print(target, ":", " ".join(new_ext(mod_file[m],target_ext)
+                                    for m in deps if m in mod_file))
 
 if __name__ == "__main__":
     process_files(sys.argv[1:])

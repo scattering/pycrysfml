@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+import sys; print(">>", sys.argv, file=sys.stderr)
 # fix_line_width.py
 # corrects Fortran line length issues
 from sys import argv

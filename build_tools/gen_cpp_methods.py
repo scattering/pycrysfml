@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+import sys; print(">>", sys.argv, file=sys.stderr)
 # gen_cpp_methods.py
 # Script to facilite the manual generation of string get methods 
 # for SWIG

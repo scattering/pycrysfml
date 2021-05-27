@@ -1,14 +1,17 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+import sys; print(">>", sys.argv, file=sys.stderr)
 # Joseph Lesniewski - NIST Center for Neutron Research
 # Summer 2014
 # Fix derived type declarations for use with modified FortWrap
 import os
 import glob
+import re
 path = '.'
 for filename in glob.glob(os.path.join(path, '*.f90')):
 	pub_types = []
 	priv_types = []
-	lines = [line.strip() for line in open(filename)]
+	print("processing", filename, file=sys.stderr)
+	lines = [line.decode('ascii','ignore').strip() for line in open(filename, 'rb')]
 	out = open(filename, 'w')
 	for i in range(len(lines)):
 		lines[i] = lines[i].replace(",", ", ")

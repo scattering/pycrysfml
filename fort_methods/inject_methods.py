@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+import sys; print(">>", sys.argv, file=sys.stderr)
 # inject_methods.py
 # Syntax: inject_methods.py module.f90 additional_methods.f90
 from sys import argv

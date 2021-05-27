@@ -40,7 +40,6 @@ if [[ "$OSTYPE" == "linux"* ]]; then
 	LIBFLAGS="-lgfortran -fno-lto `python3-config --ldflags | sed -e's,-L[^ ]*/lib ,,'g`"
 	SOFLAGS='-shared -fPIC -rdynamic'
 	BIN_DIR='Linux'
-	#PY_HEADERS='/usr/include/python3.6'
 	PY_HEADERS=`python3-config --includes`
 	STR_MOD='gf'
 	FORTCOMP=gfortran
@@ -92,17 +91,15 @@ if [ $# -lt 1 ]; then
 	# remove stale versions of String_Utilities Module
 	rm Src/*_gf.f90 Src/*_LF.f90
 	# Add patch to CrysFML to fix MsFac bugs
-	cp *.patch Src/
 	cd Src
-	patch -f < CFML_Msfac.patch
+	patch -f < ../CFML_Msfac.patch
         # Use the following with gfortran<5.0
-	patch -f < CFML_String_Util.patch
+	patch -f < ../CFML_String_Util.patch
 	# Stripping out the calls to the nexus wrapper library for ILL data becaause we do not need them.
 	# The original code refers to the SrcCpp package in the crysfml directory, which depends on the
 	# nexus libraries and a "bosc.h" header that isn't included in the SrcCpp, so we aren't trying
 	# to build it, and instead ignoreng ILL data files.
-	mv CFML_ILL_Instrm_Data_Nexus.f90 CFML_ILL_Instrm_Data_Nexus.f90-orig
-	sed -e's/^ \( *call\)/!\1/' CFML_ILL_Instrm_Data_Nexus.f90-orig > CFML_ILL_Instrm_Data_Nexus.f90
+	$SEDCOM -i 's/^ \( *call\)/!\1/' CFML_ILL_Instrm_Data_Nexus.f90
 	cd $wd
 	# End Patch to CrysFML
 else
@@ -115,6 +112,7 @@ cd $wd
 $tools/gen_list.py > $wd/list
 cd $wd/Src/
 mkdir $wd/Src/wrap
+# strip euro characters from source (in this case degrees=0xBA from a comment)
 $SEDCOM -i 's/.*/\L&/' *.f90
 $tools/fix_deps.py
 $tools/fix_type_decl.py
