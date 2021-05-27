@@ -932,7 +932,7 @@ def associate_procedures():
     """
     def flag_native_args(proc):
         # Check for arguments to pass as native classes:
-        for pos,arg in proc.args_by_pos.items():
+        for pos,arg in sorted(proc.args_by_pos.items()):
             if arg.type.dt and not arg.type.array and arg.type.type in objects:
                 arg.native = True
 
@@ -1018,7 +1018,7 @@ def c_arg_list(proc,bind=False,call=False,definition=True):
         else:
             string = 'data_ptr, '
     # Add argument names and possibly types
-    for pos,arg in proc.args_by_pos.items():
+    for pos,arg in sorted(proc.args_by_pos.items()):
         if (call or not bind) and pos == 1 and proc.args_by_pos[1].type.dt and any(s in proc.name for s in ['get', 'set']) and 'twofold' not in proc.args_by_pos[1].type.type:
             # dt check above excludes the cases where this is an
             # orphan function in the dummy class
