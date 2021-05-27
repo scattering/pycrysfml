@@ -112,7 +112,7 @@ cd $wd
 $tools/gen_list.py > $wd/list
 cd $wd/Src/
 mkdir $wd/Src/wrap
-# strip euro characters from source (in this case degrees=0xBA from a comment)
+# Lowercase everything in the source directory
 $SEDCOM -i 's/.*/\L&/' *.f90
 $tools/fix_deps.py
 $tools/fix_type_decl.py
