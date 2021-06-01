@@ -190,6 +190,7 @@ $CPPCOMP $SOFLAGS -o _pycrysfml$SOLIB_EXT -g -Wall ./*.o  \
 	../CFML_Conf_Calc.o \
 	../CFML_Cryst_Types.o \
 	../CFML_Diffpatt.o \
+	../CFML_EisPack.o \
 	../CFML_Export_Vtk_LF95.o \
 	../CFML_Extinction_Correction.o \
 	../CFML_FFTs.o \
