@@ -86,7 +86,7 @@ if [[ "$HOSTNAME" == "rocks"* ]]; then
 	STR_MOD='LF'
 fi
 if [ $# -lt 1 ]; then
-	svn co http://forge.epn-campus.eu/svn/crysfml/Src
+	svn co --non-interactive --trust-server-cert https://forge.epn-campus.eu/svn/crysfml/Src
 	# svn co http://forge.epn-campus.eu/svn/crysfml/SrcCpp
 	# remove stale versions of String_Utilities Module
 	rm Src/*_gf.f90 Src/*_LF.f90
@@ -119,7 +119,7 @@ $tools/fix_type_decl.py
 # wrap library
 $tools/fortwrap.py --file-list=$wd/list -d $wd/Src/wrap >& $wd/FortWrap_log || (echo "fortwrap failed" && cat $wd/FortWrap_log && exit 1)
 if [ $# -lt 1 ]; then
-	svn co http://forge.epn-campus.eu/svn/crysfml/Src
+	svn co --non-interactive --trust-server-cert https://forge.epn-campus.eu/svn/crysfml/Src
 	# remove stale versions of String_Utilities Module
 	rm Src/*_gf.f90 Src/*_LF.f90
 	# Add patch to CrysFML to fix MsFac bugs
