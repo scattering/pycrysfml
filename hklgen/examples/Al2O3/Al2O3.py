@@ -1,7 +1,14 @@
-import os,sys;sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+import os,sys
+# Adjusting sys.path to allow finding hklgen modules
+# This assumes Al2O3.py is in hklgen/examples/Al2O3/
+# and the hklgen package is three levels up.
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
+
 import numpy as np
-import fswig_hklgen as H
-import hkl_model as Mod
+# Attempt to import from the hklgen package directly
+from hklgen import fswig_hklgen as H
+from hklgen import hkl_model as Mod
+from hklgen.pycrysfml import FloatVector # Import FloatVector if needed for CrystalCell
 np.seterr(divide="ignore", invalid="ignore")    
 
 DATAPATH = os.path.dirname(os.path.abspath(__file__))
@@ -44,8 +51,13 @@ def fit():
     return M
 
 def main():
-    cell = H.CrystalCell([4.761,4.761,13.001],[90,90,120])
-    uvw = [0.151066141044763,-0.0914698313404034,0.0693509296318546]
+    # CrystalCell expects FloatVector for lengths and angles
+    cell_lengths = FloatVector([4.761,4.761,13.001])
+    cell_angles = FloatVector([90,90,120])
+    cell = H.CrystalCell(cell_lengths, cell_angles)
+
+    uvw = FloatVector([0.151066141044763,-0.0914698313404034,0.0693509296318546]) # uvw might also need to be FloatVector
+
     H.diffPattern(infoFile=infoFile, backgroundFile=backgFile, wavelength=wavelength,
                   cell=cell, uvw=uvw, scale=1.40313478468024,
                   ttMin=ttMin, ttMax=ttMax, info=True, plot=True,

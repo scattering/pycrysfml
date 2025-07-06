@@ -6,8 +6,13 @@ try:
 except(ImportError):
     pass
 
-from .pycrysfml import *
-from .fswig_hklgen import *
+from .pycrysfml import (
+    CrystalCell, SpaceGroup, AtomList, ReflectionList, getS, twoTheta, hklGen,
+    getMagsymmK_latt, satelliteGen, calcS, calcIntensity, makePeaks,
+    plotPattern, removeRange, getIntensity, np, Atom, funcs, MagSymmK,
+    MagAtom, rstrip, getAtom_lab, radians
+) # Explicitly import names
+from .fswig_hklgen import printInfo
 
 # Triclinic/Monoclinic/Orthorhombic/Tetragonal/Hexagonal/CubicCell: classes
 #   that contain lattice information with refinable parameters to interface
@@ -213,7 +218,7 @@ class Model(object):
         self.update()
     def _set_reflections(self):
         maxLattice = self.cell.getMaxLattice()
-        maxCell = CrystalCell(maxLattice[:3], maxLattice[3:])
+        maxCell = CrystalCell(FloatVector(maxLattice[:3]), FloatVector(maxLattice[3:])) # Use FloatVector
         # powder calculations
         self.refList = hklGen(self.spaceGroup, self.cell.cell, self.sMin, self.sMax, True, xtal=False)
         self.reflections = self.refList[:]
@@ -227,7 +232,7 @@ class Model(object):
             spg = SpaceGroup()
             funcs.set_spacegroup(latt, spg)
             # use this space group to generate magnetic hkls
-            hkls = hklGen(spg, self.cell.cell, self.sMin, np.sin(179.5/2)/self.wavelength, True, xtal=True)
+            hkls = hklGen(spg, self.cell.cell, self.sMin, np.sin(np.radians(179.5)/2)/self.wavelength, True, xtal=True) # Use np.radians for clarity
             self.magRefList = satelliteGen(self.cell.cell, self.symmetry, self.sMax, hkls=hkls)#satelliteGen_python(self.cell.cell, self.sMax, hkls)
             newList = []
             for ref in self.magRefList:
@@ -298,12 +303,15 @@ class Model(object):
         elif self.has_base:
             return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero, base=self.base.value)
         elif self.has_zero:
-            return getIntensity(self.peaks, self.background, removeRannge(self.tt, self.exclusions)-self.zero.value, base=self.base)
+            # Corrected typo: removeRannge to removeRange
+            return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero.value, base=self.base)
         else:
             return getIntensity(self.peaks, self.background, removeRange(self.tt, self.exclusions)-self.zero, base=self.base)
 
     def residuals(self):
-        return (self.theory() - self.observed)/(np.sqrt(self.observed)+1)
+        # Ensure observed is a numpy array for element-wise operations
+        observed_array = np.asarray(self.observed)
+        return (self.theory() - observed_array)/(np.sqrt(observed_array)+1)
 
     def nllf(self):
         return np.sum(self.residuals()**2)
@@ -352,7 +360,7 @@ class Model(object):
                                                 self.atomListModel.magAtomList,
                                                 self.newSymmetry, self.wavelength,
                                                 self.cell.cell, True, muR=self.muR)
-            #print self.magIntensities
+            #print(self.magIntensities) # Python 3 print
             self.peaks.extend(makePeaks(self.magReflections,
                                            [self.u.value, self.v.value, self.w.value],
                                            self.magIntensities, self.scale.value,
@@ -368,7 +376,7 @@ class AtomListModel(object):
         self._rebuild_object(atoms)
         ## special parameters for changing basis
         #self.angle = [None] * symmetry.numSymOps
-        #for i in xrange(symmetry.numSymOps):
+        #for i in range(symmetry.numSymOps): # Python 3 range
             #self.angle[i] = Parameter(0, name="Ang"+str(i))
         #self.magnitude = Parameter(1, name="Mag")
 
@@ -379,8 +387,8 @@ class AtomListModel(object):
                 self.atomList = atoms
                 self.atoms = atoms[:]
             else:
-                print("typing")
-                print(type(atoms))
+                print("typing") # Python 3 print
+                print(type(atoms)) # Python 3 print
                 self.atomList = AtomList(atoms)
                 self.atoms = atoms
             self.atomModels = [AtomModel(atom, self.sgmultip) for atom in atoms]
@@ -404,16 +412,16 @@ class AtomListModel(object):
                     if (magAtom.label().rstrip() == model.atom.label().rstrip() and \
                         magAtom.sameSite(model.atom)):
                         model.addMagAtom(magAtom, self.symmetry)
-                        print(magAtom.label())
+                        print(magAtom.label()) # Python 3 print
             index = 0
             for magAtom in self.magAtoms:
-                print(index, magAtom.label())
+                print(index, magAtom.label()) # Python 3 print
                 self.magAtomList[index] = magAtom
                 self.magAtoms[index] = magAtom
                 index += 1
         self.modelsDict = dict([(am.atom.label(), am) for am in self.atomModels])
-#        print >>sys.stderr, "atom models: ", [(am.atom.label, am.magnetic)
-#                                              for am in self.atomModels]
+#        print("atom models: ", [(am.atom.label, am.magnetic)
+#                                              for am in self.atomModels], file=sys.stderr) # Python 3 print
 
     def __getstate__(self):
         state = self.atoms, self.sgmultip, self.magnetic
@@ -433,10 +441,10 @@ class AtomListModel(object):
         return params
 
     def update(self):
-#        print >>sys.stderr, len(self.parameters())
-#        print >>sys.stderr, "label: |" + self.atoms[0].label + "|"
+#        print(len(self.parameters()), file=sys.stderr) # Python 3 print
+#        print("label: |" + self.atoms[0].label + "|", file=sys.stderr) # Python 3 print
 #         if len(self.parameters()) == 1:
-#            print >>sys.stderr, self.parameters()
+#            print(self.parameters(), file=sys.stderr) # Python 3 print
         index = 0
         I2 = 0
         for atomModel in self.atomModels:
@@ -447,19 +455,19 @@ class AtomListModel(object):
                 for matom in atomModel.magAtoms:
                     self.magAtomList[index] = matom
                     self.magAtoms[index] = matom
-                    #print atomModel.magAtom.basis()
+                    #print(atomModel.magAtom.basis()) # Python 3 print
                     index += 1
         # update basis vectors instead of coefficients (only needed in special
         #   circumstances)
         #if self.magnetic:
-            #for i in xrange(self.symmetry.numSymOps):
+            #for i in range(self.symmetry.numSymOps): # Python 3 range
                 ## correct for hexagonal coordinates
-                #xcomp = self.magnitude.value * np.cos(radians(self.angle[i].value))
-                #ycomp = self.magnitude.value * np.sin(radians(self.angle[i].value))
+                #xcomp = self.magnitude.value * np.cos(np.radians(self.angle[i].value)) # Use np.radians
+                #ycomp = self.magnitude.value * np.sin(np.radians(self.angle[i].value)) # Use np.radians
                 #bcomp = ycomp / np.sin(np.radians(120))
-                #acomp = xcomp + bcomp / 2
-                #self.symmetry.setBasis(0, i, 0, [acomp,0,0])
-                #self.symmetry.setBasis(0, i, 1, [0,bcomp,0])
+                #acomp = xcomp + bcomp / 2.0 # Ensure float division
+                #self.symmetry.setBasis(0, i, 0, FloatVector([acomp,0,0])) # Use FloatVector
+                #self.symmetry.setBasis(0, i, 1, FloatVector([0,bcomp,0])) # Use FloatVector
 
     def __len__(self):
         return len(self.modelsDict)
@@ -470,7 +478,7 @@ class AtomModel(object):
     # TODO: implement anisotropic thermal factors
 
     def __init__(self, atom, sgmultip):
-#        if isSequence(atoms):
+#        if isinstance(atoms, (list, tuple)): # Check if atoms is a sequence
             # changes properties of both a regular atom and a magnetic atom
             #   (they should correspond to the same atomic position)
 #            self.atom = atoms[0]
@@ -487,7 +495,8 @@ class AtomModel(object):
         self.sgmultip = sgmultip
         self.atom.set_atom_lab(self.atom.label().rstrip())
         self.B = Parameter(self.atom.BIso(), name=self.atom.label() + " B")
-        occ = self.atom.occupancy() / self.atom.multip() * self.sgmultip
+        # Ensure float division if multip or sgmultip can be floats, or if occ is float
+        occ = float(self.atom.occupancy()) / self.atom.multip() * self.sgmultip
         self.occ = Parameter(occ, name=getAtom_lab(self.atom) + " occ")
         self.x = Parameter(self.atom.coords()[0], name=self.atom.label() + " x")
         self.y = Parameter(self.atom.coords()[1], name=self.atom.label() + " y")
@@ -534,15 +543,16 @@ class AtomModel(object):
 
     def update(self):
         self.atom.setBIso(self.B.value)
-        occ = self.occ.value * self.atom.multip() / self.sgmultip
+        # Ensure float division
+        occ = self.occ.value * self.atom.multip() / float(self.sgmultip)
         self.atom.setOccupancy(occ)
-        self.atom.setCoords([float(self.x), float(self.y), float(self.z)])
+        self.atom.setCoords(FloatVector([float(self.x), float(self.y), float(self.z)])) # Use FloatVector
 
         if self.magnetic:
             for i in range(len(self.magAtoms)):
                 matom = self.magAtoms[i]
                 matom.setBIso(self.B.value)
-                matom.setCoords([float(self.x), float(self.y), float(self.z)])
+                matom.setCoords(FloatVector([float(self.x), float(self.y), float(self.z)])) # Use FloatVector
                 for j in range(self.numVectors):
                     #self.magAtom.basis[0][i] = self.coeffs[i].value
                     matom.setBasis_ind(0,j, self.coeffs[j+i].value)

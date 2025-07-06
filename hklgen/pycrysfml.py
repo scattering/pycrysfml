@@ -43,10 +43,12 @@ try:
 except NameError:
     pass  # Python < 2.2 doesn't have 'property'.
 
-try:
-    import builtins as __builtin__
-except ImportError:
-    import __builtin__
+# try:
+#     import builtins as __builtin__
+# except ImportError:
+#     import __builtin__
+
+import builtins as __builtin__
 
 def _swig_setattr_nondynamic(self, class_type, name, value, static=1):
     if (name == "thisown"):
@@ -230,8 +232,8 @@ class SwigPyIterator(_object):
     def copy(self):
         return _pycrysfml.SwigPyIterator_copy(self)
 
-    def next(self):
-        return _pycrysfml.SwigPyIterator_next(self)
+    # def next(self):
+    #     return _pycrysfml.SwigPyIterator_next(self)
 
     def __next__(self):
         return _pycrysfml.SwigPyIterator___next__(self)
@@ -276,8 +278,8 @@ class FloatVector(_object):
     def __iter__(self):
         return self.iterator()
 
-    def __nonzero__(self):
-        return _pycrysfml.FloatVector___nonzero__(self)
+    # def __nonzero__(self):
+    #     return _pycrysfml.FloatVector___nonzero__(self)
 
     def __bool__(self):
         return _pycrysfml.FloatVector___bool__(self)
@@ -389,8 +391,8 @@ class FloatMatrix(_object):
     def __iter__(self):
         return self.iterator()
 
-    def __nonzero__(self):
-        return _pycrysfml.FloatMatrix___nonzero__(self)
+    # def __nonzero__(self):
+    #     return _pycrysfml.FloatMatrix___nonzero__(self)
 
     def __bool__(self):
         return _pycrysfml.FloatMatrix___bool__(self)
@@ -502,8 +504,8 @@ class IntVector(_object):
     def __iter__(self):
         return self.iterator()
 
-    def __nonzero__(self):
-        return _pycrysfml.IntVector___nonzero__(self)
+    # def __nonzero__(self):
+    #     return _pycrysfml.IntVector___nonzero__(self)
 
     def __bool__(self):
         return _pycrysfml.IntVector___bool__(self)
