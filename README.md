@@ -193,21 +193,205 @@ mag_struct = read_cfl("magnetic.cfl")
 two_theta, intensity = read_diffraction_data("pattern.dat")
 ```
 
-## Current Limitations
+## Current Limitations and gfort2py Technical Details
 
-Due to gfort2py's handling of Fortran derived types and CLASS polymorphism, some CrysFML08 features have limited Python access:
+### Overview
 
-| Feature | Status |
-|---------|--------|
-| Scattering tables | ✅ Full support |
-| Math functions | ✅ Full support |
-| CIF/CFL parsing | ✅ Python implementation |
-| Space group lookup | ⚠️ Types accessible, some methods limited |
-| Crystal cell calculations | ⚠️ Types accessible, some methods limited |
-| Structure factors | ❌ Not yet implemented |
-| Powder pattern simulation | ❌ Not yet implemented |
+This package uses [gfort2py](https://github.com/rjfarmer/gfort2py) to interface Python with the compiled Fortran library. gfort2py reads gfortran `.mod` files and the shared library to expose Fortran routines to Python. While this approach works well for many use cases, certain Fortran 2008 features present challenges.
 
-Pure Python implementations are provided where Fortran access is limited.
+### Feature Support Matrix
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Scattering tables | ✅ Full | `get_atomic_mass`, `get_fermi_length`, etc. |
+| Math functions | ✅ Full | `factorial`, `gcd`, `lcm`, array operations |
+| String utilities | ✅ Full | Character manipulation functions |
+| CIF/CFL parsing | ✅ Python | Pure Python implementation |
+| Crystal cell | ⚠️ Partial | Python dataclass with methods; Fortran type read-only |
+| Space groups | ⚠️ Partial | Table lookups work; type-bound methods limited |
+| Atom lists | ⚠️ Partial | Can read types; allocatable arrays need care |
+| Structure factors | ❌ Planned | Requires derived type I/O |
+| Powder simulation | ❌ Planned | Complex type hierarchies |
+| Magnetic structure factors | ❌ Planned | CLASS polymorphism issues |
+
+### What Works Well
+
+**Simple functions with primitive types:**
+```python
+# These work perfectly - scalar in, scalar out
+mass = cfml.get_atomic_mass("Fe")        # Returns float
+n = cfml.factorial(5)                     # Returns int
+gcd = cfml.gcd(12, 8)                     # Returns int
+```
+
+**Array operations:**
+```python
+# NumPy arrays map to Fortran arrays
+import numpy as np
+matrix = np.array([[1, 2], [3, 4]], dtype=np.float64)
+det = cfml.determinant(matrix)
+```
+
+**Accessing module variables:**
+```python
+# Global constants and tables are accessible
+lib.num_chem_info.get()  # Number of elements in database
+```
+
+### What Has Limitations
+
+**1. Fortran Derived Types (TYPE)**
+
+CrysFML08 uses complex derived types like `Cell_Type`, `SpGr_Type`, and `Atom_Type`. gfort2py can access these but with restrictions:
+
+```fortran
+! Fortran definition
+type :: Cell_Type
+    real(kind=cp) :: cell(6)      ! a, b, c, alpha, beta, gamma
+    real(kind=cp) :: rcell(6)     ! Reciprocal cell
+    real(kind=cp) :: Vol          ! Volume
+    ! ... many more components
+end type
+```
+
+```python
+# Python access - reading works
+cell = lib.some_cell_variable
+a = cell.cell[0]  # Works
+vol = cell.vol    # Works
+
+# But creating new instances is complex
+# We provide Python dataclasses instead:
+from pycrysfml08 import CrystalCell
+cell = CrystalCell(a=5.0, b=5.0, c=5.0, alpha=90, beta=90, gamma=90)
+```
+
+**2. Type-Bound Procedures (Methods)**
+
+Fortran 2003+ allows methods on types. These are challenging to call via gfort2py:
+
+```fortran
+! Fortran - type-bound procedure
+type :: Cell_Type
+contains
+    procedure :: get_volume => calc_volume
+end type
+```
+
+```python
+# Direct method calls may not work
+# cell.get_volume()  # May fail
+
+# Workaround: call module procedure directly or use Python implementation
+volume = cell.a * cell.b * cell.c * volume_factor(cell.alpha, cell.beta, cell.gamma)
+```
+
+**3. CLASS Polymorphism**
+
+CrysFML08 uses CLASS for polymorphic types (especially in space group handling):
+
+```fortran
+! Fortran polymorphic type
+class(SpG_Type), allocatable :: SpaceGroup
+```
+
+gfort2py has difficulty with:
+- Allocating polymorphic variables
+- Determining runtime type
+- Calling type-bound procedures on CLASS variables
+
+**4. Allocatable Components**
+
+Derived types with allocatable array components require special handling:
+
+```fortran
+type :: Atom_List_Type
+    integer :: natoms
+    type(Atom_Type), dimension(:), allocatable :: atom  ! Allocatable array
+end type
+```
+
+```python
+# Reading may work if allocated in Fortran first
+# But allocating from Python is problematic
+```
+
+**5. Intent(OUT) Derived Types**
+
+Functions that return derived types or have INTENT(OUT) derived type arguments often fail:
+
+```fortran
+subroutine Set_SpaceGroup(symbol, SpG)
+    character(len=*), intent(in) :: symbol
+    type(SpG_Type), intent(out) :: SpG  ! Problematic
+end subroutine
+```
+
+### Our Workarounds
+
+**1. Python Dataclasses**
+
+We provide pure Python equivalents for common types:
+
+```python
+@dataclass
+class CrystalCell:
+    a: float
+    b: float
+    c: float
+    alpha: float = 90.0
+    beta: float = 90.0
+    gamma: float = 90.0
+
+    @property
+    def volume(self) -> float:
+        # Pure Python calculation
+        ...
+
+    def d_spacing(self, h: int, k: int, l: int) -> float:
+        # Pure Python calculation
+        ...
+```
+
+**2. Python File Parsers**
+
+CIF and CFL parsing is implemented in pure Python, avoiding Fortran I/O issues:
+
+```python
+def read_cif(filename: str) -> Tuple[CrystalCell, SpaceGroup, List[Atom]]:
+    # Pure Python parsing
+    ...
+```
+
+**3. Wrapper Functions**
+
+Where possible, we wrap Fortran calls with Python error handling:
+
+```python
+def get_atomic_mass(self, symbol: str) -> float:
+    """Get atomic mass with proper error handling."""
+    self._ensure_tables_loaded()
+    result = self._scattering_lib.get_atomic_mass(symbol.strip())
+    return result.result
+```
+
+### Future Improvements
+
+1. **Structure Factor Calculations**: Implement Python wrappers that call Fortran for heavy computation
+2. **Powder Pattern Simulation**: Build Python interface to core Fortran routines
+3. **Space Group Operations**: Expose more symmetry operations via direct function calls
+4. **Contribute to gfort2py**: Help improve derived type and CLASS support upstream
+
+### Alternative Approaches
+
+If you need full CrysFML08 functionality, consider:
+
+1. **ILL's pycrysfml**: Uses f2py with manual interface files
+   - https://code.ill.fr/scientific-software/pycrysfml
+
+2. **Direct Fortran**: Write a small Fortran program that calls CrysFML08 and outputs results
+
+3. **C Interoperability**: CrysFML08 has some C-compatible interfaces via `ISO_C_BINDING`
 
 ## Requirements
 
