@@ -33,7 +33,7 @@ def find_library() -> Optional[Path]:
     Find the CrysFML shared library.
 
     Searches in the following locations:
-    1. PYCRYSFML08_LIB environment variable
+    1. PYCRYSFML_LIB environment variable
     2. Package directory
     3. Current working directory
 
@@ -41,7 +41,7 @@ def find_library() -> Optional[Path]:
         Path to library file, or None if not found
     """
     # Check environment variable
-    env_path = os.environ.get('PYCRYSFML08_LIB')
+    env_path = os.environ.get('PYCRYSFML_LIB')
     if env_path and os.path.exists(env_path):
         return Path(env_path)
 
@@ -77,7 +77,7 @@ def find_modules() -> Optional[Path]:
         Path to directory containing .mod files, or None if not found
     """
     # Check environment variable
-    env_path = os.environ.get('PYCRYSFML08_MODS')
+    env_path = os.environ.get('PYCRYSFML_MODS')
     if env_path and os.path.exists(env_path):
         return Path(env_path)
 
@@ -106,7 +106,7 @@ class CrysFML:
         mod_dir: Path to the directory containing .mod files
 
     Example:
-        >>> from pycrysfml08 import CrysFML
+        >>> from pycrysfml import CrysFML
         >>> cfml = CrysFML()
         >>> mass = cfml.get_atomic_mass("Fe")
         >>> print(f"Iron: {mass:.3f} amu")
@@ -144,7 +144,7 @@ class CrysFML:
         if self._lib_path is None or not self._lib_path.exists():
             raise FileNotFoundError(
                 "CrysFML shared library not found. "
-                "Set PYCRYSFML08_LIB environment variable or provide lib_path."
+                "Set PYCRYSFML_LIB environment variable or provide lib_path."
             )
 
         # Find module directory

@@ -3,7 +3,7 @@
 Single Crystal Diffraction Example
 
 This example demonstrates single crystal diffraction concepts
-and calculations using PyCrysFML08:
+and calculations using PyCrysFML:
 
 1. Structure factor considerations
 2. Extinction corrections
@@ -23,8 +23,8 @@ from typing import List, Tuple
 # Add parent directory for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from pycrysfml08 import CrysFML, read_cfl
-from pycrysfml08.structures import CrystalCell, Atom
+from pycrysfml import CrysFML, read_cfl
+from pycrysfml.structures import CrystalCell, Atom
 
 # Data directory
 DATA_DIR = Path(__file__).parent / "data"
@@ -166,7 +166,7 @@ def main():
     """Main example routine."""
 
     print("=" * 70)
-    print("Single Crystal Diffraction Analysis with PyCrysFML08")
+    print("Single Crystal Diffraction Analysis with PyCrysFML")
     print("=" * 70)
 
     # Initialize CrysFML

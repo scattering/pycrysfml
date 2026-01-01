@@ -3,7 +3,7 @@
 Magnetic Structure Example
 
 This example demonstrates reading and analyzing magnetic structures
-using PyCrysFML08. It shows how to:
+using PyCrysFML. It shows how to:
 
 1. Read CFL files containing magnetic structure information
 2. Parse propagation vectors and magnetic atoms
@@ -25,8 +25,8 @@ from pathlib import Path
 # Add parent directory for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from pycrysfml08 import CrysFML, read_cfl
-from pycrysfml08.structures import PropagationVector
+from pycrysfml import CrysFML, read_cfl
+from pycrysfml.structures import PropagationVector
 
 # Data directory
 DATA_DIR = Path(__file__).parent / "data"
@@ -135,7 +135,7 @@ def main():
     """Main example routine."""
 
     print("=" * 60)
-    print("Magnetic Structure Analysis with PyCrysFML08")
+    print("Magnetic Structure Analysis with PyCrysFML")
     print("=" * 60)
 
     # Initialize CrysFML
@@ -150,7 +150,7 @@ def main():
         print("Creating example magnetic structure...")
 
         # Create example structure programmatically
-        from pycrysfml08.structures import (
+        from pycrysfml.structures import (
             CrystalCell, SpaceGroup, MagneticAtom, MagneticStructure
         )
 

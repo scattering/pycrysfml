@@ -45,7 +45,7 @@ The ILL has also developed Python bindings as part of their scientific software 
 ### From PyPI (when available)
 
 ```bash
-pip install pycrysfml08
+pip install pycrysfml
 ```
 
 ### From Source
@@ -67,8 +67,8 @@ pip install pycrysfml08
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/scattering/pycrysfml08.git
-   cd pycrysfml08
+   git clone https://github.com/scattering/pycrysfml.git
+   cd pycrysfml
    ```
 
 2. Clone CrysFML2008 source:
@@ -89,7 +89,7 @@ pip install pycrysfml08
 ## Quick Start
 
 ```python
-from pycrysfml08 import CrysFML, read_cif, read_cfl
+from pycrysfml import CrysFML, read_cif, read_cfl
 
 # Initialize the library
 cfml = CrysFML()
@@ -138,7 +138,7 @@ python examples/al2o3_example.py
 The main interface to the Fortran library:
 
 ```python
-from pycrysfml08 import CrysFML
+from pycrysfml import CrysFML
 
 cfml = CrysFML()
 
@@ -160,7 +160,7 @@ cfml.lcm(a, b)       # Least common multiple
 ### Data Structures
 
 ```python
-from pycrysfml08 import CrystalCell, Atom, SpaceGroup, MagneticAtom
+from pycrysfml import CrystalCell, Atom, SpaceGroup, MagneticAtom
 
 # Crystal cell
 cell = CrystalCell(a=5.0, b=5.0, c=5.0, alpha=90, beta=90, gamma=90)
@@ -181,7 +181,7 @@ mag_atom = MagneticAtom(
 ### File I/O
 
 ```python
-from pycrysfml08 import read_cif, read_cfl, read_diffraction_data
+from pycrysfml import read_cif, read_cfl, read_diffraction_data
 
 # CIF files
 cell, spacegroup, atoms = read_cif("structure.cif")
@@ -262,7 +262,7 @@ vol = cell.vol    # Works
 
 # But creating new instances is complex
 # We provide Python dataclasses instead:
-from pycrysfml08 import CrystalCell
+from pycrysfml import CrystalCell
 cell = CrystalCell(a=5.0, b=5.0, c=5.0, alpha=90, beta=90, gamma=90)
 ```
 
@@ -427,7 +427,7 @@ If you use this software in your research, please cite:
 
 ## Support
 
-- **Issues:** https://github.com/scattering/pycrysfml08/issues
+- **Issues:** https://github.com/scattering/pycrysfml/issues
 - **CrysFML mailing list:** fullprof-crystallography@ill.fr
 
 ## Related Projects

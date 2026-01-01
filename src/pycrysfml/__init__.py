@@ -1,5 +1,5 @@
 """
-PyCrysFML08 - Python bindings for CrysFML2008
+PyCrysFML - Python bindings for CrysFML2008
 
 A Python interface to the CrysFML2008 Fortran crystallographic library,
 providing access to crystallographic calculations, space group operations,
@@ -16,7 +16,7 @@ For more information about CrysFML, see:
     https://www.ill.eu/sites/fullprof/php/programs24b7.html
 
 Example usage:
-    >>> from pycrysfml08 import CrysFML
+    >>> from pycrysfml import CrysFML
     >>> cfml = CrysFML()
     >>> mass = cfml.get_atomic_mass("Fe")
     >>> print(f"Iron atomic mass: {mass:.3f} amu")
