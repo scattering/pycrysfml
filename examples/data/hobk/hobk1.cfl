@@ -1,0 +1,31 @@
+TITLE   HOBK
+SPGR   I m m m
+CELL     3.754163   5.729964  11.269387  90.000000  90.000000  90.000000
+!    Lab  Scatt       x        y       z      Biso     Occ
+ATOM Ba     BA      0.50000  0.50000  0.00000 0.00000 0.12500
+ATOM Ho     HO      0.50000  0.00000  0.20264 0.00000 0.25000
+ATOM Ni     NI      0.00000  0.00000  0.00000 0.00000 0.12500
+ATOM O1     O       0.00000  0.24367  0.14959 0.00000 0.50000
+ATOM O2     O       0.50000  0.00000  0.00000 0.00000 0.12500
+
+Mag_Structure
+!
+lattice I -1
+kvect   0.50000   0.00000   0.50000
+!magdom  u,v,w, 0.0  : 1.0
+!      n  nba1  nba2
+IRREPS 1   2   
+icomp   0 0
+symm  x,y,z
+BASR   1  0  0    0  0  1
+BASI   0  0  0    0  0  0
+!
+symm  -x,y,-z
+BASR   1  0  0    0  0  1
+BASI   0  0  0    0  0  0
+matom Ho   JHO3     0.50000  0.00000  0.20250   0.00000 1.00000
+bfcoef     1  1     0.12700  8.99300  0.0   
+matom Ni   MNI2     0.00000  0.00000  0.00000   0.00000 0.50000
+bfcoef     1  1     0.58400 -1.28500  0.0
+!
+End_Mag_Structure
